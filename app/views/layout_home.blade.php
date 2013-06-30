@@ -2,7 +2,8 @@
 
 <html>
 <head>
-    <title>{{ $title }}</title>
+    <title>{{ $title }} - {{ App::environment() }}
+    </title>
     <meta name="description" content="Mercatino"/>
     <meta name="viewport" content="width=device-width"/>
     {{ HTML::style('css/bootstrap.min.css') }}
@@ -18,8 +19,6 @@
     </style>
 </head>
 <body>
-
-{{ App::environment() }}
 
 <div class="container">
 
