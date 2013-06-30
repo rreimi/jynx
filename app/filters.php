@@ -78,37 +78,3 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
-
-Route::filter('test2', function($route, $request){
-    echo "test2 filter";
-});
-
-Route::filter('test', function($route, $request, $value, $value2){
-    //echo "before filter";
-});
-
-Route::filter('test_after', function($route, $request, $response, $value){
-    //echo "after filter";
-});
-
-Route::filter('admin', function(){
-    echo "estas en el admin";
-});
-
-
-
-Route::when('admin/*', 'foo');
-
-/* Using a class as filter */
-class FooFilter {
-
-    public function filter()
-    {
-        // Filter logic...
-        echo "this is the foo filter";
-    }
-
-}
-
-/* REgister */
-Route::filter('foo', 'FooFilter');
