@@ -10,7 +10,7 @@ class Category extends Eloquent {
 	 *
 	 * @var string
 	 */
-	//protected $table = 'users';
+	//protected $table = 'categories';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

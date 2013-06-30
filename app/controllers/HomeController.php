@@ -15,12 +15,34 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function getIndex()
-	{
+	public function getIndex() {
 
+		/* Cargar la lista de categorias */
+        $data['categories'] = Category::all();
 
+        /* Cargar la publicidad del banner */
 
-		return View::make('hello');
+        /* Cargar la lista de productos con mayor número de visitas */
+
+        /* Cargar la lista de los últimos productos agregados */
+
+        /* Cargar la lista de los últimos productos vistos por el usuario actual */
+
+        return View::make('category', $data);
 	}
+
+
+    private function getCategoryTree() {
+
+    }
+
+
+    public function getCategory($slug, $id = 4) {
+
+        /* Cargar la lsita de categorias */
+
+        var_dump($id);
+       die($slug);
+    }
 
 }

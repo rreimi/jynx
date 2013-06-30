@@ -12,12 +12,7 @@
 */
 
 
-Route::get('/',function() {
-
-    return View::make('category_list');
-});
-
-
+Route::controller('/','HomeController');
 Route::controller('login','LoginController');
 
 
