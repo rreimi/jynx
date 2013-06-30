@@ -18,4 +18,8 @@ Route::get('/',function() {
 });
 
 
+Route::controller('login','LoginController');
+
+
+
 View::share('title', 'El titulo');
