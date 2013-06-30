@@ -1,4 +1,4 @@
-@extends('layout.home')
+@extends('layout_home')
 
 @section('sidebar')
 @parent
@@ -7,5 +7,5 @@
 
 @section('content')
 The current UNIX timestamp is {{ time() }}.
-<p>This is my body content. {{$object->id}}</p>
+<p>This is my body content. </p>
 @stop

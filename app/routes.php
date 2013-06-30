@@ -12,7 +12,10 @@
 */
 
 
-Route::get('/',array('before'=>'auth'),function() {
+Route::get('/',function() {
 
-
+    return View::make('category_list');
 });
+
+
+View::share('title', 'El titulo');

@@ -5,8 +5,10 @@
     <title>{{ $title }}</title>
     <meta name="description" content="Mercatino"/>
     <meta name="viewport" content="width=device-width"/>
-    {{ basset_stylesheets('public') }}
-
+    {{ HTML::style('css/bootstrap.min.css') }}
+    {{ HTML::style('css/bootstrap-responsive.min.css') }}
+    {{ HTML::style('css/base.css') }}
+    {{ HTML::style('css/module.css') }}
     <style>
 
         .nav li {
@@ -16,6 +18,8 @@
     </style>
 </head>
 <body>
+
+{{ App::environment() }}
 
 <div class="container">
 
@@ -113,7 +117,8 @@
 
 </div><!--/.fluid-container-->
 
-{{ basset_javascripts('public') }}
+{{ HTML::script('js/jquery-1.10.1.min.js') }}
+{{ HTML::script('js/bootstrap.min.js') }}
 
 </body>
 </html>
