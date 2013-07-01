@@ -4,13 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 
 class Base extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
         Schema::create('users', function($table){
             $table->increments('id');
             $table->string('email',50);
@@ -27,7 +27,7 @@ class Base extends Migration {
             $table->increments('id');
             $table->string('name',50);
             $table->integer('category_id')->nullable()->unsigned();
-            $table->string('slug',80);
+            $table->string('slug',50);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,7 +35,7 @@ class Base extends Migration {
         Schema::create('publishers', function($table){
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->enum('publisher_type',array('Person','Bussiness'));
+            $table->enum('publisher_type',array('Person','Business'));
             $table->string('seller_name',80);
             $table->string('rif_ci',20);
             $table->integer('state');
@@ -44,6 +44,7 @@ class Base extends Migration {
             $table->string('phone2',20)->nullable();
             $table->string('media',150)->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('state_id')->references('id')->on('states');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -73,7 +74,7 @@ class Base extends Migration {
             $table->softDeletes();
         });
 
-        Schema::create('bussiness_sectors', function($table){
+        Schema::create('business_sectors', function($table){
             $table->increments('id');
             $table->string('name',50);
             $table->timestamps();
@@ -83,14 +84,14 @@ class Base extends Migration {
         Schema::create('publishers_sectors', function($table){
             $table->increments('id');
             $table->integer('publisher_id')->unsigned();
-            $table->integer('bussiness_sector_id')->unsigned();
+            $table->integer('business_sector_id')->unsigned();
             $table->foreign('publisher_id')->references('id')->on('publishers');
-            $table->foreign('bussiness_sector_id')->references('id')->on('bussiness_sectors');
+            $table->foreign('business_sector_id')->references('id')->on('business_sectors');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('publications_raitings', function($table){
+        Schema::create('publications_ratings', function($table){
             $table->increments('id');
             $table->integer('publisher_id')->unsigned();
             $table->integer('publication_id')->unsigned();
@@ -163,7 +164,7 @@ class Base extends Migration {
             $table->enum('operation',array('Edit_user','Delete_user','Add_admin','Edit_advertising','Delete_advertising','Add_advertising'));
             $table->dateTime('date');
             $table->string('value_field',50);
-            $table->string('previous_field',50);
+            $table->string('previous_value',50);
             $table->string('final_value',50);
             $table->integer('from_user_id')->nullable();
             $table->integer('to_user_id')->nullable();
@@ -171,28 +172,46 @@ class Base extends Migration {
             $table->integer('advertising_id')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('states', function($table){
+            $table->increments('id');
+            $table->string('name',50);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('publications_images', function($table){
+            $table->increments('id');
+            $table->string('image_url',50);
+            $table->integer('publication_id')->unsigned();
+            $table->foreign('publication_id')->references('id')->on('publications');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-        Schema::drop('users');
-        Schema::drop('categories');
-        Schema::drop('publishers');
-        Schema::drop('publications');
-        Schema::drop('publications_categories');
-        Schema::drop('bussiness_sectors');
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('log');
+        Schema::drop('advertising');
+        Schema::drop('states');
+        Schema::drop('business_sectors');
         Schema::drop('publishers_sectors');
-        Schema::drop('publications_raitings');
+        Schema::drop('publications_images');
+        Schema::drop('contacts');
+        Schema::drop('publications_categories');
+        Schema::drop('categories');
+        Schema::drop('publications_ratings');
         Schema::drop('publications_reports');
         Schema::drop('publishers_reports');
-        Schema::drop('contacts');
-        Schema::drop('advertising');
-        Schema::drop('log');
-	}
+        Schema::drop('publications');
+        Schema::drop('publishers');
+        Schema::drop('users');
+    }
 
 }
