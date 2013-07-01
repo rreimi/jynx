@@ -13,6 +13,8 @@
 
 Route::get("/debug", function(){
     //X DEBUG
+
+
 });
 
 Route::controller('/','HomeController');
