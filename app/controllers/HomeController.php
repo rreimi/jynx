@@ -18,8 +18,29 @@ class HomeController extends BaseController {
 	public function getIndex() {
 
 		/* Cargar la lista de categorias */
-        $data['categories'] = Category::all();
+        $categories = Category::parents()->get();
+        $categories->load('subcategories');
 
+        $data['categories'] = $categories;
+        /* Cargar la publicidad del banner */
+
+        /* Cargar la lista de productos con mayor número de visitas */
+
+        /* Cargar la lista de los últimos productos agregados */
+
+        /* Cargar la lista de los últimos productos vistos por el usuario actual */
+
+        return View::make('dashboard', $data);
+	}
+
+    public function getCat($slug) {
+        /* Cargar la lista de categorias */
+        $categories = Category::parents()->get();
+        $categories->load('subcategories', 'publications');
+
+        echo $categories;
+
+        $data['categories'] = $categories;
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
@@ -29,20 +50,6 @@ class HomeController extends BaseController {
         /* Cargar la lista de los últimos productos vistos por el usuario actual */
 
         return View::make('category', $data);
-	}
-
-
-    private function getCategoryTree() {
-
-    }
-
-
-    public function getCategory($slug, $id = 4) {
-
-        /* Cargar la lsita de categorias */
-
-        var_dump($id);
-       die($slug);
     }
 
 }

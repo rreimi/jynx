@@ -11,10 +11,11 @@
 |
 */
 
+Route::get("/debug", function(){
+    return Publication::all();
+});
 
 Route::controller('/','HomeController');
 Route::controller('login','LoginController');
-
-
 
 View::share('title', 'El titulo');

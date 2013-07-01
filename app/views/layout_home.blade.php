@@ -10,11 +10,6 @@
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
-    <style type="text/css">
-        .nav li {
-            width:15%;
-        }
-    </style>
 </head>
 <body>
 
