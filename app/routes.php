@@ -11,13 +11,11 @@
 |
 */
 
-
-Route::get('/',function() {
-
-    return View::make('home');
+Route::get("/debug", function(){
+    //X DEBUG
 });
 
-
+Route::controller('/','HomeController');
 Route::controller('login','LoginController');
 
 Route::controller('register','RegisterController');

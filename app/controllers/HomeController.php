@@ -15,9 +15,41 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
-	{
-		return View::make('hello');
+	public function getIndex() {
+
+		/* Cargar la lista de categorias */
+        $categories = Category::parents()->get();
+        $categories->load('subcategories');
+
+        $data['categories'] = $categories;
+        /* Cargar la publicidad del banner */
+
+        /* Cargar la lista de productos con mayor número de visitas */
+
+        /* Cargar la lista de los últimos productos agregados */
+
+        /* Cargar la lista de los últimos productos vistos por el usuario actual */
+
+        return View::make('dashboard', $data);
 	}
+
+    public function getCat($slug) {
+        /* Cargar la lista de categorias */
+        $categories = Category::parents()->get();
+        $categories->load('subcategories', 'publications');
+
+        echo $categories;
+
+        $data['categories'] = $categories;
+        /* Cargar la publicidad del banner */
+
+        /* Cargar la lista de productos con mayor número de visitas */
+
+        /* Cargar la lista de los últimos productos agregados */
+
+        /* Cargar la lista de los últimos productos vistos por el usuario actual */
+
+        return View::make('category', $data);
+    }
 
 }
