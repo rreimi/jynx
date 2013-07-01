@@ -27,7 +27,7 @@ $app->redirectIfTrailingSlash();
 */
 
 $env = $app->detectEnvironment(array(
-	'dev' => array('dev.jynx.com'),
+	'dev' => array('dev.jynx.com','abnet'),
     'pro' => array('www.jynx.com')
 ));
 
