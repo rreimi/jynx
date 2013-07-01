@@ -12,10 +12,14 @@
 */
 
 Route::get("/debug", function(){
-    return Publication::all();
+    //X DEBUG
 });
 
 Route::controller('/','HomeController');
 Route::controller('login','LoginController');
+
+Route::controller('register','RegisterController');
+
+
 
 View::share('title', 'El titulo');

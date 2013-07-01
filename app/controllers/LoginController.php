@@ -6,9 +6,12 @@
 
 class LoginController extends BaseController{
 
-    public function getIndex()
-    {
+    function getIndex(){
         return View::make('login');
+    }
+
+    function postIndex(){
+        echo "fuck all";
     }
 
 }
