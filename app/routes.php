@@ -14,11 +14,13 @@
 
 Route::get('/',function() {
 
-    return View::make('category_list');
+    return View::make('home');
 });
 
 
 Route::controller('login','LoginController');
+
+Route::controller('register','RegisterController');
 
 
 
