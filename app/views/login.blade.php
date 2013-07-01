@@ -22,17 +22,27 @@
                 <div class="control-group @if($errors->has('register.email')) error @endif">
                     {{ Form::email('register.email',null,array('placeholder'=>'Email address','class'=>'input-block-level')) }}
                 </div>
+                @if($errors->has('register.email'))
+
+                @endif
                 <div class="row-fluid">
                     <div class="span6">
-                        {{ Form::text('register.first_name',null,array('placeholder'=>'First name','class'=>'input-block-level')) }}
+                        <div class="control-group @if($errors->has('register.first_name')) error @endif">
+                            {{ Form::text('register.first_name',null,array('placeholder'=>'First name','class'=>'input-block-level')) }}
+                        </div>
                     </div>
                     <div class="span6">
-                        {{ Form::text('register.last_name',null,array('placeholder'=>'Last name','class'=>'input-block-level')) }}
+                        <div class="control-group @if($errors->has('register.last_name')) error @endif">
+                            {{ Form::text('register.last_name',null,array('placeholder'=>'Last name','class'=>'input-block-level')) }}
+                        </div>
                     </div>
                 </div>
-                {{ Form::password('register.password',array('placeholder'=>'Password','class'=>'input-block-level')) }}
-                {{ Form::password('register.password_confirmation',array('placeholder'=>'Repeat Password','class'=>'input-block-level')) }}
-
+                <div class="control-group @if($errors->has('register.password')) error @endif">
+                    {{ Form::password('register.password',array('placeholder'=>'Password','class'=>'input-block-level')) }}
+                </div>
+                <div class="control-group @if($errors->has('register.password_confirmation')) error @endif">
+                    {{ Form::password('register.password_confirmation',array('placeholder'=>'Repeat Password','class'=>'input-block-level')) }}
+                </div>
                 <button class="btn btn-large btn-warning pull-right" type="submit">Sign up</button>
             </fieldset>
             {{ Form::close() }}

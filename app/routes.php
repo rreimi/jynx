@@ -15,10 +15,12 @@ Route::get("/debug", function(){
     //X DEBUG
 });
 
-Route::controller('/','HomeController');
 Route::controller('login','LoginController');
 
 Route::controller('register','RegisterController');
+
+Route::controller('/','HomeController');
+
 
 
 
