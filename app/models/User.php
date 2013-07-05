@@ -5,6 +5,12 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+    const ROLE_ADMIN="Admin";
+
+    const ROLE_PUBLISHER="Publisher";
+
+    const ROLE_BASIC="Basic";
+
 	/**
 	 * The database table used by the model.
 	 *
