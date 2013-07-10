@@ -23,14 +23,12 @@ class Category extends Eloquent {
         return $query->where('category_id', '=', null);
     }
 
-    public function subcategories()
-    {
+    public function subcategories() {
         return $this->hasMany('Category', 'category_id');
     }
 
-    public function publications()
-    {
-        return $this->belongsToMany('Publication');
+    public function publications() {
+        return $this->belongsToMany('Publication', 'publications_categories');
     }
 
 }

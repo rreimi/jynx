@@ -15,4 +15,10 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected function getCategories() {
+        $categories = Category::parents()->get();
+        $categories->load('subcategories');
+        return $categories;
+    }
+
 }

@@ -1,1 +1,1 @@
-<p>&copy; Company 2013</p>
+<p>&copy; 2013 MercatinOnline.</p>
