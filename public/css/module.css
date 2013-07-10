@@ -1,0 +1,38 @@
+.float-right {
+    float:right;
+}
+
+.float-left {
+    float:left;
+}
+
+.pub-title {
+    font-size: 1.4em;
+    line-height: 1.1em;
+}
+
+.pub-line {
+    display: block;
+}
+
+.pub-thumb {
+    height: 411px;
+    border: 1px solid #eee;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.pub-images-carousel {
+    width:320px;
+    height:300px;
+    border: 4px solid #ccc;
+}
+
+.pub-table {
+
+}
+
+.pub-table td, .pub-table th {
+    border:1px solid #eee;
+    padding: 0.2em;
+}

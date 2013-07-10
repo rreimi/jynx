@@ -16,9 +16,11 @@
 	"keywords": ["framework", "laravel"],
 	"require": {
 		"laravel/framework": "4.0.*",
-        	"twitter/bootstrap": "dev-master",
+        "loic-sharma/profiler": "1.1.*",
+        "twitter/bootstrap": "dev-master",
 		"jasonlewis/basset": "dev-master",
 		"natxet/CssMin": "dev-master"
+
 	},
 	"autoload": {
 		"classmap": [

@@ -19,6 +19,8 @@ Route::controller('login','LoginController');
 
 Route::controller('register','RegisterController');
 
+Route::controller('publicacion','PublicationController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'El titulo');
