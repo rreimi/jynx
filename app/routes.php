@@ -13,6 +13,9 @@
 
 Route::get("/debug", function(){
     //X DEBUG
+
+    echo Lang::choice('content.publication', 2);
+    //echo Category::where('slug', '=', 'zapatos')->with('publications', 'publications.images')->first();
 });
 
 Route::controller('login','LoginController');
@@ -23,4 +26,4 @@ Route::controller('publicacion','PublicationController');
 
 Route::controller('/','HomeController');
 
-View::share('title', 'El titulo');
+View::share('title', 'Mercatino');

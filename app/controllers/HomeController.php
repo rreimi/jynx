@@ -21,13 +21,13 @@ class HomeController extends BaseController {
 	public function getIndex() {
 
 		/* Cargar la lista de categorias */
-        $categories = Category::parents()->get();
-        $categories->load('subcategories');
-
+        $categories = self::getCategories();
         $data['categories'] = $categories;
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
+        $data['mostvisited'] = Publication::orderBy('visits_number', 'desc')->take(15)->get();
+        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(15)->get();
 
         /* Cargar la lista de los últimos productos agregados */
 

@@ -10,14 +10,17 @@ class PublicationController extends BaseController {
         //$this->beforeFilter('auth', array('only' => array('getList')));
     }
 
-	public function getDetalle($id) {
+	public function getDetalle($id = null) {
+
+        if ($id == null){
+            return Response::view('errors.missing', array(), 404);
+        }
 
 		/* Cargar la lista de categorias */
         $data['categories'] = self::getCategories();
         $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
 
-        //$queries = DB::getQueryLog();
-        //var_dump($queries);
+        //var_dump(DB::getQueryLog());
         //die();
         /* Cargar la publicidad del banner */
 
@@ -34,7 +37,6 @@ class PublicationController extends BaseController {
 
         /* Get the current user publications list */
         $publications = PublicationView::paginate(3);
-
 //        echo $publications;
 //        die();
 
