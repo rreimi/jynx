@@ -30,5 +30,5 @@ return array(
     "register_signup" => "Regístrate",
     "register_header" => "Regístrate",
     "register_error" => "Debes llenar todos los campos",
-
+    "register_publisher" => "Quiero publicar"
 );
