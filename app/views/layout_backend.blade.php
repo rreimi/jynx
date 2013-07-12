@@ -18,7 +18,7 @@
 
     <div class="row-fluid">
         <div class="span3">
-            <div class="well sidebar-nav">
+            <div class="sidebar-nav well well-small">
                 @section('sidebar')
                     @include('include.backend_sidebar')
                 @show

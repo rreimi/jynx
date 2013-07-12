@@ -2,8 +2,12 @@
 
 class BackendController extends BaseController {
 
-	public function getIndex() {
+	function getIndex() {
         return View::make('backend_dashboard');
 	}
+
+    function getSearch(){
+
+    }
 
 }
