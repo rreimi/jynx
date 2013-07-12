@@ -2,6 +2,9 @@
 
 class BaseController extends Controller {
 
+    protected $pageSort;
+    protected $pageOrder;
+
 	/**
 	 * Setup the layout used by the controller.
 	 *
