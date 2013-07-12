@@ -64,6 +64,6 @@ return array(
     "save" => "Guardar",
 
     //Date format
-   "date_format" => 'DD/MM/YYYY',
+   "date_format" => 'dd-mm-aaaa',
 
 );
