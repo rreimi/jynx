@@ -5,10 +5,10 @@
     </title>
     <meta name="description" content="Mercatino"/>
     <meta name="viewport" content="width=device-width"/>
-    {{ HTML::style('http://static.jynx.com/css/bootstrap.min.css') }}
-    {{ HTML::style('http://static.jynx.com/css/bootstrap-responsive.min.css') }}
-    {{ HTML::style('http://static.jynx.com/css/base.css') }}
-    {{ HTML::style('http://static.jynx.com/css/module.css') }}
+    {{ HTML::style('css/bootstrap.min.css') }}
+    {{ HTML::style('css/bootstrap-responsive.min.css') }}
+    {{ HTML::style('css/base.css') }}
+    {{ HTML::style('css/module.css') }}
 </head>
 <body>
 
@@ -42,8 +42,8 @@
 </div><!--/.fluid-container-->
 
 @section('scripts')
-{{ HTML::script('http://static.jynx.com/js/jquery-1.10.1.min.js') }}
-{{ HTML::script('http://static.jynx.com/js/bootstrap.min.js') }}
+{{ HTML::script('js/jquery-1.10.1.min.js') }}
+{{ HTML::script('js/bootstrap.min.js') }}
 @show
 </body>
 </html>

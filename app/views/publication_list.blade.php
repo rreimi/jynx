@@ -6,14 +6,26 @@
 
 @section('content')
     <div class="row-fluid">
-        <div class="span4">
-            <a href="#create" class="btn btn-info">{{Lang::get('content.new_publication')}}</a>
+        <h1>{{Lang::get('content.my_publications')}} </h1>
+
+        {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'pub_list_form')) }}
+        <div class="span11 pub-list-btn-group">
+
+            {{Form::text('q', $state['q'], array('class' => 'input-medium filter-field', 'placeholder' => Lang::get('content.publications_search_placeholder')))}}
+            <button class="btn btn-warning" type="submit">{{Lang::get('content.search')}}</button>
+
+            <a href="{{URL::to('publicacion/crear')}}" class="btn btn-info  pull-right">{{Lang::get('content.new_publication')}}</a>
+
         </div>
-        <div class="span10">
+
+        <div class="span11 pub-list-filters">
+            {{ Form::select('filter_status', $pub_statuses, $state['filter_status'], array('class' => 'input-medium filter-field')) }}
+        </div>
+        {{ Form::close() }}
             <table class="pub-table">
                 <thead>
                     <tr>
-                        <th>{{Lang::get('content.id')}}</th>
+                        <th><a href="?sort=id&order=asc">{{Lang::get('content.id')}}</a></th>
                         <th>{{Lang::get('content.title')}}</th>
                         <th>{{Lang::get('content.from_date')}}</th>
                         <th>{{Lang::get('content.to_date')}}</th>
@@ -40,7 +52,26 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
         {{ $publications->links() }}
     </div><!--/row-fluid-->
+
+
+@stop
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('select.filter-field').bind('change', function(){
+//            jQuery(this).bind('change', function(){
+//                alert('hola');
+                jQuery('#pub_list_form').submit();
+//            });
+        })
+
+        jQuery('.reset-fields').bind('click', function(){
+            jQuery('.filter-field').val('');
+        })
+    });
+</script>
 @stop
