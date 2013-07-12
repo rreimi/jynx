@@ -66,4 +66,34 @@ return array(
     //Date format
    "date_format" => 'dd-mm-aaaa',
 
+    "login_email" => "Dirección de correo",
+    "login_password" => "Contraseña",
+    "login_remember" => "Recuerdame",
+    "login_signin" => "Entrar",
+    "login_header" => "Bienvenido",
+    "login_error" => "Verifique su usuario y contraseña ",
+
+    "register_email" => "Dirección de correo",
+    "register_first_name" => "Primer nombre",
+    "register_last_name" => "Segundo nombre",
+    "register_password" => "Contraseña",
+    "register_password_confirmation" => "Confirme contraseña",
+    "register_signup" => "Regístrate",
+    "register_header" => "Regístrate",
+    "register_error" => "Debes llenar todos los campos",
+    "register_publisher" => "Quiero publicar",
+    "publisher_header" => "Agrega tus datos de plublicador",
+    "publisher_id" => "Rif / Cedula",
+    "publisher_type" => "Tipo de Persona",
+    "publisher_type_person" => "Nartual",
+    "publisher_type_business" => "Juridico",
+    "publisher_city" => "Ciudad",
+    "publisher_state" => "Estado",
+    "publisher_phone1" => "Teléfono 1",
+    "publisher_phone2" => "Teléfono 2",
+    "publisher_media" => "¿Cómo te enteraste de nosotros?",
+    "publisher_seller" => "Nombre / Razón Social",
+    "publisher_create" => "Finalizar",
+    "publisher_error" => "Ingrese todos los datos por favor"
+
 );

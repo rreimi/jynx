@@ -20,9 +20,11 @@ Route::get("/debug", function(){
 
 Route::controller('login','LoginController');
 
-Route::controller('register','RegisterController');
+Route::controller('registro','RegisterController');
 
 Route::controller('publicacion','PublicationController');
+
+Route::controller('administrador','BackendController');
 
 Route::controller('/','HomeController');
 

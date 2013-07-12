@@ -13,6 +13,6 @@ return array(
 	|
 	*/
 
-	"categories_title" => "Categorias",
+	"categories_title" => "Categorias"
 
 );

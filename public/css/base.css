@@ -5,7 +5,7 @@ body {
 }
 
 .big-form{
-    padding: 39px ;
+    padding: 20px 39px 29px 39px;
     margin: 0 auto 20px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
@@ -20,13 +20,28 @@ body {
 .big-form input[type="text"],
 .big-form input[type="password"],
 .big-form input[type="email"],
-.big-form .add-on{
+.big-form .add-on,
+.big-form select{
     font-size: 16px;
     height: auto;
-    margin-bottom: 15px;
     padding: 7px 9px;
 }
 
+.big-form select{
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+}
+
 .big-form .header{
+    margin-bottom: 20px;
+}
+
+.big-form .register-controls,
+.big-form .login-controls{
     margin-bottom: 20px;
 }

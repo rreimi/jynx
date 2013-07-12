@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>{{ $title }} - {{ App::environment() }}
@@ -18,11 +19,6 @@
 <body>
     <div class="container">
         @yield('content')
-        @if ($errors->has())
-            @foreach ($errors->all() as $error)
-            <p>{{ $error }}</p>
-            @endforeach
-        @endif
     </div>
     {{ HTML::script('js/jquery-1.10.1.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
