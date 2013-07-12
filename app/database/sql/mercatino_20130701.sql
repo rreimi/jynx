@@ -1,6 +1,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE SCHEMA IF NOT EXISTS `mercatino` DEFAULT CHARACTER SET latin1 ;
 USE `mercatino` ;
@@ -11,15 +12,17 @@ USE `mercatino` ;
 CREATE  TABLE IF NOT EXISTS `mercatino`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(50) NOT NULL ,
-  `password` VARCHAR(50) NOT NULL ,
+  `password` VARCHAR(128) NOT NULL ,
   `role` ENUM('Admin','Basic','Publisher') NOT NULL ,
   `first_name` VARCHAR(50) NOT NULL ,
   `last_name` VARCHAR(50) NOT NULL ,
-  `created_at` DATETIME NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` TIMESTAMP NULL ,
   `is_publisher` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -29,7 +32,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`states` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -46,6 +49,9 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publishers` (
   `phone1` VARCHAR(20) NOT NULL ,
   `phone2` VARCHAR(20) NULL ,
   `media` VARCHAR(150) NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `deleted_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_customers_users1_idx` (`user_id` ASC) ,
   UNIQUE INDEX `users_id_UNIQUE` (`user_id` ASC) ,
@@ -60,7 +66,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publishers` (
     REFERENCES `mercatino`.`states` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -76,7 +82,9 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications` (
   `to_date` DATE NOT NULL ,
   `remember` TINYINT(1) NOT NULL DEFAULT 0 ,
   `visits_number` INT NOT NULL ,
-  `created_at` DATETIME NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` TIMESTAMP NULL ,
   `publisher_id` INT NOT NULL ,
   `rating_avg` DECIMAL(3,2) NULL ,
   PRIMARY KEY (`id`) ,
@@ -86,7 +94,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications` (
     REFERENCES `mercatino`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -99,7 +107,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`categories` (
   `slug` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) )
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -117,6 +125,9 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`advertising` (
   `email` VARCHAR(50) NOT NULL ,
   `phone1` VARCHAR(20) NOT NULL ,
   `phone2` VARCHAR(20) NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_advertising_categories1_idx` (`category_id` ASC) ,
   CONSTRAINT `fk_advertising_categories`
@@ -124,7 +135,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`advertising` (
     REFERENCES `mercatino`.`categories` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -137,6 +148,9 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`contacts` (
   `email` VARCHAR(50) NULL ,
   `phone` VARCHAR(20) NULL ,
   `publisher_id` INT NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` TIMESTAMP NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_contacts_customers1_idx` (`publisher_id` ASC) ,
   CONSTRAINT `fk_contacts_publishers`
@@ -144,7 +158,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`contacts` (
     REFERENCES `mercatino`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -167,7 +181,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_categories` (
     REFERENCES `mercatino`.`categories` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -180,6 +194,8 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_reports` (
   `comment` VARCHAR(300) NOT NULL ,
   `date` DATETIME NOT NULL ,
   `status` ENUM('Pending','Correct','Incorrect') NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`) ,
   INDEX `fk_publication_reports_publications1_idx` (`publication_id` ASC) ,
   INDEX `fk_publication_reports_users1_idx` (`user_id` ASC) ,
@@ -193,7 +209,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_reports` (
     REFERENCES `mercatino`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -206,6 +222,8 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_ratings` (
   `vote` INT NOT NULL ,
   `comment` VARCHAR(300) NULL ,
   `date` DATETIME NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`) ,
   INDEX `fk_publication_raitings_customer_idx` (`publisher_id` ASC) ,
   INDEX `fk_publication_raitings_publications1_idx` (`publication_id` ASC) ,
@@ -219,7 +237,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_ratings` (
     REFERENCES `mercatino`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -229,7 +247,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`business_sectors` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -247,7 +265,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`log` (
   `publications_id` INT NULL ,
   `advertising_id` INT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -270,7 +288,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publishers_sectors` (
     REFERENCES `mercatino`.`business_sectors` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -283,6 +301,8 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publishers_reports` (
   `comment` VARCHAR(300) NOT NULL ,
   `date` DATETIME NOT NULL ,
   `status` ENUM('Pending','Correct','Incorrect') NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`) ,
   INDEX `fk_customer_reports_from_user_idx` (`user_id` ASC) ,
   INDEX `fk_customer_reports_to_publisher_idx` (`publisher_id` ASC) ,
@@ -296,7 +316,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publishers_reports` (
     REFERENCES `mercatino`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 
 -- -----------------------------------------------------
@@ -306,6 +326,8 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_images` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `image_url` VARCHAR(50) NOT NULL ,
   `publication_id` INT NOT NULL ,
+  `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`) ,
   INDEX `fk_publication_images_publications1_idx` (`publication_id` ASC) ,
   CONSTRAINT `fk_publications_images_publications`
@@ -313,7 +335,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_images` (
     REFERENCES `mercatino`.`publications` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = INNODB;
 
 USE `mercatino` ;
 

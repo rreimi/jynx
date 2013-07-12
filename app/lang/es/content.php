@@ -65,5 +65,19 @@ return array(
     "register_signup" => "Regístrate",
     "register_header" => "Regístrate",
     "register_error" => "Debes llenar todos los campos",
-    "register_publisher" => "Quiero publicar"
+    "register_publisher" => "Quiero publicar",
+    "publisher_header" => "Agrega tus datos de plublicador",
+    "publisher_id" => "Rif / Cedula",
+    "publisher_type" => "Tipo de Persona",
+    "publisher_type_person" => "Nartual",
+    "publisher_type_business" => "Juridico",
+    "publisher_city" => "Ciudad",
+    "publisher_state" => "Estado",
+    "publisher_phone1" => "Teléfono 1",
+    "publisher_phone2" => "Teléfono 2",
+    "publisher_media" => "¿Cómo te enteraste de nosotros?",
+    "publisher_seller" => "Nombre / Razón Social",
+    "publisher_create" => "Finalizar",
+    "publisher_error" => "Ingrese todos los datos por favor"
+
 );

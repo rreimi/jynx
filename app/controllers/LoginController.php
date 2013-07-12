@@ -6,6 +6,11 @@
 
 class LoginController extends BaseController{
 
+    function __construct()
+    {
+        $this->beforeFilter('guest');
+    }
+
     function getIndex(){
         return View::make('login');
     }
@@ -21,13 +26,17 @@ class LoginController extends BaseController{
         if (Auth::attempt(
             array(
                 'email' => Input::get('login_email'),
-                'password' => Input::get('login_password'))
-            )
+                'password' => Input::get('login_password')
+            ),
+            Input::get('login_remember')!=null)
         ){
-            return Redirect::intended('home');
+
+            return Redirect::intended('/');
         }else{
-            return Redirect::to('login');
-            //TODO ver como activar los errores;
+            $validator->errors()->add('login_email','any');
+            $validator->errors()->add('login_password','any');
+
+            return Redirect::to('login')->withErrors($validator);
         }
 
     }
