@@ -1,4 +1,3 @@
-<!-- Stored in app/views/layouts/master.blade.php -->
 <!DOCTYPE html>
 <head>
     <title>{{ $title }} - {{ App::environment() }}
@@ -13,7 +12,6 @@
 <body>
 
 <div class="container">
-
     <header id="heading">
         @include('include.top_menu')
     </header>
@@ -22,25 +20,22 @@
         <div class="span3">
             <div class="well sidebar-nav">
                 @section('sidebar')
-                    @include('include.category_sidebar')
+                    @include('include.backend_sidebar')
                 @show
             </div>
-        </div><!--/span-->
+        </div>
 
         <div class="span9">
             @yield('content')
-        </div><!--/span-->
-    </div><!--/row-->
+        </div>
+    </div>
     <hr>
-
     <footer>
         @section('footer')
             @include('include.footer')
         @show
     </footer>
-
-</div><!--/.fluid-container-->
-
+</div>
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
