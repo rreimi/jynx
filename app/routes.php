@@ -14,7 +14,9 @@
 Route::get("/debug", function(){
     //X DEBUG
 
-    echo Lang::choice('content.publication', 2);
+    echo Publication::with('images', 'publisher')->find(1);
+    //var_dump( DB::getQueryLog());
+    //echo Lang::choice('content.publication', 2);
     //echo Category::where('slug', '=', 'zapatos')->with('publications', 'publications.images')->first();
 });
 
