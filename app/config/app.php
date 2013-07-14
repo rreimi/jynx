@@ -2,6 +2,9 @@
 
 return array(
 
+
+    'profiler' => NULL,
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
@@ -114,6 +117,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Basset\BassetServiceProvider',
+        'Juy\Profiler\Providers\ProfilerServiceProvider',
 	),
 
 	/*
@@ -179,8 +183,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Basset'          => 'Basset\Facade',
-        //'CssMin'          => 'CssMin\CssMin',
-
+        'Profiler'      => 'Juy\Profiler\Facades\Profiler',
 	),
 
 );

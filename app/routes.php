@@ -20,6 +20,11 @@ Route::get("/debug", function(){
 
 Route::controller('login','LoginController');
 
+Route::get('logout',function(){
+    Auth::logout();
+    return Redirect::to('login');
+});
+
 Route::controller('registro','RegisterController');
 
 Route::controller('publicacion','PublicationController');

@@ -55,4 +55,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+    public function publisher(){
+        return $this->hasOne('Publisher');
+    }
+
+    public function scopeToApprove($query){
+        return $query->where('is_publisher','=',0)->where('role','=','Publisher');
+    }
+
 }

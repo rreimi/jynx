@@ -6,7 +6,7 @@
 
 class RegisterController extends BaseController{
 
-    function postIndex(){
+    public function postIndex(){
 
         $validator = Validator::make(Input::all(),self::registroReglas());
 
@@ -29,8 +29,8 @@ class RegisterController extends BaseController{
             array(
                 'email' => Input::get('register_email'),
                 'password' => Input::get('register_password')
-            ),
-            Input::get('login_remember')!=null);
+            )
+        );
 
 
         if(Input::get('register_publisher')!=null){
@@ -40,13 +40,13 @@ class RegisterController extends BaseController{
         }
     }
 
-    function getDatosPublicador(){
+    public function getDatosPublicador(){
 
 
         return View::make('publisher_data')->with(array("states"=>State::lists('name','id')));
     }
 
-    function postPublicador(){
+    public  function postPublicador(){
 
         $validator = Validator::make(Input::all(),self::registroPublicadorReglas());
 
