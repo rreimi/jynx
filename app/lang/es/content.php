@@ -47,7 +47,7 @@ return array(
     "created_at" => "Fecha de creación",
     "categories_name" => "Categorias",
     "publication_categories" => "Categorias para esta publicación",
-    "publication_images" => "Imágenes para esta publicación",
+    "publication_images" => "Imágenes",
     "options" => "Opciones",
     'status' => 'Estatus',
 
@@ -67,13 +67,42 @@ return array(
     //Options
     "new_publication" => "Nueva publicación",
     "edit_publication" => "Editar publicación",
-    "edit_images" => "Editar imágenes",
+    "edit_images" => "Imágenes",
+    "see" => "Ver",
     "edit" => "Editar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
+    "continue"  => "Continuar",
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
     "remove_image" => "Eliminar Imagen",
+    "add_images_msg" => "Arrastre las imágenes o haga click para cargarlas",
+
+    // Advertising
+    "name" => "Nombre publicidad",
+    'status' => 'Estatus',
+    "image_url" => "Imagen",
+    "external_url" => "Url externa",
+    "first_name" => "Nombre",
+    "last_name" => "Apellido",
+    "email" => "Correo",
+    "phone1" => "Teléfono 1",
+    "phone2" => "Teléfono 2",
+    "advertising_images" => "Imagen para esta publicidad",
+    "advertisings" => "Publicidades",
+
+    //Advertising status
+    'status_draft' => 'Borrador',
+    'status_published' => 'Publicada',
+    'status_trashed' => 'Deshechada',
+
+    // Options
+    "new_advertising" => "Nueva publicidad",
+    "edit_advertising" => "Editar publicidad",
+    "continue" => "Continuar",
+
+    // Search
+    "advertisings_search_placeholder" => "Buscar...",
 
     //Date format
     "date_format" => 'dd-mm-aaaa',
@@ -114,6 +143,11 @@ return array(
     "backend_id" => "Rif / Cédula",
     "backend_phone" => "Teléfonos",
 
-
+    //Flash messages
+    "add_publication_success" => 'La publicación se ha creado correctamente, aquí podra <strong>agregar las imagenes</strong> de su nueva publicación.',
+    "edit_publication_success" => 'La publicación se ha guardado correctamente.',
+    "add_publication_image_success" => 'La imagen se ha cargado correctamente.',
+    "delete_publication_image_success" => 'La imagen se ha eliminado correctamente.',
+    "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen.',
 
 );

@@ -20,6 +20,10 @@ ClassLoader::addDirectories(array(
 
 ));
 
+ClassLoader::addDirectories(array(
+    app_path().'/filters'
+));
+
 /*
 |--------------------------------------------------------------------------
 | Application Error Logger
