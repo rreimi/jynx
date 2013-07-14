@@ -4,8 +4,20 @@ body {
     font-size:12px;
 }
 
-.big-form{
-    padding: 20px 39px 29px 39px;
+.login{
+    padding-top: 100px;
+    background-size:100% auto;
+    background-image:url('../img/login_background.jpg');
+}
+
+.login .hello{
+    background: rgba(0,0,0, 0.6);
+    height: 288px;
+    color: #fff;
+}
+
+.login .big-form{
+    padding: 16px 19px 4px 19px;
     margin: 0 auto 20px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
@@ -17,17 +29,26 @@ body {
             box-shadow:inset 0 0 20px rgba(0,0,0,.05);
 }
 
-.big-form input[type="text"],
-.big-form input[type="password"],
-.big-form input[type="email"],
-.big-form .add-on,
-.big-form select{
-    font-size: 16px;
-    height: auto;
-    padding: 7px 9px;
+.login .big-form .register-controls{
+    padding-bottom: 8px;
 }
 
-.big-form select{
+.login .big-form input[type="text"],
+.login .big-form input[type="password"],
+.login .big-form input[type="email"],
+.login .big-form .add-on,
+.login .big-form select{
+    font-size: 14px;
+    height: auto;
+}
+
+.login .big-form .control-group{
+    margin-bottom: 0;
+}
+
+
+/* TOMADO DEL ESTILO DE BOOTSTRAP PARA LOS DEMAS COMPONENTES */
+.login .big-form select{
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
@@ -37,11 +58,3 @@ body {
     transition: border linear .2s,box-shadow linear .2s;
 }
 
-.big-form .header{
-    margin-bottom: 20px;
-}
-
-.big-form .register-controls,
-.big-form .login-controls{
-    margin-bottom: 20px;
-}

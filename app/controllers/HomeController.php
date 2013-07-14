@@ -34,7 +34,7 @@ class HomeController extends BaseController {
 
         /* Cargar la lista de los últimos productos vistos por el usuario actual */
 
-        return View::make('dashboard', $data);
+        return View::make('home', $data);
 	}
 
     public function getCat($slug = '') {

@@ -1,7 +1,7 @@
-{{ Form::open(array('method' => 'get', 'action' => 'BackendController@getSearch', 'class' => '')) }}
+{{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => '')) }}
 <div class="input-append">
-    {{ Form::text('q', null, array('placeholder' => 'Busca algo ', 'class' => 'span12')) }}
-    <button class="btn"><i class="icon-search"></i></button>
+    {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'span12')) }}
+    <button class="btn" type="submit"><i class="icon-search"></i></button>
 </div>
 
 {{ Form::close() }}

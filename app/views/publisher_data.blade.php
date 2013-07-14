@@ -4,7 +4,7 @@
         <div class="span1"></div>
         <div class="span10">
             {{ Form::open(array('url' => 'registro/publicador','class'=>'big-form')) }}
-            <div class="pull-right">{{ Auth::user()->last_name.', '.Auth::user()->first_name }}</div>
+            <div class="pull-right">{{ Auth::user()->full_name }}</div>
             <h3 class='header'>{{ Lang::get('content.publisher_header') }}</h3>
             <fieldset>
                 <div class="row-fluid">
@@ -57,7 +57,8 @@
                     </div>
                 </div>
                 <div class="register-controls text-right">
-                    {{ Form::submit(Lang::get('content.publisher_create'),array('class' => 'btn btn-large btn-warning')) }}
+                    {{ Form::submit(Lang::get('content.register_finalize'),array('class' => 'btn btn-large btn-info')) }}
+                    {{ Form::submit(Lang::get('content.publisher_create'),array('class' => 'btn btn-large btn-success')) }}
                 </div>
                 @if($errors->any() && ($errors->has('publisher_id') || $errors->has('publisher_seller') || $errors->has('publisher_media') ||
                         $errors->has('publisher_city') || $errors->has('publisher_phone1') || $errors->has('publisher_phone2')))
