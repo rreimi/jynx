@@ -86,8 +86,8 @@ return array(
     "login_error" => "Verifique su usuario y contraseña ",
 
     "register_email" => "Dirección de correo",
-    "register_first_name" => "Primer nombre",
-    "register_last_name" => "Segundo nombre",
+    "register_first_name" => "Nombre",
+    "register_last_name" => "Apellido",
     "register_password" => "Contraseña",
     "register_password_confirmation" => "Confirme contraseña",
     "register_signup" => "Regístrate",
@@ -106,6 +106,14 @@ return array(
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "publisher_seller" => "Nombre / Razón Social",
     "publisher_create" => "Finalizar",
-    "publisher_error" => "Ingrese todos los datos por favor"
+    "publisher_error" => "Ingrese todos los datos por favor",
+
+    "backend_email" => "Correo",
+    "backend_full_name" => "Apellido y Nombre",
+    "backend_seller" => "Nombre / Razón Social",
+    "backend_id" => "Rif / Cédula",
+    "backend_phone" => "Teléfonos",
+
+
 
 );

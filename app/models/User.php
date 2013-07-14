@@ -50,12 +50,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @return string
 	 */
-	public function getReminderEmail() {
+	public function getReminderEmail()
+	{
 		return $this->email;
 	}
 
-    public function publisher() {
+    public function publisher(){
         return $this->hasOne('Publisher');
+    }
+
+    public function scopeToApprove($query){
+        return $query->where('is_publisher','=',0)->where('role','=','Publisher');
     }
 
 }

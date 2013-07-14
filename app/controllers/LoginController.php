@@ -6,16 +6,15 @@
 
 class LoginController extends BaseController{
 
-    function __construct()
-    {
+    public function __construct(){
         $this->beforeFilter('guest');
     }
 
-    function getIndex(){
+    public function getIndex(){
         return View::make('login');
     }
 
-    function postIndex(){
+    public function postIndex(){
 
         $validator = Validator::make(Input::all(),self::rules());
 
