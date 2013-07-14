@@ -113,7 +113,7 @@ ENGINE = INNODB;
 -- -----------------------------------------------------
 -- Table `mercatino`.`advertising`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mercatino`.`advertising` (
+CREATE  TABLE IF NOT EXISTS `mercatino`.`advertisings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `status` ENUM('Draft','Published','Trashed') NOT NULL ,
