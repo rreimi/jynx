@@ -52,3 +52,11 @@
         </div>
     </div><!--/row-fluid-->
 @stop
+
+@section('scripts')
+@parent
+{{ HTML::script('js/jquery.barrating.min.js') }}
+<script type="text/javascript">
+    $('#pub_rating').barrating();
+</script>
+@stop

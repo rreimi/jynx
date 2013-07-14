@@ -12,43 +12,43 @@
     <!--                <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>-->
     <!--                <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>-->
 </div>
-@foreach ($mostvisited as $item )
-    {{ $item->title }} <br/>
-@endforeach
 
+<h2>{{Lang::get('content.mostvisited_items')}}</h2>
 <ul class="row-fluid">
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-</ul><!--/row-->
+    @foreach ($mostvisited as $key => $pub)
+    <div class="span4 pub-thumb">
+        <div class="put-info-box">
+            @if (isset($pub->images[0]))
+            <img src="{{URL::to('uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url )}}" alt="Image"/>
+            @endif
+            <div class="pub-info-desc">
+                <h2 class="pub-title">{{ $pub->title }}</h2>
+                <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
+<!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                <br/><a class="btn see-pub-link" href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">{{Lang::get('content.see_product_detail')}} &raquo;</a>
+            </div>
+        </div>
+    </div><!--/span-->
+    @endforeach
+</ul><!-- pub-images-box -->
+
+<h2>{{Lang::get('content.recent_items')}}</h2>
 <ul class="row-fluid">
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-    <li class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </li><!--/span-->
-</ul><!--/row-->
+    @foreach ($recent as $key => $pub)
+    <div class="span4 pub-thumb">
+        <div class="put-info-box">
+            @if (isset($pub->images[0]))
+            <img src="{{URL::to('uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url )}}" alt="Image"/>
+            @endif
+            <div class="pub-info-desc">
+                <h2 class="pub-title">{{ $pub->title }}</h2>
+                <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
+                <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                <br/><a class="btn see-pub-link" href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">{{Lang::get('content.see_product_detail')}} &raquo;</a>
+            </div>
+        </div>
+    </div><!--/span-->
+    @endforeach
+</ul><!-- pub-images-box -->
 
 @stop

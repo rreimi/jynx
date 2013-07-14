@@ -51,11 +51,11 @@ return array(
 	"not_in"           => "The selected :attribute is invalid.",
 	"numeric"          => "The :attribute must be a number.",
 	"regex"            => "The :attribute format is invalid.",
-	"required"         => "The :attribute field is required.",
-	"required_if"      => "The :attribute field is required when :other is :value.",
-	"required_with"    => "The :attribute field is required when :values is present.",
-	"required_without" => "The :attribute field is required when :values is not present.",
-	"same"             => "The :attribute and :other must match.",
+	"required"         => "El campo :attribute es requerido.",
+	"required_if"      => "El campo :attribute es requerido cuando :other tiene como valor :value.",
+	"required_with"    => "El campo :attribute es requerido cuando :values esta presente.",
+	"required_without" => "El campo :attribute es requerido cuando :values no esta presente.",
+	"same"             => "El campo :attribute and :other must match.",
 	"size"             => array(
 		"numeric" => "The :attribute must be :size.",
 		"file"    => "The :attribute must be :size kilobytes.",
@@ -88,6 +88,14 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+    'attributes' => array(
+        'title' => 'Título',
+        'short_description' => 'Descripción corta',
+        'long_description' => 'Descripción extendida',
+        'from_date' => 'Desde',
+        'to_date' => 'Hasta',
+        'categories_name' => 'Categorias',
+        'status' => 'Estatus',
+    ),
 
 );

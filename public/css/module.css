@@ -29,9 +29,27 @@ h2 {
     display: block;
 }
 
+.put-info-box {
+    position: relative;
+    height: 270px;
+}
+
+.put-info-box img {
+    width:180px;
+    margin:auto;
+    display: block;
+}
+
+.pub-info-desc {
+    position: absolute;
+    background-color: rgba(190, 190, 190, 0.1);
+    bottom: 1em;
+    width: 94%;
+    padding: 0 3% 2% 3%;
+}
+
 .pub-thumb {
     border: 1px solid #eee;
-    padding: 1em;
     margin-bottom: 1em;
 }
 
@@ -48,7 +66,6 @@ h2 {
 .pub-table {
     padding:0.4em;
     margin:0 0 1em 0;
-    width:95%;
 }
 
 .pub-table td, .pub-table th {
@@ -58,4 +75,10 @@ h2 {
 
 .pub-list-filters {
     margin-bottom: 1em;
+}
+
+/* Dropzone overrides */
+
+.dropzone .dz-preview .dz-details .dz-size, .dropzone-previews .dz-preview .dz-details .dz-size {
+    display: none;
 }
