@@ -18,7 +18,7 @@
             <div class="span4 pub-thumb">
                 <div class="put-info-box">
                     @if (isset($pub->images[0]))
-                    <img src="{{URL::to('uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url )}}" alt="Image"/>
+                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
                     @endif
                     <div class="pub-info-desc">
                         <h2 class="pub-title">{{ $pub->title }}</h2>

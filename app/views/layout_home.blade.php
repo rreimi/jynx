@@ -30,6 +30,11 @@
         </div><!--/span-->
 
         <div class="span9">
+            @if (!is_null(Session::get('flash_global_message')))
+                <div class="flash-global-message alert alert-success">
+                {{ Session::get('flash_global_message') }}
+                </div>
+            @endif
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->

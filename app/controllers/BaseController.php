@@ -4,6 +4,13 @@ class BaseController extends Controller {
 
     protected $pageSort;
     protected $pageOrder;
+    protected static $thumbSize = array('width' => 190, 'height' => 190);
+    protected static $detailSize = array('width' => 300, 'height' => 300);
+
+
+    public function __construct(){
+        //die();
+    }
 
 	/**
 	 * Setup the layout used by the controller.

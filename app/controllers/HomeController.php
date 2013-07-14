@@ -18,6 +18,13 @@ class HomeController extends BaseController {
 	|
 	*/
 
+    public function __construct() {
+        //$this->beforeFilter('auth', array('only' => array('getList')));
+        View::share('categories', self::getCategories());
+        View::share('thumbSize', self::$thumbSize);
+
+    }
+
 	public function getIndex() {
 
 		/* Cargar la lista de categorias */
