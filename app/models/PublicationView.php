@@ -28,7 +28,7 @@ class PublicationView extends Eloquent {
     }
 
     public function images() {
-        return $this->hasMany('PublicationImage');
+        return $this->hasMany('PublicationImage', 'id');
     }
 
 
@@ -51,21 +51,50 @@ class PublicationView extends Eloquent {
             JOIN publishers AS u ON p.publisher_id = u.id
             WHERE u.seller_name LIKE  '%pepeasd%')
          */
+        $query = PublicationView::select('*')->orderBy('visits_number', 'desc');
 
-        $cats = Category::where('name', 'like', "%$q%")->lists('id');
-        if (empty($cats)) ($cats[] = 0);
+        $tokens = explode(' ', $q);
 
-        return Publication::select('*')
-//            ->leftjoin('publications_categories', 'publications.id', '=', 'publications_categories.publication_id')
-//            ->whereIn('publications_categories.category_id', $cats)
-            ->orWhere('title', 'like', "%$q%")
-            ->orWhere('short_description', 'like', "%$q%")
-            ->orWhere('long_description', 'like', "%$q%")
-            ->orWhere(function($query) use ($q) {
-                    $publishers = Publisher::where('seller_name', 'like', "%$q%")->lists('id');
-                    if (empty($publishers)) ($publishers[] = 0);
-                    $query->whereIn('publications.publisher_id', $publishers);
-        });
+        foreach ($tokens as $token) {
+
+
+            $query->Where(function($query) use ($token)
+            {
+                $query->orWhere('title', 'like', "%$token%")
+                    ->orWhere('short_description', 'like', "%$token%")
+                    ->orWhere('long_description', 'like', "%$token%")
+                    ->orWhere('seller_name', 'like', "%$token%")
+                    ->orWhere('categories_name', 'like', "%$token%")
+                    ->orWhere('city', 'like', "%$token%")
+                    ->orWhere('state', 'like', "%$token%")
+                    ->orWhere('contacts', 'like', "%$token%");
+
+
+            });
+
+//            $query->orWhere('title', 'like', "%$token%")
+//                ->orWhere('short_description', 'like', "%$token%")
+//                ->orWhere('long_description', 'like', "%$token%")
+//                ->orWhere('seller_name', 'like', "%$token%")
+//                ->orWhere('categories_name', 'like', "%$token%")
+//                ->orWhere('city', 'like', "%$token%")
+//                ->orWhere('state', 'like', "%$token%");
+        }
+
+        return $query;
+
+//        return PublicationView::select('*')
+////            ->leftjoin('publications_categories', 'publications.id', '=', 'publications_categories.publication_id')
+////            ->whereIn('publications_categories.category_id', $cats)
+//            ->orWhere('title', 'like', "%$q%")
+//            ->orWhere('short_description', 'like', "%$q%")
+//            ->orWhere('long_description', 'like', "%$q%")
+//            ->orWhere('seller_name', 'like', "%$q%")
+//            ->orWhere('categories_name', 'like', "%$q%")
+//            ->orWhere('city', 'like', "%$q%")
+//            ->orWhere('state', 'like', "%$q%")
+//            ;
+
     }
 
 }

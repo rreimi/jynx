@@ -13,6 +13,10 @@ return array(
 	|
 	*/
 
+    //Dashboard
+    "mostvisited_items" => "Los mas visitados",
+    "recent_items" => "Los mas recientes",
+
     //Category, Search
 	"categories_title" => "Categorias",
     "sell_by"          => "Por",
@@ -42,6 +46,8 @@ return array(
     "visits_number" => "Visitas",
     "created_at" => "Fecha de creación",
     "categories_name" => "Categorias",
+    "publication_categories" => "Categorias para esta publicación",
+    "publication_images" => "Imágenes para esta publicación",
     "options" => "Opciones",
     'status' => 'Estatus',
 
@@ -56,15 +62,21 @@ return array(
     "about_us" => "Nosotros",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "logout" => "Cerrar sesión",
 
     //Options
     "new_publication" => "Nueva publicación",
+    "edit_publication" => "Editar publicación",
+    "edit_images" => "Editar imágenes",
     "edit" => "Editar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
+    "see_publication" => 'Ver publicación',
+    "see_my_publications" => "Ir a mis publicaciones",
+    "remove_image" => "Eliminar Imagen",
 
     //Date format
-   "date_format" => 'DD/MM/YYYY',
+    "date_format" => 'dd-mm-aaaa',
 
     "login_email" => "Dirección de correo",
     "login_password" => "Contraseña",
@@ -85,8 +97,8 @@ return array(
     "publisher_header" => "Agrega tus datos de plublicador",
     "publisher_id" => "Rif / Cedula",
     "publisher_type" => "Tipo de Persona",
-    "publisher_type_person" => "Nartual",
-    "publisher_type_business" => "Juridico",
+    "publisher_type_person" => "Persona Natural",
+    "publisher_type_business" => "Persona Juridica",
     "publisher_city" => "Ciudad",
     "publisher_state" => "Estado",
     "publisher_phone1" => "Teléfono 1",

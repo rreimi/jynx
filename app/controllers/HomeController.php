@@ -26,9 +26,10 @@ class HomeController extends BaseController {
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
-        $data['mostvisited'] = Publication::orderBy('visits_number', 'desc')->take(15)->get();
-        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(15)->get();
+        $data['mostvisited'] = Publication::mostvisited()->get();
+        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(3)->get();
 
+        //$data['mostvisited']->images();
         /* Cargar la lista de los últimos productos agregados */
 
         /* Cargar la lista de los últimos productos vistos por el usuario actual */
@@ -80,24 +81,11 @@ class HomeController extends BaseController {
         $q = Input::get('q');
         //echo Publication::getSearch($q)->with('categories')->get();
 
-
-        //$publications = Publication::orderBy('publisher_id')
-//            ->join('category_publisher', function($join)
-//            {
-//                $join->on('category_publication.publisher_id', '=', 'publisher_id')->orOn(...);
-//            })
-//            ->paginate(3);
-
-        //echo $publications->links();
-      $queries = DB::getQueryLog();
-      //var_dump($queries);
-//      die();
-
         /* Append search query */
         $data['q'] = $q;
 
         /* Find publications */
-        $data['publications'] = Publication::getSearch($q)->with('categories','images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::getSearch($q)->with('images')->paginate($this->page_size);
 
         /* Load category list */
         $data['categories'] = self::getCategories();
@@ -110,7 +98,15 @@ class HomeController extends BaseController {
 
         /* Cargar la lista de los últimos productos vistos por el usuario actual */
 
+        $queries = DB::getQueryLog();
+        //var_dump($queries);
+
         return View::make('search', $data);
     }
 
+
+    public function getLogout(){
+        Auth::logout();
+        return Redirect::to('login');
+    }
 }

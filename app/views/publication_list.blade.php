@@ -22,7 +22,7 @@
             {{ Form::select('filter_status', $pub_statuses, $state['filter_status'], array('class' => 'input-medium filter-field')) }}
         </div>
         {{ Form::close() }}
-            <table class="pub-table">
+            <table class="pub-table table table-bordered table-condensed">
                 <thead>
                     <tr>
                         <th><a href="?sort=id&order=asc">{{Lang::get('content.id')}}</a></th>
@@ -46,7 +46,9 @@
                         <td>{{ $pub->created_at }}</td>
                         <td>{{ $pub->categories_name }}</td>
                         <td>
-                            <a href="#edit">{{Lang::get('content.edit')}}</a>
+                            <a href="{{URL::to('publicacion/editar/' . $pub->id)}}">{{Lang::get('content.edit')}}</a> |
+                            <a href="{{URL::to('publicacion/imagenes/' . $pub->id)}}">{{Lang::get('content.edit_images')}}</a>
+
                         </td>
                     </tr>
                     @endforeach
