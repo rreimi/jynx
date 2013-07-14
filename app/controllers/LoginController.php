@@ -29,8 +29,11 @@ class LoginController extends BaseController{
             ),
             Input::get('login_remember')!=null)
         ){
-
-            return Redirect::intended('/');
+            if(Auth::user()->isAdmin()){
+                return Redirect::intended('dashboard');
+            }else{
+                return Redirect::intended('/');
+            }
         }else{
             $validator->errors()->add('login_email','any');
             $validator->errors()->add('login_password','any');

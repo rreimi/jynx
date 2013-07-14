@@ -1,10 +1,5 @@
 @extends('layout_backend')
 
-@section('sidebar')
-@parent
-    <p>This is appended to the master sidebar.</p>
-@stop
-
 @section('content')
     <div class="well">
         <p>paja de instrucciones de como usar el backend, un well tal vez se vea mejor que hero-unit aqui en backend</p>
@@ -15,7 +10,7 @@
             <thead>
             <tr>
                 <th>{{ Lang::get('content.backend_full_name') }}</th>
-                 <th>{{ Lang::get('content.backend_email') }}</th>
+                <th>{{ Lang::get('content.backend_email') }}</th>
                 <th>{{ Lang::get('content.backend_id') }}</th>
                 <th>{{ Lang::get('content.backend_seller') }}</th>
                 <th>{{ Lang::get('content.backend_phone') }}</th>

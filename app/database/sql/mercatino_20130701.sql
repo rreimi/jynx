@@ -14,8 +14,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`users` (
   `email` VARCHAR(50) NOT NULL ,
   `password` VARCHAR(128) NOT NULL ,
   `role` ENUM('Admin','Basic','Publisher') NOT NULL ,
-  `first_name` VARCHAR(50) NOT NULL ,
-  `last_name` VARCHAR(50) NOT NULL ,
+  `full_name` VARCHAR(80) NOT NULL ,
   `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` TIMESTAMP NULL ,
@@ -113,7 +112,7 @@ ENGINE = INNODB;
 -- -----------------------------------------------------
 -- Table `mercatino`.`advertising`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mercatino`.`advertising` (
+CREATE  TABLE IF NOT EXISTS `mercatino`.`advertisings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `status` ENUM('Draft','Published','Trashed') NOT NULL ,

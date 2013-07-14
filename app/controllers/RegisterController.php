@@ -17,11 +17,10 @@ class RegisterController extends BaseController{
         $user=new User();
 
         $user->email=Input::get('register_email');
-        $user->first_name=Input::get('register_first_name');
-        $user->last_name=Input::get('register_last_name');
+        $user->full_name=Input::get('register_full_name');
         $user->password=Hash::make(Input::get('register_password'));
         $user->is_publisher=0;
-        $user->role=Input::get('register_publisher')!=null?User::ROLE_PUBLISHER:User::ROLE_BASIC;
+        $user->role=User::ROLE_BASIC;
 
         $user->save();
 
@@ -33,11 +32,7 @@ class RegisterController extends BaseController{
         );
 
 
-        if(Input::get('register_publisher')!=null){
-            return Redirect::to('registro/datos-publicador');
-        }else{
-            return Redirect::to('/');
-        }
+        return Redirect::to('registro/datos-publicador');
     }
 
     public function getDatosPublicador(){
@@ -89,8 +84,7 @@ class RegisterController extends BaseController{
 
         return array(
             'register_email' => 'required|unique:users,email',
-            'register_first_name' => 'required',
-            'register_last_name' => 'required',
+            'register_full_name' => 'required',
             'register_password' => 'required|confirmed',
             'register_password_confirmation' => 'required'
         );
