@@ -5,6 +5,12 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Publication extends Eloquent {
 
+    protected $softDelete = true;
+
+    protected $fillable = array('title', 'short_description',
+        'long_description', 'status', 'from_date',
+        'to_date', 'publisher_id', 'remember');
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -18,6 +24,10 @@ class Publication extends Eloquent {
 	 * @var array
 	 */
 	//protected $hidden = array('password');
+
+    public function scopeMostvisited($query){
+        $query->orderBy('visits_number', 'desc')->take(3);
+    }
 
     public function scopeParents($query) {
         return $query->where('category_id', '=', null);
