@@ -117,7 +117,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`advertisings` (
   `name` VARCHAR(50) NOT NULL ,
   `status` ENUM('Draft','Published','Trashed') NOT NULL ,
   `category_id` INT NOT NULL ,
-  `image_url` VARCHAR(50) NOT NULL ,
+  `image_url` VARCHAR(256) NOT NULL ,
   `external_url` VARCHAR(50) NULL ,
   `first_name` VARCHAR(50) NOT NULL ,
   `last_name` VARCHAR(50) NOT NULL ,

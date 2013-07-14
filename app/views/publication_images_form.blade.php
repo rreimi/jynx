@@ -5,11 +5,12 @@
 @stop
 
 @section('content')
-
     <div class="row-fluid">
+        <h1></h1>
+        <h2>{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
+        <div class="form-message-box alert alert-error">
 
-        <h2>{{Lang::get('content.publication_images')}}</h2>
-
+        </div>
         <div id="dropzone" class="dropzone">
 
         </div>
@@ -32,9 +33,9 @@
         url: "{{URL::to('publicacion/imagenes/' . $id)}}",
         addRemoveLinks: true,
         dictRemoveFile: "{{Lang::get('content.remove_image')}}",
+        dictDefaultMessage: "{{Lang::get('content.add_images_msg')}}",
         acceptedFiles: '.jpeg,.jpg,.png,.gif',
         maxFilesize: 2,
-        createImageThumbnails: false,
         accept: function(file, done) {
 
             /* Validar el archivo */
@@ -74,6 +75,7 @@
     /* After upload, server response the generated id, so we can assing it to file object to enable deletion */
     myDropzone.on("success", function(file, fileServerId) {
         file.server_id = fileServerId;
+        showMessage("{{Lang::get('content.add_publication_image_success')}}",'success');
     });
 
 
@@ -90,14 +92,23 @@
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
+                    showMessage("{{Lang::get('content.delete_publication_image_success')}}",'success');
                 },
                 error: function(result) {
-                    console.log(result);
-                    alert('No se pudo eliminar la imagén');
+                    showMessage("{{Lang::get('content.delete_publication_image_error')}}",'error');
                 }
             });
         }
     });
+
+    function showMessage(message, type) {
+        jQuery('.form-message-box').hide();
+        jQuery('.form-message-box').removeClass('alert-error alert-success alert-warning');
+        jQuery('.form-message-box').addClass('alert-' + type);
+        jQuery('.form-message-box').html(message);
+        jQuery('.form-message-box').show();
+        //setTimeout("jQuery('.form-message-box').hide()", 5000);
+    }
 
 </script>
 @stop

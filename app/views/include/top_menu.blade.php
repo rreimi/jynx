@@ -10,14 +10,14 @@
             </a>
 
             <!-- Be sure to leave the brand out there if you want it shown -->
-            <a class="brand" href="#">{{ $title }}</a>
+            <a class="brand" href="{{URL::to('/')}}">{{ $title }}</a>
 
 
 
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
+                    <li><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
                     <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                 </ul>
@@ -30,7 +30,7 @@
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li class="divider"></li>
-                            <li><a href="logout">Salir</a></li>
+                            <li><a href="{{ URL::to('logout') }}">Salir</a></li>
                         </ul>
                     </li>
                 </ul>

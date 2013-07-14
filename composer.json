@@ -19,7 +19,9 @@
         "twitter/bootstrap": "dev-master",
 		"jasonlewis/basset": "dev-master",
 		"natxet/CssMin": "dev-master",
-        "juy/profiler" : "dev-master"
+        "juy/profiler" : "dev-master",
+        "intervention/image": "dev-master",
+        "kevbaldwyn/image":"dev-master"
 
 	},
 	"autoload": {

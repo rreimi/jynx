@@ -16,7 +16,7 @@
             <div class="carousel-inner">
                 @foreach ($publication->images as $key => $img)
                 <div class="item @if ($key == 0) active @endif">
-                    <img class="pub-img-medium" src="{{URL::to('uploads/pub/' . $publication->id . '/' . $img->image_url )}}" alt="{{ $publication->title }}"/>
+                    <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resizeCrop', $detailSize['width'], $detailSize['height'])  }}" alt="{{ $publication->title }}"/>
                 </div>
                 @endforeach
             </div>
@@ -24,7 +24,13 @@
             <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
             <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
         </div><!-- pub-images-box -->
-        <h1>{{ $publication->title }}</h1>
+        <h1>{{ $publication->title }}
+            @if ($publication->publisher_id == Auth::user()->publisher->id)
+                <br/>
+                <a class="action btn btn-mini btn-info" href="{{URL::to('publicacion/editar/' . $publication->id)}}">{{Lang::get('content.edit')}}</a>
+                <a class="action btn btn-mini btn-success" href="{{URL::to('publicacion/imagenes/' . $publication->id)}}">{{Lang::get('content.edit_images')}}</a>
+            @endif
+        </h1>
         <div class="publisher-info">
             <span class="pub-seller pub-line">{{Lang::get('content.sell_by')}}: {{ $publication->publisher->seller_name }}</span>
             <span class="pub-phone pub-line">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</span>
@@ -55,8 +61,8 @@
 
 @section('scripts')
 @parent
-{{ HTML::script('js/jquery.barrating.min.js') }}
+{{ HTML::script('js/imagecow.js') }}
 <script type="text/javascript">
-    $('#pub_rating').barrating();
+    Imagecow.init()
 </script>
 @stop

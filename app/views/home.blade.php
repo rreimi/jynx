@@ -14,12 +14,12 @@
 </div>
 
 <h2>{{Lang::get('content.mostvisited_items')}}</h2>
-<ul class="row-fluid">
+<ul class="row-fluid  most-visited-items dashboard-item-list">
     @foreach ($mostvisited as $key => $pub)
     <div class="span4 pub-thumb">
         <div class="put-info-box">
             @if (isset($pub->images[0]))
-            <img src="{{URL::to('uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url )}}" alt="Image"/>
+            <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
             @endif
             <div class="pub-info-desc">
                 <h2 class="pub-title">{{ $pub->title }}</h2>
@@ -33,7 +33,7 @@
 </ul><!-- pub-images-box -->
 
 <h2>{{Lang::get('content.recent_items')}}</h2>
-<ul class="row-fluid">
+<ul class="row-fluid recent-items dashboard-item-list">
     @foreach ($recent as $key => $pub)
     <div class="span4 pub-thumb">
         <div class="put-info-box">
@@ -52,3 +52,4 @@
 </ul><!-- pub-images-box -->
 
 @stop
+

@@ -118,6 +118,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Basset\BassetServiceProvider',
         'Juy\Profiler\Providers\ProfilerServiceProvider',
+        'KevBaldwyn\Image\ImageServiceProvider'
 	),
 
 	/*
@@ -184,6 +185,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
         'Basset'          => 'Basset\Facade',
         'Profiler'        => 'Juy\Profiler\Facades\Profiler',
+        'Image'           => 'KevBaldwyn\Image\Facades\Image',
 	),
 
 );

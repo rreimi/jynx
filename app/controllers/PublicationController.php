@@ -2,12 +2,18 @@
 
 class PublicationController extends BaseController {
 
+    private $prefix = 'publication';
     private $page_size = '6';
     private $pubListSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at');
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
-        //$this->beforeFilter('auth', array('only' => array('getList')));
+
+        $this->beforeFilter('referer:publication', array('only' => array('getCrear', 'getEditar')));
+
+        View::share('categories', self::getCategories());
+        View::share('detailSize', self::$detailSize);
+
     }
 
 	public function getDetalle($id = null) {
@@ -17,7 +23,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['categories'] = self::getCategories();
+        //$data['categories'] = self::getCategories();
         $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
         /* Increment visits counter */
         $data['publication']->increment('visits_number');
@@ -45,7 +51,6 @@ class PublicationController extends BaseController {
         /* Get sort params */
         //$sort = (in_array(Input::get('sort'), $this->pubListSort) ? Input::get('sort') : 'id');
         //$order = (in_array(Input::get('order'), array('asc')) ? Input::get('order') : 'desc');
-
 
         //$q = Input::get('q');
 
@@ -139,6 +144,7 @@ class PublicationController extends BaseController {
                   'categories' => self::getCategories(),
                   'publication' => $pub,
                   'publication_categories' => $pubCats,
+                  'referer' => URL::previous(),
                 )
             );
 
@@ -183,12 +189,30 @@ class PublicationController extends BaseController {
         $publication = Publication::find($id);
 
         //TODO validar publicacion
-        //TODO resize image
         //TODO renombrar la imagen si existe
         //TODO posibilidad de agregar un alt
 
-        //$extension =$file->getClientOriginalExtension();
-        $upload_success = Input::file('file')->move($destinationPath, $filename);
+//        $data = exif_imagetype($file);
+//        echo "<PRE>";
+//        print_r($data);
+//        echo "</PRE>";
+//
+//        //var_dump($file);
+//        die();
+
+        /* Move uploaded file to final destination */
+        $upload_success = $file->move($destinationPath, $filename);
+
+
+
+
+        //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
+        /* Set full path for create resized versions */
+        //$fullImagePath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
+
+        /* Create resized versions for lists and detail */
+        //Image::make($fullImagePath)->resize(self::$thumbSize['width'], self::$thumbSize['height'])->save(str_replace(".", self::getThumbSizeSuffix() . ".", $fullImagePath));
+        //Image::make($fullImagePath)->resize(self::$detailSizeSize['width'], self::$detailSizeSize['height'])->save(str_replace(".", self::getDetailSizeSuffix() . ".", $fullImagePath));
 
         $error = 'Error';
 
@@ -200,6 +224,8 @@ class PublicationController extends BaseController {
             return Response::json($error, 400);
         }
     }
+
+
 
     /**
      * @ajax
@@ -245,6 +271,12 @@ class PublicationController extends BaseController {
 
     public function getEditar($id) {
 
+        if (is_null(Input::old('referer'))) {
+            $referer = URL::previous();
+        } else {
+            $referer = Input::old('referer');
+        }
+
         /* Get the current user publications list */
 //        echo $publications;
 //        die();
@@ -270,6 +302,7 @@ class PublicationController extends BaseController {
                 'categories' => self::getCategories(),
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
+                'referer' => $referer,
             )
         );
 
@@ -289,7 +322,7 @@ class PublicationController extends BaseController {
             'visits_number' => Input::get('visits_number'),
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
-            'category' => Input::get('category'),
+            'categories' => Input::get('categories'),
         );
 
         //Set validation rules
@@ -300,20 +333,20 @@ class PublicationController extends BaseController {
             'status' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
-            //'publisher_id' => 'required',
+            'categories' => 'required',
         );
 
-//        $messages = array(
-//            'title.required' => Lang::get('validation.required', array('attribute' => Lang::get('content.title'))),
-//        );
+        $messages = array(
+            'category.required' => Lang::get('validation.publication_category_required'),
+        );
 
         // Validate fields
-        $v = Validator::make($pubData, $rules);
+        $v = Validator::make($pubData, $rules, $messages);
         if ( $v->fails() )
         {
             $action = 'crear';
 
-            if (isset($pubData['id'])) {
+            if (!empty($pubData['id'])) {
                 $action = 'editar/' . $pubData['id'];
             }
 
@@ -327,7 +360,6 @@ class PublicationController extends BaseController {
         }
 
         //Save publication
-
         $isNew = true;
 
         if (empty($pubData['id'])){
@@ -346,19 +378,28 @@ class PublicationController extends BaseController {
 
         $pub->save();
 
-        $categories = Input::get('categories');
-
-        if (!is_array($categories)) {
-            $categories = array();
-        }
-
+        // Save publication categories
+        $categories = $pubData['categories'];
         $pub->categories()->sync($categories);
 
-        //Redirect to new publication
-        if ($isNew)
-            return Redirect::to('publicacion/images/'.$pub->id);
-        else
+        // Redirect to diferent places based on new or existing publication
+        if ($isNew) {
+
+            Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
+            //Redirect to publication images
+            return Redirect::to('publicacion/imagenes/'.$pub->id);
+
+        } else {
+
+            Session::flash('flash_global_message', Lang::get('content.edit_publication_success'));
+            //Redirect to a referer if exists
+            $referer = Session::get($this->prefix . '_referer');
+            if (!empty($referer)){
+                return Redirect::to($referer);
+            }
             return Redirect::to('publicacion/lista');
+
+        }
     }
 
     private static function getPublicationStatuses($blankCaption = '') {
@@ -375,5 +416,13 @@ class PublicationController extends BaseController {
         }
 
         return $options;
+    }
+
+    private static function getThumbSizeSuffix(){
+        return '_' . self::$thumbSize['width'] . 'x' . self::$thumbSize['height'];
+    }
+
+    private static function getDetailSizeSuffix(){
+        return '_' . self::$detailSize['width'] . 'x' . self::$detailSize['height'];
     }
 }
