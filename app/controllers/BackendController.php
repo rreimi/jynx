@@ -9,7 +9,7 @@ class BackendController extends BaseController {
 
         $data['users']=User::toApprove()->with('publisher')->paginate($this->page_size);
 
-        return View::make('backend_dashboard',$data);
+        return View::make('backend',$data);
 	}
 
     public function getSearch(){

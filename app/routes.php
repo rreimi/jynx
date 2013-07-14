@@ -29,7 +29,7 @@ Route::controller('registro','RegisterController');
 
 Route::controller('publicacion','PublicationController');
 
-Route::controller('administrador','BackendController');
+Route::controller('dashboard','BackendController');
 
 Route::controller('/','HomeController');
 

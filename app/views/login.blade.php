@@ -1,8 +1,8 @@
 @extends('layout_login')
 @section('content')
     <div class="row-fluid">
-        <div class="span1"></div>
-        <div class="span5">
+        <div class="span9"></div>
+        <div class="span3">
             {{ Form::open(array('url' => 'login','class'=>'big-form')) }}
             <h3 class='header'>{{ Lang::get('content.login_header') }}</h3>
             <fieldset>
@@ -23,8 +23,6 @@
                 @endif
             </fieldset>
             {{ Form::close() }}
-        </div>
-        <div class="span5">
             {{ Form::open(array('url' => 'registro','class'=>'big-form')) }}
             <h3 class='header'>{{ Lang::get('content.register_header') }}</h3>
             <fieldset>
@@ -62,6 +60,6 @@
             </fieldset>
             {{ Form::close() }}
         </div>
-        <div class="span1"></div>
+
     </div>
 @stop
