@@ -104,8 +104,9 @@ return array(
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "publisher_seller" => "Nombre / Razón Social",
-    "publisher_create" => "Guardar",
+    "publisher_create" => "Siguiente",
     "publisher_error" => "Ingrese todos los datos por favor",
+    "publisher_categories" => "Seleccione el sector de negocio",
 
     "backend_email" => "Correo",
     "backend_full_name" => "Apellido y Nombre",

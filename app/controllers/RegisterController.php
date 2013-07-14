@@ -31,17 +31,20 @@ class RegisterController extends BaseController{
             )
         );
 
-
         return Redirect::to('registro/datos-publicador');
     }
 
     public function getDatosPublicador(){
 
-
-        return View::make('publisher_data')->with(array("states"=>State::lists('name','id')));
+        return View::make('register_step2')->with(
+            array(
+                "states"=>State::lists('name','id'),
+                "categories"=>Category::parents()->get()
+            )
+        );
     }
 
-    public  function postPublicador(){
+    public  function postStep2(){
 
         $validator = Validator::make(Input::all(),self::registroPublicadorReglas());
 
@@ -76,7 +79,8 @@ class RegisterController extends BaseController{
             'publisher_media' => 'required',
             'publisher_state' => 'required',
             'publisher_city' => 'required',
-            'publisher_phone1' => 'required'
+            'publisher_phone1' => 'required',
+            'publisher_categories' => 'required'
         );
     }
 
