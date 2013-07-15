@@ -18,9 +18,11 @@
                             <div class="control-group @if($errors->has('publisher_type')) error @endif">
                                 {{ Form::select('publisher_type',
                                     array(
+                                            '' => Lang::get('content.select'),
                                             'Person' => Lang::get('content.publisher_type_person'),
-                                            'Business' => Lang::get('content.publisher_type_business')),
-                                    'Person',
+                                            'Business' => Lang::get('content.publisher_type_business')
+                                    ),
+                                    Input::old('publisher_type'),
                                     array('class'=>'input-block-level')
                                 ) }}
                             </div>
@@ -36,7 +38,11 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group @if($errors->has('publisher_state')) error @endif">
-                                {{ Form::select('publisher_state',$states,Input::old('publisher_type'),array('class'=>'input-block-level')) }}
+                                {{ Form::select('publisher_state',
+                                    array_merge(array('' => Lang::get('content.select')),$states),
+                                    Input::old('publisher_state'),
+                                    array('class'=>'input-block-level'))
+                                }}
                             </div>
                         </div>
                         <div class="span6">

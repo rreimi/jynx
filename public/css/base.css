@@ -2,6 +2,7 @@
 
 body {
     font-size:12px;
+    padding-top: 54px;
 }
 
 .login{
@@ -10,16 +11,12 @@ body {
 }
 
 .login .initial{
-    padding-top: 100px;
-}
-
-.login .step{
-    padding-top: 20px;
+    padding-top: 46px;
 }
 
 .login .initial .hello{
     background: rgba(0,0,0, 0.6);
-    height: 288px;
+    height: 327px;
     color: #fff;
 }
 

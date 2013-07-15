@@ -16,6 +16,7 @@
             </div>
             <div class="span4">
                 {{ Form::open(array('url' => 'login','class'=>'big-form')) }}
+                <h4 class='header'>{{ Lang::get('content.login_header') }}</h4>
                 <fieldset>
                     <div class="control-group @if($errors->has('login_email')) error @endif">
                         {{ Form::email('login_email',null,array('placeholder' => Lang::get('content.login_email'),'class' => 'input-block-level')) }}

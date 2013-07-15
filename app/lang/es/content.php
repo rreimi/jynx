@@ -112,6 +112,7 @@ return array(
     "login_remember" => "Recuerdame",
     "login_signin" => "Entrar",
     "login_error" => "Verifique su usuario y contraseña ",
+    "login_header" => "Ingresa",
 
     "register_email" => "Dirección de correo",
     "register_full_name" => "Nombre / Razón Social",
@@ -149,5 +150,7 @@ return array(
     "add_publication_image_success" => 'La imagen se ha cargado correctamente.',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente.',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen.',
+
+    "select" => "Seleccione",
 
 );

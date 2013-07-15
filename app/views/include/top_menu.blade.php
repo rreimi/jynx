@@ -1,4 +1,4 @@
-<div class="navbar">
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
 
@@ -17,23 +17,31 @@
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
+                    @if(Auth::check())
+                        <li><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
+                    @endif
+
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
-                    <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+
+                    @if(Auth::check())
+                        <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                    @endif
                 </ul>
-                <ul class="nav pull-right">
-                    <li class="divider-vertical"></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ URL::to('logout') }}">Salir</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                @if(Auth::check())
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ URL::to('logout') }}">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                @endif
             </div>
 
         </div>
