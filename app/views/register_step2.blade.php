@@ -131,6 +131,16 @@
                 $('option:not(.default)', '.publisher_id_type').remove();
             }
         });
+
+        //TODO insisto debe existir una mejor forma de hacer esto
+        if(jQuery('.publisher_type').val()=='Person'){
+            $('.publisher_id_type').append(new Option('V-', 'V-')).append(new Option('E-', 'E-'));
+        }else if(jQuery('.publisher_type').val()=='Business'){
+            $('.publisher_id_type').append(new Option('J-', 'J-')).append(new Option('G-', 'G-'));
+        }
+
+        jQuery('.publisher_id_type').val("{{ Input::old('publisher_id_type','') }}");
+        
     </script>
 @stop
 
