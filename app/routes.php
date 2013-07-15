@@ -33,6 +33,8 @@ Route::controller('publicacion','PublicationController');
 
 Route::controller('dashboard','BackendController');
 
+Route::controller('publicidad', 'AdvertisingController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');
