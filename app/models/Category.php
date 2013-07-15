@@ -28,4 +28,8 @@ class Category extends Eloquent {
         return $this->belongsToMany('Publication', 'publications_categories');
     }
 
+    public function publishers(){
+        return $this->belongsToMany('Publisher','publishers_categories');
+    }
+
 }

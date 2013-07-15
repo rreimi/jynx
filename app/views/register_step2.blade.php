@@ -72,7 +72,7 @@
                             @endif
 
                             <label class="span3 checkbox">
-                                {{ Form::checkbox('publisher_categories',$category->id) }}
+                                {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,Input::old('publisher_categories',array()))) }}
                                 {{ $category->name }}
                             </label>
 

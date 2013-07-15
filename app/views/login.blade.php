@@ -5,12 +5,9 @@
             <div class="span1"></div>
             <div class="span6">
                 <div class="hero-unit hello">
-                    <h3>Bienvenido a Mercatino</h3>
+                    <h3>{{ Lang::get('content.site_welcome') }}</h3>
                     <p>
-                        bla bla bla bla bla bla bla bla bla bla
-                        bla bla bla bla bla bla bla bla bla bla
-                        bla bla bla bla bla bla bla bla bla bla
-                        bla bla bla bla bla bla bla bla bla bla
+                        {{ Lang::get('content.site_description') }}
                     </p>
                 </div>
             </div>

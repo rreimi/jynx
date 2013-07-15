@@ -54,7 +54,9 @@ class RegisterController extends BaseController{
 
         $publisher = new Publisher();
 
-        $publisher->user_id=Auth::user()->id;
+        $userId=Auth::user()->id;
+
+        $publisher->user_id=$userId;
         $publisher->publisher_type=Input::get('publisher_type');
         $publisher->seller_name=Input::get('publisher_seller');
         $publisher->rif_ci=Input::get('publisher_id');
@@ -64,10 +66,27 @@ class RegisterController extends BaseController{
         $publisher->phone2=Input::get('publisher_phone2');
         $publisher->media=Input::get('publisher_media');
 
-        $publisher->save();
+        DB::transaction(function() use ($publisher,$userId){
 
-        return Redirect::to('/');
+            $publisher->save();
 
+            $publisher->categories()->sync(Input::get('publisher_categories'));
+
+            $user=User::find($userId);
+
+            $user->role=User::ROLE_PUBLISHER;
+
+            $user->save();
+
+        });
+
+        return Redirect::to('registro/datos-contactos');
+
+    }
+
+    public function getDatosContactos(){
+
+        return View::make('register_step3');
     }
 
     private function registroPublicadorReglas(){

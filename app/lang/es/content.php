@@ -138,6 +138,8 @@ return array(
     "publisher_error" => "Ingrese todos los datos por favor",
     "publisher_categories" => "Seleccione el sector de negocio",
 
+    "contacts_header" => "Agrega tus contactos",
+
     "backend_email" => "Correo",
     "backend_full_name" => "Apellido y Nombre",
     "backend_seller" => "Nombre / Razón Social",
@@ -153,4 +155,7 @@ return array(
 
     "select" => "Seleccione",
 
+
+    "site_description"=> "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+    "site_welcome" => "Bienvenido a Mercatino",
 );
