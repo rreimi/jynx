@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
-
 class Category extends Eloquent {
 
 	/**
@@ -29,6 +26,10 @@ class Category extends Eloquent {
 
     public function publications() {
         return $this->belongsToMany('Publication', 'publications_categories');
+    }
+
+    public function publishers(){
+        return $this->belongsToMany('Publisher','publishers_categories');
     }
 
 }

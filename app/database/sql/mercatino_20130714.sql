@@ -11,7 +11,7 @@ USE `mercatino` ;
 CREATE  TABLE IF NOT EXISTS `mercatino`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(50) NOT NULL ,
-  `password` VARCHAR(50) NOT NULL ,
+  `password` VARCHAR(128) NOT NULL ,
   `role` ENUM('Admin','Basic','Publisher') NOT NULL ,
   `full_name` VARCHAR(80) NOT NULL ,
   `is_publisher` TINYINT(1) NOT NULL ,

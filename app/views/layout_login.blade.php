@@ -11,6 +11,9 @@
     {{ HTML::style('css/module.css') }}
 </head>
 <body class="login">
+    <header id="heading">
+        @include('include.top_menu')
+    </header>
     <div class="container">
         @yield('content')
     </div>

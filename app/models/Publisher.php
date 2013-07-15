@@ -17,4 +17,12 @@ class Publisher extends Eloquent {
         return $this->belongsTo('State');
     }
 
+    public function categories(){
+        return $this->belongsToMany('Category','publishers_categories');
+    }
+
+    public function user(){
+        return $this->hasOne('User','id');
+    }
+
 }

@@ -112,6 +112,7 @@ return array(
     "login_remember" => "Recuerdame",
     "login_signin" => "Entrar",
     "login_error" => "Verifique su usuario y contraseña ",
+    "login_header" => "Ingresa",
 
     "register_email" => "Dirección de correo",
     "register_full_name" => "Nombre / Razón Social",
@@ -133,8 +134,11 @@ return array(
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "publisher_seller" => "Nombre / Razón Social",
-    "publisher_create" => "Guardar",
+    "publisher_create" => "Siguiente",
     "publisher_error" => "Ingrese todos los datos por favor",
+    "publisher_categories" => "Seleccione el sector de negocio",
+
+    "contacts_header" => "Agrega tus contactos",
 
     "backend_email" => "Correo",
     "backend_full_name" => "Apellido y Nombre",
@@ -149,4 +153,9 @@ return array(
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente.',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen.',
 
+    "select" => "Seleccione",
+
+
+    "site_description"=> "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+    "site_welcome" => "Bienvenido a Mercatino",
 );
