@@ -88,7 +88,7 @@
 
         if (file.server_id != undefined) {
             jQuery.ajax({
-                url: {{ $publication->id}}+ '/' + file.server_id,
+                url: {{URL::to('publicacion/imagenes/'. $publication->id )}} + '/' + file.server_id,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result

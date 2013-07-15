@@ -16,7 +16,7 @@
         <div class="control-group {{ $errors->has('title') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.title') }}</label>
             <div class="controls">
-                {{ Form::text('title', $publication->title, array('placeholder'=> Lang::get('content.title'))) }}
+                {{ Form::text('title', $publication->title, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.title'))) }}
                 {{ $errors->first('title', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -85,6 +85,7 @@
         @endforeach
         </div>
 
+        @if (!is_null($publication->id))
         <div class="row-fluid">
             <h1></h1>
             <h2>{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
@@ -97,6 +98,7 @@
 
         </div><!--/row-fluid-->
         <br/>
+        @endif
 
         {{ Form::hidden('id', $publication->id) }}
         {{ Form::hidden('publisher_id', $publication->publisher_id) }}
@@ -139,6 +141,8 @@
             jQuery('input.chk-cat[value=' + jQuery(this).attr('data-parent-id') + ']').attr('checked', true);
         })
     });
+
+    @if (!is_null($publication->id))
 
     Dropzone.autoDiscover = false;
 
@@ -199,21 +203,22 @@
 
     myDropzone.on("removedfile", function(file) {
         /* File may not be accepted based on validations so it never get uploaded */
-
         if (file.server_id != undefined) {
             jQuery.ajax({
-                url: {{ $publication->id}}+ '/' + file.server_id,
-            type: 'DELETE',
-            success: function(result) {
-            // Do something with the result
-            showMessage("{{Lang::get('content.delete_publication_image_success')}}",'success');
-        },
-        error: function(result) {
-            showMessage("{{Lang::get('content.delete_publication_image_error')}}",'error');
+                url: "{{URL::to('publicacion/imagenes/' . $publication->id)}}" + "/" + file.server_id,
+                type: 'DELETE',
+                success: function(result) {
+                // Do something with the result
+                showMessage("{{Lang::get('content.delete_publication_image_success')}}",'success');
+                },
+                error: function(result) {
+                    showMessage("{{Lang::get('content.delete_publication_image_error')}}",'error');
+                }
+            });
         }
     });
-    }
-    });
+
+    @endif
 
     function showMessage(message, type) {
         jQuery('.form-message-box').hide();
@@ -223,6 +228,8 @@
         jQuery('.form-message-box').show();
         //setTimeout("jQuery('.form-message-box').hide()", 5000);
     }
+
+
 
 
 </script>

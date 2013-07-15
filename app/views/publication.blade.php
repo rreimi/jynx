@@ -28,7 +28,6 @@
             @if ($publication->publisher_id == Auth::user()->publisher->id)
                 <br/>
                 <a class="action btn btn-mini btn-info" href="{{URL::to('publicacion/editar/' . $publication->id)}}">{{Lang::get('content.edit')}}</a>
-                <a class="action btn btn-mini btn-success" href="{{URL::to('publicacion/imagenes/' . $publication->id)}}">{{Lang::get('content.edit_images')}}</a>
             @endif
         </h1>
         <div class="publisher-info">
