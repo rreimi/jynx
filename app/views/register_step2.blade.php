@@ -10,23 +10,33 @@
                 <fieldset>
                     <div class="row-fluid">
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_id')) error @endif">
-                                {{ Form::text('publisher_id',null,array('placeholder' => Lang::get('content.publisher_id'),'class' => 'input-block-level')) }}
-                            </div>
-                        </div>
-                        <div class="span6">
                             <div class="control-group @if($errors->has('publisher_type')) error @endif">
                                 {{ Form::select('publisher_type',
                                     array(
-                                            '' => Lang::get('content.select'),
-                                            'Person' => Lang::get('content.publisher_type_person'),
-                                            'Business' => Lang::get('content.publisher_type_business')
+                                        '' => Lang::get('content.select'),
+                                        'Person' => Lang::get('content.publisher_type_person'),
+                                        'Business' => Lang::get('content.publisher_type_business')
                                     ),
                                     Input::old('publisher_type'),
-                                    array('class'=>'input-block-level')
+                                    array('class'=>'input-block-level publisher_type')
                                 ) }}
                             </div>
                         </div>
+                        <div class="span2">
+                            <div class="control-group @if($errors->has('publisher_id_type')) error @endif">
+                                {{ Form::select('publisher_id_type',
+                                    array('' => Lang::get('content.select')),
+                                    Input::old('publisher_id_type'),
+                                    array('class'=>'input-block-level publisher_id_type')
+                                ) }}
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group @if($errors->has('publisher_id')) error @endif">
+                                {{ Form::text('publisher_id',null,array('placeholder' => Lang::get('content.publisher_id'),'class' => 'input-block-level numeric-only')) }}
+                            </div>
+                        </div>
+
                     </div>
                     <div class="control-group @if($errors->has('publisher_seller')) error @endif">
                         {{ Form::text('publisher_seller',Auth::user()->full_name,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level')) }}
@@ -98,3 +108,29 @@
         </div>
     </div>
 @stop
+
+@section('scripts')
+@parent
+    <script type="text/javascript">
+        jQuery('.numeric-only').numericField();
+        //TODO buscar la manera de que esto este por defecto en laravel o en algún otro lado
+        jQuery('option').each(function(i,object){
+            if(object.value==''){
+                $(object).addClass('default');
+            }
+        });
+
+        jQuery('.publisher_type').on('change',function(){
+            if(this.value=='Person'){
+                $('option:not(.default)', '.publisher_id_type').remove();
+                $('.publisher_id_type').append(new Option('V-', 'V-')).append(new Option('E-', 'E-'));
+            }else if(this.value=='Business'){
+                $('option:not(.default)', '.publisher_id_type').remove();
+                $('.publisher_id_type').append(new Option('J-', 'J-')).append(new Option('G-', 'G-'));
+            }else{
+                $('option:not(.default)', '.publisher_id_type').remove();
+            }
+        });
+    </script>
+@stop
+

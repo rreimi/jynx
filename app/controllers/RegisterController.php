@@ -38,8 +38,8 @@ class RegisterController extends BaseController{
 
         return View::make('register_step2')->with(
             array(
-                "states"=>State::lists('name','id'),
-                "categories"=>Category::parents()->get()
+                "states" => State::lists('name','id'),
+                "categories" => Category::parents()->get()
             )
         );
     }
@@ -59,7 +59,7 @@ class RegisterController extends BaseController{
         $publisher->user_id=$userId;
         $publisher->publisher_type=Input::get('publisher_type');
         $publisher->seller_name=Input::get('publisher_seller');
-        $publisher->rif_ci=Input::get('publisher_id');
+        $publisher->rif_ci=Input::get('publisher_id_type').Input::get('publisher_id');
         $publisher->state_id=Input::get('publisher_state');
         $publisher->city=Input::get('publisher_city');
         $publisher->phone1=Input::get('publisher_phone1');
@@ -140,7 +140,8 @@ class RegisterController extends BaseController{
             'publisher_state' => 'required',
             'publisher_city' => 'required',
             'publisher_phone1' => 'required',
-            'publisher_categories' => 'required'
+            'publisher_categories' => 'required',
+            'publisher_id_type' => 'required'
         );
     }
 

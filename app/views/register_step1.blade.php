@@ -14,7 +14,7 @@
             {{ Form::password('register_password_confirmation',array('placeholder' => Lang::get('content.register_password_confirmation'),'class' => 'input-block-level')) }}
         </div>
         <div class="register-controls text-right">
-            {{ Form::submit(Lang::get('content.publisher_signup'),array('class' => 'btn btn-warning')) }}
+            {{ Form::submit(Lang::get('content.register_signup'),array('class' => 'btn btn-warning')) }}
         </div>
         @if($errors->any())
             <div class="alert alert-error">{{ Lang::get('content.register_error') }}</div>
