@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="well">
-        <p>paja de instrucciones de como usar el backend, un well tal vez se vea mejor que hero-unit aqui en backend</p>
+        <p>instrucciones de como usar el backend, un well tal vez se vea mejor que hero-unit aqui en backend</p>
     </div>
     <div class="row-fluid">
         <table class="table table-bordered table-condensed">
