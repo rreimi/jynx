@@ -110,17 +110,17 @@ return array(
 
     "login_email" => "Dirección de correo",
     "login_password" => "Contraseña",
-    "login_remember" => "Recuerdame",
+    "login_remember" => "Recuérdame",
     "login_signin" => "Entrar",
     "login_error" => "Verifique su usuario y contraseña ",
-    "login_header" => "Ingresa",
+    "login_header" => "Ingresa si estás registrado",
 
     "register_email" => "Dirección de correo",
     "register_full_name" => "Nombre / Razón Social",
     "register_password" => "Contraseña",
     "register_password_confirmation" => "Confirme contraseña",
     "register_signup" => "Regístrate",
-    "register_header" => "Regístrate",
+    "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
 
@@ -139,6 +139,7 @@ return array(
     "publisher_error" => "Ingrese todos los datos por favor",
     "publisher_categories" => "Seleccione el sector de negocio",
     "publisher_finalize" => "Terminar",
+    "publisher_signup" => "Continuar",
 
     "contacts_header" => "Agrega tus contactos",
     "contact_add" => "Agregar",
@@ -165,6 +166,6 @@ return array(
     "select" => "Seleccione",
 
 
-    "site_description"=> "bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+    "site_description"=> "Mercatino es un site que permite promocionar el intercambio comercial en la comunidad venezolano-italiana y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas de la comunidad italiana o la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía de la comunidad y hacer negocios con más confianza y seguridad.",
     "site_welcome" => "Bienvenido a Mercatino",
 );
