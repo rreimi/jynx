@@ -89,8 +89,7 @@
                     {{ Form::submit(Lang::get('content.publisher_create'),array('class' => 'btn btn-large btn-warning')) }}
                 </div>
 
-                @if($errors->any() && ($errors->has('publisher_id') || $errors->has('publisher_seller') || $errors->has('publisher_media') ||
-                $errors->has('publisher_city') || $errors->has('publisher_phone1') || $errors->has('publisher_phone2')))
+                @if($errors->any())
                     <div class="alert alert-error">{{ Lang::get('content.publisher_error') }}</div>
                 @endif
                 {{ Form::close() }}

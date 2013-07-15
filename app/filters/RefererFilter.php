@@ -10,6 +10,6 @@
 
 class RefererFilter {
     public function filter($route, $request, $prefix) {
-        Session::put($prefix . '_referer', URL::previous());
+        Session::put($prefix . '_referer', URL::current());
     }
 }

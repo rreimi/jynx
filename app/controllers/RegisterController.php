@@ -86,8 +86,49 @@ class RegisterController extends BaseController{
 
     public function getDatosContactos(){
 
-        return View::make('register_step3');
+        $contacts=Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
+
+        return View::make('register_step3',
+            array(
+                'contacts'=>$contacts
+            )
+        );
     }
+
+    public function postStep3(){
+
+        $validator = Validator::make(Input::all(),self::registroContactoReglas());
+
+        if($validator->fails()){
+            return Redirect::to('registro/datos-contactos')->withErrors($validator)->withInput(Input::all());
+        }
+
+        $contact= new Contact();
+
+        $contact->publisher_id=Auth::user()->publisher->id;
+        $contact->email=Input::get('contact_email');
+        $contact->full_name=Input::get('contact_full_name');
+        $contact->address=Input::get('contact_address');
+        $contact->phone=Input::get('contact_phone');
+        $contact->city=Input::get('contact_city');
+
+        $contact->save();
+
+        return Redirect::to('registro/datos-contactos');
+
+    }
+
+    private function registroContactoReglas(){
+
+        return array(
+            'contact_full_name' => 'required',
+            'contact_email' => 'required',
+            'contact_address' => 'required',
+            'contact_city' => 'required',
+            'contact_phone' => 'required',
+        );
+    }
+
 
     private function registroPublicadorReglas(){
 
