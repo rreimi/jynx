@@ -137,8 +137,16 @@ return array(
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingrese todos los datos por favor",
     "publisher_categories" => "Seleccione el sector de negocio",
+    "publisher_finalize" => "Terminar",
 
     "contacts_header" => "Agrega tus contactos",
+    "contact_add" => "Agregar",
+    "contact_full_name" => "Apellido y Nombre",
+    "contact_phone" => "Teléfono",
+    "contact_address" => "Dirección",
+    "contact_city" => "Ciudad",
+    "contact_email" => "Correo",
+    "contact_not_found" => "No ha agregado contactos",
 
     "backend_email" => "Correo",
     "backend_full_name" => "Apellido y Nombre",
