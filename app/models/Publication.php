@@ -26,7 +26,7 @@ class Publication extends Eloquent {
 	//protected $hidden = array('password');
 
     public function scopeMostvisited($query){
-        $query->orderBy('visits_number', 'desc')->take(3);
+        $query->orderBy('visits_number', 'desc')->take(4);
     }
 
     public function scopeParents($query) {

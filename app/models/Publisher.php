@@ -17,4 +17,7 @@ class Publisher extends Eloquent {
         return $this->belongsTo('State');
     }
 
+    public function user() {
+        return $this->hasOne('User', 'id');
+    }
 }

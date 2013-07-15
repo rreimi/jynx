@@ -9,7 +9,7 @@ class PublicationController extends BaseController {
 
     public function __construct() {
 
-        $this->beforeFilter('referer:publication', array('only' => array('getCrear', 'getEditar')));
+        $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
 
         View::share('categories', self::getCategories());
         View::share('detailSize', self::$detailSize);
@@ -123,6 +123,11 @@ class PublicationController extends BaseController {
         return $state;
     }
 
+    /**
+     * Solo si es publisher
+     *
+     * @return mixed
+     */
     public function getCrear() {
 
         /* Get the current user publications list */
@@ -151,29 +156,9 @@ class PublicationController extends BaseController {
     }
 
     /**
-     * Show publication images admin form
-     *
-     * @param $id the publication id
-     * @return mixed
-     */
-    public function getImagenes($id){
-
-        $publication = Publication::with('images')->find($id);
-
-        //echo ($publication);
-        //die;
-
-        return View::make('publication_images_form',
-            array('pub_statuses' => self::getPublicationStatuses(),
-             'publication' => $publication,
-             'categories' => self::getCategories(),
-             'id' => $id
-            )
-         );
-    }
-
-    /**
      * @ajax
+     *
+     * Necesito comprobar que sea un publisher y que la publicacion pasada por id sea de el
      *
      * Process publication images form, link image to publication
      *
@@ -269,6 +254,12 @@ class PublicationController extends BaseController {
 
     }
 
+    /**
+     * Load publication for edit
+     *
+     * @param $id       the publication id
+     * @return mixed
+     */
     public function getEditar($id) {
 
         if (is_null(Input::old('referer'))) {
@@ -287,13 +278,12 @@ class PublicationController extends BaseController {
 
         $pubCats = array();
 
-        //TODO REVISAR SI SE DESMARCA UNA , COMO APARECE
         foreach ($pub->categories as $cat) {
             $pubCats[] = $cat->id;
         }
 
         if (is_array(Input::old('categories'))){
-            $pubCats = array_merge($pubCats, Input::old('categories'));
+            $pubCats = Input::old('categories');
         }
 
         return View::make('publication_form',
@@ -385,9 +375,9 @@ class PublicationController extends BaseController {
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
 
-            Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
+            //Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
             //Redirect to publication images
-            return Redirect::to('publicacion/imagenes/'.$pub->id);
+            return Redirect::to('publicacion/editar/'.$pub->id . '#imagenes');
 
         } else {
 

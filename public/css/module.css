@@ -21,8 +21,10 @@ h2 {
 }
 
 .pub-title {
-    font-size: 1.4em;
+    font-size: 1.1em;
     line-height: 1.1em;
+    font-weight: bold;
+    height: 2.0em;
 }
 
 .pub-line {
@@ -31,7 +33,7 @@ h2 {
 
 .put-info-box {
     position: relative;
-    height: 270px;
+    height: 250px;
 }
 
 .put-info-box img {
@@ -42,7 +44,7 @@ h2 {
 .pub-info-desc {
     position: absolute;
     background-color: rgba(190, 190, 190, 0.1);
-    bottom: 1em;
+    bottom: 0;
     width: 94%;
     padding: 0 3% 2% 3%;
 }
@@ -50,6 +52,10 @@ h2 {
 .pub-thumb {
     border: 1px solid #eee;
     margin-bottom: 1em;
+}
+
+.pub-thumb:hover {
+    border:1px solid #aaa;
 }
 
 .pub-images-carousel {

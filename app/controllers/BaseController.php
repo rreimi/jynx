@@ -4,7 +4,7 @@ class BaseController extends Controller {
 
     protected $pageSort;
     protected $pageOrder;
-    protected static $thumbSize = array('width' => 190, 'height' => 190);
+    protected static $thumbSize = array('width' => 150, 'height' => 150);
     protected static $detailSize = array('width' => 300, 'height' => 300);
 
 

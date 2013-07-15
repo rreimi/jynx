@@ -70,6 +70,7 @@ return array(
     "edit_images" => "Imágenes",
     "see" => "Ver",
     "edit" => "Editar",
+    "delete" => "Eliminar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
     "continue"  => "Continuar",
