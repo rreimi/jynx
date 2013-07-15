@@ -78,6 +78,32 @@ return array(
     "remove_image" => "Eliminar Imagen",
     "add_images_msg" => "Arrastre las imágenes o haga click para cargarlas",
 
+    // Advertising
+    "name" => "Nombre publicidad",
+    'status' => 'Estatus',
+    "image_url" => "Imagen",
+    "external_url" => "Url externa",
+    "first_name" => "Nombre",
+    "last_name" => "Apellido",
+    "email" => "Correo",
+    "phone1" => "Teléfono 1",
+    "phone2" => "Teléfono 2",
+    "advertising_images" => "Imagen para esta publicidad",
+    "advertisings" => "Publicidades",
+
+    //Advertising status
+    'status_draft' => 'Borrador',
+    'status_published' => 'Publicada',
+    'status_trashed' => 'Deshechada',
+
+    // Options
+    "new_advertising" => "Nueva publicidad",
+    "edit_advertising" => "Editar publicidad",
+    "continue" => "Continuar",
+
+    // Search
+    "advertisings_search_placeholder" => "Buscar...",
+
     //Date format
     "date_format" => 'dd-mm-aaaa',
 
