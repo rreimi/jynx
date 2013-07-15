@@ -62,8 +62,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="register-controls text-right">
-                        <a class="btn btn-large btn-success" href="{{ URL::to('/') }}">{{ Lang::get('content.publisher_finalize') }}</a>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <a class="btn btn-large btn-success pull-right" href="{{ URL::to('/') }}">{{ Lang::get('content.publisher_finalize') }}</a>
+                        </div>
                     </div>
                 </div>
                 {{ Form::close() }}
