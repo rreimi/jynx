@@ -17,8 +17,10 @@
     <div class="container">
         @yield('content')
     </div>
+    @section('scripts')
     {{ HTML::script('js/jquery-1.10.1.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/mercatino.js') }}
+    @show
 </body>
 </html>
