@@ -19,5 +19,6 @@
     </div>
     {{ HTML::script('js/jquery-1.10.1.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
+    {{ HTML::script('js/mercatino.js') }}
 </body>
 </html>
