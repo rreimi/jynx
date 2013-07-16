@@ -141,9 +141,9 @@ return array(
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
 
-    "contacts_header" => "Agrega tus contactos",
+    "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
-    "contact_full_name" => "Apellido y Nombre",
+    "contact_full_name" => "Persona de Contacto o Distribuidor",
     "contact_phone" => "Teléfono",
     "contact_address" => "Dirección",
     "contact_city" => "Ciudad",
