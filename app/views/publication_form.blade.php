@@ -86,6 +86,7 @@
         </div>
 
         @if (!is_null($publication->id))
+        <a href="#imagenes"></a>
         <div class="row-fluid">
             <h1></h1>
             <h2>{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
@@ -180,12 +181,12 @@
         @foreach ($publication->images as $img)
         var mockFile = { name: "{{ $img->image_url }}", size: 0, server_id : {{ $img->id }} };
 
-    // Call the default addedfile event handler
-    myDropzone.options.addedfile.call(myDropzone, mockFile);
+        // Call the default addedfile event handler
+        myDropzone.options.addedfile.call(myDropzone, mockFile);
 
-    // And optionally show the thumbnail of the file:
-    myDropzone.options. thumbnail.call(myDropzone, mockFile, "{{URL::to('uploads/pub/' . $publication->id . '/' . $img->image_url )}}");
-    // Create the mock file:
+        // And optionally show the thumbnail of the file:
+        myDropzone.options. thumbnail.call(myDropzone, mockFile, "{{URL::to('uploads/pub/' . $publication->id . '/' . $img->image_url )}}");
+        // Create the mock file:
     @endforeach
     }());
 

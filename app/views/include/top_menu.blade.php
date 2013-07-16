@@ -10,7 +10,7 @@
             </a>
 
             <!-- Be sure to leave the brand out there if you want it shown -->
-            <a class="brand" href="{{URL::to('/')}}">{{ $title }}</a>
+            <a class="brand" href="{{URL::to('/')}}">{{ HTML::image('img/logo.png')}}</a>
 
 
 
