@@ -22,25 +22,44 @@ if (jQuery) {
             });
         });
     };// JavaScript Document
+
+    (function($) {
+        $.wait = function(time) {
+            return $.Deferred(function(dfd) {
+                setTimeout(dfd.resolve, time); // use setTimeout internally.
+            }).promise();
+        }
+    }(jQuery));
 }
 
 var Messages={
     configErrors:function(laravelMessages,title){
 
         var messages=[];
-        var title=title;
 
         for(var property in laravelMessages){
-            messages=(messages.concat(laravelMessages[property]));
+            if(laravelMessages.hasOwnProperty(property)){
+                messages=(messages.concat(laravelMessages[property]));
+            }
         }
 
         function show(){
+            var time=0;
             for(var i=0;i<messages.length;i++){
-                $.pnotify({
-                    title: title,
-                    text: messages[i],
-                    type: 'error'
-                });
+
+                setTimeout(function(message){
+                    function showInternal(){
+                        $.pnotify({
+                            title: title,
+                            text: message,
+                            type: 'error'
+                        });
+                    }
+                    return {
+                        showInternal:showInternal
+                    }
+
+                }(messages[i]).showInternal,time+=500);
             }
         }
 
