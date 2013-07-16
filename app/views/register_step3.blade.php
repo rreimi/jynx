@@ -44,6 +44,7 @@
                                     <th>{{ Lang::get('content.contact_full_name') }}</th>
                                     <th>{{ Lang::get('content.contact_email') }}</th>
                                     <th>{{ Lang::get('content.contact_phone') }}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +58,7 @@
                                         <td>{{ $contact->full_name }}</td>
                                         <td>{{ $contact->email }}</td>
                                         <td>{{ $contact->phone }}</td>
+                                        <td><i class="xicon-remove"></i></td>
                                     </tr>
                                 @endforeach
                             </tbody>

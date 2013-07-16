@@ -34,9 +34,6 @@
                     <label class="checkbox">
                         {{ Form::checkbox('login_remember',true) }} {{ Lang::get('content.login_remember') }}
                     </label>
-                    @if($errors->any() && ($errors->has('login_email') || $errors->has('login_password')))
-                        <div class="alert alert-error">{{ Lang::get('content.login_error') }}</div>
-                    @endif
                 </fieldset>
                 {{ Form::close() }}
                 @include('register_step1')

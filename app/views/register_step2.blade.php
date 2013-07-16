@@ -140,7 +140,7 @@
         }
 
         jQuery('.publisher_id_type').val("{{ Input::old('publisher_id_type','') }}");
-        
+
     </script>
 @stop
 
