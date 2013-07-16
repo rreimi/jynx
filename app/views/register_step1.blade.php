@@ -13,11 +13,11 @@
         <div class="control-group @if($errors->has('register_password_confirmation')) error @endif">
             {{ Form::password('register_password_confirmation',array('placeholder' => Lang::get('content.register_password_confirmation'),'class' => 'input-block-level')) }}
         </div>
+        <label class="checkbox">
+            {{ Form::checkbox('register_conditions',true) }} {{ Lang::get('content.register_conditions') }}
+        </label>
         <div class="register-controls text-right">
             {{ Form::submit(Lang::get('content.register_signup'),array('class' => 'btn btn-warning')) }}
         </div>
-        @if($errors->any())
-            <div class="alert alert-error">{{ Lang::get('content.register_error') }}</div>
-        @endif
     </fieldset>
 {{ Form::close() }}

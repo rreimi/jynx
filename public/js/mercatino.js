@@ -1,3 +1,7 @@
+$.pnotify.defaults.history = false;
+
+$.pnotify.defaults.delay = 3000;
+
 if (jQuery) {
     // Numeric only control handler
     jQuery.fn.numericField = function() {
@@ -18,4 +22,30 @@ if (jQuery) {
             });
         });
     };// JavaScript Document
+}
+
+var Messages={
+    configErrors:function(laravelMessages,title){
+
+        var messages=[];
+        var title=title;
+
+        for(var property in laravelMessages){
+            messages=(messages.concat(laravelMessages[property]));
+        }
+
+        function show(){
+            for(var i=0;i<messages.length;i++){
+                $.pnotify({
+                    title: title,
+                    text: messages[i],
+                    type: 'error'
+                });
+            }
+        }
+
+        return {
+            show:show
+        }
+    }
 }

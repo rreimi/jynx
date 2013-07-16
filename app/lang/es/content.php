@@ -123,6 +123,7 @@ return array(
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
+    "register_conditions" => "Acepto terminos y condiciones",
 
     "publisher_header" => "Agrega tus datos de plublicador",
     "publisher_id" => "Rif / Cedula",
@@ -165,7 +166,7 @@ return array(
 
     "select" => "Seleccione",
 
-
     "site_description"=> "Mercatino es un site que permite promocionar el intercambio comercial en la comunidad venezolano-italiana y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas de la comunidad italiana o la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía de la comunidad y hacer negocios con más confianza y seguridad.",
     "site_welcome" => "Bienvenido a Mercatino",
+    "site_messages_title_error" => "Importante",
 );
