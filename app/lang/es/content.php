@@ -14,11 +14,11 @@ return array(
 	*/
 
     //Dashboard
-    "mostvisited_items" => "Los mas visitados",
-    "recent_items" => "Los mas recientes",
+    "mostvisited_items" => "Los más visitados",
+    "recent_items" => "Los más recientes",
 
     //Category, Search
-	"categories_title" => "Categorias",
+	"categories_title" => "Categorías",
     "sell_by"          => "Por",
     "see_product_detail" => "Ver detalle",
     "phone" => "Teléfono",
@@ -36,7 +36,7 @@ return array(
 
     //Publications
     "publication" => "Publicacion|Publicaciones",
-    "report_publication_msg"  => "Denunciar es te usuario por publicar contenido no apropiado <a href=\":url\">(Denunciar)</a>",
+    "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado <a href=\":url\">(Denunciar)</a>",
     "id" => "ID",
     "title" => "Título",
     "short_description" => "Descripción corta",
@@ -45,8 +45,8 @@ return array(
     "to_date" => "Hasta",
     "visits_number" => "Visitas",
     "created_at" => "Fecha de creación",
-    "categories_name" => "Categorias",
-    "publication_categories" => "Categorias para esta publicación",
+    "categories_name" => "Categorías",
+    "publication_categories" => "Categorías para esta publicación",
     "publication_images" => "Imágenes",
     "options" => "Opciones",
     'status' => 'Estatus',
@@ -79,8 +79,8 @@ return array(
     "continue"  => "Continuar",
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
-    "remove_image" => "Eliminar Imagen",
-    "add_images_msg" => "Arrastre las imágenes o haga click para cargarlas",
+    "remove_image" => "Eliminar imagen",
+    "add_images_msg" => "Arrastre las imágenes o haga clic para cargarlas",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -98,7 +98,7 @@ return array(
     //Advertising status
     'status_draft' => 'Borrador',
     'status_published' => 'Publicada',
-    'status_trashed' => 'Deshechada',
+    'status_trashed' => 'Eliminada',
 
     // Options
     "new_advertising" => "Nueva publicidad",
@@ -111,17 +111,17 @@ return array(
     //Date format
     "date_format" => 'dd-mm-aaaa',
 
-    "login_email" => "Dirección de correo",
+    "login_email" => "Correo electrónico",
     "login_password" => "Contraseña",
     "login_remember" => "Recuérdame",
     "login_signin" => "Entrar",
-    "login_error" => "Verifique su usuario y contraseña ",
+    "login_error" => "Verifica tu usuario y contraseña ",
     "login_header" => "Ingresa si estás registrado",
 
-    "register_email" => "Dirección de correo",
+    "register_email" => "Correo electrónico",
     "register_full_name" => "Nombre / Razón Social",
     "register_password" => "Contraseña",
-    "register_password_confirmation" => "Confirme contraseña",
+    "register_password_confirmation" => "Confirmar contraseña",
     "register_signup" => "Regístrate",
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
@@ -132,7 +132,7 @@ return array(
     "publisher_id" => "Rif / Cédula",
     "publisher_type" => "Tipo de Persona",
     "publisher_type_person" => "Persona Natural",
-    "publisher_type_business" => "Persona Juridica",
+    "publisher_type_business" => "Persona Jurídica",
     "publisher_city" => "Ciudad",
     "publisher_state" => "Estado",
     "publisher_phone1" => "Teléfono 1",
@@ -140,28 +140,28 @@ return array(
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "publisher_seller" => "Nombre / Razón Social",
     "publisher_create" => "Siguiente",
-    "publisher_error" => "Ingrese todos los datos por favor",
-    "publisher_categories" => "Seleccione el sector de negocio",
+    "publisher_error" => "Ingresa todos los datos por favor",
+    "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
-    "contact_full_name" => "Persona de Contacto o Distribuidor",
+    "contact_full_name" => "Persona de contacto o distribuidor",
     "contact_phone" => "Teléfono",
     "contact_address" => "Dirección",
     "contact_city" => "Ciudad",
-    "contact_email" => "Correo",
-    "contact_not_found" => "No ha agregado contactos",
+    "contact_email" => "Correo electrónico",
+    "contact_not_found" => "No has agregado contactos",
 
-    "backend_email" => "Correo",
-    "backend_full_name" => "Apellido y Nombre",
+    "backend_email" => "Correo electrónico",
+    "backend_full_name" => "Nombre completo",
     "backend_seller" => "Nombre / Razón Social",
     "backend_id" => "Rif / Cédula",
-    "backend_phone" => "Teléfonos",
+    "backend_phone" => "Teléfono",
 
     //Flash messages
-    "add_publication_success" => 'La publicación se ha creado correctamente, aquí podra <strong>agregar las imagenes</strong> de su nueva publicación.',
+    "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrá <strong>agregar las imágenes</strong> de su nueva publicación.',
     "edit_publication_success" => 'La publicación se ha guardado correctamente.',
     "add_publication_image_success" => 'La imagen se ha cargado correctamente.',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente.',
