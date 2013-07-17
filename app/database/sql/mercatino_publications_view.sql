@@ -4,7 +4,7 @@ c.name
 ) ) AS categories_name, GROUP_CONCAT( DISTINCT (
 c.id
 ) ) AS categories_id, GROUP_CONCAT( DISTINCT (
-CONCAT( t.first_name, ' ', t.last_name ) )
+t.full_name )
 ) AS contacts, t.id AS contact_id
 FROM publications AS p
 LEFT JOIN publications_categories AS cp ON p.id = cp.publication_id
