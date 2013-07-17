@@ -147,7 +147,8 @@ return array(
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
-    "contact_full_name" => "Persona de contacto o distribuidor",
+    "contact_full_name" => "Persona de contacto",
+    "contact_distributor" => "Nombre de la distribuidora o sucursal",
     "contact_phone" => "Teléfono",
     "contact_address" => "Dirección",
     "contact_city" => "Ciudad",
