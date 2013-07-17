@@ -14,6 +14,10 @@
                                 {{ Form::text('contact_full_name',null,array('placeholder' => Lang::get('content.contact_full_name'),'class' => 'input-block-level')) }}
                             </div>
 
+                            <div class="control-group @if($errors->has('contact_distributor')) error @endif">
+                                {{ Form::text('contact_distributor',null,array('placeholder' => Lang::get('content.contact_distributor'),'class' => 'input-block-level')) }}
+                            </div>
+
                             <div class="control-group @if($errors->has('contact_email')) error @endif">
                                 {{ Form::text('contact_email',null,array('placeholder' => Lang::get('content.contact_email'),'class' => 'input-block-level')) }}
                             </div>

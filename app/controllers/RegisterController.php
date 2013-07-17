@@ -108,6 +108,7 @@ class RegisterController extends BaseController{
         $contact->publisher_id=Auth::user()->publisher->id;
         $contact->email=Input::get('contact_email');
         $contact->full_name=Input::get('contact_full_name');
+        $contact->distributor=Input::get('contact_distributor');
         $contact->address=Input::get('contact_address');
         $contact->phone=Input::get('contact_phone');
         $contact->city=Input::get('contact_city');
