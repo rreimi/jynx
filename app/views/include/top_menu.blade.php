@@ -23,7 +23,13 @@
 
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
 
+                    <li><a href="{{URL::to('')}}">{{Lang::get('content.partners')}}</a></li>
+
+                    <li><a href="{{URL::to('')}}">{{Lang::get('content.contact')}}</a></li>
+
                     @if(Auth::check())
+                        <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
+
                         <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                     @endif
                 </ul>

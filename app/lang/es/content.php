@@ -60,6 +60,9 @@ return array(
     //Menu
     "home" => "Inicio",
     "about_us" => "Nosotros",
+    "partners" => "Aliados",
+    "contact" => "Contacto",
+    "help" => "Ayuda",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "logout" => "Cerrar sesión",
@@ -123,10 +126,10 @@ return array(
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
-    "register_conditions" => "Acepto terminos y condiciones",
+    "register_conditions" => "Acepto términos y condiciones de servicio",
 
-    "publisher_header" => "Agrega tus datos de plublicador",
-    "publisher_id" => "Rif / Cedula",
+    "publisher_header" => "Datos para publicadores",
+    "publisher_id" => "Rif / Cédula",
     "publisher_type" => "Tipo de Persona",
     "publisher_type_person" => "Persona Natural",
     "publisher_type_business" => "Persona Juridica",
@@ -166,7 +169,7 @@ return array(
 
     "select" => "Seleccione",
 
-    "site_description"=> "Mercatino es un site que permite promocionar el intercambio comercial en la comunidad venezolano-italiana y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas de la comunidad italiana o la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía de la comunidad y hacer negocios con más confianza y seguridad.",
+    "site_description"=> "Mercatino es el punto de encuentro para promocionar el intercambio comercial en la comunidad venezolano-italiana en la web y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas asociadas a la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía en la comunidad y hacer negocios con más confianza y seguridad.",
     "site_welcome" => "Bienvenido a Mercatino",
     "site_messages_title_error" => "Importante",
 );

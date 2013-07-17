@@ -141,7 +141,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`advertisings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `status` ENUM('Draft','Published','Trashed') NOT NULL ,
-  `category_id` INT ,
+  `category_id` INT NULL ,
   `image_url` VARCHAR(200) NOT NULL ,
   `external_url` VARCHAR(200) NULL ,
   `full_name` VARCHAR(80) NOT NULL ,
@@ -167,6 +167,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `mercatino`.`contacts` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `full_name` VARCHAR(80) NOT NULL ,
+  `distributor` VARCHAR(50) NULL ,
   `email` VARCHAR(50) NULL ,
   `phone` VARCHAR(20) NULL ,
   `publisher_id` INT NOT NULL ,
