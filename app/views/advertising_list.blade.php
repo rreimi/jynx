@@ -58,6 +58,7 @@
         @endforeach
         </tbody>
     </table>
+    {{ $advertisings->links() }}
 </div><!--/row-fluid-->
 
 @stop

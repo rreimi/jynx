@@ -7,17 +7,33 @@
 
 @section('content')
 
-<div class="hero-unit">
-    <!--                <h1>Hello, world!</h1>-->
-    <!--                <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>-->
-    <!--                <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>-->
-</div>
+
+<?php //var_dump($activeadvertisings); die(); ?>
+
+<div id="home-banner-top" class="float-right home-banner-top-carousel carousel slide">
+
+    <ol class="carousel-indicators">
+        @foreach ($activeadvertisings as $key => $adv)
+        <li data-target="#home-banner-top" data-slide-to="{{ $key }}" @if ($key == 0) class="active" @endif></li>
+        @endforeach
+    </ol>
+
+    <div class="carousel-inner">
+        @foreach ($activeadvertisings as $key => $adv)
+        <div class="item @if ($key == 0) active @endif">
+            <img class="home-banner-top-img-medium"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])  }}" alt="{{ $adv->name }}"/>
+        </div>
+        @endforeach
+    </div>
+
+    <!--a data-slide="prev" href="#home-banner-top" class="left carousel-control">‹</a-->
+    <!--a data-slide="next" href="#home-banner-top" class="right carousel-control">›</a-->
+</div><!-- pub-images-box -->
 
 <h2>{{Lang::get('content.mostvisited_items')}}</h2>
-<ul class="row-fluid  most-visited-items dashboard-item-list">
+<ul class="row-fluid most-visited-items dashboard-item-list">
     @foreach ($mostvisited as $key => $pub)
     <div class="span3 pub-thumb">
-
         <div class="put-info-box">
             @if (isset($pub->images[0]))
             <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
@@ -60,3 +76,13 @@
 
 @stop
 
+@section('scripts')
+@parent
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.carousel').carousel({
+            interval: 8000
+        });
+    });
+</script>
+@stop

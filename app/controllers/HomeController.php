@@ -22,6 +22,7 @@ class HomeController extends BaseController {
         //$this->beforeFilter('auth', array('only' => array('getList')));
         View::share('categories', self::getCategories());
         View::share('thumbSize', self::$thumbSize);
+        View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
 
     }
 
@@ -33,6 +34,7 @@ class HomeController extends BaseController {
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
+        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
         $data['mostvisited'] = Publication::mostvisited()->get();
         $data['recent'] = Publication::orderBy('created_at', 'desc')->take(4)->get();
 
