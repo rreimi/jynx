@@ -36,7 +36,7 @@ class HomeController extends BaseController {
         /* Cargar la lista de productos con mayor número de visitas */
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
         $data['mostvisited'] = Publication::mostvisited()->get();
-        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(4)->get();
+        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(12)->get();
 
         //$data['mostvisited']->images();
         /* Cargar la lista de los últimos productos agregados */
