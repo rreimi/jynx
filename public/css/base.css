@@ -4,8 +4,8 @@ body {
     font-size:12px;
 }
 
-body > .container{
-    padding-top: 54px;
+.main-container{
+    padding-top: 64px;
 }
 
 .login{
@@ -14,7 +14,7 @@ body > .container{
 }
 
 .login .initial{
-    padding-top: 46px;
+    padding-top: 36px;
 }
 
 .login .initial .hello{

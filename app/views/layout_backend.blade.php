@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container main-container">
     <header id="heading">
         @include('include.top_menu')
     </header>

@@ -16,6 +16,21 @@
 
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
+                @if(Auth::check())
+                <ul class="nav pull-right">
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ URL::to('logout') }}">Salir</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @endif
                 <ul class="nav">
                     @if(Auth::check())
                         <li><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
@@ -33,21 +48,7 @@
                         <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                     @endif
                 </ul>
-                @if(Auth::check())
-                    <ul class="nav pull-right">
-                        <li class="divider-vertical"></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="{{ URL::to('logout') }}">Salir</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                @endif
+
             </div>
 
         </div>

@@ -16,13 +16,25 @@
                 <h4 class='header'>{{ Lang::get('content.login_header') }}</h4>
                 <fieldset>
                     <div class="control-group @if($errors->has('login_email')) error @endif">
-                        {{ Form::email('login_email',null,array('placeholder' => Lang::get('content.login_email'),'class' => 'input-block-level')) }}
+                        {{ Form::email('login_email',null,
+                            array(
+                                'placeholder' => Lang::get('content.login_email'),
+                                'class' => 'input-block-level required',
+                                'data-content'=>'xxxx'
+                            )
+                        ) }}
                     </div>
 
                     <div class="row-fluid">
                         <div class="span9">
                             <div class="control-group @if($errors->has('login_password')) error @endif">
-                                {{ Form::password('login_password',array('placeholder' => Lang::get('content.login_password'),'class' => 'input-block-level')) }}
+                                {{ Form::password('login_password',
+                                    array(
+                                        'placeholder' => Lang::get('content.login_password'),
+                                        'class' => 'input-block-level required',
+                                        'data-content'=>'xxxx'
+                                    )
+                                ) }}
                             </div>
                         </div>
                         <div class="span3">
