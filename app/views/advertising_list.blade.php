@@ -13,7 +13,7 @@
         {{Form::text('q', $state['q'], array('class' => 'input-medium filter-field', 'placeholder' => Lang::get('content.publications_search_placeholder')))}}
         <button class="btn btn-warning" type="submit">{{Lang::get('content.search')}}</button>
 
-        <a href="{{URL::to('publicidad/crear')}}" class="btn btn-info  pull-right">{{Lang::get('content.new_advertising')}}</a>
+        <a href="{{URL::to('publicidad/crear')}}" class="btn-small btn-info  pull-right">{{Lang::get('content.new_advertising')}}</a>
     </div>
 
     <div class="span11 pub-list-filters">
@@ -32,9 +32,6 @@
             <th>{{Lang::get('content.external_url')}}</th>
             <th>{{Lang::get('content.first_name')}}</th>
             <th>{{Lang::get('content.last_name')}}</th>
-            <th>{{Lang::get('content.email')}}</th>
-            <th>{{Lang::get('content.phone1')}}</th>
-            <th>{{Lang::get('content.phone2')}}</th>
             <th>-</th>
         </tr>
         </thead>
@@ -43,16 +40,14 @@
         <tr>
             <td>{{ $adv->id }}</td>
             <td>{{ $adv->name }}</td>
-            <td>{{ $adv->status }}</td>
+            <td>{{ Lang::get('content.status_'. $adv->status) }}</td>
             <td>{{ $adv->image_url }}</td>
             <td>{{ $adv->external_url }}</td>
             <td>{{ $adv->first_name }}</td>
             <td>{{ $adv->last_name }}</td>
-            <td>{{ $adv->email }}</td>
-            <td>{{ $adv->phone1 }}</td>
-            <td>{{ $adv->phone2 }}</td>
             <td>
-                <a href="{{URL::to('publicidad/editar/' . $adv->id)}}">{{Lang::get('content.edit')}}</a>
+                <a href="{{URL::to('publicidad/editar/' . $adv->id)}}">{{Lang::get('content.edit')}}</a> |
+                <a href="{{URL::to('publicidad/eliminar/' . $adv->id)}}">{{Lang::get('content.delete')}}</a>
             </td>
         </tr>
         @endforeach

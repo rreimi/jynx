@@ -84,7 +84,7 @@ return array(
 
     // Advertising
     "name" => "Nombre publicidad",
-    'status' => 'Estatus',
+    "status" => 'Estatus',
     "image_url" => "Imagen",
     "external_url" => "Url externa",
     "first_name" => "Nombre",
@@ -96,9 +96,9 @@ return array(
     "advertisings" => "Publicidades",
 
     //Advertising status
-    'status_draft' => 'Borrador',
-    'status_published' => 'Publicada',
-    'status_trashed' => 'Eliminada',
+    'status_Draft' => 'Borrador',
+    'status_Published' => 'Publicada',
+    'status_Trashed' => 'Eliminada',
 
     // Options
     "new_advertising" => "Nueva publicidad",

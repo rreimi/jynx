@@ -251,9 +251,8 @@ class AdvertisingController extends BaseController {
     private static function getAdvertisingStatuses($blankCaption = '') {
 
         $options = array (
-            'Draft' => Lang::get('content.status_draft'),
-            'Published' => Lang::get('content.status_published'),
-            'Trashed' => Lang::get('content.status_trashed'),
+            'Draft' => Lang::get('content.status_Draft'),
+            'Published' => Lang::get('content.status_Published'),
         );
 
         if (!empty($blankCaption)){
