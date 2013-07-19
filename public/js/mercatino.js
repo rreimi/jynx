@@ -23,44 +23,37 @@ if (jQuery) {
         });
     };// JavaScript Document
 
-    jQuery.fn.validateBootstrap = function(){
-        var eClass = 'alert-error';
-        var sClass = 'alert-success';
-        var wClass = 'alert-warning';
+    jQuery.fn.validateBootstrap = function(options){
+
+        options || (options = {});
+
+        var boxErrorClass = options.boxErrorClass || 'alert-error';
+        var placement = options.placement || 'right';
+        var messages = options.messages || {};
 
         return this.validate({
-//            unhighlight: function(element, errorClass, validClass) {
-//                if (element.type === 'radio') {
-//                    this.findByName(element.name).parent('div').parent('div').removeClass(eClass).addClass(sClass);
-//                } else {
-//                    $(element).parent('div').parent('div').removeClass(eClass).addClass(sClass);
-//                    $(element).popover('hide');
-//                }
-//            },
-//            highlight: function(element, errorClass, validClass) {
-//                if (element.type === 'radio') {
-//                    this.findByName(element.name).parent('div').parent('div').addClass(eClass).removeClass(sClass);
-//                } else {
-//                    $(element).parent('div').parent('div').addClass(eClass).removeClass(sClass);
-//                }
-//            },
-            errorPlacement: function(error, element) {
-                jQuery(element).popover('show');
-                setTimeout(function(element){
+            highlight:function(element, errorClass){
 
-                    function hide(){
-                        $(element).popover('hide');
-                    }
-
-                    return {
-                        hide:hide
-                    }
-
-                }(element).hide,3000);
             },
-            onkeyup: false,
-            onclick: false,
-            onsubmit: true
+            errorPlacement: function(error, element) {
+                jQuery(element).popover('destroy');
+                jQuery(element).popover(
+                    {
+                        content:error.text(),
+                        placement:jQuery(element).attr('data-placement') || placement
+                    }
+                ).popover('show');
+                jQuery(element).siblings('.popover').addClass(boxErrorClass);
+            },
+            onfocusout:function(element,event){
+                jQuery(element).popover('hide');
+            },
+            messages:messages,
+            onkeyup:false,
+            onclick:false,
+            focusInvalid:false,
+            focusCleanup:true,
+            onsubmit:true
 
         });
     };
@@ -82,7 +75,7 @@ var Messages={
 
                 setTimeout(function(message){
                     function showInternal(){
-                        $.pnotify({
+                        jQuery.pnotify({
                             title: title,
                             text: message,
                             type: 'error'

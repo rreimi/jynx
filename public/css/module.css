@@ -106,6 +106,21 @@ h2 {
 
 /* Dashboard */
 
+div#home-banner-top {
+    height: 250px;
+    width: 870px;
+}
+
+div#home-banner-top ol.carousel-indicators {
+    left: 395px;
+    margin: 0;
+    top: 230px;
+}
+
+div#home-banner-top .carousel-control {
+    margin-top: 0px;
+}
+
 .dashboard-item-list {
     margin-left:0;
 }

@@ -28,7 +28,6 @@
         <script type="text/javascript">
             jQuery(function(){
                 Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();
-                //jQuery('form').validateBootstrap();
             })
         </script>
     @show
