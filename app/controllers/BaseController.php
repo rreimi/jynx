@@ -6,6 +6,7 @@ class BaseController extends Controller {
     protected $pageOrder;
     protected static $thumbSize = array('width' => 150, 'height' => 150);
     protected static $detailSize = array('width' => 300, 'height' => 300);
+    protected static $bannerTopHomeSize = array('width' => 870, 'height' => 250);
 
 
     public function __construct(){
