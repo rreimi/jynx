@@ -85,3 +85,6 @@ body {
     transition: border linear .2s,box-shadow linear .2s;
 }
 
+.alert-error .popover-content{
+    padding:6px 8px;
+}
