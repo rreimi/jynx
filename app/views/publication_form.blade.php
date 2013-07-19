@@ -85,11 +85,14 @@
         @endforeach
         </div>
 
+        <div id="test-popover">
+
+        </div>
+
         @if (!is_null($publication->id))
-        <a href="#imagenes"></a>
+        <a name="imagenes"></a>
         <div class="row-fluid">
-            <h1></h1>
-            <h2>{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
+            <h2 id="imagenes-section-title" data-content="ahora puede" data-original-title="titulo">{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
             <div class="form-message-box alert alert-error">
 
             </div>
@@ -141,6 +144,21 @@
         jQuery('.chk-sub-cat').bind('click', function() {
             jQuery('input.chk-cat[value=' + jQuery(this).attr('data-parent-id') + ']').attr('checked', true);
         })
+
+        /* If anchor #images is received, go to images and show popover */
+
+        if (window.location.hash == '#imagenes') {
+
+            jQuery('#dropzone').popover({
+//                title: "{{Lang::get('content.help_publication_images_title')}}",
+                content: "{{Lang::get('content.help_publication_images')}}",
+                placement:'top',
+                html:true
+            });
+            setTimeout("jQuery('#dropzone').popover('show')", 1000);
+        }
+
+
     });
 
     @if (!is_null($publication->id))

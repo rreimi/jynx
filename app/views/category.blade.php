@@ -19,7 +19,6 @@
                         <h2 class="pub-title">{{ $pub->title }}</h2>
                         <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
                         <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
-                        <br/><a class="btn see-pub-link" href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">{{Lang::get('content.see_product_detail')}} &raquo;</a>
                     </div>
                 </div>
             </div><!--/span-->

@@ -25,7 +25,6 @@
         {{ HTML::script('js/jquery.pnotify.min.js') }}
         {{ HTML::script('js/mercatino.js') }}
         {{ HTML::script('js/jquery.validate.min.js') }}
-
         <script type="text/javascript">
             jQuery(function(){
                 Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();
@@ -33,5 +32,7 @@
             })
         </script>
     @show
+
+    {{ $errors }}
 </body>
 </html>
