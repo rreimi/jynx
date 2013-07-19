@@ -26,7 +26,11 @@ class Publication extends Eloquent {
 	//protected $hidden = array('password');
 
     public function scopeMostvisited($query){
-        $query->orderBy('visits_number', 'desc')->take(4);
+        return $query->orderBy('visits_number', 'desc')->take(4);
+    }
+
+    public function scopePublished($query){
+        return $query->where('status', 'Published');
     }
 
     public function scopeParents($query) {

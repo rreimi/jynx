@@ -19,6 +19,10 @@ class PublicationView extends Eloquent {
 	 */
 	//protected $hidden = array('password');
 
+    public function scopePublished($query){
+        return $query->where('status', 'Published');
+    }
+
     public function scopeParents($query) {
         return $query->where('category_id', '=', null);
     }
