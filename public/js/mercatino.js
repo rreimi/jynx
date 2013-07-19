@@ -100,3 +100,17 @@ var Messages={
         }
     }
 }
+
+var Mercatino = {};
+
+Mercatino.showFlashMessage = function(object){
+    $.pnotify({
+        title: object.title,
+        text: object.message,
+        type: object.type
+    });
+};
+
+
+
+
