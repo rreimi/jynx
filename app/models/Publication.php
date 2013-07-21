@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
-
 class Publication extends Eloquent {
 
     protected $softDelete = true;
@@ -27,6 +24,10 @@ class Publication extends Eloquent {
 
     public function scopeMostvisited($query){
         $query->orderBy('visits_number', 'desc')->take(12);
+    }
+
+    public function scopePublished($query){
+        return $query->where('status', 'Published');
     }
 
     public function scopeParents($query) {

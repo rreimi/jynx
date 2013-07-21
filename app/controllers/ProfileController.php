@@ -23,10 +23,17 @@ class ProfileController extends BaseController{
 
     public function getIndex(){
 
+
+        $categoriesSelected=array();
+        foreach(Auth::user()->publisher->categories AS $category){
+            array_push($categoriesSelected,$category->id);
+        }
+
         return View::make('profile',
             array(
                 'user'=>Auth::user(),
-                'states' => State::lists('name','id')
+                'states' => State::lists('name','id'),
+                'categoriesSelected' => $categoriesSelected
             )
         );
     }

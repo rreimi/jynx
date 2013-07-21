@@ -39,6 +39,8 @@ Route::controller('publicidad', 'AdvertisingController');
 
 Route::controller('perfil', 'ProfileController');
 
+Route::controller('contacto','ContactController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');

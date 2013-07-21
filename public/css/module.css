@@ -12,6 +12,10 @@ h2 {
     font-weight: normal;
 }
 
+.clear-both {
+    clear:both;
+}
+
 .float-right {
     float:right;
 }
@@ -149,11 +153,6 @@ div#home-banner-top .carousel-control {
     min-height: 15em;
 }
 
-.navbar .nav {
-    float: right;
-    margin-top: 7px;
-}
-
 .navbar .nav > li > a {
-    padding: 10px 25px;
+    padding: 16px 25px;
 }

@@ -127,3 +127,9 @@ body {
 .alert-error .popover-content{
     padding:6px 8px;
 }
+
+.table .table-cell-controls{
+    width: 118px;
+    padding: 0;
+    vertical-align: middle;
+}

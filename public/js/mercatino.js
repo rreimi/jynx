@@ -39,7 +39,7 @@ if (jQuery) {
                 jQuery(element).popover(
                     {
                         content:error.text(),
-                        placement:jQuery(element).attr('data-placement') || placement
+                        placement:jQuery(element).data('placement') || placement
                     }
                 ).popover('show');
                 jQuery(element).siblings('.popover').addClass(boxErrorClass);
@@ -93,3 +93,17 @@ var Messages={
         }
     }
 }
+
+var Mercatino = {};
+
+Mercatino.showFlashMessage = function(object){
+    $.pnotify({
+        title: object.title,
+        text: object.message,
+        type: object.type
+    });
+};
+
+
+
+

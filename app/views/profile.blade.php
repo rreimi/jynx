@@ -126,14 +126,13 @@
             </div>
             <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
             <div class="control-group">
-                <div class="controls">
                 @foreach ($categories as $key => $category)
                     @if ($key % 4 == 0)
                         <div class="row-fluid">
                     @endif
 
                     <label class="span3 checkbox checkbox-category">
-                        {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,Input::old('publisher_categories',array()))) }}
+                        {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
                         {{ $category->name }}
                     </label>
 
@@ -141,12 +140,62 @@
                         </div>
                     @endif
                 @endforeach
-                </div>
             </div>
+            {{ Form::close() }}
         @endif
+        @if(Auth::user()->isPublisher())
+            <h2 id="contactos">{{Lang::get('content.profile_edit_contacts')}}</h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ Lang::get('content.contact_full_name') }}</th>
+                    <th>{{ Lang::get('content.contact_email') }}</th>
+                    <th>{{ Lang::get('content.contact_phone') }}</th>
+                    <th>{{ Lang::get('content.contact_city') }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @if(count($user->publisher->contacts)==0)
+                <tr>
+                    <td colspan="5">{{ Lang::get('content.contact_not_found') }}</td>
+                </tr>
+                @endif
+                @foreach ($user->publisher->contacts as $contact)
+                <tr>
+                    <td>{{ $contact->full_name }}</td>
+                    <td>{{ $contact->email }}</td>
+                    <td>{{ $contact->phone }}</td>
+                    <td>{{ $contact->city }}</td>
+                    <td class="table-cell-controls">
+                        <div class="btn-group">
+                            <button class="btn"><i class="icon-search"></i></button>
+                            <button class="btn contact-edit" type="button" data-toggle="modal" data-target="#editContact" href=""><i class="icon-pencil"></i></button>
+                            <button class="btn"><i class="icon-remove"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
 
+
+<div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
 
     </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" >Save changes</button>
+    </div>
+</div>
+
 @stop
 
 @section('scripts')
@@ -159,6 +208,11 @@
                 })
                 .on('hide',function(){
                     jQuery('.btn-password').button('toggle');
+                });
+
+            jQuery('.contact-edit')
+                .on('click',function(){
+                    jQuery(this).data('id');
                 });
         });
     </script>

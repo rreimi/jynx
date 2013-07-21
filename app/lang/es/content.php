@@ -22,7 +22,7 @@ return array(
     "sell_by"          => "Por",
     "see_product_detail" => "Ver detalle",
     "phone" => "Teléfono",
-    "contacts" => "Contactos",
+    "contacts" => "Contactos, Sucursales, Distribuidores",
     "city" => "Ciudad",
     "state" => "Estado",
     "location" => "Ubicación",
@@ -174,7 +174,11 @@ return array(
     "site_welcome" => "Bienvenido a Mercatino",
     "site_messages_title_error" => "Importante",
 
-    "auth_menu_my_profile" => "Mi Perfil",
+    //Help
+    "help_publication_images_title" => "Imágenes de mi publicación",
+    "help_publication_images" => "La publicación se ha creado y ahora puede agregar las imágenes de su nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrastrela a la caja señalada o haga click en dicha caja.",
+
+    "auth_menu_my_profile" => "Editar Perfil",
 
     "profile" => "Perfil de usuario",
     "profile_edit" => "Edita tu perfil",
