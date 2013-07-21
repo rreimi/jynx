@@ -21,8 +21,8 @@
         {{ HTML::script('js/jquery-1.10.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/jquery.pnotify.min.js') }}
-        {{ HTML::script('js/mercatino.js') }}
         {{ HTML::script('js/jquery.validate.min.js') }}
+        {{ HTML::script('js/mercatino.js') }}
         <script type="text/javascript">
             jQuery(function(){
                 Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();

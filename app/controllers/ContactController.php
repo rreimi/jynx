@@ -12,6 +12,22 @@ class ContactController extends BaseController {
         $this->beforeFilter('previousReferer:contact', array('only' => array('postIndex')));
     }
 
+    public function getEditar($id){
+        return View::make('include.contact_edit',
+            array(
+                'contact'=>Contact::find($id)
+            )
+        );
+    }
+
+    public function getDetalle($id){
+        return View::make('include.contact_view',
+            array(
+                'contact'=>Contact::find($id)
+            )
+        );
+    }
+
     public function postIndex(){
 
         $referer = Session::get($this->prefix . '_referer');

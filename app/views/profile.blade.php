@@ -141,6 +141,7 @@
                     @endif
                 @endforeach
             </div>
+
             {{ Form::close() }}
         @endif
         @if(Auth::user()->isPublisher())
@@ -169,8 +170,8 @@
                     <td>{{ $contact->city }}</td>
                     <td class="table-cell-controls">
                         <div class="btn-group">
-                            <button class="btn"><i class="icon-search"></i></button>
-                            <button class="btn contact-edit" type="button" data-toggle="modal" data-target="#editContact" href=""><i class="icon-pencil"></i></button>
+                            <button class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}"><i class="icon-search"></i></button>
+                            <button class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}"><i class="icon-pencil"></i></button>
                             <button class="btn"><i class="icon-remove"></i></button>
                         </div>
                     </td>
@@ -179,22 +180,50 @@
                 </tbody>
             </table>
         @endif
+
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">{{ Lang::get('content.cancel') }}</button>
+                <button type="submit" class="btn btn-success">{{ Lang::get('content.save') }}</button>
+            </div>
+        </div>
+
     </div>
 
 
-<div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3>Modal header</h3>
-    </div>
-    <div class="modal-body">
+    {{ Form::open(array('url' => 'contact', 'class' => 'form-horizontal' )) }}
+        <div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>{{ Lang::get('profile.edit_contact') }}</h3>
+            </div>
+            <div class="modal-body">
 
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
+                <button class="btn btn-primary">{{ Lang::get('content.save') }}</button>
+            </div>
+
+        </div>
+    {{ Form::close() }}
+
+
+    <div id="viewContact" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{{ Lang::get('profile.view_contact') }}</h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">{{ Lang::get('content.close') }}</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal">Close</button>
-        <button class="btn btn-primary" >Save changes</button>
-    </div>
-</div>
+
+
 
 @stop
 
@@ -210,9 +239,19 @@
                     jQuery('.btn-password').button('toggle');
                 });
 
-            jQuery('.contact-edit')
+            jQuery('.modal-contact')
                 .on('click',function(){
-                    jQuery(this).data('id');
+                    var remote=jQuery(this).data('remote');
+                    var target=jQuery(this).data('target');
+
+                    jQuery.ajax({
+                        url: remote,
+                        cache: false,
+                        success: function(html){
+                            jQuery(target).children('.modal-body').html(html);
+                            jQuery(target).modal('show');
+                        }
+                    });
                 });
         });
     </script>
