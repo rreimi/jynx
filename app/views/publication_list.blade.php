@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row-fluid">
-        <h1>{{Lang::get('content.my_publications')}} <a href="{{URL::to('publicacion/crear')}}" class="btn btn-info btn-mini ">{{Lang::get('content.new_publication')}}</a></h1>
+        <h1>{{Lang::get('content.my_publications')}} <a href="{{URL::to('publicacion/crear')}}" class="btn btn-info btn-small ">{{Lang::get('content.new_publication')}}</a></h1>
 
         {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'pub_list_form')) }}
         <div class="row-fluid pub-list-btn-group">

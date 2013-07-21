@@ -15,7 +15,6 @@
 <body>
 
 <div class="container main-container">
-
     <header id="heading">
         @include('include.top_menu')
     </header>
@@ -30,11 +29,6 @@
         </div>
 
         <div class="span9">
-            @if (!is_null(Session::get('flash_global_message')))
-                <div class="flash-global-message alert alert-success">
-                {{ Session::get('flash_global_message') }}
-                </div>
-            @endif
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->
@@ -51,6 +45,15 @@
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/mercatino.js') }}
 @show
+
+@if (!is_null(Session::get('flash_global_message')))
+<script type="text/javascript">
+    if (Mercatino) {
+        Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
+    }
+</script>
+@endif
 </body>
 </html>

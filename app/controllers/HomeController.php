@@ -19,7 +19,7 @@ class HomeController extends BaseController {
 	*/
 
     public function __construct() {
-        //$this->beforeFilter('auth', array('only' => array('getList')));
+        $this->beforeFilter('auth');
         View::share('categories', self::getCategories());
         View::share('thumbSize', self::$thumbSize);
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
@@ -35,8 +35,8 @@ class HomeController extends BaseController {
 
         /* Cargar la lista de productos con mayor número de visitas */
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = Publication::mostvisited()->get();
-        $data['recent'] = Publication::orderBy('created_at', 'desc')->take(12)->get();
+        $data['mostvisited'] = Publication::published()->mostvisited()->get();
+        $data['recent'] = Publication::published()->orderBy('created_at', 'desc')->take(12)->get();
 
         //$data['mostvisited']->images();
         /* Cargar la lista de los últimos productos agregados */
@@ -57,7 +57,7 @@ class HomeController extends BaseController {
 
         /* Load paginated category publications */
         //$data['publications'] = $data['category']->publications()->with('publisher')->paginate($this->page_size);
-        $data['publications'] = $data['category']->publications()->with('publisher','images')->paginate($this->page_size);
+        $data['publications'] = $data['category']->publications()->published()->with('publisher','images')->paginate($this->page_size);
 
 //        foreach ($data['publications'] as $item) {
 //            echo $item->publisher;
@@ -94,7 +94,7 @@ class HomeController extends BaseController {
         $data['q'] = $q;
 
         /* Find publications */
-        $data['publications'] = PublicationView::getSearch($q)->with('images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
 
         /* Load category list */
         $data['categories'] = self::getCategories();

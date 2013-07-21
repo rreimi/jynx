@@ -32,4 +32,12 @@ class BaseController extends Controller {
         return $categories;
     }
 
+    protected function addFlashMessage($title, $message, $type = 'success'){
+        $object = new stdClass;
+        $object->title = $title;
+        $object->message = $message;
+        $object->type = $type;
+        Session::flash('flash_global_message', json_encode($object));
+    }
+
 }

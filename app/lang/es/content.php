@@ -22,7 +22,7 @@ return array(
     "sell_by"          => "Por",
     "see_product_detail" => "Ver detalle",
     "phone" => "Teléfono",
-    "contacts" => "Contactos",
+    "contacts" => "Contactos, Sucursales, Distribuidores",
     "city" => "Ciudad",
     "state" => "Estado",
     "location" => "Ubicación",
@@ -173,4 +173,8 @@ return array(
     "site_description"=> "Mercatino es el punto de encuentro para promocionar el intercambio comercial en la comunidad venezolano-italiana en la web y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas asociadas a la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía en la comunidad y hacer negocios con más confianza y seguridad.",
     "site_welcome" => "Bienvenido a Mercatino",
     "site_messages_title_error" => "Importante",
+
+    //Help
+    "help_publication_images_title" => "Imágenes de mi publicación",
+    "help_publication_images" => "La publicación se ha creado y ahora puede agregar las imágenes de su nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrastrela a la caja señalada o haga click en dicha caja.",
 );

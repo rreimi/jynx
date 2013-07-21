@@ -12,6 +12,10 @@ h2 {
     font-weight: normal;
 }
 
+.clear-both {
+    clear:both;
+}
+
 .float-right {
     float:right;
 }

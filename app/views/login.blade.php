@@ -12,15 +12,14 @@
                 </div>
             </div>
             <div class="span4">
-                {{ Form::open(array('url' => 'login','class'=>'big-form')) }}
+                {{ Form::open(array('url' => 'login','class'=>'big-form login-form')) }}
                 <h4 class='header'>{{ Lang::get('content.login_header') }}</h4>
                 <fieldset>
                     <div class="control-group @if($errors->has('login_email')) error @endif">
                         {{ Form::email('login_email',null,
                             array(
                                 'placeholder' => Lang::get('content.login_email'),
-                                'class' => 'input-block-level required',
-                                'data-content'=>'xxxx'
+                                'class' => 'input-block-level required email'
                             )
                         ) }}
                     </div>
@@ -31,8 +30,7 @@
                                 {{ Form::password('login_password',
                                     array(
                                         'placeholder' => Lang::get('content.login_password'),
-                                        'class' => 'input-block-level required',
-                                        'data-content'=>'xxxx'
+                                        'class' => 'input-block-level required'
                                     )
                                 ) }}
                             </div>
@@ -53,4 +51,14 @@
             <div class="span1"></div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+@parent
+
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('.login-form').validateBootstrap({placement:'left'});
+        });
+    </script>
 @stop
