@@ -391,6 +391,33 @@ class PublicationController extends BaseController {
         }
     }
 
+    public function getEliminar($id) {
+
+        $action = 'lista';
+
+        if (empty($id)) {
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $pub = Publication::find($id);
+
+        if (empty($pub)){
+            self::addFlashMessage(null, Lang::get('content.delete_publication_invalid'), 'error');
+            return Redirect::to('publicacion/'. $action);
+        }
+
+        $result = $pub->delete();
+
+        if ($result){
+            self::addFlashMessage(null, Lang::get('content.delete_publication_success'), 'success');
+        } else {
+            self::addFlashMessage(null, Lang::get('content.delete_publication_error'), 'error');
+        }
+
+        return Redirect::to('publicacion/'. $action);
+
+    }
+
     private static function getPublicationStatuses($blankCaption = '') {
 
         $options = array (

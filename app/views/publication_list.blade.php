@@ -45,7 +45,7 @@
                         <td>
                             <a href="{{URL::to('publicacion/detalle/' . $pub->id)}}">{{Lang::get('content.see')}}</a> |
                             <a href="{{URL::to('publicacion/editar/' . $pub->id)}}">{{Lang::get('content.edit')}}</a> |
-                            <a href="{{URL::to('publicacion/eliminar/' . $pub->id)}}">{{Lang::get('content.delete')}}</a>
+                            <a href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">{{Lang::get('content.delete')}}</a>
                         </td>
                     </tr>
                     @endforeach
