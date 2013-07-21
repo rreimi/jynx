@@ -2,12 +2,13 @@
 
 class AdvertisingController extends BaseController {
 
+    private $prefix = 'advertising';
     private $page_size = '6';
     private $advListSort = array('id', 'name', 'status', 'created_at');
 //    private $pub_img_dir = 'advertisement';
 
     public function __construct() {
-        //$this->beforeFilter('auth', array('only' => array('getList')));
+        $this->beforeFilter('referer:advertising', array('only' => array('getLista')));
     }
 
     public function getLista() {
@@ -95,11 +96,19 @@ class AdvertisingController extends BaseController {
         return View::make('advertising_form',
                     array('adv_statuses' => self::getAdvertisingStatuses(),
                         'categories' => self::getCategories(),
-                        'advertising' => $adv,));
+                        'advertising' => $adv,
+                        'referer' => URL::previous(),
+                    ));
 
     }
 
     public function getEditar($id) {
+
+        if (is_null(Input::old('referer'))) {
+            $referer = URL::previous();
+        } else {
+            $referer = Input::old('referer');
+        }
 
         $adv = Advertising::find($id);
 
@@ -108,9 +117,37 @@ class AdvertisingController extends BaseController {
                 'adv_statuses' => self::getAdvertisingStatuses(),
                 'categories' => self::getCategories(),
                 'advertising' => $adv,
-                'id' => $id
+                'id' => $id,
+                'referer' => $referer,
             )
         );
+
+    }
+
+    public function getEliminar($id) {
+
+        $action = 'lista';
+
+        if (empty($id)) {
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $adv = Advertising::find($id);
+
+        if (empty($adv)){
+            self::addFlashMessage(null, Lang::get('content.delete_advertising_invalid'), 'error');
+            return Redirect::to('publicidad/'. $action);
+        }
+
+        $result = $adv->delete();
+
+        if ($result){
+            self::addFlashMessage(null, Lang::get('content.delete_advertising_success'), 'success');
+        } else {
+            self::addFlashMessage(null, Lang::get('content.delete_advertising_error'), 'error');
+        }
+
+        return Redirect::to('publicidad/'. $action);
 
     }
 
@@ -176,7 +213,22 @@ class AdvertisingController extends BaseController {
 
         $adv->save();
 
-        return Redirect::to('publicidad/editar/' .$adv->id);
+        // Redirect to diferent places based on new or existing advertising
+        if ($isNew) {
+
+            //Redirect to publication images
+            return Redirect::to('publicidad/editar/'. $adv->id .'#imagenes');
+
+        } else {
+            self::addFlashMessage(null, Lang::get('content.edit_advertising_success'), 'success');
+            //Redirect to a referer if exists
+            $referer = Session::get($this->prefix . '_referer');
+            if (!empty($referer)){
+                return Redirect::to($referer);
+            }
+            return Redirect::to('publicidad/lista');
+
+        }
     }
 
     public function postImagenes($id) {

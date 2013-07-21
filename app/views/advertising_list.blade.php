@@ -7,17 +7,16 @@
 @section('content')
 
 <div class="row-fluid">
-    <h1>{{Lang::get('content.advertisings')}} </h1>
+    <h1>{{Lang::get('content.advertisings')}} <a href="{{URL::to('publicidad/crear')}}" class="btn btn-small btn-info">{{Lang::get('content.new_advertising')}}</a></h1>
     {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'adv_list_form')) }}
-    <div class="span11 pub-list-btn-group">
+    <div class="row-fluid pub-list-btn-group">
         {{Form::text('q', $state['q'], array('class' => 'input-medium filter-field', 'placeholder' => Lang::get('content.publications_search_placeholder')))}}
+        {{ Form::select('filter_status', $adv_statuses, $state['filter_status'], array('class' => 'input-medium filter-field')) }}
         <button class="btn btn-warning" type="submit">{{Lang::get('content.search')}}</button>
-
-        <a href="{{URL::to('publicidad/crear')}}" class="btn-small btn-info  pull-right">{{Lang::get('content.new_advertising')}}</a>
     </div>
 
     <div class="span11 pub-list-filters">
-        {{ Form::select('filter_status', $adv_statuses, $state['filter_status'], array('class' => 'input-medium filter-field')) }}
+
     </div>
 
     {{ Form::close() }}
@@ -47,7 +46,9 @@
             <td>{{ $adv->last_name }}</td>
             <td>
                 <a href="{{URL::to('publicidad/editar/' . $adv->id)}}">{{Lang::get('content.edit')}}</a> |
-                <a href="{{URL::to('publicidad/eliminar/' . $adv->id)}}">{{Lang::get('content.delete')}}</a>
+                <a href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertising_delete_title') }}', '{{ Lang::get('content.modal_advertising_delete_content') }}', '{{URL::to('publicidad/eliminar/' . $adv->id)}}');">
+                    {{Lang::get('content.delete')}}
+                </a>
             </td>
         </tr>
         @endforeach
@@ -55,7 +56,10 @@
     </table>
     {{ $advertisings->links() }}
 </div><!--/row-fluid-->
+@stop
 
+@section('modal-confirm')
+@parent
 @stop
 
 @section('scripts')

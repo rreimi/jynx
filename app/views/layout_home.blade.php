@@ -11,6 +11,8 @@
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
 </head>
 <body>
 
@@ -45,7 +47,24 @@
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
+@show
+
+@section('modal-confirm')
+<div id="modal-confirm" class="modal hide fade">
+    <div class="modal-header">
+        <a href="javascript:Mercatino.modalConfirm.hide()" class="close">&times;</a>
+        <h3>Title</h3>
+    </div>
+    <div class="modal-body">
+        <p>Content.</p>
+    </div>
+    <div class='modal-footer'>
+        <a href="#" class="btn danger">Si</a>
+        <a href="javascript:Mercatino.modalConfirm.hide()" class="btn secondary">No</a>
+    </div>
+</div>
 @show
 
 @if (!is_null(Session::get('flash_global_message')))

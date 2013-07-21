@@ -82,6 +82,13 @@ return array(
     "remove_image" => "Eliminar imagen",
     "add_images_msg" => "Arrastre las imágenes o haga clic para cargarlas",
 
+    // Messages
+    "delete_publication_invalid" => "La publicación que intenta eliminar es inválida",
+    "delete_publication_success" => "La publicación se ha eliminada correctamente.",
+    "delete_publication_error" => "Ha ocurrido un error al intentar eliminar la publicación.",
+    "modal_publication_delete_title" => "Eliminar publicación",
+    "modal_publication_delete_content" => "¿Está seguro que desea eliminar esta publicación?",
+
     // Advertising
     "name" => "Nombre publicidad",
     "status" => 'Estatus',
@@ -104,6 +111,15 @@ return array(
     "new_advertising" => "Nueva publicidad",
     "edit_advertising" => "Editar publicidad",
     "continue" => "Continuar",
+
+    // Messages
+    "edit_advertising_success" => "La publicidad se ha guardado correctamente.",
+    "edit_advertising_error" => "Ha ocurrido un error al intentar guardar la publicidad.",
+    "delete_advertising_invalid" => "La publicidad que intenta eliminar es inválida",
+    "delete_advertising_success" => "La publicidad se ha eliminada correctamente.",
+    "delete_advertising_error" => "Ha ocurrido un error al intentar eliminar la publicidad.",
+    "modal_advertising_delete_title" => "Eliminar publicidad",
+    "modal_advertising_delete_content" => "¿Está seguro que desea eliminar esta publicidad?",
 
     // Search
     "advertisings_search_placeholder" => "Buscar...",
@@ -177,4 +193,6 @@ return array(
     //Help
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puede agregar las imágenes de su nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrastrela a la caja señalada o haga click en dicha caja.",
+
+
 );

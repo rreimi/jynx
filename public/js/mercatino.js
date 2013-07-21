@@ -104,6 +104,19 @@ Mercatino.showFlashMessage = function(object){
     });
 };
 
+Mercatino.modalConfirm = {
+    show: function(title, content, url){
+        jQuery('#modal-confirm .modal-header h3').html(title);
+        jQuery('#modal-confirm .modal-body p').html(content);
+        jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+        jQuery('#modal-confirm').modal('show');
+
+    },
+    hide: function(){
+        jQuery('#modal-confirm').modal('hide')
+    }
+};
+
 
 
 

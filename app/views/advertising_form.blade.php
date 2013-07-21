@@ -79,18 +79,20 @@
             </div>
 
             {{ Form::hidden('id', $advertising->id) }}
+            {{ Form::hidden('referer', $referer) }}
 
-            @if (isset($advertising->id))
-                <h2>{{Lang::get('content.advertising_images')}}</h2>
+            @if (!is_null($advertising->id))
+            <div class="row-fluid">
+                <h2 id="imagenes">{{Lang::get('content.advertising_images')}}</h2>
 
                 <div id="dropzone" class="dropzone">
 
                 </div>
-
-                <br/>
+            </div><!--/row-fluid-->
+            <br/>
             @endif
 
-            <a href="#" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
+            <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
             <button class="btn btn-medium btn-warning" type="submit">
                 @if (!isset($advertising->id))
                     {{Lang::get('content.continue')}}
@@ -157,7 +159,6 @@
         myDropzone.on("success", function(file, fileServerId) {
             file.server_id = fileServerId;
         });
-
 
         myDropzone.on("error", function(file, errorMessage) {
             console.log(errorMessage);
