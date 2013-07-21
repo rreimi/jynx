@@ -5,12 +5,9 @@
 </div>
 
 {{ Form::close() }}
-<ul class="nav nav-list">
-    <li class="nav-header">OPTIONS</li>
-    <li><a href="#">NAME</a>
-
-        <a href="#">SUB</a>
-
-    </li>
+<span class="nav-header">OPTIONS</span>
+<ul class="nav nav-tabs nav-stacked side-nav">
+    <li><a href="#">NAME</a></li>
+    <li class="sub-category"><a class="sub-category-text" href="#">SUB</a></li>
 <!--    <li class="active"><a href="#">Link</a></li>-->
 </ul>

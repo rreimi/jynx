@@ -14,19 +14,15 @@
 </head>
 <body>
 
+@include('include.top_menu')
+
 <div class="container main-container">
 
-    <header id="heading">
-        @include('include.top_menu')
-    </header>
-
     <div class="row-fluid">
-        <div class="span3">
-            <div class="sidebar-nav well well-small">
-                @section('sidebar')
-                    @include('include.category_sidebar')
-                @show
-            </div>
+        <div class="side-bar span3 well well-small">
+            @section('sidebar')
+                @include('include.category_sidebar')
+            @show
         </div>
 
         <div class="span9">

@@ -5,15 +5,32 @@
 </div>
 {{ Form::close() }}
 
-<ul class="nav nav-list">
+@if(!empty($custom_title))
+    <span class="nav-header">{{ $custom_title }}</span>
+@endif
+@if(!empty($custom_options) && count($custom_options))
+    <ul class="nav nav-tabs nav-stacked side-nav">
 
-    <li class="nav-header">{{ Lang::get('content.categories_title') }}</li>
-    @foreach ($categories as $cat)
-    <li><a href="{{ URL::to('cat/' . $cat->slug)}}">{{ $cat->name }}</a>
-        @foreach ($cat->subcategories as $subcat)
-        <a href="{{ URL::to('cat/' . $subcat->slug)}}">&raquo; {{ $subcat->name }}</a>
+        @foreach ($custom_options as $custom_name => $custom_anchor)
+        <li>
+            <a href="{{ $custom_anchor }}">{{ $custom_name }}</a>
+        </li>
         @endforeach
+    </ul>
+@endif
+
+<span class="nav-header">{{ Lang::get('content.categories_title') }}</span>
+<ul class="nav nav-tabs nav-stacked side-nav">
+
+    @foreach ($categories as $cat)
+    <li>
+        <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="{{ count($cat->subcategories)>0? 'icon-chevron-down':'' }}"></i>{{ $cat->name }}</a>
     </li>
+        @foreach ($cat->subcategories as $subcat)
+        <li class="sub-category">
+            <a class="sub-category-text" href="{{ URL::to('cat/' . $subcat->slug)}}">{{ $subcat->name }}</a>
+        </li>
+        @endforeach
     @endforeach
 <!--    <li class="active"><a href="#">Link</a></li>-->
 </ul>
