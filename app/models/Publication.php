@@ -38,6 +38,10 @@ class Publication extends Eloquent {
         return $this->belongsToMany('Category', 'publications_categories');
     }
 
+    public function contacts() {
+        return $this->belongsToMany('Contact', 'publications_contacts');
+    }
+
     public function images() {
         return $this->hasMany('PublicationImage');
     }

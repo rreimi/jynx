@@ -62,58 +62,72 @@
             </div>
         </div>
 
-        <h2>{{Lang::get('content.publication_categories')}}</h2>
+        <!-- Categories -->
+        <div class="control-group">
+            <h2>{{Lang::get('content.publication_categories')}}</h2>
 
-        @if ($errors->has('categories'))
-        <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
-        @endif
+            @if ($errors->has('categories'))
+            <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
+            @endif
 
-        @foreach ($categories as $cat)
-            <dt>
-            <label class="checkbox">
-                {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
-            </label>
-            </dt>
-            <dd>
-                @foreach ($cat->subcategories as $subcat)
+            @foreach ($categories as $cat)
+                <dt>
                 <label class="checkbox">
-                    {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                    {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
                 </label>
-                @endforeach
-            </dd>
-
-        @endforeach
+                </dt>
+                <dd>
+                    @foreach ($cat->subcategories as $subcat)
+                    <label class="checkbox">
+                        {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                    </label>
+                    @endforeach
+                </dd>
+            @endforeach
         </div>
 
-        <div id="test-popover">
+        <!-- Contacts -->
+        <div class="control-group">
+            <h2>{{Lang::get('content.publication_contacts')}}</h2>
+
+            @if ($errors->has('contacts'))
+            <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
+            @endif
+
+            @foreach ($contacts as $contact)
+            <label class="checkbox">
+                {{ $contact->full_name . ', ' .  $contact->city . ', ' .  $contact->address  . ', ' .  $contact->phone }}
+                {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
+            </label>
+            @endforeach
 
         </div>
 
         @if (!is_null($publication->id))
-        <a name="imagenes"></a>
-        <div class="row-fluid">
-            <h2 id="imagenes-section-title" data-content="ahora puede" data-original-title="titulo">{{Lang::get('content.publication_images')}} - {{ $publication->title }}</h2>
+        <div class="row-fluid imagenes-section-box">
+            <a name="imagenes"></a>
+            <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
             <div class="form-message-box alert alert-error">
 
             </div>
             <div id="dropzone" class="dropzone">
-
-            </div>
-
-        </div><!--/row-fluid-->
-        <br/>
+        </div>
         @endif
 
         {{ Form::hidden('id', $publication->id) }}
         {{ Form::hidden('publisher_id', $publication->publisher_id) }}
         {{ Form::hidden('referer', $referer) }}
 
-        <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
-        @if (isset($publication->id))
-        <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
-        @else
-        <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
-        @endif
+        <div class="control-group">
+            <div class="controls">
+                <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
+                @if (isset($publication->id))
+                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
+                @else
+                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
+                @endif
+            </div>
+        </div>
         {{ Form::close() }}
     </div><!--/row-fluid-->
 @stop
@@ -142,11 +156,13 @@
 
         /* When subcat got checked parents also */
         jQuery('.chk-sub-cat').bind('click', function() {
-            jQuery('input.chk-cat[value=' + jQuery(this).attr('data-parent-id') + ']').attr('checked', true);
+            if (jQuery(this).is(':checked')){
+                var parentValue = jQuery(this).attr('data-parent-id');
+                jQuery('input.chk-cat[value=' + parentValue + ']:not(:checked)').trigger('click');
+            }
         })
 
         /* If anchor #images is received, go to images and show popover */
-
         if (window.location.hash == '#imagenes') {
 
             jQuery('#dropzone').popover({
@@ -158,6 +174,8 @@
             setTimeout("jQuery('#dropzone').popover('show')", 1000);
         }
 
+        //Add client validations
+        //jQuery('.form-horizontal').validateBootstrap({placement:'left'});
 
     });
 
@@ -247,9 +265,6 @@
         jQuery('.form-message-box').show();
         //setTimeout("jQuery('.form-message-box').hide()", 5000);
     }
-
-
-
 
 </script>
 @stop
