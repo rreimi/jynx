@@ -80,6 +80,9 @@ return array(
         'categories' => array(
             'required' => 'Debe seleccionar al menos una categoría',
         ),
+        'from_date' => array(
+            'date_format' => 'El formato de fecha no es válido',
+        )
     ),
 
 

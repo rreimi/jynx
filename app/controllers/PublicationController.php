@@ -129,15 +129,16 @@ class PublicationController extends BaseController {
      */
     public function getCrear() {
 
-        /* Get the current user publications list */
-//        echo $publications;
-//        die();
+        // Get the current user publications list
 
-        $pubCats = array();
+        // Populate categories
+        $pubCats = (is_array(Input::old('categories'))) ? Input::old('categories') : array();
 
-        if (is_array(Input::old('categories'))){
-            $pubCats = array_merge($pubCats, Input::old('categories'));
-        }
+        // Populate publication contacts
+        $pubContacts = (is_array(Input::old('contacts')))? Input::old('contacts') : array();
+
+        //Get publisher
+        $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
         $pub->from_date = date('d-m-Y',time());
@@ -148,10 +149,11 @@ class PublicationController extends BaseController {
                   'categories' => self::getCategories(),
                   'publication' => $pub,
                   'publication_categories' => $pubCats,
+                  'publication_contacts' => $pubContacts,
+                  'contacts' => $publisher->contacts,
                   'referer' => URL::previous(),
                 )
             );
-
     }
 
     /**
@@ -187,9 +189,6 @@ class PublicationController extends BaseController {
         /* Move uploaded file to final destination */
         $upload_success = $file->move($destinationPath, $filename);
 
-
-
-
         //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
         /* Set full path for create resized versions */
         //$fullImagePath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
@@ -208,7 +207,6 @@ class PublicationController extends BaseController {
             return Response::json($error, 400);
         }
     }
-
 
 
     /**
@@ -267,14 +265,14 @@ class PublicationController extends BaseController {
             $referer = Input::old('referer');
         }
 
-        /* Get the current user publications list */
-//        echo $publications;
-//        die();
+        //Get publisher
+        $publisher = Auth::user()->publisher;
 
         //TODO verificar el publisher con el logueado
 
-        $pub = Publication::with('categories', 'images', 'publisher', 'publisher.contacts')->find($id);
+        $pub = Publication::with('categories', 'images', 'publisher', 'contacts', 'publisher.contacts')->find($id);
 
+        // Populate categories
         $pubCats = array();
 
         foreach ($pub->categories as $cat) {
@@ -285,12 +283,25 @@ class PublicationController extends BaseController {
             $pubCats = Input::old('categories');
         }
 
+        //Populate contacts
+        $pubContacts = array();
+
+        foreach ($pub->contacts as $cat) {
+            $pubContacts[] = $cat->id;
+        }
+
+        if (is_array(Input::old('contacts'))){
+            $pubContacts = Input::old('contacts');
+        }
+
         return View::make('publication_form',
             array(
                 'pub_statuses' => self::getPublicationStatuses(),
                 'categories' => self::getCategories(),
+                'contacts' => $publisher->contacts,
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
+                'publication_contacts' => $pubContacts,
                 'referer' => $referer,
             )
         );
@@ -312,6 +323,7 @@ class PublicationController extends BaseController {
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
             'categories' => Input::get('categories'),
+            'contacts' => Input::get('contacts'),
         );
 
         //Set validation rules
@@ -320,13 +332,15 @@ class PublicationController extends BaseController {
             'short_description' => 'required',
             'long_description' => 'required',
             'status' => 'required',
-            'from_date' => 'required',
-            'to_date' => 'required',
+            'from_date' => 'required|date_format:d-m-Y',
+            'to_date' => 'required|date_format:d-m-Y',
             'categories' => 'required',
         );
 
         $messages = array(
             'category.required' => Lang::get('validation.publication_category_required'),
+            //'from_date.date_format' => Lang::get('validation.publication_date_invalid'),
+            //'to_date.date_format' => Lang::get('validation.publication_date_invalid'),
         );
 
         // Validate fields
@@ -369,7 +383,10 @@ class PublicationController extends BaseController {
 
         // Save publication categories
         $categories = $pubData['categories'];
+        $contacts = $pubData['contacts'];
+
         $pub->categories()->sync($categories);
+        $pub->contacts()->sync($contacts);
 
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
@@ -379,8 +396,8 @@ class PublicationController extends BaseController {
             return Redirect::to('publicacion/editar/'.$pub->id . '#imagenes');
 
         } else {
-
-            Session::flash('flash_global_message', Lang::get('content.edit_publication_success'));
+            $this->addFlashMessage(Lang::get('content.edit_publication',1), Lang::get('content.edit_publication_success'));
+            //Session::flash('flash_global_message', Lang::get('content.edit_publication_success'));
             //Redirect to a referer if exists
             $referer = Session::get($this->prefix . '_referer');
             if (!empty($referer)){

@@ -8,6 +8,8 @@
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
@@ -45,6 +47,7 @@
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
 @show
 

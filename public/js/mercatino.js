@@ -96,8 +96,11 @@ var Messages={
 
 var Mercatino = {};
 
+/**
+ * @param object Example {title:'the title', message:'the message', type:'success|warning|error'}
+ */
 Mercatino.showFlashMessage = function(object){
-    $.pnotify({
+    jQuery.pnotify({
         title: object.title,
         text: object.message,
         type: object.type

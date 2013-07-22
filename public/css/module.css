@@ -151,6 +151,7 @@ div#home-banner-top .carousel-control {
 
 .dropzone.dz-clickable{
     min-height: 15em;
+    margin-bottom: 1em;
 }
 
 .login .span6 h3 {

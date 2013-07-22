@@ -47,7 +47,8 @@ return array(
     "created_at" => "Fecha de creación",
     "categories_name" => "Categorías",
     "publication_categories" => "Categorías para esta publicación",
-    "publication_images" => "Imágenes",
+    "publication_contacts" => "Contactos para esta publicación",
+    "publication_images" => "Imágenes para esta publicación",
     "options" => "Opciones",
     'status' => 'Estatus',
 
