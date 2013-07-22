@@ -11,10 +11,8 @@
 </head>
 <body>
 
+@include('include.top_menu')
 <div class="container main-container">
-    <header id="heading">
-        @include('include.top_menu')
-    </header>
 
     <div class="row-fluid">
         <div class="span3">

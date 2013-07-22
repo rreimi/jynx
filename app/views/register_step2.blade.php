@@ -10,7 +10,7 @@
                 <fieldset>
                     <div class="row-fluid">
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_type')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_type')? 'error':'' }}">
                                 {{ Form::select('publisher_type',
                                     array(
                                         '' => Lang::get('content.select'),
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="span2">
-                            <div class="control-group @if($errors->has('publisher_id_type')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_id_type')? 'error':'' }}">
                                 {{ Form::select('publisher_id_type',
                                     array('' => Lang::get('content.select')),
                                     Input::old('publisher_id_type'),
@@ -32,22 +32,22 @@
                             </div>
                         </div>
                         <div class="span4">
-                            <div class="control-group @if($errors->has('publisher_id')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_id')? 'error':'' }}">
                                 {{ Form::text('publisher_id',null,array('placeholder' => Lang::get('content.publisher_id'),'class' => 'input-block-level numeric-only')) }}
                             </div>
                         </div>
 
                     </div>
-                    <div class="control-group @if($errors->has('publisher_seller')) error @endif">
+                    <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
                         {{ Form::text('publisher_seller',Auth::user()->full_name,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level')) }}
                     </div>
 
-                    <div class="control-group @if($errors->has('publisher_media')) error @endif">
+                    <div class="control-group {{ $errors->has('publisher_media')? 'error':'' }}">
                         {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level')) }}
                     </div>
                     <div class="row-fluid">
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_state')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_state')? 'error':'' }}">
                                 {{ Form::select('publisher_state',
                                     array_merge(array('' => Lang::get('content.select')),$states),
                                     Input::old('publisher_state'),
@@ -56,19 +56,19 @@
                             </div>
                         </div>
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_city')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_city')? 'error':'' }}">
                                 {{ Form::text('publisher_city',null,array('placeholder' => Lang::get('content.publisher_city'),'class' => 'input-block-level')) }}
                             </div>
                         </div>
                     </div>
                     <div class="row-fluid">
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_phone1')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_phone1')? 'error':'' }}">
                                 {{ Form::text('publisher_phone1',null,array('placeholder' => Lang::get('content.publisher_phone1'),'class' => 'input-block-level')) }}
                             </div>
                         </div>
                         <div class="span6">
-                            <div class="control-group @if($errors->has('publisher_phone2')) error @endif">
+                            <div class="control-group {{ $errors->has('publisher_phone2')? 'error':'' }}">
                                 {{ Form::text('publisher_phone2',null,array('placeholder' => Lang::get('content.publisher_phone2'),'class' => 'input-block-level')) }}
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 <div class="row-fluid">
                             @endif
 
-                            <label class="span3 checkbox">
+                            <label class="span3 checkbox checkbox-category">
                                 {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,Input::old('publisher_categories',array()))) }}
                                 {{ $category->name }}
                             </label>

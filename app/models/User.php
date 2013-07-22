@@ -72,7 +72,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function isPublisher(){
-        return $this->role==self::ROLE_PUBLISHER;
+        return ($this->role==self::ROLE_PUBLISHER);
     }
 
 }
