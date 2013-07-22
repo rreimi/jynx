@@ -8,11 +8,11 @@
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
-    {{ HTML::style('css/jquery.pnotify.default.css') }}
-    {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
 </head>
 <body>
 
@@ -42,19 +42,7 @@
 </div><!--/.fluid-container-->
 
 @section('modal-confirm')
-<div id="modal-confirm" class="modal hide fade">
-    <div class="modal-header">
-        <a href="javascript:Mercatino.modalConfirm.hide()" class="close">&times;</a>
-        <h3>Title</h3>
-    </div>
-    <div class="modal-body">
-        <p>Content.</p>
-    </div>
-    <div class='modal-footer'>
-        <a href="#" class="btn danger">Si</a>
-        <a href="javascript:Mercatino.modalConfirm.hide()" class="btn secondary">No</a>
-    </div>
-</div>
+@include('include.modal_confirm')
 @show
 
 @section('scripts')

@@ -58,10 +58,6 @@
 </div><!--/row-fluid-->
 @stop
 
-@section('modal-confirm')
-@parent
-@stop
-
 @section('scripts')
 @parent
 <script type="text/javascript">

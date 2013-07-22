@@ -53,8 +53,6 @@
             </table>
         {{ $publications->links() }}
     </div><!--/row-fluid-->
-
-
 @stop
 
 @section('scripts')
