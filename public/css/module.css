@@ -154,25 +154,6 @@ div#home-banner-top .carousel-control {
     margin-bottom: 1em;
 }
 
-.login .span6 h3 {
-    font-size: 21px;
-}
-
-.login .span6 p {
-    font-size: 16px;
-    font-style: italic;
-    text-align: justify;
-}
-
-.login .checkbox {
-    font-size: 12px;
-}
-
-.navbar .nav {
-    float: right;
-    margin-top: 7px;
-}
-
 .navbar .nav > li > a {
-    padding: 10px 25px;
+    padding: 16px 25px;
 }
