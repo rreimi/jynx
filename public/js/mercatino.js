@@ -28,24 +28,24 @@ if (jQuery) {
         options || (options = {});
 
         var boxErrorClass = options.boxErrorClass || 'alert-error';
+        var inputErrorClass = options.inputErrorClass || 'error';
         var placement = options.placement || 'right';
         var messages = options.messages || {};
 
         return this.validate({
-            highlight:function(element, errorClass){
-
-            },
             errorPlacement: function(error, element) {
+                jQuery(element).parent().addClass(inputErrorClass);
                 jQuery(element).popover('destroy');
                 jQuery(element).popover(
                     {
                         content:error.text(),
-                        placement:jQuery(element).attr('data-placement') || placement
+                        placement:jQuery(element).data('placement') || placement
                     }
                 ).popover('show');
                 jQuery(element).siblings('.popover').addClass(boxErrorClass);
             },
             onfocusout:function(element,event){
+                jQuery(element).parent().removeClass(inputErrorClass);
                 jQuery(element).popover('hide');
             },
             messages:messages,

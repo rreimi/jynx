@@ -5,8 +5,8 @@
             <div class="span1"></div>
             <div class="span6">
                 <div class="hero-unit hello">
-                    <h3>{{ Lang::get('content.site_welcome') }}</h3>
-                    <p>
+                    <h3 class="site-welcome">{{ Lang::get('content.site_welcome') }}</h3>
+                    <p class="site-description">
                         {{ Lang::get('content.site_description') }}
                     </p>
                 </div>
@@ -15,7 +15,7 @@
                 {{ Form::open(array('url' => 'login','class'=>'big-form login-form')) }}
                 <h4 class='header'>{{ Lang::get('content.login_header') }}</h4>
                 <fieldset>
-                    <div class="control-group @if($errors->has('login_email')) error @endif">
+                    <div class="control-group {{ $errors->has('login_email')? 'error':'' }}">
                         {{ Form::email('login_email',null,
                             array(
                                 'placeholder' => Lang::get('content.login_email'),
@@ -26,7 +26,7 @@
 
                     <div class="row-fluid">
                         <div class="span9">
-                            <div class="control-group @if($errors->has('login_password')) error @endif">
+                            <div class="control-group {{ $errors->has('login_password')? 'error':'' }}">
                                 {{ Form::password('login_password',
                                     array(
                                         'placeholder' => Lang::get('content.login_password'),

@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
         <div class="container">
 
@@ -22,7 +22,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Editar Perfil</a></li>
+                            <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
                             <li><a href="#">Mis publicaciones</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ URL::to('logout') }}">Salir</a></li>
@@ -30,9 +30,9 @@
                     </li>
                 </ul>
                 @endif
-                <ul class="nav">
+                <ul class="nav pull-right">
                     @if(Auth::check())
-                        <li><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
+                        <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
                     @endif
 
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
