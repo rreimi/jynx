@@ -8,7 +8,7 @@ class Advertising extends Eloquent {
     protected $softDelete = true;
 
     protected $fillable = array('name', 'status',
-                                'image_url', 'external_url', 'first_name', 'last_name',
+                                'image_url', 'external_url', 'full_name',
                                 'email', 'phone1', 'phone2');
 
     public function scopeActivehomeadvertisings($query){
