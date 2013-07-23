@@ -39,18 +39,10 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="first_name">{{ Lang::get('content.first_name') }}</label>
+                <label class="control-label" for="full_name">{{ Lang::get('content.full_name') }}</label>
                 <div class="controls">
-                    {{ Form::text('first_name', $advertising->first_name, array('placeholder'=> Lang::get('content.first_name'))) }}
-                    {{ $errors->first('first_name', '<p class="error">:message</p>') }}
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="last_name">{{ Lang::get('content.last_name') }}</label>
-                <div class="controls">
-                    {{ Form::text('last_name', $advertising->last_name, array('placeholder'=> Lang::get('content.last_name'))) }}
-                    {{ $errors->first('last_name', '<p class="error">:message</p>') }}
+                    {{ Form::text('full_name', $advertising->full_name, array('placeholder'=> Lang::get('content.full_name'))) }}
+                    {{ $errors->first('full_name', '<p class="error">:message</p>') }}
                 </div>
             </div>
 

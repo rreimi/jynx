@@ -7,18 +7,19 @@
                 {{ Form::open(array('url' => 'registro/step2','class'=>'big-form')) }}
                 <div class="pull-right">{{ Auth::user()->full_name }}</div>
                 <h3 class='header'>{{ Lang::get('content.publisher_header') }}</h3>
+                <p class='alert'>{{ Lang::get('content.publisher_explanation') }}</p>
                 <fieldset>
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_type')? 'error':'' }}">
                                 {{ Form::select('publisher_type',
                                     array(
-                                        '' => Lang::get('content.select'),
+                                        '' => Lang::get('content.select_person_type'),
                                         'Person' => Lang::get('content.publisher_type_person'),
                                         'Business' => Lang::get('content.publisher_type_business')
                                     ),
                                     Input::old('publisher_type'),
-                                    array('class'=>'input-block-level publisher_type')
+                                    array('class'=>'input-block-level publisher_type required')
                                 ) }}
                             </div>
                         </div>
@@ -27,44 +28,44 @@
                                 {{ Form::select('publisher_id_type',
                                     array('' => Lang::get('content.select')),
                                     Input::old('publisher_id_type'),
-                                    array('class'=>'input-block-level publisher_id_type')
+                                    array('class'=>'input-block-level publisher_id_type required')
                                 ) }}
                             </div>
                         </div>
                         <div class="span4">
                             <div class="control-group {{ $errors->has('publisher_id')? 'error':'' }}">
-                                {{ Form::text('publisher_id',null,array('placeholder' => Lang::get('content.publisher_id'),'class' => 'input-block-level numeric-only')) }}
+                                {{ Form::text('publisher_id',null,array('placeholder' => Lang::get('content.publisher_id'),'class' => 'input-block-level numeric-only required')) }}
                             </div>
                         </div>
 
                     </div>
                     <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
-                        {{ Form::text('publisher_seller',Auth::user()->full_name,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level')) }}
+                        {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
                     </div>
 
                     <div class="control-group {{ $errors->has('publisher_media')? 'error':'' }}">
-                        {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level')) }}
+                        {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level required')) }}
                     </div>
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_state')? 'error':'' }}">
                                 {{ Form::select('publisher_state',
-                                    array_merge(array('' => Lang::get('content.select')),$states),
+                                    array_merge(array('' => Lang::get('content.select_state')),$states),
                                     Input::old('publisher_state'),
-                                    array('class'=>'input-block-level'))
+                                    array('class'=>'input-block-level required'))
                                 }}
                             </div>
                         </div>
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_city')? 'error':'' }}">
-                                {{ Form::text('publisher_city',null,array('placeholder' => Lang::get('content.publisher_city'),'class' => 'input-block-level')) }}
+                                {{ Form::text('publisher_city',null,array('placeholder' => Lang::get('content.publisher_city'),'class' => 'input-block-level required')) }}
                             </div>
                         </div>
                     </div>
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_phone1')? 'error':'' }}">
-                                {{ Form::text('publisher_phone1',null,array('placeholder' => Lang::get('content.publisher_phone1'),'class' => 'input-block-level')) }}
+                                {{ Form::text('publisher_phone1',null,array('placeholder' => Lang::get('content.publisher_phone1'),'class' => 'input-block-level required')) }}
                             </div>
                         </div>
                         <div class="span6">
@@ -140,6 +141,10 @@
         }
 
         jQuery('.publisher_id_type').val("{{ Input::old('publisher_id_type','') }}");
+
+         jQuery(document).ready(function(){
+              jQuery('.big-form').validateBootstrap({placement:'bottom'});
+         });
 
     </script>
 @stop

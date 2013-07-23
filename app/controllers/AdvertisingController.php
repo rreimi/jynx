@@ -159,8 +159,7 @@ class AdvertisingController extends BaseController {
             'name' => Input::get('name'),
             'status' => Input::get('status'),
             'external_url' => Input::get('external_url'),
-            'first_name' => Input::get('first_name'),
-            'last_name' => Input::get('last_name'),
+            'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'phone1' => Input::get('phone1'),
             'phone2' => Input::get('phone2')
@@ -171,8 +170,7 @@ class AdvertisingController extends BaseController {
             'name' => 'required',
             'status' => 'required',
             'external_url' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required'
+            'full_name' => 'required'
         );
 
 //        $messages = array(

@@ -157,3 +157,23 @@ div#home-banner-top .carousel-control {
 .navbar .nav > li > a {
     padding: 16px 25px;
 }
+
+.checkbox.terminos .popover-content {
+    font-size: 12px;
+}
+
+.checkbox.terminos .popover {
+    margin-top: 9px;
+}
+
+.form-horizontal .control-label {
+    width: 156px;
+}
+
+.profile-form select.input-xlarge {
+    width: 284px;
+}
+
+.profile-form .publisher_id_type {
+    width: 117px;
+}

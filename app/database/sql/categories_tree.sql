@@ -152,7 +152,7 @@ INSERT INTO categories VALUES (151,'Vivienda',19,'vivienda');
 INSERT INTO categories VALUES (20,'Construcción',NULL,'construccion2');
 INSERT INTO categories VALUES (152,'Diseño de Proyectos',20,'diseño-de-proyectos');
 INSERT INTO categories VALUES (153,'Ingeniero Civil',20,'ingeniero-civil');
-INSERT INTO categories VALUES (21,'Electrícidad',NULL,'electricidad');
+INSERT INTO categories VALUES (21,'Electricidad',NULL,'electricidad');
 INSERT INTO categories VALUES (154,'Ingeniero Eléctrico',21,'ingeniero-electrico');
 INSERT INTO categories VALUES (22,'Mecánica',NULL,'mecanica');
 INSERT INTO categories VALUES (155,'Reparación y mantenimiento de motores eléctricos',22,'reparacion-y-mantenimiento-de-motores-electricos');
