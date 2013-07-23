@@ -388,8 +388,8 @@ class PublicationController extends BaseController {
         $pub->save();
 
         // Save publication categories
-        $categories = $pubData['categories'];
-        $contacts = $pubData['contacts'];
+        $categories = (array) $pubData['categories'];
+        $contacts = (array) $pubData['contacts'];
 
         $pub->categories()->sync($categories);
         $pub->contacts()->sync($contacts);

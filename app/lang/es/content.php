@@ -37,7 +37,8 @@ return array(
 
     //Publications
     "publication" => "Publicacion|Publicaciones",
-    "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado <a href=\":url\">(Denunciar)</a>",
+    "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
+    "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
     "short_description" => "Descripción corta",

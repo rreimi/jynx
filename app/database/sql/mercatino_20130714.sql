@@ -104,7 +104,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications` (
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   `deleted_at` DATETIME NULL ,
-  `publication_image_id` INT NOT NULL ,
+  `publication_image_id` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_publications_publishers_idx` (`publisher_id` ASC) ,
   INDEX `fk_publications_publications_images_idx` (`publication_image_id` ASC) ,
@@ -350,6 +350,21 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_visits` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+--
+-- Estructura de tabla para la tabla `publications_contacts`
+--
+
+CREATE TABLE IF NOT EXISTS `mercatino`.`publications_contacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` int(11) NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `contact_id` (`contact_id`)
+) ENGINE=InnoDB;
 
 USE `mercatino` ;
 
