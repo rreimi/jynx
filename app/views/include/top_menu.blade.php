@@ -23,14 +23,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
-                            <li><a href="#">Mis publicaciones</a></li>
+                            @if(Auth::user()->isPublisher())
+                                <li><a href="#">Mis publicaciones</a></li>
+                            @endif
                             <li class="divider"></li>
                             <li><a href="{{ URL::to('logout') }}">Salir</a></li>
                         </ul>
                     </li>
                 </ul>
                 @endif
-                <ul class="nav pull-right">
+                <ul class="nav top-menu-option">
                     @if(Auth::check())
                         <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
                     @endif
@@ -44,7 +46,9 @@
                     @if(Auth::check())
                         <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
 
-                        <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                        @if(Auth::user()->isPublisher())
+                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                        @endif
                     @endif
                 </ul>
 

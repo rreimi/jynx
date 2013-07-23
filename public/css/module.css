@@ -82,26 +82,14 @@ h2 {
     margin-bottom: 1em;
 }
 
-/*.pub-table {*/
-    /*padding:0.4em;*/
-    /*margin:0 0 1em 0;*/
-/*}*/
-
-/*.pub-table td, .pub-table th {*/
-    /*border:1px solid #eee;*/
-    /*padding: 0.2em;*/
-/*}*/
-
-.pub-table .title {
-    width:25%;
+.pub-table {
+    padding:0.4em;
+    margin:0 0 1em 0;
 }
 
-.pub-table .date {
-    width:9%;
-}
-
-.pub-table .options {
-    width:16%;
+.pub-table td, .pub-table th {
+    border:1px solid #eee;
+    padding: 0.2em;
 }
 
 .pub-list-filters {
@@ -167,7 +155,7 @@ div#home-banner-top .carousel-control {
 }
 
 .navbar .nav > li > a {
-    padding: 16px 25px;
+    padding: 16px 20px;
 }
 
 .checkbox.terminos .popover-content {
@@ -208,4 +196,10 @@ div#home-banner-top .carousel-control {
 
 .categories-form ul {
     list-style:none;
+}
+
+/* Menu */
+.nav.top-menu-option {
+    margin-left: 13.2%;
+    margin-right: 0px;
 }

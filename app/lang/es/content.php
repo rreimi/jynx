@@ -86,6 +86,20 @@ return array(
     "remove_image" => "Eliminar imagen",
     "add_images_msg" => "Arrastra las imágenes o haz clic para cargarlas",
 
+    // Backend Menu
+    "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
+    "backend_menu_dashboard" => "Dashboard",
+    "backend_menu_users" => "Usuarios",
+    "backend_menu_publishers" => "Publicadores",
+    "backend_menu_publications" => "Publicaciones",
+    "backend_menu_advertisings" => "Publicidad",
+    "backend_menu_stats" => "Estadísticas",
+
+    // Backend Dashboard
+    "backend_users_section_title" => "Aprobaciones pendientes",
+    "backend_reports_section_title" => "Denuncias pendientes",
+    "backend_user_approve" => "Aprobar",
+
     // Messages
     "delete_publication_invalid" => "La publicación que intentas eliminar es inválida",
     "delete_publication_success" => "La publicación se ha eliminado correctamente",
