@@ -52,24 +52,30 @@
                 <span class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}</span>
             @endif
             </p>
-            <div class="contacs-info">
-                <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
-                <ol class="contact-list">
-                    @foreach ($publication->contacts as $contact)
-                        <li>
-                        {{ $contact->full_name }}<br/>
-                        @if (isset($contact->distributor)) {{ $contact->distributor }}<br/> @endif
-                        {{ $contact->email }}<br/>
-                        {{ $contact->phone }}
-                        </li>
-                    @endforeach
-                </ol>
-            </div>
         </div><!--/.publisher-info-->
 
+        @if (count($publication->contacts) > 0)
+        <div class="contacs-info">
+            <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
+            <ol class="contact-list">
+                @foreach ($publication->contacts as $contact)
+                <li>
+                    {{ $contact->full_name }}<br/>
+                    @if (isset($contact->distributor)) {{ $contact->distributor }}<br/> @endif
+                    {{ $contact->email }}<br/>
+                    {{ $contact->phone }}
+                </li>
+                @endforeach
+            </ol>
+        </div><!--/.contacs-info-->
+        @endif
+
         <div class="report-info">
-            <p>{{ Lang::get('content.report_publication_msg', array('url' => '#')) }}</p>
+            <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
         </div>
+
+        @include('include.modal_report')
+
     </div><!--/row-fluid-->
 @stop
 
@@ -77,6 +83,37 @@
 @parent
 {{ HTML::script('js/imagecow.js') }}
 <script type="text/javascript">
-    Imagecow.init()
+    Imagecow.init();
+
+    Mercatino.reportForm = {
+        show: function(title, content, url){
+            //jQuery('#modal-confirm .modal-header h3').html(title);
+            //jQuery('#modal-confirm .modal-body p').html(content);
+            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+            jQuery('#modal-report').modal('show');
+
+        },
+        hide: function(){
+            jQuery('#modal-report').modal('hide')
+        },
+        send: function(){
+            var comment = jQuery('#modal-report textarea').val();
+
+            if (comment == ""){
+                alert('{{Lang::get('content.report_commend_required')}}');
+                return;
+            }
+
+            this.hide();
+            //TODO send report
+            Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
+        }
+    };
+
+    jQuery(document).ready(function(){
+      jQuery('#report-link').bind('click', function(){
+          Mercatino.reportForm.show();
+      })
+    });
 </script>
 @stop

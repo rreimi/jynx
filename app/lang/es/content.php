@@ -38,6 +38,7 @@ return array(
     //Publications
     "publication" => "Publicacion|Publicaciones",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
+    "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -106,6 +107,7 @@ return array(
     "delete_publication_error" => "Ha ocurrido un error al intentar eliminar la publicación.",
     "modal_publication_delete_title" => "Eliminar publicación",
     "modal_publication_delete_content" => "¿Estás seguro que deseas eliminar esta publicación?",
+    "report_send_success" => "La denuncia se ha enviado correctamente",
 
     // Advertising
     "name" => "Nombre publicidad",

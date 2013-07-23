@@ -11,6 +11,7 @@ class PublicationView extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'publications_view';
+    protected $softDeletes = true;
 
 	/**
 	 * The attributes excluded from the model's JSON form.
