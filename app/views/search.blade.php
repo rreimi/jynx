@@ -35,6 +35,6 @@
         </div>
         @endif
     @endforeach
-    {{ $publications->appends(array('q' => $q))->links() }}
+    {{ $publications->appends(Input::except('page'))->links() }}
 </div><!--/row-->
 @stop

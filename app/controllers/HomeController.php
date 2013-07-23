@@ -49,7 +49,7 @@ class HomeController extends BaseController {
     public function getCat($slug = '') {
 
         /* Load category by slug */
-        $data['category'] = Category::where('slug', '=', $slug)->with('publications')->first();
+        $data['category'] = Category::where('slug', '=', $slug)->with('publications','parent')->first();
 
         if ($data['category'] == null) {
             return Response::view('errors.missing', array(), 404);
@@ -67,6 +67,13 @@ class HomeController extends BaseController {
       //var_dump($queries);
 //      die();
 
+        $data['category_tree'][] = $data['category']->id;
+        $parent = $data['category']->parent;
+
+        while ($parent != null ){
+            $data['category_tree'][] = $parent->id;
+            $parent = $parent->parent;
+        }
 
         /* Cargar la lista de categorias */
         $data['categories'] = self::getCategories();
@@ -93,22 +100,77 @@ class HomeController extends BaseController {
         /* Append search query */
         $data['q'] = $q;
 
+        /* Load filters */
+        $activeFilters = array();
+
+        if (Input::get('state')) {
+            $state = State::find(Input::get('state'));
+            $activeFilters['state'] = new stdClass;
+            $activeFilters['state']->id  = $state->id;
+            $activeFilters['state']->label = $state->name;
+            $activeFilters['state']->type = 'state';
+        }
+
+        if (Input::get('seller')) {
+            $seller = Publisher::find(Input::get('seller'));
+            $activeFilters['seller'] = new stdClass;
+            $activeFilters['seller']->id  = $seller->id;
+            $activeFilters['seller']->label = $seller->seller_name;
+            $activeFilters['seller']->type = 'seller';
+        }
+
+        if (Input::get('category')) {
+            $category = Category::find(Input::get('category'));
+            $activeFilters['category'] = new stdClass;
+            $activeFilters['category']->id  = $category->id;
+            $activeFilters['category']->label = $category->name;
+            $activeFilters['category']->type = 'category';
+        }
+
         /* Find publications */
-        $data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
+        //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
 
-        /* Load category list */
-        $data['categories'] = self::getCategories();
+        $availableFilters = array();
 
-        /* TODO: Cargar la publicidad del banner */
+        if (!isset($activeFilters['category'])){
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, category_id as item_id, category_name as label'))->groupBy('category_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = $filter->total;
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'category';
+                $availableFilters['category'][] = $item;
+            }
+        }
 
-        /* Cargar la lista de productos con mayor número de visitas */
+        if (!isset($activeFilters['state'])){
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, state_id as item_id, state as label'))->groupBy('state_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = $filter->total;
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'state';
+                $availableFilters['state'][] = $item;
+            }
+        }
 
-        /* Cargar la lista de los últimos productos agregados */
+        if (!isset($activeFilters['seller'])){
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = $filter->total;
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'seller';
+                $availableFilters['seller'][] = $item;
+            }
+        }
 
-        /* Cargar la lista de los últimos productos vistos por el usuario actual */
-
-        $queries = DB::getQueryLog();
-        //var_dump($queries);
+        $data['availableFilters'] = $availableFilters;
+        $data['activeFilters'] = $activeFilters;
 
         return View::make('search', $data);
     }

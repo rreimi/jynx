@@ -21,7 +21,8 @@ ClassLoader::addDirectories(array(
 ));
 
 ClassLoader::addDirectories(array(
-    app_path().'/filters'
+    app_path().'/filters',
+    app_path().'/helpers',
 ));
 
 /*
