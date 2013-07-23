@@ -203,3 +203,9 @@ div#home-banner-top .carousel-control {
 .contact-list li {
     line-height: 1.4em;
 }
+
+/* Publication form */
+
+.categories-form ul {
+    list-style:none;
+}

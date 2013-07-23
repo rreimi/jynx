@@ -63,7 +63,7 @@
         </div>
 
         <!-- Categories -->
-        <div class="control-group">
+        <div class="control-group categories-form">
             <h2>{{Lang::get('content.publication_categories')}}</h2>
 
             @if ($errors->has('categories'))
@@ -71,18 +71,31 @@
             @endif
 
             @foreach ($categories as $cat)
-                <dt>
-                <label class="checkbox">
-                    {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
-                </label>
-                </dt>
-                <dd>
-                    @foreach ($cat->subcategories as $subcat)
-                    <label class="checkbox">
-                        {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                    </label>
-                    @endforeach
-                </dd>
+                <ul>
+                    <li>
+                        <label class="checkbox">
+                           {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                        </label>
+                        <ul>
+                            @foreach ($cat->subcategories as $subcat)
+                            <li>
+                                <label class="checkbox">
+                                   {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                                </label>
+                                <ul>
+                                   @foreach ($subcat->subcategories as $thirdcat)
+                                    <li>
+                                        <label class="checkbox">
+                                            {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                        </label>
+                                    </li>
+                                   @endforeach
+                                </ul>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
             @endforeach
         </div>
 
@@ -159,6 +172,13 @@
             if (jQuery(this).is(':checked')){
                 var parentValue = jQuery(this).attr('data-parent-id');
                 jQuery('input.chk-cat[value=' + parentValue + ']:not(:checked)').trigger('click');
+            }
+        })
+
+        jQuery('.chk-third-cat').bind('click', function() {
+            if (jQuery(this).is(':checked')){
+                var parentValue = jQuery(this).attr('data-parent-id');
+                jQuery('input.chk-sub-cat[value=' + parentValue + ']:not(:checked)').trigger('click');
             }
         })
 
