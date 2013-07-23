@@ -104,7 +104,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications` (
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   `deleted_at` DATETIME NULL ,
-  `publication_image_id` INT NOT NULL ,
+  `publication_image_id` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_publications_publishers_idx` (`publisher_id` ASC) ,
   INDEX `fk_publications_publications_images_idx` (`publication_image_id` ASC) ,

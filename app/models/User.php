@@ -75,4 +75,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return ($this->role==self::ROLE_PUBLISHER);
     }
 
+    public function isApproved(){
+        return (boolean) $this->is_publisher;
+    }
+
 }
