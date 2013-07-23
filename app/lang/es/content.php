@@ -217,4 +217,11 @@ return array(
     "profile_city" => "Ciudad",
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
+
+    //filters
+    "filter_active" => 'Filtros Activos',
+    "filter_available" => 'Filtros Disponibles',
+    "filter_seller_title" => 'Vendedor',
+    "filter_state_title" => 'Ubicacion',
+    "filter_category_title" => 'Categoria',
 );

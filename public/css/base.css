@@ -4,7 +4,7 @@ body {
     font-size:12px;
 }
 
-.side-nav{
+.side-nav {
    background: #fff;
 }
 
@@ -16,17 +16,116 @@ body {
     padding-left: 30px;
 }
 
+.sub-category.level3 .sub-category-text{
+    padding-left: 60px;
+}
+
+.side-bar .nav-header {
+    padding:0;
+    margin-bottom: 0.5em;
+}
+
+.side-bar .nav-header-subtitle {
+    font-size:0.8em;
+}
+
+.nav-category {
+    list-style: none;
+    margin: 0 0 1em 0;
+    padding: 0;
+    border:1px solid #ddd;
+    background: #fff;
+    /*border-radius: 6px;*/
+}
+
+.nav-category .active {
+    text-decoration: none;
+    color:#333;
+}
+
+.nav-category .collapse {
+    margin:0;
+    border:0;
+}
+
+.nav-category .collapse.in {
+    border-top:1px solid #ddd;
+}
+
+.nav-category ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+.nav-category li {
+    border-bottom:1px solid #ddd;
+    line-height: 2.5em;
+    min-height: 2.5em;
+}
+
+.nav-category .level2 {
+    background: #eee;
+}
+
+.nav-category .level3 {
+    background: #eaeaea;
+}
+
+.nav-category li a {
+    padding-left:0.5em;
+}
+
+.nav-category .level2 li a {
+    padding-left:2.5em;
+}
+
+.nav-category .level3 li a {
+    padding-left:4.5em;
+}
+
+.nav-category .level2 li:last-child {
+    border:0;
+}
+
+.nav-category .icon-chevron-down, .nav-category .icon-chevron-right {
+    margin: 0.6em 0.8em 0 0;
+    float: right;
+    opacity: .25;
+}
+
+nav-filters-container {
+    margin-top:1em;
+}
+
+.nav-filter-active, .nav-filter-available {
+    list-style: none;
+}
+
+.nav-filter-active .label {
+    margin-bottom: 0.5em;
+    line-height: 1.54em;
+}
+
+.nav-filter-active .label .close {
+    margin-left:5px;
+}
+
 .side-nav .icon-leaf{
     opacity: .25;
     margin-right: 2px;
 
 }
 
-.side-nav .icon-chevron-right, .side-nav .icon-chevron-down{
+.side-nav .icon-chevron-right, .side-nav .icon-chevron-down {
     float: right;
-    margin-top: 2px;
-    margin-right: -6px;
+    margin-top: 10px;
+    margin-right: 8px;
     opacity: .25;
+}
+
+.icon-chevron:hover {
+    cursor: pointer;
 }
 
 .side-nav a:hover .icon-chevron-right,.side-nav a:hover .icon-chevron-down {

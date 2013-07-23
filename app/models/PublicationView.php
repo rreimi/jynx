@@ -23,6 +23,22 @@ class PublicationView extends Eloquent {
         return $query->where('status', 'Published');
     }
 
+    public function scopeFilter($query, $filters) {
+        if (isset($filters['state'])){
+            $query->where('state_id', $filters['state']->id);
+        }
+
+        if (isset($filters['seller'])){
+            $query->where('publisher_id', $filters['seller']->id);
+        }
+
+        if (isset($filters['category'])){
+            $query->where('category_id', $filters['category']->id);
+        }
+
+        return $query;
+    }
+
     public function scopeParents($query) {
         return $query->where('category_id', '=', null);
     }
@@ -40,7 +56,7 @@ class PublicationView extends Eloquent {
         return $this->belongsTo('Publisher');
     }
 
-    public static function getSearch($q) {
+    public static function getSearch($q, $orderBy = 'visits_number', $orderDir = 'desc') {
         /*
          (SELECT p.*
             FROM  `publications` AS p
@@ -55,7 +71,7 @@ class PublicationView extends Eloquent {
             JOIN publishers AS u ON p.publisher_id = u.id
             WHERE u.seller_name LIKE  '%pepeasd%')
          */
-        $query = PublicationView::select('*')->orderBy('visits_number', 'desc');
+        $query = PublicationView::orderBy($orderBy, $orderDir);
 
         $tokens = explode(' ', $q);
 
@@ -68,12 +84,10 @@ class PublicationView extends Eloquent {
                     ->orWhere('short_description', 'like', "%$token%")
                     ->orWhere('long_description', 'like', "%$token%")
                     ->orWhere('seller_name', 'like', "%$token%")
-                    ->orWhere('categories_name', 'like', "%$token%")
+                    ->orWhere('category_name', 'like', "%$token%")
                     ->orWhere('city', 'like', "%$token%")
                     ->orWhere('state', 'like', "%$token%")
                     ->orWhere('contacts', 'like', "%$token%");
-
-
             });
 
 //            $query->orWhere('title', 'like', "%$token%")
