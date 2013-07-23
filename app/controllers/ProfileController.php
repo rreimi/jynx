@@ -11,27 +11,33 @@ class ProfileController extends BaseController{
         View::share('categories', self::getCategories());
 
         View::share('custom_title', Lang::get('content.profile'));
+        $customOptions = array(
+            Lang::get('content.profile_edit_basic')=>'#basico'
+        );
+        if(Auth::user()->isPublisher()){
+            $customOptions[Lang::get('content.profile_edit_publisher')] = '#publicador';
+            $customOptions[Lang::get('content.profile_edit_sectors')] = '#sectores';
+            $customOptions[Lang::get('content.profile_edit_contacts')] = '#contactos';
+        }
+
         View::share('custom_options',
-            array(
-                Lang::get('content.profile_edit_basic')=>'#basico',
-                Lang::get('content.profile_edit_publisher')=>'#publicador',
-                Lang::get('content.profile_edit_sectors')=>'#sectores',
-                Lang::get('content.profile_edit_contacts')=>'#contactos'
-            )
+            $customOptions
         );
     }
 
     public function getIndex(){
-
+        $user = Auth::user();
 
         $categoriesSelected=array();
-        foreach(Auth::user()->publisher->categories AS $category){
-            array_push($categoriesSelected,$category->id);
+        if($user->isPublisher()){
+            foreach($user->publisher->categories AS $category){
+                array_push($categoriesSelected,$category->id);
+            }
         }
 
         return View::make('profile',
             array(
-                'user'=>Auth::user(),
+                'user'=>$user,
                 'states' => State::lists('name','id'),
                 'categoriesSelected' => $categoriesSelected
             )
@@ -39,7 +45,7 @@ class ProfileController extends BaseController{
     }
 
     public function postIndex(){
-
+        
     }
 
 }

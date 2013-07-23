@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        @if(Auth::user()->isPublisher())
+        @if($user->isPublisher())
             <h2 id="publicador">{{Lang::get('content.profile_edit_publisher')}}</h2>
             <div class="control-group {{ $errors->has('profile_seller_name') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
@@ -62,7 +62,7 @@
             <div class="control-group {{ $errors->has('profile_publisher_type') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_publisher_type') }}</label>
                 <div class="controls">
-                    {{ Form::select('profile_publisher_type',
+                    {{ Form::select('publisher_type',
                         array(
                             '' => Lang::get('content.select'),
                             'Person' => Lang::get('content.publisher_type_person'),
@@ -78,9 +78,9 @@
             <div class="control-group {{ ($errors->has('profile_id_type') || $errors->has('profile_id')) ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_id') }}</label>
                 <div class="controls controls-row">
-                    {{ Form::select('profile_id_type',
+                    {{ Form::select('letter_rif_ci',
                         array('' => Lang::get('content.select')),
-                        Input::old('profile_id_type'),
+                        $user->publisher->letter_rif_ci,
                         array('class'=>'input-small publisher_id_type')
                     ) }}
                     {{ Form::text('profile_id', $user->publisher->rif_ci, array('class' => 'input-medium','placeholder'=> Lang::get('content.profile_id'))) }}
@@ -121,26 +121,28 @@
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone2') }}</label>
                 <div class="controls">
                     {{ Form::text('profile_phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
-                    {{ $errors->first('profile_phone2', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ $errors->first('profile_phoAuth::user()ne2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
-            <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
-            <div class="control-group">
-                @foreach ($categories as $key => $category)
-                    @if ($key % 4 == 0)
-                        <div class="row-fluid">
-                    @endif
+            @if(Auth::user()->isPublisher())
+                <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
+                <div class="control-group">
+                    @foreach ($categories as $key => $category)
+                        @if ($key % 4 == 0)
+                            <div class="row-fluid">
+                        @endif
 
-                    <label class="span3 checkbox checkbox-category">
-                        {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
-                        {{ $category->name }}
-                    </label>
+                        <label class="span3 checkbox checkbox-category">
+                            {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
+                            {{ $category->name }}
+                        </label>
 
-                    @if ((($key+1)%4) == 0)
-                        </div>
-                    @endif
-                @endforeach
-            </div>
+                        @if ((($key+1)%4) == 0)
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
 
             {{ Form::close() }}
         @endif
@@ -239,20 +241,42 @@
                     jQuery('.btn-password').button('toggle');
                 });
 
-            jQuery('.modal-contact')
-                .on('click',function(){
-                    var remote=jQuery(this).data('remote');
-                    var target=jQuery(this).data('target');
+            jQuery('.modal-contact').on('click',function(){
+                var remote=jQuery(this).data('remote');
+                var target=jQuery(this).data('target');
 
-                    jQuery.ajax({
-                        url: remote,
-                        cache: false,
-                        success: function(html){
-                            jQuery(target).children('.modal-body').html(html);
-                            jQuery(target).modal('show');
-                        }
-                    });
+                jQuery.ajax({
+                    url: remote,
+                    cache: false,
+                    success: function(html){
+                        jQuery(target).children('.modal-body').html(html);
+                        jQuery(target).modal('show');
+                    }
                 });
+            });
+
+            jQuery('.publisher_type').on('change',function(){
+                if(this.value=='Person'){
+                    $('option:not(.default)', '.publisher_id_type').remove();
+                    $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                }else if(this.value=='Business'){
+                    $('option:not(.default)', '.publisher_id_type').remove();
+                    $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                }else{
+                    $('option:not(.default)', '.publisher_id_type').remove();
+                }
+            });
+
+            //TODO insisto debe existir una mejor forma de hacer esto
+            if(jQuery('.publisher_type').val()=='Person'){
+                $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+            }else if(jQuery('.publisher_type').val()=='Business'){
+                $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+            }
+
+            jQuery('.publisher_type').trigger('change');
+            jQuery('.publisher_id_type').val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
         });
+
     </script>
 @stop
