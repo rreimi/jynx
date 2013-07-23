@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width"/>
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.css') }}
+    {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
+    {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
 </head>
@@ -34,9 +37,24 @@
         @show
     </footer>
 </div>
+
+@section('modal-confirm')
+@include('include.modal_confirm')
+@show
+
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/jquery.pnotify.min.js') }}
+{{ HTML::script('js/mercatino.js') }}
 @show
+
+@if (!is_null(Session::get('flash_global_message')))
+<script type="text/javascript">
+    if (Mercatino) {
+        Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
+    }
+</script>
+@endif
 </body>
 </html>
