@@ -27,7 +27,7 @@ class BaseController extends Controller {
 	}
 
     protected function getCategories() {
-        $categories = Category::parents()->get();
+        $categories = Category::parents()->orderBy('name','asc')->get();
         $categories->load('subcategories');
         return $categories;
     }

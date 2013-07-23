@@ -13,7 +13,7 @@
         <div class="control-group {{ $errors->has('register_password_confirmation')? 'error':'' }}">
             {{ Form::password('register_password_confirmation',array('placeholder' => Lang::get('content.register_password_confirmation'),'class' => 'input-block-level required')) }}
         </div>
-        <label class="checkbox">
+        <label class="checkbox terminos">
             {{ Form::checkbox('register_conditions',true,null,array('class'=>'required')) }} {{ Lang::get('content.register_conditions') }}
         </label>
         <div class="register-controls text-right">

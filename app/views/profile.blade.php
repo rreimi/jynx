@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <div class="row-fluid">
+    <div class="row-fluid profile-form">
         {{ Form::open(array('url' => 'perfil', 'class' => 'form-horizontal' )) }}
 
         <h1>{{Lang::get('content.profile_edit')}}</h1>
@@ -95,7 +95,7 @@
                     {{ Form::select('profile_state',
                         array_merge(array('' => Lang::get('content.select')),$states),
                         Input::old('profile_state'),
-                        array('class'=>'input-large'))
+                        array('class'=>'input-xlarge'))
                     }}
                     {{ $errors->first('profile_state', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -112,7 +112,7 @@
             <div class="control-group {{ $errors->has('profile_phone1') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_phone1', $user->publisher->phone1, array('class' => 'input-large','placeholder'=> Lang::get('content.profile_phone1'))) }}
+                    {{ Form::text('profile_phone1', $user->publisher->phone1, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone1'))) }}
                     {{ $errors->first('profile_phone1', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="control-group {{ $errors->has('profile_phone2') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone2') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_phone2', $user->publisher->phone2, array('class' => 'input-large','placeholder'=> Lang::get('content.profile_phone2'))) }}
+                    {{ Form::text('profile_phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
                     {{ $errors->first('profile_phone2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>

@@ -22,6 +22,7 @@
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/jquery.pnotify.min.js') }}
         {{ HTML::script('js/jquery.validate.min.js') }}
+        {{ HTML::script('js/messages_es.js') }}
         {{ HTML::script('js/mercatino.js') }}
         <script type="text/javascript">
             jQuery(function(){
@@ -30,6 +31,5 @@
         </script>
     @show
 
-    {{ $errors }}
 </body>
 </html>
