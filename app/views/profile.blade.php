@@ -93,8 +93,8 @@
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_state') }}</label>
                 <div class="controls">
                     {{ Form::select('profile_state',
-                        array_merge(array('' => Lang::get('content.select')),$states),
-                        Input::old('profile_state'),
+                        array_merge(array('' => Lang::get('content.select')), $states),
+                        $user->publisher->state_id,
                         array('class'=>'input-xlarge'))
                     }}
                     {{ $errors->first('profile_state', '<div class="field-error alert alert-error">:message</div>') }}
