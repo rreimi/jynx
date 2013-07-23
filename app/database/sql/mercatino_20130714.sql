@@ -351,6 +351,21 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`publications_visits` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+--
+-- Estructura de tabla para la tabla `publications_contacts`
+--
+
+CREATE TABLE IF NOT EXISTS `mercatino`.`publications_contacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` int(11) NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `contact_id` (`contact_id`)
+) ENGINE=InnoDB;
+
 USE `mercatino` ;
 
 

@@ -13,7 +13,7 @@ class PublicationImage extends Eloquent {
 	 *
 	 * @var string
 	 */
-	//protected $table = 'categories';
+	protected $table = 'publications_images';
 
     public $timestamps = false;
 
