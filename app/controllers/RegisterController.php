@@ -59,7 +59,8 @@ class RegisterController extends BaseController{
         $publisher->user_id=$userId;
         $publisher->publisher_type=Input::get('publisher_type');
         $publisher->seller_name=Input::get('publisher_seller');
-        $publisher->rif_ci=Input::get('publisher_id_type').Input::get('publisher_id');
+        $publisher->letter_rif_ci=Input::get('publisher_id_type');
+        $publisher->rif_ci=Input::get('publisher_id');
         $publisher->state_id=Input::get('publisher_state');
         $publisher->city=Input::get('publisher_city');
         $publisher->phone1=Input::get('publisher_phone1');

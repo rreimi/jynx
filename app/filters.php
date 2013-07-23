@@ -80,3 +80,4 @@ Route::filter('csrf', function()
 });
 
 Route::filter('referer', 'RefererFilter');
+Route::filter('previousReferer', 'PreviousRefererFilter');
