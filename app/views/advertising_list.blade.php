@@ -29,8 +29,7 @@
             <th>{{Lang::get('content.status')}}</th>
             <th>{{Lang::get('content.image_url')}}</th>
             <th>{{Lang::get('content.external_url')}}</th>
-            <th>{{Lang::get('content.first_name')}}</th>
-            <th>{{Lang::get('content.last_name')}}</th>
+            <th>{{Lang::get('content.full_name')}}</th>
             <th>-</th>
         </tr>
         </thead>
@@ -42,8 +41,7 @@
             <td>{{ Lang::get('content.status_'. $adv->status) }}</td>
             <td>{{ $adv->image_url }}</td>
             <td>{{ $adv->external_url }}</td>
-            <td>{{ $adv->first_name }}</td>
-            <td>{{ $adv->last_name }}</td>
+            <td>{{ $adv->full_name }}</td>
             <td>
                 <a href="{{URL::to('publicidad/editar/' . $adv->id)}}">{{Lang::get('content.edit')}}</a> |
                 <a href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertising_delete_title') }}', '{{ Lang::get('content.modal_advertising_delete_content') }}', '{{URL::to('publicidad/eliminar/' . $adv->id)}}');">
