@@ -20,4 +20,14 @@ class UrlHelper {
         $url = str_replace('?&','?',$url);
         return $url;
     }
+
+    public static function fullUrltoogleSort($field) {
+        $url = URL::full();
+        $dir = (Input::get('order') == 'desc')? 'asc':'desc';
+        $url = preg_replace('/\b([&|&amp;]{0,1}sort=[^&]*)\b/i','',$url);
+        $url .= '&sort=' . $field;
+        $url = preg_replace('/\b([&|&amp;]{0,1}order=[^&]*)\b/i','order=' . $dir,$url);
+        $url = str_replace('?&','?',$url);
+        return $url;
+    }
 }

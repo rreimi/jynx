@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <div class="row-fluid">
+    <div class="row-fluid publication-detail">
         <div id="pub-images-box" class="float-right pub-images-carousel carousel slide">
             <ol class="carousel-indicators">
                 @foreach ($publication->images as $key => $img)
@@ -30,30 +30,45 @@
                 <a class="action btn btn-mini btn-info" href="{{URL::to('publicacion/editar/' . $publication->id)}}">{{Lang::get('content.edit')}}</a>
             @endif
         </h1>
+        <h2>{{Lang::get('content.descripcion')}}</h2>
+        <p class="pub-short-desc">{{ $publication->short_description }}</p>
+        <p class="pub-long-desc">{{ $publication->long_description }}</p>
+        <h2>{{Lang::get('content.categories_title')}}</h2>
+        <div class="publication-categories">
+            <ul>
+                @foreach ($publication->categories as $cat)
+                <li>{{ $cat->name }}</li>
+                @endforeach
+            </ul>
+        </div>
+
         <div class="publisher-info">
-            <span class="pub-seller pub-line">{{Lang::get('content.sell_by')}}: {{ $publication->publisher->seller_name }}</span>
+            <h2>{{Lang::get('content.sell_by_full')}}</h2>
+            <p>
+            <span class="pub-seller pub-line">{{ $publication->publisher->seller_name }}</span>
             <span class="pub-phone pub-line">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</span>
             <span class="pub-location pub-line">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</span>
             @if ($publication->publisher->phone2)
                 <span class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}</span>
             @endif
+            </p>
             <div class="contacs-info">
                 <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
-                <ul class="contact-list">
-                    @foreach ($publication->publisher->contacts as $contact)
+                <ol class="contact-list">
+                    @foreach ($publication->contacts as $contact)
                         <li>
-                        {{ $contact->first_name . ' ' . $contact->last_name }}<br/>
+                        {{ $contact->full_name }}<br/>
+                        @if (isset($contact->distributor)) {{ $contact->distributor }}<br/> @endif
                         {{ $contact->email }}<br/>
                         {{ $contact->phone }}
                         </li>
                     @endforeach
-                </ul>
+                </ol>
             </div>
         </div><!--/.publisher-info-->
-        <p class="pub-short-desc">{{ $publication->short_description }}</p>
-        <p class="pub-long-desc">{{ $publication->long_description }}</p>
+
         <div class="report-info">
-            {{ Lang::get('content.report_publication_msg', array('url' => '#')) }}
+            <p>{{ Lang::get('content.report_publication_msg', array('url' => '#')) }}</p>
         </div>
     </div><!--/row-fluid-->
 @stop
