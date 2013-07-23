@@ -22,14 +22,14 @@
             <table class="pub-table table table-bordered table-condensed">
                 <thead>
                     <tr>
-                        <th><a href="?sort=id&order=asc">{{Lang::get('content.id')}}</a></th>
-                        <th>{{Lang::get('content.title')}}</th>
-                        <th>{{Lang::get('content.from_date')}}</th>
-                        <th>{{Lang::get('content.to_date')}}</th>
-                        <th>{{Lang::get('content.visits_number')}}</th>
-                        <th>{{Lang::get('content.created_at')}}</th>
-                        <th>{{Lang::get('content.categories_name')}}</th>
-                        <th>-</th>
+                        <th class="small"><a href="{{UrlHelper::fullUrltoogleSort('id')}}">{{Lang::get('content.id')}}</a></th>
+                        <th class="title"><a href="{{UrlHelper::fullUrltoogleSort('title')}}">{{Lang::get('content.title')}}</a></th>
+                        <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('from_date')}}">{{Lang::get('content.from_date')}}</a></th>
+                        <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('to_date')}}">{{Lang::get('content.to_date')}}</a></th>
+                        <th><a href="{{UrlHelper::fullUrltoogleSort('visits_number')}}">{{Lang::get('content.visits_number')}}</a></th>
+                        <th><a href="{{UrlHelper::fullUrltoogleSort('created_at')}}">{{Lang::get('content.created_at')}}</a></th>
+<!--                        <th>{{Lang::get('content.category_name')}}</th>-->
+                        <th class="options">-</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,11 +41,11 @@
                         <td>{{ $pub->to_date }}</td>
                         <td>{{ $pub->visits_number }}</td>
                         <td>{{ $pub->created_at }}</td>
-                        <td>{{ $pub->categories_name }}</td>
+<!--                        <td>{{ $pub->categories_name }}</td>-->
                         <td>
-                            <a href="{{URL::to('publicacion/detalle/' . $pub->id)}}">{{Lang::get('content.see')}}</a> |
-                            <a href="{{URL::to('publicacion/editar/' . $pub->id)}}">{{Lang::get('content.edit')}}</a> |
-                            <a href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">{{Lang::get('content.delete')}}</a>
+                            <a class="btn" href="{{URL::to('publicacion/detalle/' . $pub->id)}}"><i class="icon-search"></i></a>
+                            <a class="btn" href="{{URL::to('publicacion/editar/' . $pub->id)}}"><i class="icon-pencil"></i></a>
+                            <a class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')"><i class="icon-remove"></i></a>
                         </td>
                     </tr>
                     @endforeach

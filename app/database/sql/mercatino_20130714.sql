@@ -126,9 +126,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `mercatino`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(50) NOT NULL ,
+  `name` VARCHAR(80) NOT NULL ,
   `category_id` INT NULL ,
-  `slug` VARCHAR(50) NOT NULL ,
+  `slug` VARCHAR(80) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) )
 ENGINE = InnoDB;

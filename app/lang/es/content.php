@@ -20,6 +20,7 @@ return array(
     //Category, Search
 	"categories_title" => "Categorías",
     "sell_by"          => "Por",
+    "sell_by_full"          => "Publicado por",
     "see_product_detail" => "Ver detalle",
     "phone" => "Teléfono",
     "contacts" => "Contactos, Sucursales, Distribuidores",
@@ -41,6 +42,7 @@ return array(
     "title" => "Título",
     "short_description" => "Descripción corta",
     "long_description" => "Descripción extendida",
+    "descripcion" => "Descripción",
     "from_date" => "Desde",
     "to_date" => "Hasta",
     "visits_number" => "Visitas",

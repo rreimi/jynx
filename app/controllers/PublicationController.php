@@ -67,7 +67,7 @@ class PublicationController extends BaseController {
             $publications->orWhere(function($query) use ($q)
             {
                 $query->orWhere('title', 'LIKE', '%' . $q . '%')
-                    ->orWhere('categories_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('category_name', 'LIKE', '%' . $q . '%')
                     ->orWhere('from_date', 'LIKE', '%' . $q . '%')
                     ->orWhere('to_date', 'LIKE', '%' . $q . '%')
                 ;
@@ -81,6 +81,7 @@ class PublicationController extends BaseController {
         }
 
         $publications->where('publisher_id', '=', Auth::user()->publisher->id);
+        $publications->groupBy('id');
         $publications = $publications->paginate($this->page_size);
 
         return View::make('publication_list', array(
@@ -401,7 +402,7 @@ class PublicationController extends BaseController {
             return Redirect::to('publicacion/editar/'.$pub->id . '#imagenes');
 
         } else {
-            $this->addFlashMessage(Lang::get('content.edit_publication',1), Lang::get('content.edit_publication_success'));
+            $this->addFlashMessage(Lang::choice('content.edit_publication',1), Lang::get('content.edit_publication_success'));
             //Session::flash('flash_global_message', Lang::get('content.edit_publication_success'));
             //Redirect to a referer if exists
             $referer = Session::get($this->prefix . '_referer');

@@ -178,6 +178,26 @@ div#home-banner-top .carousel-control {
     width: 117px;
 }
 
+/* Publication view */
+
+.publication-detail p, .publication-detail li {
+    font-size:1.1em;
+}
+
+.contact-list {
+
+}
+
+.contact-list li {
+    line-height: 1.4em;
+}
+
+/* Publication form */
+
+.categories-form ul {
+    list-style:none;
+}
+
 /* Menu */
 .nav.top-menu-option {
     margin-left: 13.2%;
