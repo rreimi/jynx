@@ -177,3 +177,9 @@ div#home-banner-top .carousel-control {
 .profile-form .publisher_id_type {
     width: 117px;
 }
+
+/* Menu */
+.nav.top-menu-option {
+    margin-left: 13.2%;
+    margin-right: 0px;
+}

@@ -53,6 +53,11 @@ class PublicationController extends BaseController {
 
         //$q = Input::get('q');
 
+        // Si no es publisher lo boto
+        if (!Auth::user()->isPublisher()){
+            return Redirect::to('/');
+        }
+
         $state = self::retrieveListState();
         $publications = PublicationView::orderBy($state['sort'], $state['order']);
 
