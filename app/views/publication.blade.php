@@ -25,10 +25,10 @@
             <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
         </div><!-- pub-images-box -->
         <h1>{{ $publication->title }}
-            @if ($publication->publisher_id == Auth::user()->publisher->id)
-                <br/>
-                <a class="action btn btn-mini btn-info" href="{{URL::to('publicacion/editar/' . $publication->id)}}">{{Lang::get('content.edit')}}</a>
-            @endif
+<!--            if ($publication->publisher_id == Auth::user()->publisher->id)-->
+<!--                <br/>-->
+<!--                <a class="action btn btn-mini btn-info" href=" URL::to('publicacion/editar/' . $publication->id)}}">Lang::get('content.edit')}}</a>-->
+<!--            endif-->
         </h1>
         <h2>{{Lang::get('content.descripcion')}}</h2>
         <p class="pub-short-desc">{{ $publication->short_description }}</p>

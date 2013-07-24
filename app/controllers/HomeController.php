@@ -130,7 +130,10 @@ class HomeController extends BaseController {
         /* Find publications */
         //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
         $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
+        //echo $data['publications'];
 
+        //dd(DB::getQueryLog());
+        //die();
         $availableFilters = array();
 
         if (!isset($activeFilters['category'])){

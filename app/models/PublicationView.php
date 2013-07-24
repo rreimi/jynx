@@ -49,7 +49,7 @@ class PublicationView extends Eloquent {
     }
 
     public function images() {
-        return $this->hasMany('PublicationImage', 'id');
+        return $this->hasMany('PublicationImage', 'publication_id');
     }
 
 
