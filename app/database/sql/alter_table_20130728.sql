@@ -3,12 +3,8 @@ ALTER TABLE `users` ADD `status` ENUM('Admin','Basic','Publisher') NOT NULL AFTE
 ALTER TABLE `categories` ADD `type` ENUM('Product','Service') NOT NULL AFTER `category_id`;
 DROP TABLE `publishers_reports`;
 ALTER TABLE `categories` ADD INDEX ( `category_id` ) ;
-
-ALTER TABLE `categories` ADD CONSTRAINT `fk_publishers_categories_categories`
-    FOREIGN KEY (`category_id` )
-    REFERENCES `mercatino`.`categories` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
+ALTER TABLE `categories` ADD FOREIGN KEY ( `category_id` )
+ REFERENCES `mercatino`.`categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION ;
 
 -- -----------------------------------------------------
 -- Table `mercatino`.`publications_contacts`
