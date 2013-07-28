@@ -130,6 +130,7 @@ CREATE  TABLE IF NOT EXISTS `mercatino`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `category_id` INT NULL ,
+  `type` ENUM('Product','Service') NOT NULL ,
   `slug` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) ,

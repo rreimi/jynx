@@ -1,5 +1,6 @@
 ALTER TABLE `publishers` ADD `letter_rif_ci` VARCHAR( 1 ) NOT NULL AFTER `seller_name`;
 ALTER TABLE `users` ADD `status` ENUM('Admin','Basic','Publisher') NOT NULL AFTER `password`;
+ALTER TABLE `categories` ADD `type` ENUM('Product','Service') NOT NULL AFTER `category_id`;
 DROP TABLE `publishers_reports`;
 ALTER TABLE `categories` ADD INDEX ( `category_id` ) ;
 
