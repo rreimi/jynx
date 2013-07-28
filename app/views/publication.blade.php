@@ -102,13 +102,24 @@
             var comment = jQuery('#modal-report textarea').val();
 
             if (comment == ""){
-                alert('{{Lang::get('content.report_commend_required')}}');
+                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_commend_required')}}", type:'error'});
                 return;
             }
 
             this.hide();
-            //TODO send report
-            Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
+
+            jQuery.ajax({
+                url: "{{ URL::to('denuncia/crear/') }}",
+                type: 'POST',
+                data: { publication_id: '{{ $publication->id }}' , comment: comment },
+                success: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
+                    jQuery('#modal-report .modal-body textarea').val('');
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_error')}}", type:'error'});
+                }
+            });
         }
     };
 

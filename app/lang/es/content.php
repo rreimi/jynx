@@ -40,6 +40,7 @@ return array(
     "publication" => "Publicacion|Publicaciones",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
+    "report_commend_required" => "Debe indicar las razones de la denuncia",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -62,6 +63,9 @@ return array(
     'status_published' => 'Publicada',
     'status_on_Hold' => 'Pausada',
     'status_suspended' => 'Suspendida',
+
+    // Reports status
+    'status_pending' => 'Pendiente',
 
     //Menu
     "home" => "Inicio",
@@ -109,6 +113,7 @@ return array(
     "modal_publication_delete_title" => "Eliminar publicación",
     "modal_publication_delete_content" => "¿Estás seguro que deseas eliminar esta publicación?",
     "report_send_success" => "La denuncia se ha enviado correctamente",
+    "report_send_error" => "Ha ocurrido un error enviando la denuncia",
 
     // Advertising
     "name" => "Nombre publicidad",
