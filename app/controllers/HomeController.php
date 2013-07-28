@@ -28,15 +28,19 @@ class HomeController extends BaseController {
 
 	public function getIndex() {
 
-		/* Cargar la lista de categorias */
-        $categories = self::getCategories();
-        $data['categories'] = $categories;
+        //Load category list -> see constructor
+
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
-        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = Publication::published()->mostvisited()->get();
-        $data['recent'] = Publication::published()->orderBy('created_at', 'desc')->take(12)->get();
+        $data['activeadvertisings'] = array();
+        $data['mostvisited'] = array();
+        $data['recent'] = array();
+
+
+//        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
+        $data['mostvisited'] = Publication::published()->mostvisited(12)->get();
+        $data['recent'] = Publication::published()->recent(12)->get();
 
         //$data['mostvisited']->images();
         /* Cargar la lista de los últimos productos agregados */
