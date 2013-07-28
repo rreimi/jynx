@@ -7,7 +7,7 @@
         <p>Content.</p>
     </div>
     <div class='modal-footer'>
-        <a href="#" class="btn danger">Si</a>
-        <a href="javascript:Mercatino.modalConfirm.hide()" class="btn secondary">No</a>
+        <a href="#" class="btn danger">{{ Lang::get('content.yes') }}</a>
+        <a href="javascript:Mercatino.modalConfirm.hide()" class="btn secondary">{{ Lang::get('content.no') }}</a>
     </div>
 </div>

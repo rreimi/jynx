@@ -43,6 +43,8 @@ Route::controller('perfil', 'ProfileController');
 
 Route::controller('contacto','ContactController');
 
+Route::controller('usuario','UserController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');
