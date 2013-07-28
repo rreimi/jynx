@@ -106,6 +106,7 @@
 
             this.hide();
             //TODO send report
+
             Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
         }
     };

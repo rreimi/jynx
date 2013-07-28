@@ -19,7 +19,7 @@
 
         </div>
         {{ Form::close() }}
-            <table class="pub-table table table-bordered table-condensed">
+            <table class="table table-bordered table-condensed">
                 <thead>
                     <tr>
                         <th class="small"><a href="{{UrlHelper::fullUrltoogleSort('id')}}">{{Lang::get('content.id')}}</a></th>
