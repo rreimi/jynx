@@ -43,9 +43,9 @@
                         <td>{{ $pub->created_at }}</td>
 <!--                        <td>{{ $pub->categories_name }}</td>-->
                         <td>
-                            <a class="btn" href="{{URL::to('publicacion/detalle/' . $pub->id)}}"><i class="icon-search"></i></a>
-                            <a class="btn" href="{{URL::to('publicacion/editar/' . $pub->id)}}"><i class="icon-pencil"></i></a>
-                            <a class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')"><i class="icon-remove"></i></a>
+                            <a class="btn" href="{{URL::to('publicacion/detalle/' . $pub->id)}}"><i rel="tooltip" title="{{Lang::get('content.view')}}" class="icon-search"></i></a>
+                            <a class="btn" href="{{URL::to('publicacion/editar/' . $pub->id)}}"><i rel="tooltip" title="{{Lang::get('content.edit')}}" class="icon-pencil"></i></a>
+                            <a class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')"><i rel="tooltip" title="{{Lang::get('content.delete')}}" class="icon-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach

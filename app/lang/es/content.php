@@ -32,6 +32,7 @@ return array(
     "publications_search_placeholder" => "Buscar...",
     "search_results" => "Resultados para",
     "search_no_results" => "No se encontraron :item para: :criteria",
+    "view" => "Ver",
     "search" => "Buscar",
     "filter_status" => ' -- Filtrar Estatus -- ',
 
@@ -93,7 +94,7 @@ return array(
     "backend_menu_users" => "Usuarios",
     "backend_menu_publishers" => "Publicadores",
     "backend_menu_publications" => "Publicaciones",
-    "backend_menu_advertisings" => "Publicidad",
+    "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
 
     // Backend Dashboard
