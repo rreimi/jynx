@@ -70,9 +70,11 @@
         </div><!--/.contacs-info-->
         @endif
 
-        <div class="report-info">
-            <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
-        </div>
+        @if (Auth::user()->id != $publication->publisher->user_id)
+            <div class="report-info">
+                <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
+            </div>
+        @endif
 
         @include('include.modal_report')
 
