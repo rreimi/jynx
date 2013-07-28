@@ -43,9 +43,9 @@
             <td>{{ $adv->external_url }}</td>
             <td>{{ $adv->full_name }}</td>
             <td>
-                <a href="{{URL::to('publicidad/editar/' . $adv->id)}}">{{Lang::get('content.edit')}}</a> |
-                <a href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertising_delete_title') }}', '{{ Lang::get('content.modal_advertising_delete_content') }}', '{{URL::to('publicidad/eliminar/' . $adv->id)}}');">
-                    {{Lang::get('content.delete')}}
+                <a class="btn" href="{{URL::to('publicidad/editar/' . $adv->id)}}"><i rel="tooltip" title="{{Lang::get('content.edit')}}" class="icon-pencil"></i></a>
+                <a class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertising_delete_title') }}', '{{ Lang::get('content.modal_advertising_delete_content') }}', '{{URL::to('publicidad/eliminar/' . $adv->id)}}');">
+                    <i rel="tooltip" title="{{Lang::get('content.delete')}}" class="icon-trash"></i>
                 </a>
             </td>
         </tr>

@@ -27,9 +27,25 @@ class BaseController extends Controller {
 	}
 
     protected function getCategories() {
-        $categories = Category::parents()->orderBy('name','asc')->get();
-        $categories->load('subcategories');
-        return $categories;
+
+        $value = Cache::rememberForever('categoryTree', function()
+        {
+            return Category::getCategoryTree();
+        });
+
+        return $value;
+
+//        $categories = Category::parents()->with('subcategories')->orderByName()->get();
+//        $categories->load('subcategories');
+//        foreach ($categories as $category) {
+//            $subcats = array();
+//            foreach ($category->subcategories as $subcat) {
+//                $subcats[] = $subcat;
+//            }
+//            usort($subcats, function($a, $b) { return strtolower($b->name) < strtolower($a->name); });
+//            $category->subcategories = $subcats;
+//        }
+//        return $categories;
     }
 
     protected function addFlashMessage($title, $message, $type = 'success'){

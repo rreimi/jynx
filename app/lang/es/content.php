@@ -13,6 +13,10 @@ return array(
 	|
 	*/
 
+    // Common
+    'yes' => 'Sí',
+    'no' => 'No',
+
     //Dashboard
     "mostvisited_items" => "Los más visitados",
     "recent_items" => "Los más recientes",
@@ -32,6 +36,7 @@ return array(
     "publications_search_placeholder" => "Buscar...",
     "search_results" => "Resultados para",
     "search_no_results" => "No se encontraron :item para: :criteria",
+    "view" => "Ver",
     "search" => "Buscar",
     "filter_status" => ' -- Filtrar Estatus -- ',
 
@@ -39,6 +44,7 @@ return array(
     "publication" => "Publicacion|Publicaciones",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
+    "report_commend_required" => "Debe indicar las razones de la denuncia",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -61,6 +67,9 @@ return array(
     'status_published' => 'Publicada',
     'status_on_Hold' => 'Pausada',
     'status_suspended' => 'Suspendida',
+
+    // Reports status
+    'status_pending' => 'Pendiente',
 
     //Menu
     "home" => "Inicio",
@@ -93,7 +102,7 @@ return array(
     "backend_menu_users" => "Usuarios",
     "backend_menu_publishers" => "Publicadores",
     "backend_menu_publications" => "Publicaciones",
-    "backend_menu_advertisings" => "Publicidad",
+    "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
 
     // Backend Dashboard
@@ -106,8 +115,9 @@ return array(
     "delete_publication_success" => "La publicación se ha eliminado correctamente",
     "delete_publication_error" => "Ha ocurrido un error al intentar eliminar la publicación.",
     "modal_publication_delete_title" => "Eliminar publicación",
-    "modal_publication_delete_content" => "¿Estás seguro que deseas eliminar esta publicación?",
+    "modal_publication_delete_content" => "¿Está seguro que deseas eliminar esta publicación?",
     "report_send_success" => "La denuncia se ha enviado correctamente",
+    "report_send_error" => "Ha ocurrido un error enviando la denuncia",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -243,4 +253,41 @@ return array(
     "filter_seller_title" => 'Vendedor',
     "filter_state_title" => 'Ubicacion',
     "filter_category_title" => 'Categoria',
+
+    // Users
+    "users" => 'Usuarios',
+    "user_name" => 'Nombre',
+    "user_email" => 'Correo',
+    "user_role" => 'Rol',
+    "user_status" => 'Estatus',
+    "user_is_publisher" => '¿Es publicador?',
+
+    // Labels
+    "new_user" => 'Nuevo usuario',
+    "new_user_admin" => 'Nuevo administrador',
+    "edit_user" => 'Editar usuario',
+
+    // Search
+    "user_search_placeholder" => "Buscar...",
+    "user_role_Admin" => "Administrador",
+    "user_role_Publisher" => "Publicador",
+    "user_role_Basic" => "Básico",
+
+    // Status
+    'status_Active' => 'Activo',
+    'status_Inactive' => 'Inactivo',
+    'status_Suspended' => 'Suspendido',
+
+    // Roles
+    'role_Basic' => 'Básico',
+    'role_Publisher' => 'Publicador',
+    'role_Admin' => 'Administrador',
+
+    // Messages
+    'save_user_success' => 'El usuario ha sido guardado satisfactoriamente',
+    "modal_user_delete_title" => "Eliminar usuario",
+    "modal_user_delete_content" => "¿Está seguro que deseas eliminar este usuario?",
+    "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
+    "delete_user_success" => "El usuario se ha eliminado correctamente",
+    "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
 );
