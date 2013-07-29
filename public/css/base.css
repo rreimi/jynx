@@ -232,3 +232,30 @@ nav-filters-container {
     padding: 0;
     vertical-align: middle;
 }
+
+#footer {
+    height: 55px;
+}
+
+.footer {
+    color: #999999;
+    text-align: center;
+    width: 100%;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #999999;
+}
+
+.footer a:hover {
+    color: #FFF;
+}
+
+.copyright {
+    height: 55px;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 15px;
+    background: #1B1B1B;
+}
