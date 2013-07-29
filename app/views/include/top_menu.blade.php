@@ -32,7 +32,7 @@
                     </li>
                 </ul>
                 @endif
-                <ul class="nav top-menu-option">
+                <ul class="nav pull-right">
                     @if(Auth::check())
                         <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
                     @endif
