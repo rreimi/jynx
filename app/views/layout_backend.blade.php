@@ -32,11 +32,7 @@
     </div>
     <hr>
 </div>
-<footer>
-    @section('footer')
-    @include('include.footer')
-    @show
-</footer>
+
 
 @section('modal-confirm')
 @include('include.modal_confirm')
