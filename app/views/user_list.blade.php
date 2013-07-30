@@ -44,8 +44,12 @@
             <td>{{ Lang::get('content.status_'. $user->status) }}</td>
             <td>{{ $user->created_at }}</td>
             <td>
-                <a class="btn" href="{{URL::to('usuario/editar/' . $user->id)}}"><i rel="tooltip" title="{{Lang::get('content.edit')}}" class="icon-pencil"></i></a>
-                <a class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_user_delete_title') }}', '{{ Lang::get('content.modal_user_delete_content') }}', '{{URL::to('usuario/eliminar/' . $user->id)}}')"><i rel="tooltip" title="{{Lang::get('content.delete')}}" class="icon-trash"></i></a>
+                <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('usuario/editar/' . $user->id)}}">
+                    <i class="icon-pencil"></i>
+                </a>
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_user_delete_title') }}', '{{ Lang::get('content.modal_user_delete_content') }}', '{{URL::to('usuario/eliminar/' . $user->id)}}')">
+                    <i class="icon-trash"></i>
+                </a>
             </td>
         </tr>
         @endforeach
