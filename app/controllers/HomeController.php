@@ -38,7 +38,7 @@ class HomeController extends BaseController {
         $data['recent'] = array();
 
 
-//        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
+        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
         $data['mostvisited'] = Publication::published()->mostvisited(12)->get();
         $data['recent'] = Publication::published()->recent(12)->get();
 

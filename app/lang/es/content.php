@@ -16,6 +16,7 @@ return array(
     // Common
     'yes' => 'Sí',
     'no' => 'No',
+    'close' => 'Cerrar',
 
     //Dashboard
     "mostvisited_items" => "Los más visitados",
@@ -67,6 +68,10 @@ return array(
     'status_published' => 'Publicada',
     'status_on_Hold' => 'Pausada',
     'status_suspended' => 'Suspendida',
+
+    // Reports
+    'report_title' => 'Denuncia',
+    'backend_report_view_title' => 'Denuncia pendiente',
 
     // Reports status
     'status_pending' => 'Pendiente',
@@ -208,6 +213,17 @@ return array(
     "backend_seller" => "Nombre vendedor / Nombre empresa",
     "backend_id" => "Cédula / Rif",
     "backend_phone" => "Teléfono",
+
+    "backend_report_id" => "ID",
+    "backend_report_user" => "Usuario",
+    "backend_report_publication" => "Publicación",
+    "backend_report_comment" => "Comentario",
+    "backend_report_date" => "Fecha",
+    "backend_report_status" => "Estatus",
+
+    "backend_report_status_Pending" => "Pendiente",
+    "backend_report_status_Correct" => "Correcto",
+    "backend_report_status_Incorrect" => "Incorrecto",
 
     //Flash messages
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',

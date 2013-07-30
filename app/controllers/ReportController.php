@@ -47,4 +47,25 @@ class ReportController extends BaseController {
         }
     }
 
+    public function getDetalle($id){
+        $response = PublicationReport::with('user', 'publication')->find($id);
+
+        return View::make('include.report_view',
+            array(
+                'report'=> $response
+            )
+        );
+    }
+
+    public function postProcesar(){
+        //Get report data
+        /*$repData = array(
+            'id' => Request::get('id'),
+            'action' => Request::get('action'),
+        );
+
+        return Redirect::to_action('backend@dashboard', array());
+        var_dump($repData);*/
+    }
+
 }
