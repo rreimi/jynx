@@ -82,18 +82,12 @@ h2 {
     margin-bottom: 1em;
 }
 
-.pub-table {
-    padding:0.4em;
-    margin:0 0 1em 0;
-}
-
-.pub-table td, .pub-table th {
-    border:1px solid #eee;
-    padding: 0.2em;
-}
-
 .pub-list-filters {
     margin-bottom: 1em;
+}
+
+.pub-table .options {
+
 }
 
 .field-error {
