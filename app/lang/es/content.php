@@ -106,6 +106,7 @@ return array(
     "see_my_publications" => "Ir a mis publicaciones",
     "remove_image" => "Eliminar imagen",
     "add_images_msg" => "Arrastra las imágenes o haz clic para cargarlas",
+    "exit" => "Salir",
 
     // Backend Menu
     "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
