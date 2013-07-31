@@ -120,7 +120,7 @@
             <div class="alert alert-warning">{{ Lang::get('content.publisher_explanation') }}</div>
 
             <div class="text-center">
-                <a class="btn btn-large" href="{{ URL::to('/') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
+                <a class="btn btn-large" href="{{ URL::to('registro/finalizar') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
                 <button class="btn btn-large btn-warning publisher-info" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
             </div>
         </div>

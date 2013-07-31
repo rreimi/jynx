@@ -96,6 +96,11 @@ class RegisterController extends BaseController{
         );
     }
 
+    public function getFinalizar(){
+        $this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
+        return Redirect::to('/');
+    }
+
     private function registroPublicadorReglas(){
 
         return array(

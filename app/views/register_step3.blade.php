@@ -68,7 +68,7 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
-                            <a class="btn btn-large btn-success pull-right" href="{{ URL::to('/') }}">{{ Lang::get('content.publisher_finalize') }}</a>
+                            <a class="btn btn-large btn-success pull-right" href="{{ URL::to('registro/finalizar') }}">{{ Lang::get('content.publisher_finalize') }}</a>
                         </div>
                     </div>
                 </div>
