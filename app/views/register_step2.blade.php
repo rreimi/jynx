@@ -7,7 +7,6 @@
                 {{ Form::open(array('url' => 'registro/step2','class'=>'big-form')) }}
                 <div class="pull-right">{{ Auth::user()->full_name }}</div>
                 <h3 class='header'>{{ Lang::get('content.publisher_header') }}</h3>
-                <p class='alert'>{{ Lang::get('content.publisher_explanation') }}</p>
                 <fieldset>
                     <div class="row-fluid">
                         <div class="span6">
@@ -109,44 +108,66 @@
             <div class="span1"></div>
         </div>
     </div>
+
+
+    <div id="startDialog" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3 id="myModalLabel">{{ Lang::get('content.register_dialog_header') }}</h3>
+        </div>
+        <div class="modal-body">
+            <p>{{ Lang::get('content.register_dialog_description') }}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn">{{ Lang::get('content.register_dialog_cancel') }}</button>
+            <button class="btn btn-warning publisher-info" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
+        </div>
+    </div>
+
 @stop
 
 @section('scripts')
 @parent
     <script type="text/javascript">
-        jQuery('.numeric-only').numericField();
-        //TODO buscar la manera de que esto este por defecto en laravel o en algún otro lado
-        jQuery('option').each(function(i,object){
-            if(object.value==''){
-                $(object).addClass('default');
+        jQuery(document).ready(function(){
+            jQuery('.numeric-only').numericField();
+            //TODO buscar la manera de que esto este por defecto en laravel o en algún otro lado
+            jQuery('option').each(function(i,object){
+                if(object.value==''){
+                    $(object).addClass('default');
+                }
+            });
+
+            jQuery('#startDialog').modal('show');
+
+            jQuery('.publisher-info').on('click',function(){
+                Mercatino.showFlashMessage({title:'{{ Lang::get('content.site_messages_title_error') }}',message:' {{ Lang::get('content.publisher_explanation') }} ',type:'warning'});
+            });
+
+            var publisherType=jQuery('.publisher_type');
+            var publisherIdType=jQuery('.publisher_id_type');
+
+
+            publisherType.on('change',function(){
+                jQuery('option:not(.default)', '.publisher_id_type').remove();
+                if(this.value=='Person'){
+                    jQuery('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                }else if(this.value=='Business'){
+                    jQuery('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                }
+            });
+
+            if(publisherType.val()=='Person'){
+                publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+            }else if(publisherType.val()=='Business'){
+                publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
             }
+
+            publisherIdType.val("{{ Input::old('publisher_id_type','') }}");
+
+            jQuery('.big-form').validateBootstrap({placement:'bottom'});
+
         });
-
-        jQuery('.publisher_type').on('change',function(){
-            if(this.value=='Person'){
-                $('option:not(.default)', '.publisher_id_type').remove();
-                $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            }else if(this.value=='Business'){
-                $('option:not(.default)', '.publisher_id_type').remove();
-                $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-            }else{
-                $('option:not(.default)', '.publisher_id_type').remove();
-            }
-        });
-
-        //TODO insisto debe existir una mejor forma de hacer esto
-        if(jQuery('.publisher_type').val()=='Person'){
-            $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-        }else if(jQuery('.publisher_type').val()=='Business'){
-            $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-        }
-
-        jQuery('.publisher_id_type').val("{{ Input::old('publisher_id_type','') }}");
-
-         jQuery(document).ready(function(){
-              jQuery('.big-form').validateBootstrap({placement:'bottom'});
-         });
-
     </script>
 @stop
 

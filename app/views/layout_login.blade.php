@@ -25,7 +25,7 @@
         {{ HTML::script('js/messages_es.js') }}
         {{ HTML::script('js/mercatino.js') }}
         <script type="text/javascript">
-            jQuery(function(){
+            jQuery(document).ready(function(){
                 Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();
             })
         </script>

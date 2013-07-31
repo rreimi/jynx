@@ -162,6 +162,10 @@ return array(
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
     "register_conditions" => "Acepto <a href=\":url\">términos y condiciones de servicio</a>",
+    "register_dialog_header" => "",
+    "register_dialog_description" => "",
+    "register_dialog_continue" => "Si quiero publicar",
+    "register_dialog_cancel" => "No por los momentos y quiero navegar",
 
     "publisher_header" => "Datos para publicadores",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",

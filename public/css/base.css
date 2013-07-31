@@ -232,3 +232,8 @@ nav-filters-container {
     padding: 0;
     vertical-align: middle;
 }
+
+.nav.top-menu-option {
+    margin-left: 13.2%;
+    margin-right: 0px;
+}
