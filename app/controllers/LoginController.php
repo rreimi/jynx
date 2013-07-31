@@ -35,8 +35,8 @@ class LoginController extends BaseController{
                 return Redirect::to('/');
             }
         }else{
-            $validator->errors()->add('login_email','any');
-            $validator->errors()->add('login_password','any');
+            $validator->errors()->add('login_email',Lang::get('content.login_error'));
+            //$validator->errors()->add('login_password','any');
 
             return Redirect::to('login')->withErrors($validator);
         }
