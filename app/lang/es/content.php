@@ -89,6 +89,7 @@ return array(
     "help" => "Ayuda",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
 
     //Options
