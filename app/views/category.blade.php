@@ -26,8 +26,8 @@
                     </div>
                 </div>
             </div><!--/span-->
-        @if ((($key+1)%3) == 0)
-        </div>
+        @if (((($key+1)%3) == 0) || ($key+1 == count($publications)))
+        </div><!--/div.row-fluid-->
         @endif
     @endforeach
     {{ $publications->links() }}

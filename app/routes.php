@@ -33,6 +33,8 @@ Route::controller('registro','RegisterController');
 
 Route::controller('publicacion','PublicationController');
 
+Route::controller('denuncia','ReportController');
+
 Route::controller('dashboard','BackendController');
 
 Route::controller('publicidad', 'AdvertisingController');
@@ -40,6 +42,8 @@ Route::controller('publicidad', 'AdvertisingController');
 Route::controller('perfil', 'ProfileController');
 
 Route::controller('contacto','ContactController');
+
+Route::controller('usuario','UserController');
 
 Route::controller('/','HomeController');
 

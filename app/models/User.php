@@ -11,6 +11,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     const ROLE_BASIC="Basic";
 
+    protected $fillable = array('full_name', 'email',
+        'role', 'status');
+
 	/**
 	 * The database table used by the model.
 	 *

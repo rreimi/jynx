@@ -117,10 +117,14 @@
         </div>
         <div class="modal-body">
             <p>{{ Lang::get('content.register_dialog_description') }}</p>
+            <div class="alert alert-warning">{{ Lang::get('content.publisher_explanation') }}</div>
+
+            <div class="text-center">
+                <a class="btn btn-large" href="{{ URL::to('/') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
+                <button class="btn btn-large btn-warning publisher-info" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
+            </div>
         </div>
         <div class="modal-footer">
-            <button class="btn">{{ Lang::get('content.register_dialog_cancel') }}</button>
-            <button class="btn btn-warning publisher-info" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
         </div>
     </div>
 
@@ -138,15 +142,14 @@
                 }
             });
 
-            jQuery('#startDialog').modal('show');
-
-            jQuery('.publisher-info').on('click',function(){
-                Mercatino.showFlashMessage({title:'{{ Lang::get('content.site_messages_title_error') }}',message:' {{ Lang::get('content.publisher_explanation') }} ',type:'warning'});
+            jQuery('#startDialog').modal('show').css({
+                width: '76%',
+                left:'12%',
+                'margin-left':'0'
             });
 
             var publisherType=jQuery('.publisher_type');
             var publisherIdType=jQuery('.publisher_id_type');
-
 
             publisherType.on('change',function(){
                 jQuery('option:not(.default)', '.publisher_id_type').remove();

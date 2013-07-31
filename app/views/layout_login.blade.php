@@ -17,6 +17,11 @@
     <div class="container main-container">
         @yield('content')
     </div>
+    <footer>
+        @section('footer')
+        @include('include.footer')
+        @show
+    </footer>
     @section('scripts')
         {{ HTML::script('js/jquery-1.10.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}

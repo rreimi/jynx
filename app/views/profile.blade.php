@@ -172,9 +172,16 @@
                     <td>{{ $contact->city }}</td>
                     <td class="table-cell-controls">
                         <div class="btn-group">
-                            <button class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}"><i class="icon-search"></i></button>
-                            <button class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}"><i class="icon-pencil"></i></button>
-                            <button class="btn delete-contact" type="button" data-id='{{ $contact->id }}'><i class="icon-remove"></i></button>
+                            <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
+                                <i class="icon-search"></i>
+                            </a>
+                            <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
+                                <i class="icon-pencil"></i>
+                            </a>
+<!--                            TODO: FALTA LA FUNCIONALIDAD DE ELIMINAR-->
+                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact">
+                                <i class="icon-trash"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>

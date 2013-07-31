@@ -2,8 +2,7 @@
 @section('content')
     <div class="initial">
         <div class="row-fluid">
-            <div class="span1"></div>
-            <div class="span6">
+            <div class="offset1 span6">
                 <div class="hero-unit hello">
                     <h3 class="site-welcome">{{ Lang::get('content.site_welcome') }}</h3>
                     <p class="site-description">
@@ -48,7 +47,6 @@
                 {{ Form::close() }}
                 @include('register_step1')
             </div>
-            <div class="span1"></div>
         </div>
     </div>
 @stop

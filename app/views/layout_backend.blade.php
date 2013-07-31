@@ -31,12 +31,12 @@
         </div>
     </div>
     <hr>
-    <footer>
-        @section('footer')
-            @include('include.footer')
-        @show
-    </footer>
 </div>
+<footer>
+    @section('footer')
+    @include('include.footer')
+    @show
+</footer>
 
 @section('modal-confirm')
 @include('include.modal_confirm')

@@ -7,9 +7,11 @@ class BackendController extends BaseController {
 	public function getIndex() {
 
 
-        $data['users']=User::toApprove()->with('publisher')->paginate($this->page_size);
+        $data['users'] = User::toApprove()->with('publisher')->paginate($this->page_size);
 
-        return View::make('backend',$data);
+        $data['reports'] = PublicationReport::pendingReports()->with('user')->with('publication')->paginate($this->page_size);;
+
+        return View::make('backend', $data);
 	}
 
     public function postApprove(){

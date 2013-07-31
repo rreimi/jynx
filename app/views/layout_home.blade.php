@@ -32,14 +32,12 @@
         </div><!--/span-->
     </div><!--/row-->
     <hr>
-
-    <footer>
-        @section('footer')
-            @include('include.footer')
-        @show
-    </footer>
-
 </div><!--/.fluid-container-->
+<footer>
+    @section('footer')
+    @include('include.footer')
+    @show
+</footer>
 
 @section('modal-confirm')
 @include('include.modal_confirm')
