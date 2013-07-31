@@ -76,6 +76,11 @@ return array(
     // Reports status
     'status_pending' => 'Pendiente',
 
+    // Reports messages
+    'report_message_invalid_data' => 'Datos inv&aacute;lidos.',
+    'report_message_not_exist' => 'La denuncia a la que hace referencia no existe.',
+    'report_message_change_success' => 'La denuncia ha sigo actualizada exitosamente',
+
     //Menu
     "home" => "Inicio",
     "about_us" => "Nosotros",

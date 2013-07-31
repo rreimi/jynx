@@ -2,6 +2,12 @@
 
 class PublicationReport extends Eloquent {
 
+    const STATUS_PENDING = "Pending";
+
+    const STATUS_CORRECT = "Correct";
+
+    const STATUS_INCORRECT = "Incorrect";
+
 //    protected $softDelete = true;
 
     public $timestamps = false;

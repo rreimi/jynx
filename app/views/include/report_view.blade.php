@@ -19,10 +19,10 @@
 <br/>
 
 <div class="text-center report-actions">
-    <a nohref class="btn btn-success btn-small" data-id="valid-report">Denuncia valida</a>
-    <a nohref class="btn btn-warning btn-small" data-id="invalid-report">Denuncia invalida</a>
-    <a nohref class="btn btn-info btn-small" data-id="suspend-publication">Suspender publicacion</a>
-    <a nohref class="btn btn-danger btn-small" data-id="suspend-user">Suspender usuario</a>
+    <a nohref class="btn btn-success btn-small btn-report" data-id="valid-report">Denuncia valida</a>
+    <a nohref class="btn btn-warning btn-small btn-report" data-id="invalid-report">Denuncia invalida</a>
+    <a href="{{ URL::to('publicacion/editar/'. $report->publication->id) }}" class="btn btn-info btn-small" target="_blank">Suspender publicacion</a>
+    <a href="{{ URL::to('usuario/editar/'. $report->user->id) }}" class="btn btn-danger btn-small" target="_blank">Suspender usuario</a>
 </div>
 
 {{ Form::hidden('report_id', $report->id) }}
@@ -31,7 +31,8 @@
 <script type="text/javascript">
     jQuery(document).ready(function(){
 
-        jQuery('.report-actions .btn').on('click',function(){
+        jQuery('.report-actions .btn-report').on('click',function(){
+
             var action = jQuery(this).data('id');
 
             jQuery.ajax({
@@ -40,8 +41,15 @@
                 data: { id: '{{ $report->id }}' , action: action },
                 cache: false,
                 success: function(html){
-                    /*jQuery(target).children('.modal-body').html(html);
-                    jQuery(target).modal('show');*/
+                    window.parent.location.reload();
+                }, error: function(html){
+                    var resp = html.responseText.substring(1, html.responseText.length - 1);
+                    alert(resp);
+                    if (resp){
+                        Mercatino.showFlashMessage({title:'', message: "{{ Lang::get('content.report_message_not_exist') }}", type:'error'});
+                    } else {
+                        Mercatino.showFlashMessage({title:'', message: "{{ Lang::get('content.report_message_invalid_data') }}", type:'error'});
+                    }
                 }
             });
         });
