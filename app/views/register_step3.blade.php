@@ -10,7 +10,7 @@
                 <div class="row-fluid">
                     <div class="span4">
                         <div class="control-group {{ $errors->has('contact_full_name')? 'error':'' }}">
-                            {{ Form::text('contact_full_name',null,array('placeholder' => Lang::get('content.contact_full_name'),'class' => 'input-block-level')) }}
+                            {{ Form::text('contact_full_name',null,array('placeholder' => Lang::get('content.contact_full_name'),'class' => 'input-block-level required')) }}
                         </div>
 
                         <div class="control-group {{ $errors->has('contact_distributor')? 'error':'' }}">
@@ -18,22 +18,22 @@
                         </div>
 
                         <div class="control-group {{ $errors->has('contact_email')? 'error':'' }}">
-                            {{ Form::text('contact_email',null,array('placeholder' => Lang::get('content.contact_email'),'class' => 'input-block-level')) }}
+                            {{ Form::text('contact_email',null,array('placeholder' => Lang::get('content.contact_email'),'class' => 'input-block-level required')) }}
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
                                 <div class="control-group {{ $errors->has('contact_phone')? 'error':'' }}">
-                                    {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone'),'class' => 'input-block-level')) }}
+                                    {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone'),'class' => 'input-block-level required','data-placement'=>'bottom')) }}
                                 </div>
                             </div>
                             <div class="span6">
                                 <div class="control-group {{ $errors->has('contact_city')? 'error':'' }}">
-                                    {{ Form::text('contact_city',null,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level')) }}
+                                    {{ Form::text('contact_city',null,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level required')) }}
                                 </div>
                             </div>
                         </div>
                         <div class="control-group {{ $errors->has('contact_address')? 'error':'' }}">
-                            {{ Form::text('contact_address',null,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level')) }}
+                            {{ Form::text('contact_address',null,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level required')) }}
                         </div>
                         <div class="register-controls text-right">
                             {{ Form::submit(Lang::get('content.contact_add'),array('class' => 'btn btn-large btn-info')) }}
@@ -68,7 +68,7 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
-                            <a class="btn btn-large btn-success pull-right" href="{{ URL::to('/') }}">{{ Lang::get('content.publisher_finalize') }}</a>
+                            <a class="btn btn-large btn-success pull-right" href="{{ URL::to('registro/finalizar') }}">{{ Lang::get('content.publisher_finalize') }}</a>
                         </div>
                     </div>
                 </div>
@@ -78,3 +78,16 @@
         </div>
     </div>
 @stop
+
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+
+        jQuery('.big-form').validateBootstrap();
+
+    });
+</script>
+@stop
+
