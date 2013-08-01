@@ -267,6 +267,7 @@ return array(
     "profile_city" => "Ciudad",
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
+    "profile_view_contact" => "Detalle de contacto",
 
     //filters
     "filter_active" => 'Filtros Activos',
