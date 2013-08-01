@@ -179,7 +179,7 @@
                                 <i class="icon-pencil"></i>
                             </a>
 <!--                            TODO: FALTA LA FUNCIONALIDAD DE ELIMINAR-->
-                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn">
+                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact">
                                 <i class="icon-trash"></i>
                             </a>
                         </div>
@@ -236,7 +236,7 @@
 @section('scripts')
 @parent
     <script type="text/javascript">
-        jQuery(function(){
+        jQuery(document).ready(function(){
             jQuery('.collapse-password')
                 .on('show',function(){
                     jQuery('.btn-password').button('toggle');
@@ -260,29 +260,37 @@
                 });
             });
 
-            jQuery('.publisher_type').on('change',function(){
+            jQuery('.delete-contact').on('click',function(){
+                Mercatino.modalConfirm.show(
+                    '{{ Lang::get('content.contact_delete_title') }}',
+                    '{{ Lang::get('content.contact_delete_content') }}',
+                    '{{ URL::to('contacto/eliminar/') }}'+'/'+jQuery(this).data('id')
+                );
+            });
+
+            var publisherType=jQuery('.publisher_type');
+            var publisherIdType=jQuery('.publisher_id_type');
+
+            publisherType.on('change',function(){
+                jQuery('option:not(.default)', '.publisher_id_type').remove();
                 if(this.value=='Person'){
-                    $('option:not(.default)', '.publisher_id_type').remove();
-                    $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                    publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
                 }else if(this.value=='Business'){
-                    $('option:not(.default)', '.publisher_id_type').remove();
-                    $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-                }else{
-                    $('option:not(.default)', '.publisher_id_type').remove();
+                    publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
                 }
             });
 
             jQuery("input:password").val('');
 
-            //TODO insisto debe existir una mejor forma de hacer esto
-            if(jQuery('.publisher_type').val()=='Person'){
-                $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            }else if(jQuery('.publisher_type').val()=='Business'){
-                $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+            if(publisherType.val()=='Person'){
+                publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+            }else if(publisherType.val()=='Business'){
+                publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
             }
 
-            jQuery('.publisher_type').trigger('change');
-            jQuery('.publisher_id_type').val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+            publisherType.trigger('change');
+            publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+
         });
 
     </script>
