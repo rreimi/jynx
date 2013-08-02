@@ -54,19 +54,21 @@ return array(
     "from_date" => "Desde",
     "to_date" => "Hasta",
     "visits_number" => "Visitas",
-    "created_at" => "Fecha de creación",
+    "created_at" => "Creado",
     "categories_name" => "Categorías",
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
     "options" => "Opciones",
     'status' => 'Estatus',
+    "seller_name" => 'Anunciante',
+    "rating_avg" => 'Puntaje',
 
     //Publication status
-    'status_draft' => 'Borrador',
-    'status_published' => 'Publicada',
-    'status_on_Hold' => 'Pausada',
-    'status_suspended' => 'Suspendida',
+    'status_publication_Draft' => 'Borrador',
+    'status_publication_Published' => 'Publicada',
+    'status_publication_On_Hold' => 'Pausada',
+    'status_publication_Suspended' => 'Suspendida',
 
     // Reports status
     'status_pending' => 'Pendiente',
@@ -149,12 +151,14 @@ return array(
     "delete_advertising_error" => "Ha ocurrido un error al intentar eliminar la publicidad",
     "modal_advertising_delete_title" => "Eliminar publicidad",
     "modal_advertising_delete_content" => "¿Estás seguro que deseas eliminar esta publicidad?",
+    "no_elements_to_list" => "No hay elementos para mostrar",
 
     // Search
     "advertisings_search_placeholder" => "Buscar...",
 
     //Date format
     "date_format" => 'dd-mm-aaaa',
+    "date_format_php" => 'd-m-Y',
 
     "login_email" => "Correo electrónico",
     "login_password" => "Contraseña",

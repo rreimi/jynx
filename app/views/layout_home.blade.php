@@ -4,7 +4,7 @@
     <title>{{ $title }} - {{ App::environment() }}
     </title>
     <meta name="description" content="Mercatino"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
