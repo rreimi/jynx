@@ -54,9 +54,15 @@
             <td class="row-rating_avg">{{ $pub->rating_avg }}</td>
             <!--                        <td>{{ $pub->categories_name }}</td>-->
             <td class="row-options">
-                <a class="btn btn-mini" target="_blank" href="{{URL::to('publicacion/detalle/' . $pub->id)}}"><i rel="tooltip" title="{{Lang::get('content.view')}}" class="icon-search"></i></a>
-                <a class="btn btn-mini" href="{{URL::to('publicacion/editar/' . $pub->id)}}"><i rel="tooltip" title="{{Lang::get('content.edit')}}" class="icon-pencil"></i></a>
-                <a class="btn btn-mini" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')"><i rel="tooltip" title="{{Lang::get('content.delete')}}" class="icon-trash"></i></a>
+                <a rel="tooltip" target="_blank"  title="{{Lang::get('content.view')}}" class="btn" href="{{URL::to('publicacion/detalle/' . $pub->id)}}">
+                    <i class="icon-search"></i>
+                </a>
+                <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('publicacion/editar/' . $pub->id)}}">
+                    <i class="icon-pencil"></i>
+                </a>
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">
+                    <i class="icon-trash"></i>
+                </a>
             </td>
         </tr>
         @endforeach
