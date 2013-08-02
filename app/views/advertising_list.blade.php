@@ -24,7 +24,6 @@
     <table class="adv-table table table-bordered table-condensed">
         <thead>
         <tr>
-            <th><a href="?sort=id&order=asc">{{Lang::get('content.id')}}</a></th>
             <th>{{Lang::get('content.name')}}</th>
             <th>{{Lang::get('content.status')}}</th>
             <th>{{Lang::get('content.image_url')}}</th>
@@ -36,7 +35,6 @@
         <tbody>
         @foreach ($advertisings as $key => $adv)
         <tr>
-            <td>{{ $adv->id }}</td>
             <td>{{ $adv->name }}</td>
             <td>{{ Lang::get('content.status_'. $adv->status) }}</td>
             <td>{{ $adv->image_url }}</td>
