@@ -13,7 +13,7 @@
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.profile_email') }}</label>
             <div class="controls">
-                {{ Form::text('profile_email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'))) }}
+                {{ Form::text('profile_email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
                 {{ $errors->first('profile_email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="control-group {{ $errors->has('profile_password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_password', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password'))) }}
+                    {{ Form::password('profile_password', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password'), 'disabled' => 'disabled')) }}
                     {{ $errors->first('profile_password', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="control-group {{ $errors->has('profile_password_confirmation') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password_confirmation') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_password_confirmation', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password_confirmation'))) }}
+                    {{ Form::password('profile_password_confirmation', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password_confirmation'), 'disabled' => 'disabled')) }}
                     {{ $errors->first('profile_password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -172,9 +172,16 @@
                     <td>{{ $contact->city }}</td>
                     <td class="table-cell-controls">
                         <div class="btn-group">
-                            <a class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}"><i rel="tooltip" title="{{Lang::get('content.view')}}" class="icon-search"></i></a>
-                            <a class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}"><i rel="tooltip" title="{{Lang::get('content.edit')}}" class="icon-pencil"></i></a>
-                            <a class="btn"><i rel="tooltip" title="{{Lang::get('content.delete')}}" class="icon-trash"></i></a>
+                            <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
+                                <i class="icon-search"></i>
+                            </a>
+                            <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
+                                <i class="icon-pencil"></i>
+                            </a>
+<!--                            TODO: FALTA LA FUNCIONALIDAD DE ELIMINAR-->
+                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact">
+                                <i class="icon-trash"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>
@@ -211,11 +218,10 @@
         </div>
     {{ Form::close() }}
 
-
     <div id="viewContact" class="modal hide fade" tabindex="-1" role="dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>{{ Lang::get('profile.view_contact') }}</h3>
+            <h3>{{ Lang::get('content.profile_view_contact') }}</h3>
         </div>
         <div class="modal-body">
 
@@ -225,20 +231,19 @@
         </div>
     </div>
 
-
-
 @stop
 
 @section('scripts')
 @parent
     <script type="text/javascript">
-        jQuery(function(){
+        jQuery(document).ready(function(){
             jQuery('.collapse-password')
                 .on('show',function(){
                     jQuery('.btn-password').button('toggle');
                 })
                 .on('hide',function(){
                     jQuery('.btn-password').button('toggle');
+                    jQuery("input:password").val('');
                 });
 
             jQuery('.modal-contact').on('click',function(){
@@ -255,27 +260,37 @@
                 });
             });
 
-            jQuery('.publisher_type').on('change',function(){
+            jQuery('.delete-contact').on('click',function(){
+                Mercatino.modalConfirm.show(
+                    '{{ Lang::get('content.contact_delete_title') }}',
+                    '{{ Lang::get('content.contact_delete_content') }}',
+                    '{{ URL::to('contacto/eliminar/') }}'+'/'+jQuery(this).data('id')
+                );
+            });
+
+            var publisherType=jQuery('.publisher_type');
+            var publisherIdType=jQuery('.publisher_id_type');
+
+            publisherType.on('change',function(){
+                jQuery('option:not(.default)', '.publisher_id_type').remove();
                 if(this.value=='Person'){
-                    $('option:not(.default)', '.publisher_id_type').remove();
-                    $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                    publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
                 }else if(this.value=='Business'){
-                    $('option:not(.default)', '.publisher_id_type').remove();
-                    $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-                }else{
-                    $('option:not(.default)', '.publisher_id_type').remove();
+                    publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
                 }
             });
 
-            //TODO insisto debe existir una mejor forma de hacer esto
-            if(jQuery('.publisher_type').val()=='Person'){
-                $('.publisher_id_type').append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            }else if(jQuery('.publisher_type').val()=='Business'){
-                $('.publisher_id_type').append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+            jQuery("input:password").val('');
+
+            if(publisherType.val()=='Person'){
+                publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+            }else if(publisherType.val()=='Business'){
+                publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
             }
 
-            jQuery('.publisher_type').trigger('change');
-            jQuery('.publisher_id_type').val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+            publisherType.trigger('change');
+            publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+
         });
 
     </script>

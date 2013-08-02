@@ -113,7 +113,6 @@ Mercatino.modalConfirm = {
         jQuery('#modal-confirm .modal-body p').html(content);
         jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
         jQuery('#modal-confirm').modal('show');
-
     },
     hide: function(){
         jQuery('#modal-confirm').modal('hide')
