@@ -1,7 +1,11 @@
 {{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => '')) }}
-<div class="input-append">
-    {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'span12')) }}
-    <button class="btn" type="submit"><i class="icon-search"></i></button>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="input-append span12">
+            {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'span10')) }}
+            <button class="btn" type="submit"><i class="icon-search"></i></button>
+        </div>
+    </div>
 </div>
 {{ Form::close() }}
 

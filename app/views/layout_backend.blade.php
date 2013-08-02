@@ -15,7 +15,7 @@
 <body>
 
 @include('include.top_menu')
-<div class="container main-container">
+<div class="container-fluid main-container">
 
     <div class="row-fluid">
         <div class="span3">

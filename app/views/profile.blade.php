@@ -13,7 +13,7 @@
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.profile_email') }}</label>
             <div class="controls">
-                {{ Form::text('profile_email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'))) }}
+                {{ Form::text('profile_email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
                 {{ $errors->first('profile_email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="control-group {{ $errors->has('profile_password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_password', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password'))) }}
+                    {{ Form::password('profile_password', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password'), 'disabled' => 'disabled')) }}
                     {{ $errors->first('profile_password', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="control-group {{ $errors->has('profile_password_confirmation') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password_confirmation') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_password_confirmation', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password_confirmation'))) }}
+                    {{ Form::password('profile_password_confirmation', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password_confirmation'), 'disabled' => 'disabled')) }}
                     {{ $errors->first('profile_password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -218,11 +218,10 @@
         </div>
     {{ Form::close() }}
 
-
     <div id="viewContact" class="modal hide fade" tabindex="-1" role="dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>{{ Lang::get('profile.view_contact') }}</h3>
+            <h3>{{ Lang::get('content.profile_view_contact') }}</h3>
         </div>
         <div class="modal-body">
 
@@ -231,8 +230,6 @@
             <button class="btn" data-dismiss="modal">{{ Lang::get('content.close') }}</button>
         </div>
     </div>
-
-
 
 @stop
 
@@ -246,6 +243,7 @@
                 })
                 .on('hide',function(){
                     jQuery('.btn-password').button('toggle');
+                    jQuery("input:password").val('');
                 });
 
             jQuery('.modal-contact').on('click',function(){
@@ -281,6 +279,8 @@
                     publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
                 }
             });
+
+            jQuery("input:password").val('');
 
             if(publisherType.val()=='Person'){
                 publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
