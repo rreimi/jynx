@@ -1,0 +1,1 @@
+ALTER TABLE  `users` ADD  `step` INT( 1 ) NOT NULL DEFAULT  '-1' AFTER  `is_publisher`;
