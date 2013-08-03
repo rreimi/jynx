@@ -233,6 +233,11 @@ nav-filters-container {
     vertical-align: middle;
 }
 
+.nav.top-menu-option {
+    margin-left: 13.2%;
+    margin-right: 0px;
+}
+
 #footer {
     height: 55px;
 }

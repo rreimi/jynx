@@ -45,7 +45,32 @@ class ProfileController extends BaseController{
     }
 
     public function postIndex(){
-        
+
+        //Get user data
+        $profileData = array(
+            'full_name' => Input::get('profile_full_name'),
+//            'password' => Input::get('profile_password'),
+//            'confirmation' => Input::get('profile_password_confirmation'),
+//            'seller_name' => Input::get('profile_seller_name'),
+//            'publisher_type' => Input::get('profile_publisher_type'),
+//            'letter_rif_ci' => Input::get('profile_letter_rif_ci'),
+//            'state' => Input::get('profile_state'),
+//            'city' => Input::get('profile_city'),
+//            'phone1' => Input::get('profile_phone1'),
+//            'phone2' => Input::get('profile_phone2'),
+//            'publisher_categories' => Input::get('profile_publisher_categories'),
+        );
+
+        //Set validation rules
+        $profileRules = array(
+            'full_name' => 'required',
+        );
+
+        if (Auth::user()->isPublisher()){
+
+        }
+
+        var_dump($profileData);
     }
 
 }

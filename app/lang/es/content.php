@@ -16,6 +16,7 @@ return array(
     // Common
     'yes' => 'Sí',
     'no' => 'No',
+    'close' => 'Cerrar',
 
     //Dashboard
     "mostvisited_items" => "Los más visitados",
@@ -54,22 +55,33 @@ return array(
     "from_date" => "Desde",
     "to_date" => "Hasta",
     "visits_number" => "Visitas",
-    "created_at" => "Fecha de creación",
+    "created_at" => "Creado",
     "categories_name" => "Categorías",
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
     "options" => "Opciones",
     'status' => 'Estatus',
+    "seller_name" => 'Anunciante',
+    "rating_avg" => 'Puntaje',
 
     //Publication status
-    'status_draft' => 'Borrador',
-    'status_published' => 'Publicada',
-    'status_on_Hold' => 'Pausada',
-    'status_suspended' => 'Suspendida',
+    'status_publication_Draft' => 'Borrador',
+    'status_publication_Published' => 'Publicada',
+    'status_publication_On_Hold' => 'Pausada',
+    'status_publication_Suspended' => 'Suspendida',
+
+    // Reports
+    'report_title' => 'Denuncia',
+    'backend_report_view_title' => 'Denuncia pendiente',
 
     // Reports status
     'status_pending' => 'Pendiente',
+
+    // Reports messages
+    'report_message_invalid_data' => 'Datos inv&aacute;lidos.',
+    'report_message_not_exist' => 'La denuncia a la que hace referencia no existe.',
+    'report_message_change_success' => 'La denuncia ha sigo actualizada exitosamente',
 
     //Menu
     "home" => "Inicio",
@@ -79,6 +91,7 @@ return array(
     "help" => "Ayuda",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
 
     //Options
@@ -95,6 +108,7 @@ return array(
     "see_my_publications" => "Ir a mis publicaciones",
     "remove_image" => "Eliminar imagen",
     "add_images_msg" => "Arrastra las imágenes o haz clic para cargarlas",
+    "exit" => "Salir",
 
     // Backend Menu
     "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
@@ -149,12 +163,14 @@ return array(
     "delete_advertising_error" => "Ha ocurrido un error al intentar eliminar la publicidad",
     "modal_advertising_delete_title" => "Eliminar publicidad",
     "modal_advertising_delete_content" => "¿Estás seguro que deseas eliminar esta publicidad?",
+    "no_elements_to_list" => "No hay elementos para mostrar",
 
     // Search
     "advertisings_search_placeholder" => "Buscar...",
 
     //Date format
     "date_format" => 'dd-mm-aaaa',
+    "date_format_php" => 'd-m-Y',
 
     "login_email" => "Correo electrónico",
     "login_password" => "Contraseña",
@@ -172,6 +188,12 @@ return array(
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
     "register_conditions" => "Acepto <a href=\":url\">términos y condiciones de servicio</a>",
+    "register_dialog_header" => "",
+    "register_dialog_description" => "",
+    "register_dialog_continue" => "Si quiero publicar",
+    "register_dialog_cancel" => "No por los momentos y quiero navegar",
+    "register_title_success" => "Bienvenido",
+    "register_description_success" => "Proceso de registro completo",
 
     "publisher_header" => "Datos para publicadores",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",
@@ -208,6 +230,17 @@ return array(
     "backend_seller" => "Nombre vendedor / Nombre empresa",
     "backend_id" => "Cédula / Rif",
     "backend_phone" => "Teléfono",
+
+    "backend_report_id" => "ID",
+    "backend_report_user" => "Usuario",
+    "backend_report_publication" => "Publicación",
+    "backend_report_comment" => "Comentario",
+    "backend_report_date" => "Fecha",
+    "backend_report_status" => "Estatus",
+
+    "backend_report_status_Pending" => "Pendiente",
+    "backend_report_status_Correct" => "Correcto",
+    "backend_report_status_Incorrect" => "Incorrecto",
 
     //Flash messages
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',
@@ -246,6 +279,7 @@ return array(
     "profile_city" => "Ciudad",
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
+    "profile_view_contact" => "Detalle de contacto",
 
     //filters
     "filter_active" => 'Filtros Activos',

@@ -15,7 +15,7 @@
 <body>
 
 @include('include.top_menu')
-<div class="container main-container">
+<div class="container-fluid main-container">
 
     <div class="row-fluid">
         <div class="span3">
@@ -47,9 +47,11 @@
 
 @if (!is_null(Session::get('flash_global_message')))
 <script type="text/javascript">
-    if (Mercatino) {
-        Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
-    }
+    jQuery(document).ready(function(){
+        if (Mercatino) {
+            Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
+        }
+    });
 </script>
 @endif
 </body>

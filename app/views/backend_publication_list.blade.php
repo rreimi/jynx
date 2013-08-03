@@ -1,4 +1,4 @@
-@extends('layout_home')
+@extends('layout_backend')
 
 @section('sidebar')
 @parent

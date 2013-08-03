@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div><!--/span-->
-        @if ((($key+1)%3) == 0)
+        @if (((($key+1)%3) == 0) || ($key+1 == count($publications)))
         </div>
         @endif
     @endforeach

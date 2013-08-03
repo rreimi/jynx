@@ -123,7 +123,7 @@
             <div class="form-message-box alert alert-error">
 
             </div>
-            <div id="dropzone" class="dropzone">
+            <div id="dropzone" class="dropzone"></div>
         </div>
         @endif
 

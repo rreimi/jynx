@@ -22,12 +22,21 @@ class UrlHelper {
     }
 
     public static function fullUrltoogleSort($field) {
-        $url = URL::full();
+        $url = self::fullExcept(array('order','sort'));
         $dir = (Input::get('order') == 'desc')? 'asc':'desc';
-        $url = preg_replace('/\b([&|&amp;]{0,1}sort=[^&]*)\b/i','',$url);
+        if (!str_contains($url, '?')) {
+            $url .= '?';
+        }
         $url .= '&sort=' . $field;
-        $url = preg_replace('/\b([&|&amp;]{0,1}order=[^&]*)\b/i','order=' . $dir,$url);
+        $url .= '&order=' . $dir;
         $url = str_replace('?&','?',$url);
         return $url;
+    }
+
+    public static function getSortIcon($sortField, $iconClass = 'icon-chevron') {
+        $dir = (Input::get('order') == 'desc')? 'down':'up';
+        if (Input::get('sort') == $sortField) {
+            return $iconClass . '-' . $dir . ' sorting-arrow';
+        }
     }
 }

@@ -53,13 +53,15 @@ class PublicationController extends BaseController {
 
         //$q = Input::get('q');
 
+        $user = Auth::user();
+
         // Si no es publisher lo boto
-        if (!Auth::user()->isPublisher()){
+        if (!$user->isAdmin() && !$user->isPublisher()){
             return Redirect::to('/');
         }
 
         $state = self::retrieveListState();
-        $publications = PublicationView::orderBy($state['sort'], $state['order']);
+        $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -80,15 +82,31 @@ class PublicationController extends BaseController {
             $publications->where('status', '=', $status);
         }
 
-        $publications->where('publisher_id', '=', Auth::user()->publisher->id);
+
+        if ($user->isPublisher()){
+            $publications->where('publisher_id', '=', $user->publisher->id);
+        }
+
         $publications->groupBy('id');
         $publications = $publications->paginate($this->page_size);
 
-        return View::make('publication_list', array(
+//        $publications = $publications->get();
+//        echo $publications;
+//        die;
+
+        $view = 'publication_list';
+        if ($user->isAdmin()){
+            $view = 'backend_publication_list';
+        }
+
+
+
+        return View::make($view, array(
             'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status')),
             'publications' => $publications,
             'categories' => self::getCategories(),
             'state' => $state,
+            'user' => $user
             ) //end array
         );
     }
@@ -304,7 +322,7 @@ class PublicationController extends BaseController {
             array(
                 'pub_statuses' => self::getPublicationStatuses(),
                 'categories' => self::getCategories(),
-                'contacts' => $publisher->contacts,
+                'contacts' => $pub->publisher->contacts,
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
                 'publication_contacts' => $pubContacts,
@@ -444,10 +462,10 @@ class PublicationController extends BaseController {
     private static function getPublicationStatuses($blankCaption = '') {
 
         $options = array (
-            'Draft' => Lang::get('content.status_draft'),
-            'Published' => Lang::get('content.status_published'),
-            'On_Hold' => Lang::get('content.status_on_Hold'),
-            'Suspended' => Lang::get('content.status_suspended'),
+            'Draft' => Lang::get('content.status_publication_Draft'),
+            'Published' => Lang::get('content.status_publication_Published'),
+            'On_Hold' => Lang::get('content.status_publication_On_Hold'),
+            'Suspended' => Lang::get('content.status_publication_Suspended'),
         );
 
         if (!empty($blankCaption)){

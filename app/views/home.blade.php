@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </li>
-                @if ((($key+1)%4) == 0)
+                @if (((($key+1)%4) == 0) || (($key+1) == count($mostvisited)))
                     </ul>
                 </div>
                 @endif
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                         </li>
-                @if ((($key+1)%4) == 0)
+                @if (((($key+1)%4) == 0) || (($key+1) == count($recent)))
                     </ul>
                 </div>
                 @endif

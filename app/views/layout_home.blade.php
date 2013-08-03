@@ -4,7 +4,7 @@
     <title>{{ $title }} - {{ App::environment() }}
     </title>
     <meta name="description" content="Mercatino"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
@@ -49,9 +49,11 @@
 
 @if (!is_null(Session::get('flash_global_message')))
     <script type="text/javascript">
-        if (Mercatino) {
-            Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
-        }
+        jQuery(document).ready(function(){
+            if (Mercatino) {
+                Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
+            }
+        });
     </script>
 @endif
 </body>

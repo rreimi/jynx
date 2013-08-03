@@ -26,13 +26,16 @@
                             @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
                                 <li><a href="#">Mis publicaciones</a></li>
                             @endif
+                            @if(Auth::user()->isBasic())
+                                <li><a href="{{URL::to('/registro/datos-publicador')}}">{{ Lang::get('content.postulation') }}</a></li>
+                            @endif
                             <li class="divider"></li>
-                            <li><a href="{{ URL::to('logout') }}">Salir</a></li>
+                            <li><a href="{{ URL::to('logout') }}">{{ Lang::get('content.exit') }}</a></li>
                         </ul>
                     </li>
                 </ul>
                 @endif
-                <ul class="nav top-menu-option">
+                <ul class="nav pull-right">
                     @if(Auth::check())
                         <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
                     @endif
@@ -49,6 +52,7 @@
                         @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
                             <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                         @endif
+
                     @endif
                 </ul>
 

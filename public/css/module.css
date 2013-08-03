@@ -12,6 +12,11 @@ h2 {
     font-weight: normal;
 }
 
+.sorting-arrow {
+    opacity: 0.7;
+    margin-top: 0;
+}
+
 .clear-both {
     clear:both;
 }
@@ -82,19 +87,49 @@ h2 {
     margin-bottom: 1em;
 }
 
-.pub-table {
-    padding:0.4em;
-    margin:0 0 1em 0;
-}
-
-.pub-table td, .pub-table th {
-    border:1px solid #eee;
-    padding: 0.2em;
-}
-
 .pub-list-filters {
     margin-bottom: 1em;
 }
+
+.pub-table .title-with-categories {
+    font-size:.9em; color:#777;
+    display: block;
+}
+
+/*.pub-table .row-title {*/
+    /*width: 25%;*/
+/*}*/
+
+.pub-table .row-date {
+    width: 7%;
+}
+
+.pub-table .row-options {
+    vertical-align: middle;
+    width: 12%;
+}
+
+.pub-table .row-status {
+    width: 9%;
+}
+
+/*.pub-table .row-seller_name {*/
+    /*width:14%;*/
+/*}*/
+
+.pub-table .row-visits_number {
+    width: 8%;
+
+}
+
+.pub-table .row-rating_avg {
+    width: 9%;
+
+}
+
+/*.pub-table.admin .row-title {*/
+    /*width: 31%;*/
+/*}*/
 
 .field-error {
     margin-top:1em;
@@ -107,8 +142,7 @@ h2 {
 /* Dashboard */
 
 div#home-banner-top {
-    height: 250px;
-    width: 870px;
+
 }
 
 div#home-banner-top ol.carousel-indicators {
@@ -196,12 +230,6 @@ div#home-banner-top .carousel-control {
 
 .categories-form ul {
     list-style:none;
-}
-
-/* Menu */
-.nav.top-menu-option {
-    margin-left: 13.2%;
-    margin-right: 0px;
 }
 
 /* Modal report */
