@@ -20,5 +20,9 @@
 <p>
     {{ $contact->city }}
 </p>
+<h2>{{ Lang::get('content.contact_address') }}</h2>
+<p>
+    {{ $contact->address }}
+</p>
     {{ Form::hidden('contact_id',$contact->id) }}
 </div>

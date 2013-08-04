@@ -51,6 +51,7 @@
 {{ HTML::script('js/mercatino.js') }}
 {{ HTML::script('js/verge/verge.min.js') }}
 {{ HTML::script('js/footer.js') }}
+{{ HTML::script('js/messages_es.js') }}
 @show
 
 @if (!is_null(Session::get('flash_global_message')))

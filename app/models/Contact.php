@@ -5,6 +5,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Contact extends Eloquent {
 
+    protected $softDelete = true;
+
     public function sectors() {
         return $this->belongsToMany('BusinessSector', 'publishers_sectors');
     }
