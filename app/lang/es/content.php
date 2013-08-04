@@ -195,7 +195,7 @@ return array(
     "register_title_success" => "Bienvenido",
     "register_description_success" => "Proceso de registro completo",
 
-    "publisher_header" => "Datos para publicadores",
+    "publisher_header" => "Datos para anunciantes",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",
     "select_person_type" => "Selecciona Persona Natural o Jurídica",
     "publisher_id" => "Cédula / Rif",
@@ -294,7 +294,7 @@ return array(
     "user_email" => 'Correo',
     "user_role" => 'Rol',
     "user_status" => 'Estatus',
-    "user_is_publisher" => '¿Es publicador?',
+    "user_is_publisher" => '¿Es anunciante?',
 
     // Labels
     "new_user" => 'Nuevo usuario',

@@ -15,7 +15,7 @@ class ProfileController extends BaseController{
             Lang::get('content.profile_edit_basic')=>'#basico'
         );
         if(Auth::user()->isPublisher()){
-            $customOptions[Lang::get('content.profile_edit_publisher')] = '#publicador';
+            $customOptions[Lang::get('content.profile_edit_publisher')] = '#anunciante';
             $customOptions[Lang::get('content.profile_edit_sectors')] = '#sectores';
             $customOptions[Lang::get('content.profile_edit_contacts')] = '#contactos';
         }
