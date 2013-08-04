@@ -14,7 +14,7 @@
 </head>
 @include('include.top_menu')
 <body class="login">
-    <div class="container main-container">
+    <div class="container main-container" id="body">
         @yield('content')
     </div>
     <footer>
@@ -29,6 +29,8 @@
         {{ HTML::script('js/jquery.validate.min.js') }}
         {{ HTML::script('js/messages_es.js') }}
         {{ HTML::script('js/mercatino.js') }}
+        {{ HTML::script('js/verge/verge.min.js') }}
+        {{ HTML::script('js/footer.js') }}
         <script type="text/javascript">
             jQuery(document).ready(function(){
                 Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();

@@ -18,7 +18,7 @@
 
 @include('include.top_menu')
 
-<div class="container main-container">
+<div class="container main-container" id="body">
 
     <div class="row-fluid">
         <div class="side-bar span3 well well-small">
@@ -33,7 +33,11 @@
     </div><!--/row-->
     <hr>
 </div><!--/.fluid-container-->
-
+<footer>
+    @section('footer')
+    @include('include.footer')
+    @show
+</footer>
 
 @section('modal-confirm')
 @include('include.modal_confirm')
@@ -45,6 +49,8 @@
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
+{{ HTML::script('js/verge/verge.min.js') }}
+{{ HTML::script('js/footer.js') }}
 @show
 
 @if (!is_null(Session::get('flash_global_message')))
