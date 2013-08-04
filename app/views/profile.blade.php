@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row-fluid profile-form">
-        {{ Form::open(array('url' => 'perfil', 'class' => 'form-horizontal' )) }}
+        {{ Form::open(array('url' => 'perfil', 'class' => 'form-horizontal perfil-form' )) }}
 
         <h1>{{Lang::get('content.profile_edit')}}</h1>
         <h2 id="basico">{{Lang::get('content.profile_edit_basic')}}</h2>
@@ -35,7 +35,7 @@
             <div class="control-group {{ $errors->has('current-password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_current_password') }}</label>
                 <div class="controls">
-                    {{ Form::password('current-password', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_current_password'))) }}
+                    {{ Form::password('current-password', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.profile_current_password'))) }}
                     {{ $errors->first('current-password', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password') }}</label>
                 <div class="controls">
-                    {{ Form::password('password', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_password'))) }}
+                    {{ Form::password('password', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.profile_password'))) }}
                     {{ $errors->first('password', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="control-group {{ $errors->has('password_confirmation') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password_confirmation') }}</label>
                 <div class="controls">
-                    {{ Form::password('password_confirmation', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_password_confirmation'))) }}
+                    {{ Form::password('password_confirmation', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.profile_password_confirmation'))) }}
                     {{ $errors->first('password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="control-group {{ $errors->has('seller_name') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
                 <div class="controls">
-                    {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_seller_name'))) }}
+                    {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_seller_name'))) }}
                     {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -77,7 +77,7 @@
                             'Business' => Lang::get('content.publisher_type_business')
                         ),
                         $user->publisher->publisher_type,
-                        array('class'=>'input-xlarge publisher_type')
+                        array('class'=>'input-xlarge publisher_type required')
                     ) }}
                     {{ $errors->first('publisher_type', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -89,9 +89,9 @@
                     {{ Form::select('letter_rif_ci',
                         array('' => Lang::get('content.select')),
                         $user->publisher->letter_rif_ci,
-                        array('class'=>'input-small publisher_id_type')
+                        array('class'=>'input-small publisher_id_type required')
                     ) }}
-                    {{ Form::text('rif_ci', $user->publisher->rif_ci, array('class' => 'input-medium','placeholder'=> Lang::get('content.profile_id'))) }}
+                    {{ Form::text('rif_ci', $user->publisher->rif_ci, array('class' => 'input-medium required','placeholder'=> Lang::get('content.profile_id'))) }}
 
                     {{ $errors->first('rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -103,7 +103,7 @@
                     {{ Form::select('state',
                         array_merge(array('' => Lang::get('content.select')), $states),
                         $user->publisher->state_id,
-                        array('class'=>'input-xlarge'))
+                        array('class'=>'input-xlarge required'))
                     }}
                     {{ $errors->first('state', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -112,7 +112,7 @@
             <div class="control-group {{ $errors->has('city') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_city') }}</label>
                 <div class="controls">
-                    {{ Form::text('city', $user->publisher->city, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_city'))) }}
+                    {{ Form::text('city', $user->publisher->city, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_city'))) }}
                     {{ $errors->first('city', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                 <div class="controls">
-                    {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone1'))) }}
+                    {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_phone1'))) }}
                     {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -312,22 +312,27 @@
                 publisherType.on('change',function(){
                     jQuery('option:not(.default)', '.publisher_id_type').remove();
                     if(this.value=='Person'){
-                        publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-                    }else if(this.value=='Business'){
-                        publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                    } else if(this.value=='Business'){
+                        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                    } else {
+                        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
                     }
                 });
 
                 if(publisherType.val()=='Person'){
-                    publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-                }else if(publisherType.val()=='Business'){
-                    publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                } else if(publisherType.val()=='Business'){
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                } else {
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
                 }
 
                 publisherType.trigger('change');
                 publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
             @endif
 
+            jQuery('.perfil-form').validateBootstrap();
             jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
             jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
 
