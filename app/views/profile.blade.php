@@ -145,7 +145,7 @@
                             {{ $category->name }}
                         </label>
 
-                        @if ((($key+1)%4) == 0)
+                        @if ((($key+1)%4) == 0 || (($key+1) == count($categories)))
                             </div>
                         @endif
                     @endforeach
