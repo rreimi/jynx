@@ -105,6 +105,20 @@ return array(
         'to_date' => 'Hasta',
         'categories_name' => 'Categorías',
         'status' => 'Estatus',
+
+        'email' => 'Correo',
+        'full_name' => 'Nombre persona / Razón social',
+        'password' => 'Contraseña',
+        'password_confirmation' => 'Confirma Contraseña',
+        'seller_name' => 'Nombre vendedor / Nombre empresa',
+        'publisher_type' => ' Tipo de Persona',
+        'letter_rif_ci' => 'Letra Cédula / Rif',
+        'rif_ci' => 'Cédula / Rif',
+        'state' => 'Estado',
+        'city' => 'Ciudad',
+        'phone1' => 'Teléfono 1',
+        'phone2' => 'Teléfono 2',
+
     ),
 
 );

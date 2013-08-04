@@ -47,6 +47,7 @@
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
+{{ HTML::script('js/messages_es.js') }}
 @show
 
 @if (!is_null(Session::get('flash_global_message')))

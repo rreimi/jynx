@@ -222,6 +222,9 @@ return array(
     "contact_not_found" => "No has agregado contactos",
     "contact_add_contact" => "Agregar contacto",
 
+    "contact_delete_success" => "El contacto se ha eliminado correctamente",
+    "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",
+
     "backend_email" => "Correo electrónico",
     "backend_full_name" => "Nombre persona / Razón social",
     "backend_seller" => "Nombre vendedor / Nombre empresa",
@@ -285,6 +288,7 @@ return array(
     "profile_update_success" => "Su perfil ha sido actualizado exitosamente",
     "profile_edit_contact_error" => "Ha ocurrido un error al intentar guardar el contacto",
     "profile_edit_contact_success" => "El contacto ha sido editado exitosamente",
+    "profile_add_contact_success" => "El contacto ha sido agregado exitosamente",
 
     //filters
     "filter_active" => 'Filtros Activos',

@@ -13,7 +13,7 @@
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.profile_email') }}</label>
             <div class="controls">
-                {{ Form::text('email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
+                {{ Form::text('email', $user->email, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
                 {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="control-group {{ $errors->has('full_name') ? 'error':'' }}">
             <label class="control-label" for="long_description">{{ Lang::get('content.profile_full_name') }}</label>
             <div class="controls">
-                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_full_name'))) }}
+                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_full_name'))) }}
                 {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -182,7 +182,7 @@
                             <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
                                 <i class="icon-pencil"></i>
                             </a>
-                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact">
+                            <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
                                 <i class="icon-trash"></i>
                             </a>
                         </div>
@@ -203,7 +203,7 @@
 
     </div>
 
-    {{ Form::open(array('url' => 'contacto/editar', 'class' => 'form-horizontal' )) }}
+    {{ Form::open(array('url' => 'contacto/editar', 'class' => 'form-horizontal edit-contact-form' )) }}
         <div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
@@ -220,7 +220,7 @@
         {{ Form::hidden('referer', URL::to('perfil')) }}
     {{ Form::close() }}
 
-    {{ Form::open(array('url' => 'contacto', 'class' => 'form-horizontal' )) }}
+    {{ Form::open(array('url' => 'contacto', 'class' => 'big-form add-contact-form' )) }}
     <div id="addContact" class="modal hide fade" tabindex="-1" role="dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -233,7 +233,6 @@
             <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
             <button type="submit" class="btn btn-primary">{{ Lang::get('content.save') }}</button>
         </div>
-        {{ Form::hidden('referer', URL::to('perfil')) }}
     </div>
     {{ Form::close() }}
 
@@ -320,6 +319,10 @@
                 publisherType.trigger('change');
                 publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
             @endif
+
+            jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
+            jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
+
         });
 
     </script>
