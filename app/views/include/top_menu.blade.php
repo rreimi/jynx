@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-static-top">
+<div class="navbar navbar-inverse @if(Auth::check() && Auth::user()->isAdmin()) navbar-admin @endif navbar-static-top">
     <div class="navbar-inner">
         <div class="container">
 
@@ -12,8 +12,6 @@
             <!-- Be sure to leave the brand out there if you want it shown -->
             <a class="brand" href="{{URL::to('/')}}">{{ HTML::image('img/logo.png')}}</a>
 
-
-
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
                 @if(Auth::check())
@@ -24,7 +22,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
                             @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
-                                <li><a href="#">Mis publicaciones</a></li>
+                                <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                            @endif
+                            @if(Auth::user()->isAdmin())
+                            <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                             @endif
                             @if(Auth::user()->isBasic())
                                 <li><a href="{{URL::to('/registro/datos-publicador')}}">{{ Lang::get('content.postulation') }}</a></li>

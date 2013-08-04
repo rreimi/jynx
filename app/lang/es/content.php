@@ -39,7 +39,6 @@ return array(
     "search_no_results" => "No se encontraron :item para: :criteria",
     "view" => "Ver",
     "search" => "Buscar",
-    "filter_status" => ' -- Filtrar Estatus -- ',
 
     //Publications
     "publication" => "Publicacion|Publicaciones",
@@ -91,6 +90,7 @@ return array(
     "help" => "Ayuda",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
 
@@ -118,6 +118,8 @@ return array(
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
+    "backend_search_publication_title" => "Buscar publicaciones",
+
 
     // Backend Dashboard
     "backend_users_section_title" => "Aprobaciones pendientes",
@@ -286,7 +288,16 @@ return array(
     "filter_available" => 'Filtros Disponibles',
     "filter_seller_title" => 'Vendedor',
     "filter_state_title" => 'Ubicacion',
-    "filter_category_title" => 'Categoria',
+    "filter_category_title" => 'Categoría',
+    "filter_publication_start_date" => 'Fecha de inicio:',
+    "filter_publication_end_date" => 'Fecha fin:',
+    "filter_publication_publisher"=> 'Anunciante:',
+    "filter_publication_category" => 'Categoría:',
+    "filter_publication_status" => 'Estatus:',
+
+    "filter_status_placeholder" => 'Seleccione Estatus',
+    "filter_category_placeholder" => 'Seleccione una o mas Categorias',
+    "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
 
     // Users
     "users" => 'Usuarios',
@@ -300,6 +311,7 @@ return array(
     "new_user" => 'Nuevo usuario',
     "new_user_admin" => 'Nuevo administrador',
     "edit_user" => 'Editar usuario',
+    "reset_search" => 'Nueva Busqueda',
 
     // Search
     "user_search_placeholder" => "Buscar...",

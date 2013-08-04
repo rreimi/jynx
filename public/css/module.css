@@ -101,7 +101,11 @@ h2 {
 /*}*/
 
 .pub-table .row-date {
-    width: 7%;
+    width: 8%;
+}
+
+.pub-table .row-created {
+    width: 8%;
 }
 
 .pub-table .row-options {
@@ -113,9 +117,9 @@ h2 {
     width: 9%;
 }
 
-/*.pub-table .row-seller_name {*/
-    /*width:14%;*/
-/*}*/
+.pub-table .row-seller_name {
+    width:22%;
+}
 
 .pub-table .row-visits_number {
     width: 8%;
