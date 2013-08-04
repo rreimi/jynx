@@ -46,6 +46,7 @@
 
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
+{{ HTML::script('js/jquery.validate.min.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
