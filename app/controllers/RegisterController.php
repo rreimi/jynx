@@ -35,7 +35,7 @@ class RegisterController extends BaseController{
             )
         );
 
-        return Redirect::to('registro/datos-publicador');
+        return Redirect::to('registro/datos-anunciante');
     }
 
     public function getDatosPublicador(){
@@ -53,7 +53,7 @@ class RegisterController extends BaseController{
         $validator = Validator::make(Input::all(),self::registroPublicadorReglas());
 
         if($validator->fails()){
-            return Redirect::to('registro/datos-publicador')->withErrors($validator)->withInput(Input::all());
+            return Redirect::to('registro/datos-anunciante')->withErrors($validator)->withInput(Input::all());
         }
 
         $publisher = new Publisher();

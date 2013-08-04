@@ -58,7 +58,7 @@
         </div>
 
         @if($user->isPublisher())
-            <h2 id="publicador">{{Lang::get('content.profile_edit_publisher')}}</h2>
+            <h2 id="anunciante">{{Lang::get('content.profile_edit_publisher')}}</h2>
             <div class="control-group {{ $errors->has('seller_name') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
                 <div class="controls">

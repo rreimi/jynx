@@ -27,7 +27,7 @@
                                 <li><a href="#">Mis publicaciones</a></li>
                             @endif
                             @if(Auth::user()->isBasic())
-                                <li><a href="{{URL::to('/registro/datos-publicador')}}">{{ Lang::get('content.postulation') }}</a></li>
+                                <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
                             @endif
                             <li class="divider"></li>
                             <li><a href="{{ URL::to('logout') }}">{{ Lang::get('content.exit') }}</a></li>
