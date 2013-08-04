@@ -13,16 +13,16 @@
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.profile_email') }}</label>
             <div class="controls">
-                {{ Form::text('profile_email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
-                {{ $errors->first('profile_email', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ Form::text('email', $user->email, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
+                {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('profile_full_name') ? 'error':'' }}">
+        <div class="control-group {{ $errors->has('full_name') ? 'error':'' }}">
             <label class="control-label" for="long_description">{{ Lang::get('content.profile_full_name') }}</label>
             <div class="controls">
-                {{ Form::text('profile_full_name', $user->full_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_full_name'))) }}
-                {{ $errors->first('profile_full_name', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_full_name'))) }}
+                {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -32,34 +32,34 @@
             </div>
         </div>
         <div class="collapse collapse-password out">
-            <div class="control-group {{ $errors->has('profile_password') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password') }}</label>
                 <div class="controls">
-                    {{ Form::password('profile_password', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password'), 'disabled' => 'disabled')) }}
-                    {{ $errors->first('profile_password', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::password('password', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_password'))) }}
+                    {{ $errors->first('password', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_password_confirmation') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('password_confirmation') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password_confirmation') }}</label>
                 <div class="controls">
-                    {{ Form::password('profile_password_confirmation', null, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_password_confirmation'), 'disabled' => 'disabled')) }}
-                    {{ $errors->first('profile_password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::password('password_confirmation', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_password_confirmation'))) }}
+                    {{ $errors->first('password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
         </div>
 
         @if($user->isPublisher())
             <h2 id="publicador">{{Lang::get('content.profile_edit_publisher')}}</h2>
-            <div class="control-group {{ $errors->has('profile_seller_name') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('seller_name') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_seller_name'))) }}
-                    {{ $errors->first('profile_seller_name', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_seller_name'))) }}
+                    {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_publisher_type') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('publisher_type') ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_publisher_type') }}</label>
                 <div class="controls">
                     {{ Form::select('publisher_type',
@@ -71,11 +71,11 @@
                         $user->publisher->publisher_type,
                         array('class'=>'input-xlarge publisher_type')
                     ) }}
-                    {{ $errors->first('profile_publisher_type', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ $errors->first('publisher_type', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ ($errors->has('profile_id_type') || $errors->has('profile_id')) ? 'error':'' }}">
+            <div class="control-group {{ ($errors->has('letter_rif_ci') || $errors->has('rif_ci')) ? 'error':'' }}">
                 <label class="control-label" for="title">{{ Lang::get('content.profile_id') }}</label>
                 <div class="controls controls-row">
                     {{ Form::select('letter_rif_ci',
@@ -83,45 +83,45 @@
                         $user->publisher->letter_rif_ci,
                         array('class'=>'input-small publisher_id_type')
                     ) }}
-                    {{ Form::text('profile_id', $user->publisher->rif_ci, array('class' => 'input-medium','placeholder'=> Lang::get('content.profile_id'))) }}
+                    {{ Form::text('rif_ci', $user->publisher->rif_ci, array('class' => 'input-medium','placeholder'=> Lang::get('content.profile_id'))) }}
 
-                    {{ $errors->first('profile_id', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ $errors->first('rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_state') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('state') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_state') }}</label>
                 <div class="controls">
-                    {{ Form::select('profile_state',
+                    {{ Form::select('state',
                         array_merge(array('' => Lang::get('content.select')), $states),
                         $user->publisher->state_id,
                         array('class'=>'input-xlarge'))
                     }}
-                    {{ $errors->first('profile_state', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ $errors->first('state', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_city') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('city') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_city') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_city', $user->publisher->city, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_city'))) }}
-                    {{ $errors->first('profile_city', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::text('city', $user->publisher->city, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_city'))) }}
+                    {{ $errors->first('city', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_phone1') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_phone1', $user->publisher->phone1, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone1'))) }}
-                    {{ $errors->first('profile_phone1', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone1'))) }}
+                    {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
-            <div class="control-group {{ $errors->has('profile_phone2') ? 'error':'' }}">
+            <div class="control-group {{ $errors->has('phone2') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone2') }}</label>
                 <div class="controls">
-                    {{ Form::text('profile_phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
-                    {{ $errors->first('profile_phoAuth::user()ne2', '<div class="field-error alert alert-error">:message</div>') }}
+                    {{ Form::text('phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
+                    {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
             @if(Auth::user()->isPublisher())
@@ -147,7 +147,11 @@
             {{ Form::close() }}
         @endif
         @if(Auth::user()->isPublisher())
-            <h2 id="contactos">{{Lang::get('content.profile_edit_contacts')}}</h2>
+            <h2 id="contactos">{{Lang::get('content.profile_edit_contacts')}}
+                <a class="btn btn-info btn-small modal-contact" data-target="#addContact" data-remote="{{URL::to('contacto/agregar') }}">
+                    {{Lang::get('content.contact_add_contact')}}
+                </a>
+            </h2>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -178,7 +182,6 @@
                             <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
                                 <i class="icon-pencil"></i>
                             </a>
-<!--                            TODO: FALTA LA FUNCIONALIDAD DE ELIMINAR-->
                             <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact">
                                 <i class="icon-trash"></i>
                             </a>
@@ -193,29 +196,45 @@
 
         <div class="control-group">
             <div class="controls">
-                <button type="submit" class="btn">{{ Lang::get('content.cancel') }}</button>
+                <a href="{{ URL::to('perfil') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
                 <button type="submit" class="btn btn-success">{{ Lang::get('content.save') }}</button>
             </div>
         </div>
 
     </div>
 
-
-    {{ Form::open(array('url' => 'contact', 'class' => 'form-horizontal' )) }}
+    {{ Form::open(array('url' => 'contacto/editar', 'class' => 'form-horizontal' )) }}
         <div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>{{ Lang::get('profile.edit_contact') }}</h3>
+                <h3>{{ Lang::get('content.profile_edit_contact') }}</h3>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
-                <button class="btn btn-primary">{{ Lang::get('content.save') }}</button>
+                <button type="submit" class="btn btn-primary">{{ Lang::get('content.save') }}</button>
             </div>
+        </div>
+        {{ Form::hidden('referer', URL::to('perfil')) }}
+    {{ Form::close() }}
+
+    {{ Form::open(array('url' => 'contacto', 'class' => 'form-horizontal' )) }}
+    <div id="addContact" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{{ Lang::get('content.contact_add_contact') }}</h3>
+        </div>
+        <div class="modal-body">
 
         </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
+            <button type="submit" class="btn btn-primary">{{ Lang::get('content.save') }}</button>
+        </div>
+        {{ Form::hidden('referer', URL::to('perfil')) }}
+    </div>
     {{ Form::close() }}
 
     <div id="viewContact" class="modal hide fade" tabindex="-1" role="dialog">
@@ -239,11 +258,13 @@
         jQuery(document).ready(function(){
             jQuery('.collapse-password')
                 .on('show',function(){
+                    jQuery("input:password").removeAttr('disabled');
                     jQuery('.btn-password').button('toggle');
                 })
                 .on('hide',function(){
                     jQuery('.btn-password').button('toggle');
                     jQuery("input:password").val('');
+                    jQuery("input:password").attr('disabled', 'disabled');
                 });
 
             jQuery('.modal-contact').on('click',function(){
@@ -262,35 +283,43 @@
 
             jQuery('.delete-contact').on('click',function(){
                 Mercatino.modalConfirm.show(
-                    '{{ Lang::get('content.contact_delete_title') }}',
-                    '{{ Lang::get('content.contact_delete_content') }}',
+                    '{{ Lang::get('content.profile_delete_contact_title') }}',
+                    '{{ Lang::get('content.profile_delete_contact_content') }}',
                     '{{ URL::to('contacto/eliminar/') }}'+'/'+jQuery(this).data('id')
                 );
             });
 
-            var publisherType=jQuery('.publisher_type');
-            var publisherIdType=jQuery('.publisher_id_type');
-
-            publisherType.on('change',function(){
-                jQuery('option:not(.default)', '.publisher_id_type').remove();
-                if(this.value=='Person'){
-                    publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-                }else if(this.value=='Business'){
-                    publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-                }
-            });
-
-            jQuery("input:password").val('');
-
-            if(publisherType.val()=='Person'){
-                publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            }else if(publisherType.val()=='Business'){
-                publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+            var passwordError = {{ $errors->has('password') ? 'true' : 'false' }};
+            if (passwordError){
+                jQuery("input:password").val('');
+                jQuery('.btn-password').click();
+            } else {
+                jQuery("input:password").val('');
+                jQuery("input:password").attr('disabled', 'disabled');
             }
 
-            publisherType.trigger('change');
-            publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+            @if(Auth::user()->isPublisher())
+                var publisherType=jQuery('.publisher_type');
+                var publisherIdType=jQuery('.publisher_id_type');
 
+                publisherType.on('change',function(){
+                    jQuery('option:not(.default)', '.publisher_id_type').remove();
+                    if(this.value=='Person'){
+                        publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                    }else if(this.value=='Business'){
+                        publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                    }
+                });
+
+                if(publisherType.val()=='Person'){
+                    publisherIdType.append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                }else if(publisherType.val()=='Business'){
+                    publisherIdType.append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                }
+
+                publisherType.trigger('change');
+                publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+            @endif
         });
 
     </script>
