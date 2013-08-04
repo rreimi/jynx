@@ -274,6 +274,7 @@ return array(
     "profile_email" => "Correo electrónico",
     "profile_full_name" => "Nombre persona / Razón social",
     "profile_change_password" => "Cambia tu contraseña",
+    "profile_current_password" => "Contraseña actual",
     "profile_password" => "Contraseña",
     "profile_password_confirmation" => "Confirma Contraseña",
     "profile_seller_name" => "Nombre vendedor / Nombre empresa",
@@ -337,4 +338,5 @@ return array(
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
+
 );

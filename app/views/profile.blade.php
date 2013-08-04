@@ -32,6 +32,14 @@
             </div>
         </div>
         <div class="collapse collapse-password out">
+            <div class="control-group {{ $errors->has('current-password') ? 'error':'' }}">
+                <label class="control-label" for="long_description">{{ Lang::get('content.profile_current_password') }}</label>
+                <div class="controls">
+                    {{ Form::password('current-password', null, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.profile_current_password'))) }}
+                    {{ $errors->first('current-password', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+
             <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
                 <label class="control-label" for="long_description">{{ Lang::get('content.profile_password') }}</label>
                 <div class="controls">

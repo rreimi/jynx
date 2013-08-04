@@ -56,11 +56,23 @@ class ProfileController extends BaseController{
             'full_name' => 'required',
         );
 
+        // Registrar custom validation
+        Validator::extend('currentpassword', function($attribute, $value, $parameters)
+        {
+            if (Hash::check($value, Auth::user()->password)){
+                return true;
+            }
+
+            return false;
+        });
+
         // Si se recibe un nuevo password entonces validalo
-        if (Input::get('password') != null || Input::get('password_confirmation') != null){
+        if (Input::get('current-password') != null || Input::get('password') != null || Input::get('password_confirmation') != null){
+            $profileData['current-password'] = Input::get('current-password');
             $profileData['password'] = Input::get('password');
             $profileData['password_confirmation'] = Input::get('password_confirmation');
 
+            $profileRules['current-password'] = 'required | currentpassword';
             $profileRules['password'] = 'required';
             $profileRules['password_confirmation'] = 'required';
 
@@ -88,7 +100,11 @@ class ProfileController extends BaseController{
 
         }
 
-        $v = Validator::make($profileData, $profileRules, array());
+        $messages = array(
+            'current-password.currentpassword' => Lang::get('validation.current_password_currentpassword'),
+        );
+
+        $v = Validator::make($profileData, $profileRules, $messages);
         if ( $v->fails() ){
             // redirect back to the form with
             // errors, input and our currently
