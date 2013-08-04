@@ -5,7 +5,7 @@ body {
 }
 
 .side-nav {
-   background: #fff;
+    background: #fff;
 }
 
 .sub-category{
@@ -34,7 +34,7 @@ body {
     margin: 0 0 1em 0;
     padding: 0;
     border:1px solid #ddd;
-    background: #fff;
+    background: none repeat scroll 0 0 #FAFAFA;
     /*border-radius: 6px;*/
 }
 
@@ -65,11 +65,11 @@ body {
 }
 
 .nav-category .level2 {
-    background: #eee;
+    background: none repeat scroll 0 0 #FFFFFF;
 }
 
 .nav-category .level3 {
-    background: #eaeaea;
+    background: none repeat scroll 0 0 #FFFFFF;
 }
 
 .nav-category li a {
@@ -139,6 +139,8 @@ nav-filters-container {
 .login{
     background-size:100% auto;
     background-image:url('../img/login_background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .login .initial{
@@ -157,11 +159,11 @@ nav-filters-container {
     background-color: #fff;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     -webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.05);
-       -moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.05);
-            box-shadow:inset 0 0 20px rgba(0,0,0,.05);
+    -moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.05);
+    box-shadow:inset 0 0 20px rgba(0,0,0,.05);
 }
 
 .login .step .big-form {
@@ -233,11 +235,6 @@ nav-filters-container {
     vertical-align: middle;
 }
 
-.nav.top-menu-option {
-    margin-left: 13.2%;
-    margin-right: 0px;
-}
-
 #footer {
     height: 55px;
 }
@@ -263,4 +260,14 @@ nav-filters-container {
     margin-top: 20px;
     padding-top: 15px;
     background: #1B1B1B;
+}
+
+.well {
+    background-color: #FFF;
+    border: none;
+    box-shadow: none;
+}
+
+#header {
+    height: 54px;
 }
