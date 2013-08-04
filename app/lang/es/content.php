@@ -197,7 +197,7 @@ return array(
     "register_title_success" => "Bienvenido",
     "register_description_success" => "Proceso de registro completo",
 
-    "publisher_header" => "Datos para publicadores",
+    "publisher_header" => "Datos para anunciantes",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",
     "select_person_type" => "Selecciona Persona Natural o Jurídica",
     "publisher_id" => "Cédula / Rif",
@@ -226,6 +226,10 @@ return array(
     "contact_city" => "Ciudad",
     "contact_email" => "Correo electrónico",
     "contact_not_found" => "No has agregado contactos",
+    "contact_add_contact" => "Agregar contacto",
+
+    "contact_delete_success" => "El contacto se ha eliminado correctamente",
+    "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",
 
     "backend_email" => "Correo electrónico",
     "backend_full_name" => "Nombre persona / Razón social",
@@ -272,6 +276,7 @@ return array(
     "profile_email" => "Correo electrónico",
     "profile_full_name" => "Nombre persona / Razón social",
     "profile_change_password" => "Cambia tu contraseña",
+    "profile_current_password" => "Contraseña actual",
     "profile_password" => "Contraseña",
     "profile_password_confirmation" => "Confirma Contraseña",
     "profile_seller_name" => "Nombre vendedor / Nombre empresa",
@@ -282,6 +287,15 @@ return array(
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
     "profile_view_contact" => "Detalle de contacto",
+    "profile_edit_contact" => "Editar contacto",
+    "profile_delete_contact_title" => "Eliminar contacto",
+    "profile_delete_contact_content" => "¿Está seguro que desea eliminar este contacto?",
+
+    // Messages
+    "profile_update_success" => "Su perfil ha sido actualizado exitosamente",
+    "profile_edit_contact_error" => "Ha ocurrido un error al intentar guardar el contacto",
+    "profile_edit_contact_success" => "El contacto ha sido editado exitosamente",
+    "profile_add_contact_success" => "El contacto ha sido agregado exitosamente",
 
     //filters
     "filter_active" => 'Filtros Activos',
@@ -305,7 +319,7 @@ return array(
     "user_email" => 'Correo',
     "user_role" => 'Rol',
     "user_status" => 'Estatus',
-    "user_is_publisher" => '¿Es publicador?',
+    "user_is_publisher" => '¿Es anunciante?',
 
     // Labels
     "new_user" => 'Nuevo usuario',
@@ -336,4 +350,5 @@ return array(
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
+
 );

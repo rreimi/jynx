@@ -19,7 +19,7 @@
 
 @include('include.top_menu')
 
-<div class="container main-container">
+<div class="container main-container" id="body">
 
     <div class="row-fluid">
         <div class="side-bar span3 well well-small">
@@ -50,6 +50,9 @@
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
+{{ HTML::script('js/verge/verge.min.js') }}
+{{ HTML::script('js/footer.js') }}
+{{ HTML::script('js/messages_es.js') }}
 @show
 
 @if (!is_null(Session::get('flash_global_message')))

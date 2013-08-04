@@ -6,6 +6,10 @@
 
 class RegisterController extends BaseController{
 
+    public function __construct(){
+        $this->beforeFilter('auth',array('except'=>array('postIndex','getFinalizar')));
+    }
+
     public function postIndex(){
 
         $validator = Validator::make(Input::all(),self::registroReglas());
@@ -21,7 +25,7 @@ class RegisterController extends BaseController{
         $user->password=Hash::make(Input::get('register_password'));
         $user->is_publisher=0;
         $user->role=User::ROLE_BASIC;
-
+        $user->step=2;
         $user->save();
 
         Auth::attempt(
@@ -31,7 +35,7 @@ class RegisterController extends BaseController{
             )
         );
 
-        return Redirect::to('registro/datos-publicador');
+        return Redirect::to('registro/datos-anunciante');
     }
 
     public function getDatosPublicador(){
@@ -49,7 +53,7 @@ class RegisterController extends BaseController{
         $validator = Validator::make(Input::all(),self::registroPublicadorReglas());
 
         if($validator->fails()){
-            return Redirect::to('registro/datos-publicador')->withErrors($validator)->withInput(Input::all());
+            return Redirect::to('registro/datos-anunciante')->withErrors($validator)->withInput(Input::all());
         }
 
         $publisher = new Publisher();
@@ -76,6 +80,7 @@ class RegisterController extends BaseController{
             $user=User::find($userId);
 
             $user->role=User::ROLE_PUBLISHER;
+            $user->step=1;
 
             $user->save();
 
@@ -97,6 +102,10 @@ class RegisterController extends BaseController{
     }
 
     public function getFinalizar(){
+        if(str_contains(URL::previous(),'registro/datos-contactos')){
+            Auth::user()->step=0;
+            Auth::user()->save();
+        }
         $this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
         return Redirect::to('/');
     }

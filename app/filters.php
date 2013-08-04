@@ -35,7 +35,31 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (Auth::guest()){
+        return Redirect::guest('login');
+    }else{
+        switch (Auth::user()->step){
+            case 2:
+                if(!(Auth::user()->isBasic()) && !str_contains(URL::current(),'registro/datos-anunciante')){
+                    return Redirect::to('registro/datos-anunciante');
+                };
+                break;
+            case 1:
+                if(!str_contains(URL::current(),'registro/datos-contactos')){
+                    return Redirect::to('registro/datos-contactos');
+                };
+                break;
+            case -1:
+                Auth::logout();
+                return Redirect::to('login');
+                break;
+            case 0:
+                if(str_contains(URL::current(),'registro/datos-contactos') || str_contains(URL::current(),'registro/datos-anunciante')){
+                    return Redirect::to(URL::previous());
+                }
+                break;
+        }
+    }
 });
 
 
