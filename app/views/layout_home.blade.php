@@ -4,7 +4,7 @@
     <title>{{ $title }} - {{ App::environment() }}
     </title>
     <meta name="description" content="Mercatino"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
@@ -18,7 +18,7 @@
 
 @include('include.top_menu')
 
-<div class="container main-container">
+<div class="container main-container" id="body">
 
     <div class="row-fluid">
         <div class="side-bar span3 well well-small">
@@ -49,6 +49,8 @@
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.pnotify.min.js') }}
 {{ HTML::script('js/mercatino.js') }}
+{{ HTML::script('js/verge/verge.min.js') }}
+{{ HTML::script('js/footer.js') }}
 {{ HTML::script('js/messages_es.js') }}
 @show
 
