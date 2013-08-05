@@ -8,6 +8,10 @@ body {
     width:100%;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .side-nav {
     background: #fff;
 }
@@ -207,6 +211,10 @@ nav-filters-container {
 .checkbox-category:hover{
     color: #333;
     background-color: #f5f5f5;
+}
+
+.checkbox-category-form {
+    margin-left:1em;
 }
 
 .site-welcome {
