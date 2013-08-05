@@ -48,7 +48,6 @@ class AdvertisingController extends BaseController {
         return View::make('advertising_list', array(
                 'adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.filter_status')),
                 'advertisings' => $advertisings,
-                'categories' => self::getCategories(),
                 'state' => $state,
             ) //end array
         );
@@ -95,7 +94,6 @@ class AdvertisingController extends BaseController {
 
         return View::make('advertising_form',
                     array('adv_statuses' => self::getAdvertisingStatuses(),
-                        'categories' => self::getCategories(),
                         'advertising' => $adv,
                         'referer' => URL::previous(),
                     ));
@@ -115,7 +113,6 @@ class AdvertisingController extends BaseController {
         return View::make('advertising_form',
             array(
                 'adv_statuses' => self::getAdvertisingStatuses(),
-                'categories' => self::getCategories(),
                 'advertising' => $adv,
                 'id' => $id,
                 'referer' => $referer,

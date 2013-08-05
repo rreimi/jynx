@@ -11,6 +11,7 @@ class PublicationController extends BaseController {
         $this->beforeFilter('auth');
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
+        View::share('services', self::getServices());
         View::share('detailSize', self::$detailSize);
 
     }
@@ -22,7 +23,6 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        //$data['categories'] = self::getCategories();
         $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
         /* Increment visits counter */
         $data['publication']->increment('visits_number');
@@ -59,8 +59,8 @@ class PublicationController extends BaseController {
         if (!$user->isAdmin() && !$user->isPublisher()){
             return Redirect::to('/');
         }
-
-        $state = self::retrieveListState();
+        $isPost = !is_null(Input::get('_token'));
+        $state = self::retrieveListState($isPost);
         $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
@@ -137,9 +137,9 @@ class PublicationController extends BaseController {
             'pub_publishers' => $publisherFilterValues,
             'pub_categories' => $categoryFilterValues,
             'publications' => $publications,
-            'categories' => self::getCategories(),
             'state' => $state,
-            'user' => $user
+            'user' => $user,
+            'is_post' => $isPost
             ) //end array
         );
     }
@@ -148,10 +148,11 @@ class PublicationController extends BaseController {
         return $this->getLista();
     }
 
-    private function retrieveListState(){
+    private function retrieveListState($isPost){
         $state = Session::get('pub_list.state');
+        $state['active_custom_filters'] = is_null($state['active_custom_filters'])? 0 : $state['active_custom_filters'];
 
-        $isPost = !is_null(Input::get('_token'));
+        /* Basic filters and sort */
 
         //Sort
         $sort = (in_array(Input::get('sort'), $this->pubListSort) ? Input::get('sort') : null);
@@ -173,6 +174,8 @@ class PublicationController extends BaseController {
         if ((isset($q)) || !(isset($state['q']))) {
             $state['q'] = (isset($q))? $q : '';
         }
+
+        /* Begin custom filters */
 
         //Status
         $status = (!is_null(Input::get('filter_status')) ? Input::get('filter_status') : null);
@@ -217,16 +220,25 @@ class PublicationController extends BaseController {
         }
 
         //To end date
-        $state['to_end_date'] = (isset($state['to_end_date']) ? $state['to_end_date'] : null);
+        $state['to_end_date'] = (isset($state['to_end_date']) ? $state['to_end_date']: null);
 
         if ($isPost) {
             $state['to_end_date'] = Input::get('to_end_date');
         }
+        /* End custom filters */
+
+        /* Basic filters not count */
+        $basicFilters = array('q', 'sort', 'order');
+        if ($isPost) {
+            $state['active_custom_filters'] = 0;
+            foreach ($state as $key => $item) {
+                if (isset($item) && !empty($item) && (!in_array($key, $basicFilters))){
+                    $state['active_custom_filters']++;
+                }
+            }
+        }
 
         Session::put('pub_list.state', $state);
-
-        //echo sha1(json_encode($state)); //query cache
-        //echo json_encode($state);
 
         return $state;
     }
@@ -255,7 +267,6 @@ class PublicationController extends BaseController {
 
         return View::make('publication_form',
             array('pub_statuses' => self::getPublicationStatuses(),
-                  'categories' => self::getCategories(),
                   'publication' => $pub,
                   'publication_categories' => $pubCats,
                   'publication_contacts' => $pubContacts,
@@ -406,7 +417,6 @@ class PublicationController extends BaseController {
         return View::make('publication_form',
             array(
                 'pub_statuses' => self::getPublicationStatuses(),
-                'categories' => self::getCategories(),
                 'contacts' => $pub->publisher->contacts,
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
@@ -433,6 +443,7 @@ class PublicationController extends BaseController {
             'publisher_id' => Input::get('publisher_id'),
             'categories' => Input::get('categories'),
             'contacts' => Input::get('contacts'),
+            'remember' => Input::get('remember'),
         );
 
         //Set validation rules

@@ -24,6 +24,7 @@ return array(
 
     //Category, Search
 	"categories_title" => "Categorías",
+    "services_title"   => "Servicios",
     "sell_by"          => "Por",
     "sell_by_full"          => "Publicado por",
     "see_product_detail" => "Ver detalle",
@@ -63,6 +64,8 @@ return array(
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
     "rating_avg" => 'Puntaje',
+    "evaluation" => 'Evaluación',
+    "remember_publication" => 'Recordar vencimiento de la publicación via correo',
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
@@ -192,11 +195,14 @@ return array(
     "register_conditions" => "Acepto <a href=\":url\">términos y condiciones de servicio</a>",
     "register_dialog_header" => "",
     "register_dialog_description" => "",
-    "register_dialog_continue" => "Si quiero publicar",
-    "register_dialog_cancel" => "No por los momentos y quiero navegar",
+    "register_dialog_continue" => "Sí quiero",
+    "register_dialog_cancel" => "No por los momentos, quiero navegar",
     "register_title_success" => "Bienvenido",
     "register_description_success" => "Proceso de registro completo",
 
+    "register_dialog_header" => "¿Quieres optar a ser anunciante?",
+    "register_dialog_description" => "Para ser anunciante, tienes que ser un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y pasarás por un proceso de aprobación luego de responder una serie de preguntas. Si cumples estos requisitos y deseas optar a publicar, selecciona 'Sí quiero'.",
+    "register_dialog_description2" => "De lo contrario, si no perteneces a la Cámara de Comercio Venezolano-Italiana (CAVENIT) o no deseas optar a publicar por los momentos, selecciona 'No por los momentos, quiero navegar' para proceder a ingresar.",
     "publisher_header" => "Datos para anunciantes",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",
     "select_person_type" => "Selecciona Persona Natural o Jurídica",
@@ -325,8 +331,8 @@ return array(
     "new_user" => 'Nuevo usuario',
     "new_user_admin" => 'Nuevo administrador',
     "edit_user" => 'Editar usuario',
-    "reset_search" => 'Nueva Busqueda',
-
+    "reset_search" => 'Limpiar busqueda',
+    "advanced_search" => 'Mas opciones de busqueda',
     // Search
     "user_search_placeholder" => "Buscar...",
     "user_role_Admin" => "Administrador",

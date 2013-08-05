@@ -38,12 +38,12 @@ class RegisterController extends BaseController{
         return Redirect::to('registro/datos-anunciante');
     }
 
-    public function getDatosPublicador(){
+    public function getDatosAnunciante(){
 
         return View::make('register_step2')->with(
             array(
                 "states" => State::lists('name','id'),
-                "categories" => Category::parents()->orderBy('name','asc')->get()
+                "categories" => Category::parents()->orderBy('name','asc')->get(),
             )
         );
     }
