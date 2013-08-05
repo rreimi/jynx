@@ -1,4 +1,4 @@
-<div id="header" class="navbar navbar-inverse navbar-static-top">
+<div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
         <div class="container">
 
@@ -24,7 +24,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
                             @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
-                                <li><a href="#">Mis publicaciones</a></li>
+                                <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                            @endif
+                            @if(Auth::user()->isAdmin())
+                                <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                             @endif
                             @if(Auth::user()->isBasic())
                                 <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>

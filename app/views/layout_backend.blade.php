@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width"/>
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
+    {{ HTML::style('css/jquery-ui-1.10.3.custom.min.css') }}
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
+    {{ HTML::style('css/chosen.min.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}

@@ -4,6 +4,10 @@ body {
     font-size:12px;
 }
 
+.sidebar-search-form .input {
+    width:100%;
+}
+
 .side-nav {
     background: #fff;
 }

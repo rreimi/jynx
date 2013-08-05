@@ -4,7 +4,7 @@ class PublicationController extends BaseController {
 
     private $prefix = 'publication';
     private $page_size = '6';
-    private $pubListSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at');
+    private $pubListSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at', 'status', 'rating_avg', 'seller_name');
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
@@ -76,12 +76,41 @@ class PublicationController extends BaseController {
             });
         }
 
-        $status = $state['filter_status'];
-
-        if (!empty($status)){
-            $publications->where('status', '=', $status);
+        //Status filter
+        if (!empty($state['filter_status'])){
+            $publications->where('status', '=', $state['filter_status']);
         }
 
+        //Category filter
+        if (is_array($state['filter_categories'])) {
+            $publications->whereIn('category_id', $state['filter_categories']);
+        }
+
+        //Publisher filter
+        if (is_array($state['filter_publishers'])) {
+            $publications->whereIn('publisher_id', $state['filter_publishers']);
+        }
+
+        //From start date
+        if (!empty($state['from_start_date'])) {
+            //echo strtotime($state['from_start_date']);
+            $publications->where('from_date', '>=', date("Y-m-d", strtotime($state['from_start_date'])));
+        }
+
+        //To start date
+        if (!empty($state['to_start_date'])) {
+            $publications->where('from_date', '<=', date("Y-m-d", strtotime($state['to_start_date'])));
+        }
+
+        //From end date
+        if (!empty($state['from_end_date'])) {
+            $publications->where('to_date', '>=', date("Y-m-d", strtotime($state['from_end_date'])));
+        }
+
+        //To end date
+        if (!empty($state['to_end_date'])) {
+            $publications->where('to_date', '<=', date("Y-m-d", strtotime($state['to_end_date'])));
+        }
 
         if ($user->isPublisher()){
             $publications->where('publisher_id', '=', $user->publisher->id);
@@ -90,19 +119,23 @@ class PublicationController extends BaseController {
         $publications->groupBy('id');
         $publications = $publications->paginate($this->page_size);
 
-//        $publications = $publications->get();
-//        echo $publications;
-//        die;
+        foreach (PublicationView::publishersWithPublications()->get() as $item) {
+            $publisherFilterValues[$item->publisher_id] = $item->seller_name;
+        }
+
+        foreach (PublicationVIew::categoriesWithPublications()->get() as $item) {
+            $categoryFilterValues[$item->category_id] = $item->category_name;
+        }
 
         $view = 'publication_list';
         if ($user->isAdmin()){
             $view = 'backend_publication_list';
         }
 
-
-
         return View::make($view, array(
-            'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status')),
+            'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status_placeholder')),
+            'pub_publishers' => $publisherFilterValues,
+            'pub_categories' => $categoryFilterValues,
             'publications' => $publications,
             'categories' => self::getCategories(),
             'state' => $state,
@@ -118,31 +151,83 @@ class PublicationController extends BaseController {
     private function retrieveListState(){
         $state = Session::get('pub_list.state');
 
+        $isPost = !is_null(Input::get('_token'));
+
+        //Sort
         $sort = (in_array(Input::get('sort'), $this->pubListSort) ? Input::get('sort') : null);
 
         if ((isset($sort)) || !(isset($state['sort']))) {
             $state['sort'] = (isset($sort))? $sort : 'id';
         }
 
+        //Order
         $order = (in_array(Input::get('order'), array('asc', 'desc')) ? Input::get('order') : null);
 
         if ((isset($order)) || !(isset($state['order']))) {
             $state['order'] = (isset($order))? $order : 'desc';
         }
 
+        //Query
         $q = (!is_null(Input::get('q')) ? Input::get('q') : null);
 
         if ((isset($q)) || !(isset($state['q']))) {
             $state['q'] = (isset($q))? $q : '';
         }
 
+        //Status
         $status = (!is_null(Input::get('filter_status')) ? Input::get('filter_status') : null);
 
         if ((isset($status)) || !(isset($state['filter_status']))) {
             $state['filter_status'] = (isset($status))? $status : '';
         }
 
+        //Categories
+        $state['filter_categories'] = (isset($state['filter_categories']) ? $state['filter_categories'] : null);
+
+        if ($isPost) {
+            $state['filter_categories'] = Input::get('filter_categories');
+        }
+
+        //Categories
+        $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
+
+        if ($isPost) {
+            $state['filter_publishers'] = Input::get('filter_publishers');
+        }
+
+        //From start date
+        $state['from_start_date'] = (isset($state['from_start_date']) ? $state['from_start_date'] : null);
+
+        if ($isPost) {
+            $state['from_start_date'] = Input::get('from_start_date');
+        }
+
+        //To start date
+        $state['to_start_date'] = (isset($state['to_start_date']) ? $state['to_start_date'] : null);
+
+        if ($isPost) {
+            $state['to_start_date'] = Input::get('to_start_date');
+        }
+
+        //From end date
+        $state['from_end_date'] = (isset($state['from_end_date']) ? $state['from_end_date'] : null);
+
+        if ($isPost) {
+            $state['from_end_date'] = Input::get('from_end_date');
+        }
+
+        //To end date
+        $state['to_end_date'] = (isset($state['to_end_date']) ? $state['to_end_date'] : null);
+
+        if ($isPost) {
+            $state['to_end_date'] = Input::get('to_end_date');
+        }
+
         Session::put('pub_list.state', $state);
+
+        //echo sha1(json_encode($state)); //query cache
+        //echo json_encode($state);
+
         return $state;
     }
 

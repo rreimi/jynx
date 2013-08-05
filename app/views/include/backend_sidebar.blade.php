@@ -1,11 +1,3 @@
-{{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => '')) }}
-<div class="input-append">
-    {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'span12')) }}
-    <button class="btn" type="submit"><i class="icon-search"></i></button>
-</div>
-
-{{ Form::close() }}
-<span class="nav-header">{{ Lang::get('content.backend_menu_title') }}</span>
 <ul class="nav nav-tabs nav-stacked side-nav">
     <li><a href="{{ URL::to('dashboard')}}">{{ Lang::get('content.backend_menu_dashboard') }}</a></li>
     <li><a href="{{ URL::to('usuario/lista')}}">{{ Lang::get('content.backend_menu_users') }}</a></li>

@@ -40,6 +40,15 @@ class PublicationView extends Eloquent {
         return $query;
     }
 
+    public function scopePublishersWithPublications($query) {
+        $query->select('publisher_id', 'seller_name', DB::raw('count(*) as publications_number'))->groupBy('publisher_id');
+    }
+
+    public function scopeCategoriesWithPublications($query) {
+        $query->select('category_id', 'category_name', DB::raw('count(*) as publications_number'))->groupBy('category_id');
+    }
+
+
     public function scopeParents($query) {
         return $query->where('category_id', '=', null);
     }

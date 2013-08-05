@@ -65,6 +65,7 @@ return array(
     "unique" => "El campo :attribute ya ha sido tomado.",
     "url" => "El formato de :attribute es inválido.",
     "publication_category_required" => "Debe seleccionar al menos una categoría",
+    "current_password_currentpassword" => "La contraseña indicada no coincide con la contraseña actual",
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines
