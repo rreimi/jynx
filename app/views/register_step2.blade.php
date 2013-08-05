@@ -117,6 +117,7 @@
         </div>
         <div class="modal-body">
             <p>{{ Lang::get('content.register_dialog_description') }}</p>
+            <p>{{ Lang::get('content.register_dialog_description2') }}</p>
 
 
             <div class="text-center">
