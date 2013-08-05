@@ -9,7 +9,7 @@ class ProfileController extends BaseController{
     public function __construct(){
         $this->beforeFilter('auth');
         View::share('categories', self::getCategories());
-
+        View::share('services', self::getCategories());
         View::share('custom_title', Lang::get('content.profile'));
         $customOptions = array(
             Lang::get('content.profile_edit_basic')=>'#basico'

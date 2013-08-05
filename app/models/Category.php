@@ -26,6 +26,14 @@ class Category extends Eloquent {
         return $query->where('category_id', '=', null);
     }
 
+    public function scopeOnlyServices($query) {
+        return $query->where('type', 'Services');
+    }
+
+    public function scopeOnlyProducts($query) {
+        return $query->where('type', 'Product');
+    }
+
     public function parent() {
         return $this->belongsTo('Category', 'category_id');
     }
@@ -42,11 +50,11 @@ class Category extends Eloquent {
         return $this->belongsToMany('Publisher','publishers_categories');
     }
 
-    public static function getCategoryTree() {
+    public static function getCategoryTree($type = 'Product') {
         $categories = Category::get();
 
         $level = array();
-        $level[0] = Category::parents()->lists('id');
+        $level[0] = Category::parents()->where('type', $type)->lists('id');
 
         $currentLvl = 0;
         while (count($level[$currentLvl]) > 0) {
@@ -62,6 +70,7 @@ class Category extends Eloquent {
 
         foreach ($categories as $category) {
             $cats[$category->id] = (object) $category->getAttributes();
+            $cats[$category->id]->subcategories = array();
         }
 
 //        foreach ($level[1] as $lvl) {

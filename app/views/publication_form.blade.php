@@ -62,41 +62,84 @@
             </div>
         </div>
 
+        <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
+            <div class="controls">
+                <label class="checkbox">
+                    {{ Form::checkbox('remember', 1, ($publication->remember == 1), array('class' => 'chk-remember')) }} {{ Lang::get('content.remember_publication') }}
+                </label>
+            </div>
+        </div>
+
+
         <!-- Categories -->
         <div class="control-group categories-form">
-            <h2>{{Lang::get('content.publication_categories')}}</h2>
-
             @if ($errors->has('categories'))
             <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
             @endif
 
+            <ul class="float-left categories-form-list">
+                <li><h2>{{Lang::get('content.categories_title')}}</h2></li>
             @foreach ($categories as $cat)
-                <ul>
-                    <li>
-                        <label class="checkbox">
-                           {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
-                        </label>
-                        <ul>
-                            @foreach ($cat->subcategories as $subcat)
-                            <li>
-                                <label class="checkbox">
-                                   {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                                </label>
-                                <ul>
-                                   @foreach ($subcat->subcategories as $thirdcat)
-                                    <li>
-                                        <label class="checkbox">
-                                            {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
-                                        </label>
-                                    </li>
-                                   @endforeach
-                                </ul>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                </ul>
+                <li>
+                    @if (count($cat->subcategories) > 0)
+                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
+                    @endif
+                    <label class="checkbox checkbox-category-form">
+                        {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                    </label>
+                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
+                        @foreach ($cat->subcategories as $subcat)
+                        <li>
+                            <label class="checkbox">
+                               {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                            </label>
+                            <ul>
+                               @foreach ($subcat->subcategories as $thirdcat)
+                                <li>
+                                    <label class="checkbox">
+                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                    </label>
+                                </li>
+                               @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
             @endforeach
+            </ul>
+
+            <ul class="float-left">
+                <li><h2>{{Lang::get('content.services_title')}}</h2></li>
+                @foreach ($services as $cat)
+                <li>
+                    @if (count($cat->subcategories) > 0)
+                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
+                    @endif
+                    <label class="checkbox checkbox-category-form">
+                        {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                    </label>
+                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
+                        @foreach ($cat->subcategories as $subcat)
+                        <li>
+                            <label class="checkbox">
+                                {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                            </label>
+                            <ul>
+                                @foreach ($subcat->subcategories as $thirdcat)
+                                <li>
+                                    <label class="checkbox">
+                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                    </label>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
+            </ul>
         </div>
 
         <!-- Contacts -->
@@ -157,6 +200,17 @@
             dateFormat: "dd-mm-yy",
             changeMonth: true,
             changeYear: true
+        });
+
+        jQuery('.subcategories-list')
+            .on('show',function(){
+                jQuery('span[data-target=#' + jQuery(this).attr('id') + ']').html('-');
+            })
+            .on('hide',function(){
+                jQuery('span[data-target=#' + jQuery(this).attr('id') + ']').html('+');
+            });
+
+        jQuery('.collpase-subcategories').bind('click', function() {
         });
 
         /* Set dynamic date range */

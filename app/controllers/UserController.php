@@ -10,7 +10,6 @@ class UserController extends BaseController {
         $this->beforeFilter('auth');
         $this->beforeFilter('referer:user', array('only' => array('getLista', 'getDetalle')));
         // TODO: al cambiar layout backend lo puedo obviar
-        View::share('categories', self::getCategories());
     }
 
     public function getLista() {

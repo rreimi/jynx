@@ -21,6 +21,7 @@ class HomeController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         View::share('categories', self::getCategories());
+        View::share('services', self::getServices());
         View::share('thumbSize', self::$thumbSize);
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
 
@@ -80,7 +81,7 @@ class HomeController extends BaseController {
         }
 
         /* Cargar la lista de categorias */
-        $data['categories'] = self::getCategories();
+//        $data['categories'] = self::getCategories();
 
         /* TODO: Cargar la publicidad del banner */
 

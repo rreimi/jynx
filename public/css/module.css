@@ -234,9 +234,14 @@ div#home-banner-top .carousel-control {
 
 .categories-form ul {
     list-style:none;
+    width: 47%;
 }
 
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;
+}
+
+.categories-form-list {
+
 }
