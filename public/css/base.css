@@ -158,7 +158,6 @@ nav-filters-container {
 
 .login .initial .hello{
     background: rgba(0,0,0, 0.6);
-    height: 372px;
     color: #fff;
 }
 
@@ -222,7 +221,7 @@ nav-filters-container {
 }
 
 .site-description {
-    font-size: 16px;
+    font-size: 0.9em;
     font-style: italic;
     text-align: justify;
 }
