@@ -18,7 +18,6 @@
 
 @include('include.top_menu')
 <div class="container-fluid main-container" id="body">
-
     <div class="row-fluid">
         <div class="span3">
             <div class="sidebar-nav well well-small">
@@ -32,7 +31,6 @@
             @yield('content')
         </div>
     </div>
-    <hr>
 </div>
 <footer>
     @section('footer')
