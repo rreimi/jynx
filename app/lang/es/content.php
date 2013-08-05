@@ -351,4 +351,18 @@ return array(
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
 
+    // Advertiser
+    "advertisers" => 'Anunciantes',
+    "advertiser_name" => 'Nombre',
+    "advertiser_email" => 'Correo',
+    "advertiser_status" => 'Estatus',
+
+    // Labels
+    "new_advertiser" => 'Nuevo anunciante',
+    "edit_advertiser" => 'Editar anunciante',
+    "reset_search" => 'Nueva Busqueda',
+
+    // Search
+    "advertiser_search_placeholder" => "Buscar...",
+
 );
