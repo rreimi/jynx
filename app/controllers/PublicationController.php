@@ -66,7 +66,7 @@ class PublicationController extends BaseController {
         $q = $state['q'];
 
         if (!empty($q)){
-            $publications->orWhere(function($query) use ($q)
+            $publications->where(function($query) use ($q)
             {
                 $query->orWhere('title', 'LIKE', '%' . $q . '%')
                     ->orWhere('category_name', 'LIKE', '%' . $q . '%')
