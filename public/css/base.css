@@ -145,10 +145,11 @@ nav-filters-container {
 }
 
 .login{
-    background-size:100% auto;
-    background-image:url('../img/login_background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background:url('../img/login_background.jpg') no-repeat center center fixed;;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .login .initial{
@@ -255,6 +256,7 @@ nav-filters-container {
     color: #999999;
     text-align: center;
     width: 100%;
+    margin-top: 20px;
 }
 
 .footer a {
@@ -269,7 +271,6 @@ nav-filters-container {
 .copyright {
     height: 55px;
     width: 100%;
-    margin-top: 20px;
     padding-top: 15px;
     background: #1B1B1B;
 }
