@@ -117,7 +117,7 @@
         </div>
         <div class="modal-body">
             <p>{{ Lang::get('content.register_dialog_description') }}</p>
-            <div class="alert alert-warning">{{ Lang::get('content.publisher_explanation') }}</div>
+
 
             <div class="text-center">
                 <a class="btn btn-large" href="{{ URL::to('registro/finalizar') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
