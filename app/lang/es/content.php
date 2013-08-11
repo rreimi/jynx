@@ -117,7 +117,7 @@ return array(
     "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
     "backend_menu_dashboard" => "Dashboard",
     "backend_menu_users" => "Usuarios",
-    "backend_menu_publishers" => "Publicadores",
+    "backend_menu_publishers" => "Anunciantes",
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
@@ -206,6 +206,7 @@ return array(
     "publisher_header" => "Datos para anunciantes",
     "publisher_explanation" => "Llena los siguientes campos si eres un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y deseas publicar productos y/o servicios en Mercatino. De lo contrario omite este paso, ya que toda postulación para publicar será sometida a un proceso de revisión y se informará oportunamente a quienes sean aprobados.",
     "select_person_type" => "Selecciona Persona Natural o Jurídica",
+    "select_id_type" => "Tipo de documento",
     "publisher_id" => "Cédula / Rif",
     "publisher_type" => "Tipo de Persona",
     "publisher_type_person" => "Persona Natural",
@@ -370,5 +371,13 @@ return array(
 
     // Search
     "advertiser_search_placeholder" => "Buscar...",
+
+    // Messages
+    'save_advertiser_success' => 'El anunciante ha sido guardado satisfactoriamente',
+    "delete_advertiser_invalid" => "El anunciante que intentas eliminar es inválido",
+    "delete_advertiser_success" => "El anunciante se ha eliminado correctamente",
+    "delete_advertiser_error" => "Ha ocurrido un error al intentar eliminar el anunciante.",
+    "modal_advertiser_delete_title" => "Eliminar anunciante",
+    "modal_advertiser_delete_content" => "¿Está seguro que deseas eliminar este anunciante?",
 
 );

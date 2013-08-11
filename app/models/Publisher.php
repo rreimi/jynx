@@ -5,6 +5,13 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Publisher extends Eloquent {
 
+    protected $softDelete = true;
+
+    protected $fillable = array('publisher_type', 'seller_name',
+        'letter_rif_ci', 'rif_ci', 'state_id', 'city',
+        'media', 'phone1', 'phone2');
+
+
     public function sectors() {
         return $this->belongsToMany('BusinessSector', 'publishers_sectors');
     }

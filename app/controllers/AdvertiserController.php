@@ -9,8 +9,6 @@ class AdvertiserController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('referer:advertiser', array('only' => array('getLista', 'getDetalle')));
-        // TODO: al cambiar layout backend lo puedo obviar
-//        View::share('categories', self::getCategories());
     }
 
     public function getLista() {
@@ -21,7 +19,7 @@ class AdvertiserController extends BaseController {
         }
 
         $state = self::retrieveListState();
-        $advertisers = User::orderBy($state['sort'], $state['order']);
+        $advertisers = User::with('publisher')->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -42,7 +40,7 @@ class AdvertiserController extends BaseController {
 
         // Don't show publishers users
         $advertisers->where('role', '=', User::ROLE_PUBLISHER);
-        $advertisers->where('is_publisher', '=', true);
+//        $advertisers->where('is_publisher', '=', true);
 
         $advertisers->groupBy('id');
         $advertisers = $advertisers->paginate($this->page_size);
@@ -95,15 +93,18 @@ class AdvertiserController extends BaseController {
      */
     public function getCrear() {
 
-        $advertiser = new User();
+        $user = new User();
+        $advertiser = new Publisher();
 
-        // TODO: FALTA ALGO AQUI_?????
+        $advCats = array();
 
         return View::make('advertiser_form',
             array('advertiser_statuses' => self::getAdvertiserStatuses(),
+                  'user' => $user,
                   'advertiser' => $advertiser,
                   'states' => State::lists('name','id'),
                   "categories" => Category::parents()->orderBy('name','asc')->get(),
+                  'advertiser_categories' => $advCats,
                   'referer' => URL::previous(),
                 )
             );
@@ -124,105 +125,160 @@ class AdvertiserController extends BaseController {
         }
 
         //Get advertiser
-        $advertiser = User::find($id);
+        $advertiser = Publisher::with('categories')->find($id);
+        $user = User::find($advertiser->user_id);
+
+        // Populate categories
+        $advCats = array();
+
+        foreach ($advertiser->categories as $adv) {
+            $advCats[] = $adv->id;
+        }
+
+        if (is_array(Input::old('categories'))){
+            $advCats = Input::old('categories');
+        }
 
         return View::make('advertiser_form',
-            array('advertiser_statuses' => self::getUserStatuses(),
+            array('advertiser_statuses' => self::getAdvertiserStatuses(),
+                'user' => $user,
                 'advertiser' => $advertiser,
+                'states' => State::lists('name','id'),
+                "categories" => Category::parents()->orderBy('name','asc')->get(),
+                'advertiser_categories' => $advCats,
                 'referer' => $referer,
             )
         );
     }
 
-//    public function postGuardar() {
-//
-//        //Get user data
-//        $userData = array(
-//            'id' => Input::get('id'),
-//            'full_name' => Input::get('full_name'),
-//            'email' => Input::get('email'),
-//            'role' => Input::get('role'),
-//            'status' => Input::get('status'),
-//        );
-//
-//        //Set validation rules
-//        $rules = array(
-//            'full_name' => 'required',
-//            'email' => 'required',
-//            'role' => 'required',
-//            'status' => 'required',
-//        );
-//
-//        $messages = array();
-//
-//        // Validate fields
-//        $v = Validator::make($userData, $rules, $messages);
-//        if ( $v->fails() )
-//        {
-//            $action = 'crear';
-//
-//            if (!empty($userData['id'])) {
-//                $action = 'editar/' . $userData['id'];
-//            }
-//
-//            // redirect back to the form with
-//            // errors, input and our currently
-//            // logged in user
-//            return Redirect::to('usuario/' . $action)
-//                ->withErrors($v)
-//                ->withInput();
-//        }
-//
-//        //Save user
-//        $isNew = true;
-//
-//        if (empty($userData['id'])){
-//            $user = new User($userData);
-//            $user->password = Hash::make('123456');
-//        } else {
-//            $isNew = false;
-//            $user = User::find($userData['id']);
-//            $user->fill($userData);
-//        }
-//
-//        $user->save();
-//
-//        // Redirect to diferent places based on new or existing user
-//        self::addFlashMessage(null, Lang::get('content.save_user_success'), 'success');
+    public function postGuardar() {
 
-//        $referer = Session::get($this->prefixuser . '_referer');
-//        if (!empty($referer)){
-//            return Redirect::to($referer);
-//        }
-//        return Redirect::to('usuario/lista');
-//    }
-//
-//    public function getEliminar($id) {
-//
-//        $action = 'lista';
-//
-//        if (empty($id)) {
-//            return Response::view('errors.missing', array(), 404);
-//        }
-//
-//        $user = User::find($id);
-//
-//        if (empty($user)){
-//            self::addFlashMessage(null, Lang::get('content.delete_user_invalid'), 'error');
-//            return Redirect::to('usuario/'. $action);
-//        }
-//
-//        $result = $user->delete();
-//
-//        if ($result){
-//            self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');
-//        } else {
-//            self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
-//        }
-//
-//        return Redirect::to('usuario/'. $action);
-//
-//    }
+        //Get advertiser data
+        $advertiserData = array(
+            'id' => Input::get('id'),
+            'full_name' => Input::get('full_name'),
+            'email' => Input::get('email'),
+            'status' => Input::get('status'),
+            'publisher_type' => Input::get('publisher_type'),
+            'letter_rif_ci' => Input::get('publisher_id_type'),
+            'rif_ci' => Input::get('publisher_id'),
+            'seller_name' => Input::get('publisher_seller'),
+            'media' => Input::get('publisher_media'),
+            'state_id' => Input::get('publisher_state'),
+            'city' => Input::get('publisher_city'),
+            'phone1' => Input::get('publisher_phone1'),
+            'phone2' => Input::get('publisher_phone2'),
+            'categories' => Input::get('categories'),
+        );
+
+        //Set validation rules
+        $rules = array(
+            'full_name' => 'required',
+            'email' => 'required',
+            'status' => 'required',
+            'publisher_type' => 'required',
+            'letter_rif_ci' => 'required',
+            'rif_ci' => 'required',
+            'seller_name' => 'required',
+            'state_id' => 'required',
+            'city' => 'required',
+            'phone1' => 'required',
+        );
+
+        $messages = array();
+
+        // Validate fields
+        $v = Validator::make($advertiserData, $rules, $messages);
+        if ( $v->fails() )
+        {
+            $action = 'crear';
+
+            if (!empty($advertiserData['id'])) {
+                $action = 'editar/' . $advertiserData['id'];
+            }
+
+            // redirect back to the form with
+            // errors, input and our currently
+            // logged in user
+            return Redirect::to('anunciante/' . $action)
+                ->withErrors($v)
+                ->withInput();
+        }
+
+        // Save advertiser
+        if (empty($advertiserData['id'])){
+            $user = new User($advertiserData);
+            $user->password = Hash::make('123456');
+            $user->role=User::ROLE_PUBLISHER;
+            $user->step=1;
+
+            $advertiser = new Publisher();
+        } else {
+            $advertiser = Publisher::find($advertiserData['id']);
+            $user = User::find($advertiser->user_id);
+        }
+
+        $user->fill($advertiserData);
+        $advertiser->publisher_type = $advertiserData['publisher_type'];
+        $advertiser->seller_name = $advertiserData['seller_name'];
+        $advertiser->letter_rif_ci = $advertiserData['letter_rif_ci'];
+        $advertiser->rif_ci = $advertiserData['rif_ci'];
+        $advertiser->state_id = $advertiserData['state_id'];
+        $advertiser->city = $advertiserData['city'];
+        $advertiser->phone1 = $advertiserData['phone1'];
+        $advertiser->phone2 = $advertiserData['phone2'];
+        $advertiser->media = $advertiserData['media'];
+
+        DB::transaction(function() use ($advertiser, $user, $advertiserData){
+            $user->save();
+
+            $advertiser->user_id = $user->id;
+            $advertiser->save();
+
+            $categories = (array) $advertiserData['categories'];
+
+            $advertiser->categories()->sync($categories);
+        });
+
+        // Redirect to diferent places based on new or existing user
+        self::addFlashMessage(null, Lang::get('content.save_advertiser_success'), 'success');
+
+        $referer = Session::get($this->prefix . '_referer');
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
+        return Redirect::to('anunciante/lista');
+    }
+
+    public function getEliminar($id) {
+
+        $action = 'lista';
+
+        if (empty($id)) {
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $advertiser = Publisher::find($id);
+        $user = User::find($advertiser->user_id);
+
+
+        if (empty($user) || empty($advertiser)){
+            self::addFlashMessage(null, Lang::get('content.delete_advertiser_invalid'), 'error');
+            return Redirect::to('anunciante/'. $action);
+        }
+
+        $resultA = $advertiser->delete();
+        $resultU = $user->delete();
+
+        if ($resultA && $resultU){
+            self::addFlashMessage(null, Lang::get('content.delete_advertiser_success'), 'success');
+        } else {
+            self::addFlashMessage(null, Lang::get('content.delete_advertiser_error'), 'error');
+        }
+
+        return Redirect::to('anunciante/'. $action);
+
+    }
 
     private static function getAdvertiserStatuses($blankCaption = '') {
 
@@ -238,20 +294,5 @@ class AdvertiserController extends BaseController {
 
         return $options;
     }
-
-//    private static function getUserRoles($blankCaption = '') {
-//
-//        $options = array (
-//            'Basic' => Lang::get('content.role_Basic'),
-////            'Publisher' => Lang::get('content.role_Publisher'),
-//            'Admin' => Lang::get('content.role_Admin'),
-//        );
-//
-//        if (!empty($blankCaption)){
-//            $options = array_merge(array('' => $blankCaption), $options);
-//        }
-//
-//        return $options;
-//    }
 
 }

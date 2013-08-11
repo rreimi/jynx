@@ -120,6 +120,13 @@ return array(
         'phone1' => 'Teléfono 1',
         'phone2' => 'Teléfono 2',
 
+        'publisher_id_type' => 'Tipo de documento',
+        'publisher_id' => 'Cédula / Rif',
+        'publisher_seller' => 'Nombre vendedor / Nombre empresa',
+        'publisher_state' => 'Estado',
+        'publisher_city' => 'Ciudad',
+        'publisher_phone1' => 'Teléfono 1',
+
     ),
 
 );

@@ -44,10 +44,10 @@
             <td>{{ Lang::get('content.status_'. $advertiser->status) }}</td>
 <!--            <td> $advertiser->created_at </td>-->
             <td>
-                <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('anunciante/editar/' . $advertiser->id)}}">
+                <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('anunciante/editar/' . $advertiser->publisher->id)}}">
                     <i class="icon-pencil"></i>
                 </a>
-                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertiser_delete_title') }}', '{{ Lang::get('content.modal_advertiser_delete_content') }}', '{{URL::to('anunciante/eliminar/' . $advertiser->id)}}')">
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_advertiser_delete_title') }}', '{{ Lang::get('content.modal_advertiser_delete_content') }}', '{{URL::to('anunciante/eliminar/' . $advertiser->publisher->id)}}')">
                     <i class="icon-trash"></i>
                 </a>
             </td>

@@ -11,6 +11,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     const ROLE_BASIC="Basic";
 
+    protected $softDelete = true;
+
     protected $fillable = array('full_name', 'email',
         'role', 'status');
 
