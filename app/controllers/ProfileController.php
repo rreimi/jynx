@@ -126,9 +126,8 @@ class ProfileController extends BaseController{
 
         $user->save();
 
-        $publisher = $user->publisher;
-
         if (Auth::user()->isPublisher()){
+            $publisher = $user->publisher;
             $publisher->seller_name = $profileData['seller_name'];
             $publisher->publisher_type = $profileData['publisher_type'];
             $publisher->letter_rif_ci = $profileData['letter_rif_ci'];
@@ -138,9 +137,9 @@ class ProfileController extends BaseController{
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
             $publisher->categories()->sync(Input::get('publisher_categories'));
-        }
+            $publisher->save();
 
-        $publisher->save();
+        }
 
         self::addFlashMessage(null, Lang::get('content.profile_update_success'), 'success');
 

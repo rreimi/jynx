@@ -263,16 +263,19 @@
 @parent
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            jQuery('.collapse-password')
-                .on('show',function(){
+
+            jQuery('.btn-password').click(function() {
+                if (!jQuery('.collapse-password').hasClass('in')){
+                    console.log('show');
                     jQuery("input:password").removeAttr('disabled');
                     jQuery('.btn-password').button('toggle');
-                })
-                .on('hide',function(){
+                } else {
+                    console.log('hide');
                     jQuery('.btn-password').button('toggle');
                     jQuery("input:password").val('');
                     jQuery("input:password").attr('disabled', 'disabled');
-                });
+                }
+            });
 
             jQuery('.modal-contact').on('click',function(){
                 var remote=jQuery(this).data('remote');
@@ -296,7 +299,7 @@
                 );
             });
 
-            var passwordError = {{ $errors->has('password') ? 'true' : 'false' }};
+            var passwordError = {{ $errors->has('password') || $errors->has('current-password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
             if (passwordError){
                 jQuery("input:password").val('');
                 jQuery('.btn-password').click();
