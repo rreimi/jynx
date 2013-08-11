@@ -17,7 +17,7 @@
             <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
                 <label class="control-label" for="name">{{ Lang::get('content.name') }}</label>
                 <div class="controls">
-                    {{ Form::text('name', $advertising->name, array('class' => 'required', 'placeholder'=> Lang::get('content.name'))) }}
+                    {{ Form::text('name', $advertising->name, array('class' => 'required')) }}
                     {{ $errors->first('name', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="control-group {{ $errors->has('external_url') ? 'error':'' }}">
                 <label class="control-label" for="external_url">{{ Lang::get('content.external_url') }}</label>
                 <div class="controls">
-                    {{ Form::text('external_url', $advertising->external_url, array('class' => 'required url', 'placeholder'=> Lang::get('content.external_url'))) }}
+                    {{ Form::text('external_url', $advertising->external_url, array('class' => 'required url')) }}
                     {{ $errors->first('external_url', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="control-group {{ $errors->has('full_name') ? 'error':'' }}">
                 <label class="control-label" for="full_name">{{ Lang::get('content.full_name') }}</label>
                 <div class="controls">
-                    {{ Form::text('full_name', $advertising->full_name, array('class' => 'required', 'placeholder'=> Lang::get('content.full_name'))) }}
+                    {{ Form::text('full_name', $advertising->full_name, array('class' => 'required')) }}
                     {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
                 <label class="control-label" for="email">{{ Lang::get('content.email') }}</label>
                 <div class="controls">
-                    {{ Form::text('email', $advertising->email, array('class' => 'required email', 'placeholder'=> Lang::get('content.email'))) }}
+                    {{ Form::text('email', $advertising->email, array('class' => 'required email')) }}
                     {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                 <label class="control-label" for="phone1">{{ Lang::get('content.phone1') }}</label>
                 <div class="controls">
-                    {{ Form::text('phone1', $advertising->phone1, array('class' => 'required', 'placeholder'=> Lang::get('content.phone1'))) }}
+                    {{ Form::text('phone1', $advertising->phone1, array('class' => 'required')) }}
                     {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="control-group {{ $errors->has('phone2') ? 'error':'' }}">
                 <label class="control-label" for="phone2">{{ Lang::get('content.phone2') }}</label>
                 <div class="controls">
-                    {{ Form::text('phone2', $advertising->phone2, array('placeholder'=> Lang::get('content.phone2'))) }}
+                    {{ Form::text('phone2', $advertising->phone2) }}
                     {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
