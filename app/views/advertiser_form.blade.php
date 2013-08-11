@@ -8,7 +8,7 @@
 
 <div class="row-fluid">
 
-    {{ Form::open(array('url' => 'anunciante/guardar', 'method' => 'post', 'class' => 'form-horizontal')) }}
+    {{ Form::open(array('url' => 'anunciante/guardar', 'method' => 'post', 'class' => 'form-horizontal advertiser-form')) }}
         @if (!isset($user->id))
         <h1>{{Lang::get('content.new_advertiser')}}</h1>
         @else
@@ -18,7 +18,7 @@
         <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
             <label class="control-label" for="name">{{ Lang::get('content.user_name') }}</label>
             <div class="controls">
-                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.user_name'))) }}
+                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.user_name'))) }}
                 {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -27,9 +27,9 @@
             <label class="control-label" for="email">{{ Lang::get('content.user_email') }}</label>
             <div class="controls">
                 @if (!isset($user->id))
-                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.user_email'))) }}
+                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge required email', 'placeholder'=> Lang::get('content.user_email'))) }}
                 @else
-                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.user_email'), 'readonly' => 'readonly')) }}
+                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge required email', 'placeholder'=> Lang::get('content.user_email'), 'readonly' => 'readonly')) }}
                 @endif
                 {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
@@ -41,7 +41,9 @@
                 {{ Form::select(
                     'status',
                     array_merge(array('' => Lang::get('content.select')), $advertiser_statuses),
-                    $user->status) }}
+                    $user->status,
+                    array('class'=>'required')
+                ) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -72,7 +74,7 @@
         <div class="control-group {{ $errors->has('publisher_id') ? 'error':'' }}">
             <label class="control-label" for="publisher_id">{{ Lang::get('content.publisher_id') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_id'))) }}
+                {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_id'))) }}
                 {{ $errors->first('publisher_id', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -80,7 +82,7 @@
         <div class="control-group {{ $errors->has('publisher_seller') ? 'error':'' }}">
             <label class="control-label" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
+                {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
                 {{ $errors->first('publisher_seller', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -99,7 +101,9 @@
                 {{ Form::select(
                     'publisher_state',
                     array_merge(array('' => Lang::get('content.select')),$states),
-                    $advertiser->state_id) }}
+                    $advertiser->state_id,
+                    array('class'=>'required')
+                ) }}
                 {{ $errors->first('publisher_state', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -107,7 +111,7 @@
         <div class="control-group {{ $errors->has('publisher_city') ? 'error':'' }}">
             <label class="control-label" for="publisher_city">{{ Lang::get('content.publisher_city') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_city', $advertiser->city, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_city'))) }}
+                {{ Form::text('publisher_city', $advertiser->city, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_city'))) }}
                 {{ $errors->first('publisher_city', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -115,7 +119,7 @@
         <div class="control-group {{ $errors->has('publisher_phone1') ? 'error':'' }}">
             <label class="control-label" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
+                {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
                 {{ $errors->first('publisher_phone1', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -207,6 +211,7 @@
 
         publisherIdType.val("{{ $advertiser->letter_rif_ci }}");
 
+        jQuery('.advertiser-form').validateBootstrap();
     });
 </script>
 @stop
