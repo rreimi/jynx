@@ -47,7 +47,7 @@ class UserController extends BaseController {
         $users = $users->paginate($this->page_size);
 
         return View::make('user_list', array(
-            'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status')),
+            'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
             'users' => $users,
             'state' => $state,
             ) //end array
