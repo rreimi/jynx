@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div id="search-options-box" class="more-search-options collapse @if ($state['active_custom_filters'] > 0) in @else out @endif">
+        <div id="search-options-box" class="more-search-options collapse in">
             <div class="control-group">
                 <label class="control-label text-left" for="filter_status">{{ Lang::get('content.filter_publication_status') }}</label>
                 <div class="controls">
