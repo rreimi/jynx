@@ -16,7 +16,7 @@
         @endif
 
         <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
-            <label class="control-label" for="name">{{ Lang::get('content.user_name') }}</label>
+            <label class="control-label required-field" for="name">{{ Lang::get('content.user_name') }}</label>
             <div class="controls">
                 {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.user_name'))) }}
                 {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
@@ -24,7 +24,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
-            <label class="control-label" for="email">{{ Lang::get('content.user_email') }}</label>
+            <label class="control-label required-field" for="email">{{ Lang::get('content.user_email') }}</label>
             <div class="controls">
                 @if (!isset($user->id))
                     {{ Form::text('email', $user->email, array('class' => 'input-xlarge required email', 'placeholder'=> Lang::get('content.user_email'))) }}
@@ -36,7 +36,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
-            <label class="control-label" for="status">{{ Lang::get('content.status') }}</label>
+            <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
             <div class="controls">
                 {{ Form::select(
                     'status',
@@ -49,7 +49,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_type') ? 'error':'' }}">
-            <label class="control-label" for="status">{{ Lang::get('content.publisher_type') }}</label>
+            <label class="control-label required-field" for="status">{{ Lang::get('content.publisher_type') }}</label>
             <div class="controls">
                 {{ Form::select('publisher_type',
                             array(
@@ -64,7 +64,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_id_type') ? 'error':'' }}">
-            <label class="control-label" for="publisher_id_type">{{ Lang::get('content.select_id_type') }}</label>
+            <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.select_id_type') }}</label>
             <div class="controls">
                 {{ Form::select('publisher_id_type', array('' => Lang::get('content.select')), $advertiser->letter_rif_ci, array('class'=>'publisher_id_type required')) }}
                 {{ $errors->first('publisher_id_type', '<div class="field-error alert alert-error">:message</div>') }}
@@ -72,7 +72,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_id') ? 'error':'' }}">
-            <label class="control-label" for="publisher_id">{{ Lang::get('content.publisher_id') }}</label>
+            <label class="control-label required-field" for="publisher_id">{{ Lang::get('content.publisher_id') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_id'))) }}
                 {{ $errors->first('publisher_id', '<div class="field-error alert alert-error">:message</div>') }}
@@ -80,7 +80,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_seller') ? 'error':'' }}">
-            <label class="control-label" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
+            <label class="control-label required-field" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
                 {{ $errors->first('publisher_seller', '<div class="field-error alert alert-error">:message</div>') }}
@@ -96,7 +96,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_state') ? 'error':'' }}">
-            <label class="control-label" for="publisher_state">{{ Lang::get('content.publisher_state') }}</label>
+            <label class="control-label required-field" for="publisher_state">{{ Lang::get('content.publisher_state') }}</label>
             <div class="controls">
                 {{ Form::select(
                     'publisher_state',
@@ -109,7 +109,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_city') ? 'error':'' }}">
-            <label class="control-label" for="publisher_city">{{ Lang::get('content.publisher_city') }}</label>
+            <label class="control-label required-field" for="publisher_city">{{ Lang::get('content.publisher_city') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_city', $advertiser->city, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_city'))) }}
                 {{ $errors->first('publisher_city', '<div class="field-error alert alert-error">:message</div>') }}
@@ -117,7 +117,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('publisher_phone1') ? 'error':'' }}">
-            <label class="control-label" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
+            <label class="control-label required-field" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
                 {{ $errors->first('publisher_phone1', '<div class="field-error alert alert-error">:message</div>') }}
@@ -132,7 +132,12 @@
             </div>
         </div>
 
-        <div>
+        <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
+        </div>
+
+        <!-- Categories -->
+        <div class="control-group categories-form">
             <h5>{{ Lang::get('content.publisher_categories') }}</h5>
             @if ($errors->has('categories'))
             <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
@@ -141,6 +146,38 @@
             <ul class="float-left categories-form-list">
                 <li><h2>{{Lang::get('content.categories_title')}}</h2></li>
                 @foreach ($categories as $cat)
+                <li>
+                    @if (count($cat->subcategories) > 0)
+                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
+                    @endif
+                    <label class="checkbox checkbox-category-form">
+                        {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $advertiser_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                    </label>
+                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $advertiser_categories)) in @endif">
+                        @foreach ($cat->subcategories as $subcat)
+                        <li>
+                            <label class="checkbox">
+                                {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $advertiser_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                            </label>
+                            <ul>
+                                @foreach ($subcat->subcategories as $thirdcat)
+                                <li>
+                                    <label class="checkbox">
+                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $advertiser_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                    </label>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endforeach
+            </ul>
+
+            <ul class="float-left">
+                <li><h2>{{Lang::get('content.services_title')}}</h2></li>
+                @foreach ($services as $cat)
                 <li>
                     @if (count($cat->subcategories) > 0)
                     <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>

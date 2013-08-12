@@ -245,3 +245,15 @@ div#home-banner-top .carousel-control {
 .categories-form-list {
 
 }
+
+.required-field:after {
+    content: " *";
+}
+
+.required-label {
+    font-size: 12px;
+}
+
+.required-label:before {
+    content: "* ";
+}

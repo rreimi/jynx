@@ -380,4 +380,7 @@ return array(
     "modal_advertiser_delete_title" => "Eliminar anunciante",
     "modal_advertiser_delete_content" => "¿Está seguro que deseas eliminar este anunciante?",
 
+    // General
+    "required_label" => "Requerido",
+
 );
