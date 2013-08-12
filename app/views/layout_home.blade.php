@@ -11,6 +11,7 @@
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
     {{ HTML::style('css/chosen.min.css') }}
+    {{ HTML::style('css/bar-rating.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
