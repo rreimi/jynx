@@ -154,7 +154,7 @@ class HomeController extends BaseController {
         }
 
         if (!isset($activeFilters['state'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, state_id as item_id, state as label'))->groupBy('state_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, state_id as item_id, state as label'))->groupBy('state')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -164,9 +164,11 @@ class HomeController extends BaseController {
                 $availableFilters['state'][] = $item;
             }
         }
+//        echo json_encode($availableFilters);
+//        die();
 
         if (!isset($activeFilters['seller'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
