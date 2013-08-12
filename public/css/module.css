@@ -102,6 +102,7 @@ h2 {
 
 .pub-table .row-date {
     width: 8%;
+    word-wrap: break-word;
 }
 
 .pub-table .row-created {
@@ -244,4 +245,30 @@ div#home-banner-top .carousel-control {
 
 .categories-form-list {
 
+}
+
+/* Rating */
+
+.current-rating {
+    height:45px;
+}
+
+.current-rating .full {
+    background-color: #333;
+}
+
+.current-rating .half {
+    background-color: #888;
+}
+
+.current-rating .empty {
+    background-color: #ddd;
+}
+
+.current-rating .rating-box {
+    width:15px;
+    height:15px;
+    float:left;
+    display: block;
+    margin-right:2px;
 }

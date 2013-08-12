@@ -28,7 +28,7 @@ class BaseController extends Controller {
 
     protected function getCategories() {
 
-        Cache::forget('categoryTree');
+//        Cache::forget('categoryTree');
         $value = Cache::rememberForever('categoryTree', function()
         {
             return Category::getCategoryTree();
@@ -51,7 +51,7 @@ class BaseController extends Controller {
 
     protected function getServices() {
 
-        Cache::forget('servicesTree');
+//        Cache::forget('servicesTree');
         $value = Cache::rememberForever('servicesTree', function()
         {
             return Category::getCategoryTree('Service');
