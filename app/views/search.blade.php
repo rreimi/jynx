@@ -1,6 +1,7 @@
 @extends('layout_home')
 
 @section('sidebar')
+@include('include.filter_sidebar')
 @parent
 @stop
 
@@ -8,7 +9,7 @@
     <h1>{{Lang::get('content.search_results')}}: {{ $q }}</h1>
 
     @if (count($publications) === 0)
-    <p>{{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $q))}}</p>
+    <h5 class="alert alert-warning">{{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $q))}}</h5>
     @endif
 
     @foreach ($publications as $key => $pub)

@@ -6,7 +6,7 @@ class BaseController extends Controller {
     protected $pageOrder;
     protected static $thumbSize = array('width' => 150, 'height' => 150);
     protected static $detailSize = array('width' => 300, 'height' => 300);
-    protected static $bannerTopHomeSize = array('width' => 870, 'height' => 250);
+    protected static $bannerTopHomeSize = array('width' => 1170, 'height' => 390);
 
 
     public function __construct(){
@@ -26,9 +26,7 @@ class BaseController extends Controller {
 		}
 	}
 
-    protected function getCategories() {
-
-//        Cache::forget('categoryTree');
+    public static function getCategories() {
         $value = Cache::rememberForever('categoryTree', function()
         {
             return Category::getCategoryTree();
@@ -49,9 +47,7 @@ class BaseController extends Controller {
 //        return $categories;
     }
 
-    protected function getServices() {
-
-//        Cache::forget('servicesTree');
+    public static function getServices() {
         $value = Cache::rememberForever('servicesTree', function()
         {
             return Category::getCategoryTree('Service');

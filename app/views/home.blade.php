@@ -1,12 +1,6 @@
-@extends('layout_home')
-
-@section('sidebar')
-@parent
-@stop
+@extends('layout_home_no_sidebar')
 
 @section('content')
-
-
 <?php //var_dump($activeadvertisings); die(); ?>
 
 <div id="home-banner-top" class="float-right home-banner-top-carousel carousel slide">

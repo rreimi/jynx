@@ -60,17 +60,24 @@ class HomeController extends BaseController {
             return Response::view('errors.missing', array(), 404);
         }
 
-        /* Load paginated category publications */
-        //$data['publications'] = $data['category']->publications()->with('publisher')->paginate($this->page_size);
-        $data['publications'] = $data['category']->publications()->published()->with('publisher','images')->paginate($this->page_size);
+        /* Load filters */
+        $activeFilters = array();
 
-//        foreach ($data['publications'] as $item) {
-//            echo $item->publisher;
-//        }
+        if (Input::get('state')) {
+            $state = State::find(Input::get('state'));
+            $activeFilters['state'] = new stdClass;
+            $activeFilters['state']->id  = $state->id;
+            $activeFilters['state']->label = $state->name;
+            $activeFilters['state']->type = 'state';
+        }
 
-      //$queries = DB::getQueryLog();
-      //var_dump($queries);
-//      die();
+        if (Input::get('seller')) {
+            $seller = Publisher::find(Input::get('seller'));
+            $activeFilters['seller'] = new stdClass;
+            $activeFilters['seller']->id  = $seller->id;
+            $activeFilters['seller']->label = $seller->seller_name;
+            $activeFilters['seller']->type = 'seller';
+        }
 
         $data['category_tree'][] = $data['category']->id;
         $parent = $data['category']->parent;
@@ -79,6 +86,40 @@ class HomeController extends BaseController {
             $data['category_tree'][] = $parent->id;
             $parent = $parent->parent;
         }
+
+        //$data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
+
+        /* Calculate filters */
+        $availableFilters = array();
+
+        if (!isset($activeFilters['state'])){
+            $result = PublicationView::where('category_id', $data['category']->id)->orderBy('label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, state_id as item_id, state as label'))->groupBy('state')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = $filter->total;
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'state';
+                $availableFilters['state'][] = $item;
+            }
+        }
+
+        if (!isset($activeFilters['seller'])){
+            $result = PublicationView::where('category_id', $data['category']->id)->orderBy('label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = $filter->total;
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'seller';
+                $availableFilters['seller'][] = $item;
+            }
+        }
+
+        $data['availableFilters'] = $availableFilters;
+        $data['activeFilters'] = $activeFilters;
+
 
         /* Cargar la lista de categorias */
 //        $data['categories'] = self::getCategories();
@@ -135,10 +176,9 @@ class HomeController extends BaseController {
         /* Find publications */
         //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
         $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
-        //echo $data['publications'];
 
-        //dd(DB::getQueryLog());
-        //die();
+
+        /* Calculate filters */
         $availableFilters = array();
 
         if (!isset($activeFilters['category'])){
@@ -164,8 +204,6 @@ class HomeController extends BaseController {
                 $availableFilters['state'][] = $item;
             }
         }
-//        echo json_encode($availableFilters);
-//        die();
 
         if (!isset($activeFilters['seller'])){
             $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
@@ -184,7 +222,6 @@ class HomeController extends BaseController {
 
         return View::make('search', $data);
     }
-
 
     public function getLogout(){
         Auth::logout();

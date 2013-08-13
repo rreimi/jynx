@@ -272,3 +272,118 @@ div#home-banner-top .carousel-control {
     display: block;
     margin-right:2px;
 }
+
+/* Main menu */
+
+.main-menu{
+    width: 800px;
+    height: 375px;
+    position: absolute;
+    left: 0;
+    top: 53.5px;
+    z-index: 10000;
+    display: none;
+    background: #ffffff;
+    -moz-box-shadow: 3px 3px 11px #6d6b6b;/*FF 3.5+*/
+    -webkit-box-shadow: 3px 3px 11px #6d6b6b;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b)";/*IE 8*/
+    box-shadow: 3px 3px 11px #6d6b6b;
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b);/*IE 5.5-7*/
+}
+
+.logo {
+    position: relative;
+}
+
+.logo:hover .main-menu {
+    display: block;
+}
+
+.main-menu:hover {
+    display: block;
+}
+
+.nav-category-menu {
+    float: left;
+    width: 320px;
+    padding: 2em 0 0 2em;
+    list-style: none;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.nav-service-menu {
+    padding-left: 0;
+}
+
+.nav-category-menu li {
+    font-size:1.2em;
+    line-height: 1.2em;
+}
+
+.nav-category-menu li a {
+    color: #333;
+    height:2em;
+    line-height:2em;
+    display: block;
+    padding:0.05em;
+    opacity: 0.6;
+}
+
+.nav-category-menu li a .icon-chevron-right {
+    margin-right:0.8em;
+}
+
+.nav-category-menu li a:hover {
+    background-color: #fafafa;
+    opacity: 1;
+}
+
+.category-tree-button {
+    float:left;
+    margin-top: 1em;
+    font-weight: bold;
+    color:#ffffff;
+}
+
+@media (max-width: 460px) {
+
+    .main-menu {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        -ms-filter: none;
+        box-shadow:none;
+        filter: none;
+        background: #ffffff
+        overflow:visible;
+        height: auto;
+    }
+
+    .logo {
+        position: static;
+    }
+
+    .logo .main-menu {
+        left: 120px;
+        width: 320px;
+        position: absolute;
+        overflow: hidden;
+    }
+
+    .logo:hover .main-menu  {
+        left: 0;
+    }
+
+
+    .nav-category-menu {
+        padding-left: 0;
+        float: none;
+    }
+
+}
+
+/* Publications grid */
+
+.publication-grid {
+    padding-top: 2em;
+}

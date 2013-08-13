@@ -21,6 +21,18 @@ class UrlHelper {
         return $url;
     }
 
+    public static function fullWith($params) {
+        $url = URL::full();
+        if ((is_array($params)) && (count($params) > 0)){
+            if (!str_contains($url, '?')){
+                $url .= '?';
+            }
+            $url .= '&' . http_build_query($params);
+        }
+        $url = str_replace('?&','?',$url);
+        return $url;
+    }
+
     public static function fullUrltoogleSort($field) {
         $url = self::fullExcept(array('order','sort'));
         $dir = (Input::get('order') == 'desc')? 'asc':'desc';

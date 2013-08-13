@@ -20,15 +20,9 @@
 
 @include('include.top_menu')
 
-<div class="container main-container well-small" id="body">
+<div class="container main-container" id="body">
     <div class="row-fluid">
-        <div class="side-bar span3">
-            @section('sidebar')
-                @include('include.category_sidebar')
-            @show
-        </div>
-
-        <div class="span9">
+        <div class="span12">
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->

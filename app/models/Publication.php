@@ -38,6 +38,22 @@ class Publication extends Eloquent {
         return $query->where('category_id', '=', null);
     }
 
+    public function scopeFilter($query, $filters) {
+        if (isset($filters['state'])){
+            $query->where('state_id', $filters['state']->id);
+        }
+
+        if (isset($filters['seller'])){
+            $query->where('publisher_id', $filters['seller']->id);
+        }
+
+        if (isset($filters['category'])){
+            $query->where('category_id', $filters['category']->id);
+        }
+
+        return $query;
+    }
+
     public function categories() {
         return $this->belongsToMany('Category', 'publications_categories');
     }
