@@ -283,6 +283,7 @@ div#home-banner-top .carousel-control {
     top: 53.5px;
     z-index: 10000;
     display: none;
+    overflow:hidden;
     background: #ffffff;
     -moz-box-shadow: 3px 3px 11px #6d6b6b;/*FF 3.5+*/
     -webkit-box-shadow: 3px 3px 11px #6d6b6b;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
