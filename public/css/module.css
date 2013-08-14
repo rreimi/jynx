@@ -223,12 +223,12 @@ div#home-banner-top .carousel-control {
     font-size:1.1em;
 }
 
-.contact-list {
-
-}
-
 .contact-list li {
     line-height: 1.4em;
+}
+
+#viewContact h2 {
+    line-height: 25px;
 }
 
 /* Publication form */
