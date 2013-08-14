@@ -344,6 +344,8 @@ div#home-banner-top .carousel-control {
     margin-top: 1em;
     font-weight: bold;
     color:#ffffff;
+    display: block;
+    height: 41px;
 }
 
 @media (max-width: 460px) {
