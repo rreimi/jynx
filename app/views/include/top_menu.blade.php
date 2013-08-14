@@ -10,8 +10,11 @@
             </a>
 
             <!-- Be sure to leave the brand out there if you want it shown -->
-            <a class="brand" href="{{URL::to('/')}}">{{ HTML::image('img/logo.png')}}</a>
-
+            <div class="logo">
+                <a class="brand" href="{{URL::to('/')}}">{{ HTML::image('img/logo.png')}}</a>
+                <span class="category-tree-button">Categorías <i class="icon-chevron-down"></i></span>
+                @include('include.category_tree')
+            </div>
 
 
             <!-- Everything you want hidden at 940px or less, place within here -->
@@ -39,9 +42,9 @@
                 </ul>
                 @endif
                 <ul class="nav pull-right">
-                    @if(Auth::check())
-                        <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>
-                    @endif
+<!--                    @if(Auth::check())-->
+<!--                        <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>-->
+<!--                    @endif-->
 
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
 
@@ -53,14 +56,21 @@
                         <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
 
                         @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
-                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+<!--                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>-->
                         @endif
 
                     @endif
                 </ul>
-
             </div>
 
+            {{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => 'form-inline top-menu-search pull-right')) }}
+            <div class="input-append">
+                {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'input-xlarge')) }}
+                <button class="btn" type="submit"><i class="icon-search"></i></button>
+            </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
+
+

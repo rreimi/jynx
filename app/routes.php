@@ -11,15 +11,14 @@
 |
 */
 
-Route::get("/debug", function(){
-    //X DEBUG
 
-    echo Auth::user()->publisher;
-die;
-    //echo Publication::with('images', 'publisher')->find(1);
-    //var_dump( DB::getQueryLog());
-    //echo Lang::choice('content.publication', 2);
-    //echo Category::where('slug', '=', 'zapatos')->with('publications', 'publications.images')->first();
+Route::get('/clearcache', function(){
+    Cache::forget('categoryTree');
+    Cache::forget('servicesTree');
+});
+
+Route::get("/debug", function(){
+    die;
 });
 
 Route::controller('login','LoginController');
@@ -50,3 +49,5 @@ Route::controller('anunciante','AdvertiserController');
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');
+View::share('categories', BaseController::getCategories());
+View::share('services', BaseController::getServices());

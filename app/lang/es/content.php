@@ -24,6 +24,7 @@ return array(
 
     //Category, Search
 	"categories_title" => "Categorías",
+    "sub_categories_title" => "Sub-categorías",
     "services_title"   => "Servicios",
     "sell_by"          => "Por",
     "sell_by_full"          => "Publicado por",
@@ -43,6 +44,7 @@ return array(
 
     //Publications
     "publication" => "Publicacion|Publicaciones",
+    "rate_publication" => "Evaluar publicación",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
@@ -333,7 +335,8 @@ return array(
     "new_user_admin" => 'Nuevo administrador',
     "edit_user" => 'Editar usuario',
     "reset_search" => 'Limpiar busqueda',
-    "advanced_search" => 'Mas opciones de busqueda',
+    "advanced_search" => 'Opciones de busqueda',
+
     // Search
     "user_search_placeholder" => "Buscar...",
     "user_role_Admin" => "Administrador",

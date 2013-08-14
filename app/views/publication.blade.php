@@ -1,4 +1,4 @@
-@extends('layout_home')
+@extends('layout_home_no_sidebar')
 
 @section('sidebar')
 @parent
@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="row-fluid publication-detail">
+        <!-- Carousel -->
         <div id="pub-images-box" class="float-right pub-images-carousel carousel slide">
             <ol class="carousel-indicators">
                 @foreach ($publication->images as $key => $img)
@@ -24,19 +25,26 @@
             <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
             <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
         </div><!-- pub-images-box -->
+        <!-- End Carousel -->
+
         <h1>{{ $publication->title }}
             @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
                 <br/>
                 <a class="action btn btn-mini btn-info" href=" URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
         </h1>
+
         <div>{{$publication->visits_number}} {{Lang::get('content.visits_number')}}</div>
-        <div>{{Lang::get('content.evaluation')}}: {{$publication->rating_avg}} </div>
-        <h2>{{Lang::get('content.descripcion')}}</h2>
-        <p class="pub-short-desc">{{ $publication->short_description }}</p>
-        <p class="pub-long-desc">{{ $publication->long_description }}</p>
-        <h2>{{Lang::get('content.categories_title')}}</h2>
+        <div>{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
+
+        <div class="publication-description">
+            <h2>{{Lang::get('content.descripcion')}}</h2>
+            <p class="pub-short-desc">{{ $publication->short_description }}</p>
+            <p class="pub-long-desc">{{ $publication->long_description }}</p>
+        </div>
+
         <div class="publication-categories">
+            <h2>{{Lang::get('content.categories_title')}}</h2>
             <ul>
                 @foreach ($publication->categories as $cat)
                 <li>{{ $cat->name }}</li>
@@ -56,6 +64,8 @@
             </p>
         </div><!--/.publisher-info-->
 
+        <hr/>
+
         @if (count($publication->contacts) > 0)
         <div class="contacs-info">
             <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
@@ -73,18 +83,26 @@
         @endif
 
         @if (Auth::user()->id != $publication->publisher->user_id)
-            <div class="report-info">
-                <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
-            </div>
+        <hr/>
+        <div class="report-info">
+            <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
+        </div>
         @endif
 
+        <hr/>
+        <div class="report-info">
+            <p><a nohref class="btn btn-success btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
+        </div>
+
         @include('include.modal_report')
+        @include('include.modal_rateit')
 
     </div><!--/row-fluid-->
 @stop
 
 @section('scripts')
 @parent
+{{ HTML::script('js/jquery.barrating.min.js') }}
 {{ HTML::script('js/imagecow.js') }}
 <script type="text/javascript">
     Imagecow.init();
@@ -125,10 +143,52 @@
         }
     };
 
+    Mercatino.rateitForm = {
+        show: function(title, content, url){
+            //jQuery('#modal-confirm .modal-header h3').html(title);
+            //jQuery('#modal-confirm .modal-body p').html(content);
+            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+            jQuery('#modal-rateit').modal('show');
+
+        },
+        hide: function(){
+            jQuery('#modal-rateit').modal('hide')
+        },
+        send: function(){
+            var comment = jQuery('#modal-rateit textarea').val();
+
+            if (comment == ""){
+                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_commend_required')}}", type:'error'});
+                return;
+            }
+
+            this.hide();
+
+            jQuery.ajax({
+                url: "{{ URL::to('evaluar') }}",
+                type: 'POST',
+                data: { publication_id: '{{ $publication->id }}' , comment: comment },
+                success: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
+                    jQuery('#modal-rateit .modal-body textarea').val('');
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_error')}}", type:'error'});
+                }
+            });
+        }
+    };
+
     jQuery(document).ready(function(){
-      jQuery('#report-link').bind('click', function(){
+        jQuery('#report-link').bind('click', function(){
           Mercatino.reportForm.show();
-      })
+        });
+
+        jQuery('#rateit-link').bind('click', function(){
+            Mercatino.rateitForm.show();
+        });
+
+        jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
     });
 </script>
 @stop

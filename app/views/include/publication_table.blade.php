@@ -34,9 +34,9 @@
             <td class="row-title"><b>{{ e($pub->title) }}</b>
                 <span class="title-with-categories">{{ $pub->categories }})</span>
             </td>
-            <td class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>
-            <td class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>
-            <td class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->to_date)) }}</td>
+            <td nowrap class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>
+            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>
+            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->to_date)) }}</td>
             <td class="row-status">{{ Lang::get('content.status_publication_' . $pub->status) }}</td>
             @if ($user->isAdmin())
             <td class="row-seller_name">{{ $pub->seller_name }}</td>
@@ -44,7 +44,7 @@
             <td class="row-visits_number">{{ $pub->visits_number }}</td>
             <td class="row-rating_avg">{{ $pub->rating_avg }}</td>
             <!--                        <td>{{ $pub->categories_name }}</td>-->
-            <td class="row-options">
+            <td nowrap class="row-options">
                 <a rel="tooltip" target="_blank"  title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('publicacion/detalle/' . $pub->id)}}">
                     <i class="icon-search"></i>
                 </a>
@@ -64,7 +64,7 @@
         @endif
         </tbody>
     </table>
-    {{ $publications->appends(Input::except('page'))->links() }}
+    {{ $publications->appends(Input::only('sort','order'))->links() }}
 </div><!--/row-fluid-->
 @stop
 
