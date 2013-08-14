@@ -67,7 +67,7 @@
             <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.select_id_type') }}</label>
             <div class="controls">
                 {{ Form::select('publisher_id_type', array('' => Lang::get('content.select')), $advertiser->letter_rif_ci, array('class'=>'publisher_id_type required')) }}
-                {{ $errors->first('publisher_id_type', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('letter_rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -75,7 +75,7 @@
             <label class="control-label required-field" for="publisher_id">{{ Lang::get('content.publisher_id') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_id'))) }}
-                {{ $errors->first('publisher_id', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -83,7 +83,7 @@
             <label class="control-label required-field" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
-                {{ $errors->first('publisher_seller', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -91,7 +91,7 @@
             <label class="control-label" for="publisher_media">{{ Lang::get('content.publisher_media') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_media', $advertiser->media, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_media'))) }}
-                {{ $errors->first('publisher_media', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('media', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -104,7 +104,7 @@
                     $advertiser->state_id,
                     array('class'=>'required')
                 ) }}
-                {{ $errors->first('publisher_state', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('state_id', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -112,7 +112,7 @@
             <label class="control-label required-field" for="publisher_city">{{ Lang::get('content.publisher_city') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_city', $advertiser->city, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_city'))) }}
-                {{ $errors->first('publisher_city', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('city', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -120,7 +120,8 @@
             <label class="control-label required-field" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
-                {{ $errors->first('publisher_phone1', '<div class="field-error alert alert-error">:message</div>') }}
+                <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
+                {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -128,7 +129,8 @@
             <label class="control-label" for="publisher_phone2">{{ Lang::get('content.publisher_phone2') }}</label>
             <div class="controls">
                 {{ Form::text('publisher_phone2', $advertiser->phone2, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_phone2'))) }}
-                {{ $errors->first('publisher_phone2', '<div class="field-error alert alert-error">:message</div>') }}
+                <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
+                {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 

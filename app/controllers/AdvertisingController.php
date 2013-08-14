@@ -167,7 +167,10 @@ class AdvertisingController extends BaseController {
             'name' => 'required',
             'status' => 'required',
             'external_url' => 'required',
-            'full_name' => 'required'
+            'full_name' => 'required',
+            'email' => 'email',
+            'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
+            'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
 
 //        $messages = array(

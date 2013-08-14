@@ -385,5 +385,6 @@ return array(
 
     // General
     "required_label" => "Requerido",
+    "phone_format_label" => "Formato: 0XXX-YYYYYYY",
 
 );

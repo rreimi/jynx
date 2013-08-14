@@ -96,8 +96,8 @@ class ProfileController extends BaseController{
             $profileRules['rif_ci'] = 'required | integer';
             $profileRules['state'] = 'required';
             $profileRules['city'] = 'required';
-            $profileRules['phone1'] = 'required';
-
+            $profileRules['phone1'] = array('required', 'regex:'. $this->phoneNumberRegex);
+            $profileRules['phone2'] = array('regex:'. $this->phoneNumberRegex);
         }
 
         $messages = array(

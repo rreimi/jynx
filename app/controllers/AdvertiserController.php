@@ -184,7 +184,8 @@ class AdvertiserController extends BaseController {
             'seller_name' => 'required',
             'state_id' => 'required',
             'city' => 'required',
-            'phone1' => 'required',
+            'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
+            'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
 
         $messages = array();
