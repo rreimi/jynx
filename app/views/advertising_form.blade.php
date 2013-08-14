@@ -15,7 +15,7 @@
             @endif
 
             <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
-                <label class="control-label" for="name">{{ Lang::get('content.name') }}</label>
+                <label class="control-label required-field" for="name">{{ Lang::get('content.name') }}</label>
                 <div class="controls">
                     {{ Form::text('name', $advertising->name, array('class' => 'required', 'placeholder'=> Lang::get('content.name'))) }}
                     {{ $errors->first('name', '<div class="field-error alert alert-error">:message</div>') }}
@@ -23,7 +23,7 @@
             </div>
 
             <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
-                <label class="control-label" for="status">{{ Lang::get('content.status') }}</label>
+                <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
                 <div class="controls">
                     {{ Form::select('status', $adv_statuses, $advertising->status, array('class'=>'required')) }}
                     {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
@@ -31,7 +31,7 @@
             </div>
 
             <div class="control-group {{ $errors->has('external_url') ? 'error':'' }}">
-                <label class="control-label" for="external_url">{{ Lang::get('content.external_url') }}</label>
+                <label class="control-label required-field" for="external_url">{{ Lang::get('content.external_url') }}</label>
                 <div class="controls">
                     {{ Form::text('external_url', $advertising->external_url, array('class' => 'required url', 'placeholder'=> Lang::get('content.external_url'))) }}
                     {{ $errors->first('external_url', '<div class="field-error alert alert-error">:message</div>') }}
@@ -39,7 +39,7 @@
             </div>
 
             <div class="control-group {{ $errors->has('full_name') ? 'error':'' }}">
-                <label class="control-label" for="full_name">{{ Lang::get('content.full_name') }}</label>
+                <label class="control-label required-field" for="full_name">{{ Lang::get('content.full_name') }}</label>
                 <div class="controls">
                     {{ Form::text('full_name', $advertising->full_name, array('class' => 'required', 'placeholder'=> Lang::get('content.full_name'))) }}
                     {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
@@ -47,7 +47,7 @@
             </div>
 
             <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
-                <label class="control-label" for="email">{{ Lang::get('content.email') }}</label>
+                <label class="control-label required-field" for="email">{{ Lang::get('content.email') }}</label>
                 <div class="controls">
                     {{ Form::text('email', $advertising->email, array('class' => 'required email', 'placeholder'=> Lang::get('content.email'))) }}
                     {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
@@ -55,7 +55,7 @@
             </div>
 
             <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
-                <label class="control-label" for="phone1">{{ Lang::get('content.phone1') }}</label>
+                <label class="control-label required-field" for="phone1">{{ Lang::get('content.phone1') }}</label>
                 <div class="controls">
                     {{ Form::text('phone1', $advertising->phone1, array('class' => 'required', 'placeholder'=> Lang::get('content.phone1'))) }}
                     {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
@@ -68,6 +68,10 @@
                     {{ Form::text('phone2', $advertising->phone2, array('placeholder'=> Lang::get('content.phone2'))) }}
                     {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
             </div>
 
             {{ Form::hidden('id', $advertising->id) }}

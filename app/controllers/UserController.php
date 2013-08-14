@@ -99,8 +99,8 @@ class UserController extends BaseController {
         $user = new User();
 
         return View::make('user_form',
-            array('user_statuses' => self::getUserStatuses(),
-                  'user_roles' => array('Admin' => Lang::get('content.role_Admin')),
+            array('user_statuses' => self::getUserStatuses(Lang::get('content.select')),
+                  'user_roles' => array('' => Lang::get('content.select'), 'Admin' => Lang::get('content.role_Admin')),
                   'user' => $user,
                   'referer' => URL::previous(),
                 )

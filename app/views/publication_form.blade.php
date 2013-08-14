@@ -14,7 +14,7 @@
         <h1>{{Lang::get('content.edit_publication')}}: {{ $publication->title }}</h1>
         @endif
         <div class="control-group {{ $errors->has('title') ? 'error':'' }}">
-            <label class="control-label" for="title">{{ Lang::get('content.title') }}</label>
+            <label class="control-label required-field" for="title">{{ Lang::get('content.title') }}</label>
             <div class="controls">
                 {{ Form::text('title', $publication->title, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.title'))) }}
                 {{ $errors->first('title', '<div class="field-error alert alert-error">:message</div>') }}
@@ -22,7 +22,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('short_description') ? 'error':'' }}">
-            <label class="control-label" for="short_description">{{ Lang::get('content.short_description') }}</label>
+            <label class="control-label required-field" for="short_description">{{ Lang::get('content.short_description') }}</label>
             <div class="controls">
                 {{ Form::text('short_description', $publication->short_description, array('class' => 'input-xxlarge', 'placeholder'=> Lang::get('content.short_description'))) }}
                 {{ $errors->first('short_description', '<div class="field-error alert alert-error">:message</div>') }}
@@ -31,7 +31,7 @@
 
 
         <div class="control-group {{ $errors->has('long_description') ? 'error':'' }}">
-            <label class="control-label" for="long_description">{{ Lang::get('content.long_description') }}</label>
+            <label class="control-label required-field" for="long_description">{{ Lang::get('content.long_description') }}</label>
             <div class="controls">
                 {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge', 'placeholder'=> Lang::get('content.long_description'))) }}
                 {{ $errors->first('long_description', '<div class="field-error alert alert-error">:message</div>') }}
@@ -39,7 +39,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
-            <label class="control-label" for="status">{{ Lang::get('content.status') }}</label>
+            <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
             <div class="controls">
                 {{ Form::select('status', $pub_statuses, $publication->status) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
@@ -47,7 +47,7 @@
         </div>
 
         <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
-            <label class="control-label" for="from_date">{{ Lang::get('content.from_date') }}</label>
+            <label class="control-label required-field" for="from_date">{{ Lang::get('content.from_date') }}</label>
             <div class="controls">
                 {{ Form::text('from_date', date("d-m-Y",strtotime($publication->from_date)), array('class' => 'datepicker from-date', 'placeholder' => Lang::get('content.date_format'))) }}
                 {{ $errors->first('from_date', '<div class="field-error alert alert-error">:message</div>') }}
@@ -55,7 +55,7 @@
         </div>
 
         <div class="control-group ">
-            <label class="control-label" for="to_date">{{ Lang::get('content.to_date') }}</label>
+            <label class="control-label required-field" for="to_date">{{ Lang::get('content.to_date') }}</label>
             <div class="controls">
                 {{ Form::text('to_date', date("d-m-Y",strtotime($publication->to_date)), array('class' => 'datepicker to-date', 'placeholder' => Lang::get('content.date_format'))) }}
                 {{ $errors->first('to_date', '<div class="field-error alert alert-error">:message</div>') }}
@@ -70,6 +70,9 @@
             </div>
         </div>
 
+        <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
+        </div>
 
         <!-- Categories -->
         <div class="control-group categories-form">

@@ -247,6 +247,18 @@ div#home-banner-top .carousel-control {
 
 }
 
+.required-field:after {
+    content: " *";
+}
+
+.required-label {
+    font-size: 12px;
+}
+
+.required-label:before {
+    content: "* ";
+}
+
 /* Rating */
 
 .current-rating {
