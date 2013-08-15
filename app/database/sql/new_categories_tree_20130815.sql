@@ -78,7 +78,7 @@ INSERT INTO categories VALUES (110,'Neveras y Congeladores',4,'Product','neveras
 INSERT INTO categories VALUES (111,'Periféricos y Accesorios de PC',4,'Product','perifericos-y-accesorios-de-pc');
 INSERT INTO categories VALUES (112,'Procesadores',4,'Product','procesadores');
 INSERT INTO categories VALUES (113,'Proyectores y Pantallas',4,'Product','proyectores-y-pantallas');
-INSERT INTO categories VALUES (114,'Radios - WalkieTalkies',4,'Product','radios--walkietalkies');
+INSERT INTO categories VALUES (114,'Radios - WalkieTalkies',4,'Product','radios-walkietalkies');
 INSERT INTO categories VALUES (115,'Redes Inalámbricas y No Inalámbricas',4,'Product','redes-inalambricas-y-no-inalambricas');
 INSERT INTO categories VALUES (116,'Registradoras y Punto de Venta',4,'Product','registradoras-y-punto-de-venta');
 INSERT INTO categories VALUES (117,'Reproductores MP3, MP4 y MP5',4,'Product','reproductores-mp3-mp4-y-mp5');
@@ -139,7 +139,7 @@ INSERT INTO categories VALUES (11,'Asesoría Legal, Aduanas y Aseguración',NULL
 INSERT INTO categories VALUES (165,'Abogados del Área comercial y maritima',11,'Service','abogados-del-area-comercial-y-maritima');
 INSERT INTO categories VALUES (166,'Consultoria legal, despacho de abogados',11,'Service','consultoria-legal-despacho-de-abogados');
 INSERT INTO categories VALUES (167,'Tramitación de documentos en general',11,'Service','tramitacion-de-documentos-en-general');
-INSERT INTO categories VALUES (168,'Interprete público Español / Italiano - Italiano /Español',11,'Service','interprete-publico-espanol-/-italiano--italiano-/espanol');
+INSERT INTO categories VALUES (168,'Interprete público Español / Italiano - Italiano /Español',11,'Service','interprete-publico-espanol/italiano-italiano/espanol');
 INSERT INTO categories VALUES (169,'Seguros de Automovil',11,'Service','seguros-de-automovil');
 INSERT INTO categories VALUES (170,'Seguros de Vida',11,'Service','seguros-de-vida');
 INSERT INTO categories VALUES (171,'Seguros de Vivienda',11,'Service','seguros-de-vivienda');
@@ -184,6 +184,6 @@ INSERT INTO categories VALUES (200,'Caterine',20,'Service','caterine');
 INSERT INTO categories VALUES (201,'Cenas, Almuerzos corporativos y familiares',20,'Service','cenas-almuerzos-corporativos-y-familiares');
 INSERT INTO categories VALUES (202,'Fiestas (Bautizos, matrimonios, 15 años, Comuniones)',20,'Service','fiestas-(bautizos-matrimonios-15-anos-comuniones)');
 INSERT INTO categories VALUES (203,'Organización de Eventos',20,'Service','organizacion-de-eventos');
-INSERT INTO categories VALUES (204,'Seguridad - Proteccion, Seguridad - Control',20,'Service','seguridad--proteccion-seguridad--control');
+INSERT INTO categories VALUES (204,'Seguridad - Proteccion, Seguridad - Control',20,'Service','seguridad-proteccion-seguridad-control');
 INSERT INTO categories VALUES (205,'Salas',20,'Service','salas');
 /*Entrar por publicación y publisher y asignar categorías que le correspondan*/
