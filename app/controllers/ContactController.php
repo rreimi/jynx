@@ -120,8 +120,8 @@ class ContactController extends BaseController {
 
         $validator = Validator::make($contactData, self::contactoReglas());
 
-        if($validator->errors()){
-            return Redirect::to($referer)->withErrors($validator)->withInput(Input::all());
+        if($validator->fails()){
+            return Redirect::to($referer)->withErrors($validator)->withInput();
         }
 
         $contact= new Contact();

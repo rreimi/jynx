@@ -30,7 +30,7 @@
         <h1>{{ $publication->title }}
             @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
                 <br/>
-                <a class="action btn btn-mini btn-info" href=" URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+                <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
         </h1>
 

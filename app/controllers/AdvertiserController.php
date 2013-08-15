@@ -9,6 +9,8 @@ class AdvertiserController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('referer:advertiser', array('only' => array('getLista', 'getDetalle')));
+        View::share('categories', self::getCategories());
+        View::share('services', self::getServices());
     }
 
     public function getLista() {
@@ -182,7 +184,8 @@ class AdvertiserController extends BaseController {
             'seller_name' => 'required',
             'state_id' => 'required',
             'city' => 'required',
-            'phone1' => 'required',
+            'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
+            'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
 
         $messages = array();

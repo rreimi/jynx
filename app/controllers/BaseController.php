@@ -8,6 +8,7 @@ class BaseController extends Controller {
     protected static $detailSize = array('width' => 300, 'height' => 300);
     protected static $bannerTopHomeSize = array('width' => 1170, 'height' => 390);
 
+    protected $phoneNumberRegex = '/^(04[16|26|14|24|12]{2})?(02[0-9]{2})?-[0-9]{7}$/';
 
     public function __construct(){
         //die();

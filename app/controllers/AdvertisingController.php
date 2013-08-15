@@ -46,7 +46,7 @@ class AdvertisingController extends BaseController {
         $advertisings = $advertisings->paginate($this->page_size);
 
         return View::make('advertising_list', array(
-                'adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.filter_status')),
+                'adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.filter_status_placeholder')),
                 'advertisings' => $advertisings,
                 'state' => $state,
             ) //end array
@@ -93,7 +93,7 @@ class AdvertisingController extends BaseController {
         $adv = new Advertising();
 
         return View::make('advertising_form',
-                    array('adv_statuses' => self::getAdvertisingStatuses(),
+                    array('adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.select')),
                         'advertising' => $adv,
                         'referer' => URL::previous(),
                     ));
@@ -167,7 +167,10 @@ class AdvertisingController extends BaseController {
             'name' => 'required',
             'status' => 'required',
             'external_url' => 'required',
-            'full_name' => 'required'
+            'full_name' => 'required',
+            'email' => 'email',
+            'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
+            'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
 
 //        $messages = array(

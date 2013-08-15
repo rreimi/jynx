@@ -223,12 +223,12 @@ div#home-banner-top .carousel-control {
     font-size:1.1em;
 }
 
-.contact-list {
-
-}
-
 .contact-list li {
     line-height: 1.4em;
+}
+
+#viewContact h2 {
+    line-height: 25px;
 }
 
 /* Publication form */
@@ -245,6 +245,24 @@ div#home-banner-top .carousel-control {
 
 .categories-form-list {
 
+}
+
+.required-field:after {
+    content: " *";
+}
+
+.required-label {
+    font-size: 12px;
+}
+
+.required-label:before {
+    content: "* ";
+}
+
+.phone-format-label {
+    display: inline;
+    font-size: 1em;
+    margin-left: 10px;
 }
 
 /* Rating */
@@ -283,6 +301,7 @@ div#home-banner-top .carousel-control {
     top: 53.5px;
     z-index: 10000;
     display: none;
+    overflow:hidden;
     background: #ffffff;
     -moz-box-shadow: 3px 3px 11px #6d6b6b;/*FF 3.5+*/
     -webkit-box-shadow: 3px 3px 11px #6d6b6b;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
@@ -344,6 +363,8 @@ div#home-banner-top .carousel-control {
     margin-top: 1em;
     font-weight: bold;
     color:#ffffff;
+    display: block;
+    height: 41px;
 }
 
 @media (max-width: 460px) {

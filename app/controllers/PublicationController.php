@@ -266,7 +266,7 @@ class PublicationController extends BaseController {
         $pub->to_date = date('d-m-Y',time());
 
         return View::make('publication_form',
-            array('pub_statuses' => self::getPublicationStatuses(),
+            array('pub_statuses' => self::getPublicationStatuses(Lang::get('content.select')),
                   'publication' => $pub,
                   'publication_categories' => $pubCats,
                   'publication_contacts' => $pubContacts,

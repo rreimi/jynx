@@ -8,7 +8,7 @@
 
 <div class="row-fluid">
 
-    {{ Form::open(array('url' => 'usuario/guardar', 'method' => 'post', 'class' => 'form-horizontal')) }}
+    {{ Form::open(array('url' => 'usuario/guardar', 'method' => 'post', 'class' => 'form-horizontal user-form')) }}
         @if (!isset($user->id))
         <h1>{{Lang::get('content.new_user_admin')}}</h1>
         @else
@@ -16,35 +16,39 @@
         @endif
 
         <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
-            <label class="control-label" for="name">{{ Lang::get('content.user_name') }}</label>
+            <label class="control-label required-field" for="name">{{ Lang::get('content.user_name') }}</label>
             <div class="controls">
-                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.user_name'))) }}
+                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.user_name'))) }}
                 {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
-            <label class="control-label" for="email">{{ Lang::get('content.user_email') }}</label>
+            <label class="control-label required-field" for="email">{{ Lang::get('content.user_email') }}</label>
             <div class="controls">
-                {{ Form::text('email', $user->email, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.user_email'))) }}
+                {{ Form::text('email', $user->email, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.user_email'))) }}
                 {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
         <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
-            <label class="control-label" for="role">{{ Lang::get('content.user_role') }}</label>
+            <label class="control-label required-field" for="role">{{ Lang::get('content.user_role') }}</label>
             <div class="controls">
-                {{ Form::select('role', $user_roles, $user->role) }}
+                {{ Form::select('role', $user_roles, $user->role, array('class'=>'required')) }}
                 {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
-            <label class="control-label" for="status">{{ Lang::get('content.status') }}</label>
+            <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
             <div class="controls">
-                {{ Form::select('status', $user_statuses, $user->status) }}
+                {{ Form::select('status', $user_statuses, $user->status, array('class'=>'required')) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
         </div>
 
         {{ Form::hidden('id', $user->id) }}
@@ -61,4 +65,13 @@
     {{ Form::close() }}
 
 </div><!--/row-fluid-->
+@stop
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.user-form').validateBootstrap();
+    });
+</script>
 @stop
