@@ -263,6 +263,8 @@ return array(
     "add_publication_image_success" => 'La imagen se ha cargado correctamente',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
+    "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
+    'edit_publication_redo_key_field' => 'Este cambio implica reiniciar el contador de la publicación. Para deshacer haga click :a_open aquí. :a_close',
 
     "select" => "Selecciona",
 

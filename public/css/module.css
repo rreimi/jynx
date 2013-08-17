@@ -238,6 +238,11 @@ div#home-banner-top .carousel-control {
     width: 47%;
 }
 
+.key-field-section {
+    display: none;
+    padding-bottom: 0px;
+}
+
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;
@@ -407,4 +412,9 @@ div#home-banner-top .carousel-control {
 
 .publication-grid {
     padding-top: 2em;
+}
+
+/* Global rules */
+.manito {
+    cursor: pointer;
 }

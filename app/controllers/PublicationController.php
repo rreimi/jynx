@@ -416,7 +416,7 @@ class PublicationController extends BaseController {
 
         return View::make('publication_form',
             array(
-                'pub_statuses' => self::getPublicationStatuses(),
+                'pub_statuses' => self::getPublicationStatuses(Lang::get('content.select')),
                 'contacts' => $pub->publisher->contacts,
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
@@ -493,6 +493,12 @@ class PublicationController extends BaseController {
         } else {
             $isNew = false;
             $pub = Publication::find($pubData['id']);
+
+            // Si cambiaron los campos Titulo o Descripcion Corta, entonces se reinicia contador de publicaciones
+            if (($pub->title != $pubData['title']) || ($pub->short_description != $pubData['short_description'])){
+                $pub->visits_number = 0;
+            }
+
             $pub->fill($pubData);
         }
 
