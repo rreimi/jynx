@@ -65,7 +65,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function scopeToApprove($query){
-        return $query->where('is_publisher','=',0)->where('role','=','Publisher');
+        return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
     }
 
     public function isAdmin(){
@@ -77,11 +77,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function isPublisher(){
-        return ($this->role==self::ROLE_PUBLISHER);
-    }
-
-    public function isApproved(){
-        return (boolean) $this->is_publisher;
+        return $this->role==self::ROLE_PUBLISHER;
     }
 
 }

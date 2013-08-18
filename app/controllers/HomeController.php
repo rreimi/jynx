@@ -19,7 +19,6 @@ class HomeController extends BaseController {
 	*/
 
     public function __construct() {
-        $this->beforeFilter('auth');
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
         View::share('thumbSize', self::$thumbSize);

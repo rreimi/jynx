@@ -19,7 +19,7 @@ class BackendController extends BaseController {
         $users = is_array(Input::get('approve_users'))?Input::get('approve_users'):array();
 
         if(count($users)>0){
-            User::whereIn('id',$users)->update(array('is_publisher'=>'1'));
+            User::whereIn('id',$users)->update(array('role'=>User::ROLE_PUBLISHER,'is_publisher'=>0));
         }
 
         return Redirect::to('dashboard');

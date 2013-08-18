@@ -46,6 +46,8 @@ Route::controller('usuario','UserController');
 
 Route::controller('anunciante','AdvertiserController');
 
+Route::controller('estadisticas','StatsController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');
