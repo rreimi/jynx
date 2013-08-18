@@ -21,7 +21,7 @@ return array(
     //Dashboard
     "mostvisited_items" => "Los más visitados",
     "recent_items" => "Los más recientes",
-    "last_visited_items" => "Visto recientemente",
+    "last_visited_items" => "Vistos recientemente",
 
     //Category, Search
 	"categories_title" => "Categorías",
