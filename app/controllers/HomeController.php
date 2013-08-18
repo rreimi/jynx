@@ -37,13 +37,33 @@ class HomeController extends BaseController {
         $data['activeadvertisings'] = array();
         $data['mostvisited'] = array();
         $data['recent'] = array();
+        $data['lastvisited'] = array();
 
 
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
         $data['mostvisited'] = Publication::published()->mostvisited(12)->get();
         $data['recent'] = Publication::published()->recent(12)->get();
 
-        //$data['mostvisited']->images();
+        $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
+        $cookieArray = Cookie::get($cookieName);
+        if (isset($cookieArray)){
+            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
+
+            $lastVisitedOrdered = array();
+
+            foreach ($cookieArray as $item){
+                foreach ($lastVisited as $key => $value){
+                    if ($value->id == $item){
+                        $lastVisitedOrdered[] = $value;
+                        break;
+                    }
+                }
+            }
+
+            $data['lastvisited'] = $lastVisitedOrdered;
+
+        }
+
         /* Cargar la lista de los últimos productos agregados */
 
         /* Cargar la lista de los últimos productos vistos por el usuario actual */

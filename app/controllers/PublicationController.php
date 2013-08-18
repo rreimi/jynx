@@ -27,10 +27,41 @@ class PublicationController extends BaseController {
         /* Increment visits counter */
         $data['publication']->increment('visits_number');
         //TODO Validar que la publicacion exista
-        //TODO Create cookie for last visited
 
-        //$cookie = Cookie::forever('last_visited', $id);
-        //Cookie::put('key', 'value');
+        // Create cookie for last visited
+        $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
+
+        $cookieArray = Cookie::get($cookieName);
+
+        // Si la cookie existe previamente
+        if (isset($cookieArray)){
+
+            // Verificar en que posicion existe la publicidad actual
+            $existIndex = array_search($id, $cookieArray);
+
+            // Si existe mover elementos desde esa posicion, si no existe desde el tamaño completo del arreglo
+            $indexIter = ($existIndex == false) ? (sizeof($cookieArray)) : $existIndex ;
+
+            // Se mantiene tamaño maximo del arreglo como 8 elementos
+            if ($indexIter > 7){
+                $indexIter = 7;
+            }
+
+            // Se desplazan todas las posiciones
+            for ($i=$indexIter; $i>0; $i--){
+                $cookieArray[$i] = $cookieArray[$i-1];
+            }
+
+            // Se guarda el elemento actual como el mas reciente
+            $cookieArray[0] = $id;
+
+        // Si la cookie no existe se crea
+        } else {
+            $cookieArray = array();
+            $cookieArray[] = $id;
+        }
+
+        $cookie = Cookie::forever($cookieName, $cookieArray);
 
 //        var_dump(DB::getQueryLog());
 //        die();
@@ -42,7 +73,7 @@ class PublicationController extends BaseController {
 
         /* TODO Cargar la lista de los últimos productos vistos por el usuario actual */
 
-        return View::make('publication', $data);
+        return Response::view('publication', $data)->withCookie($cookie);
 	}
 
     public function getLista() {
