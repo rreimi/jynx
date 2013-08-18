@@ -79,7 +79,7 @@ class RegisterController extends BaseController{
 
             $user=User::find($userId);
 
-            $user->role=User::ROLE_PUBLISHER;
+            $user->is_publisher=1;
             $user->step=1;
 
             $user->save();

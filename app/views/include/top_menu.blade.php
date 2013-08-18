@@ -26,7 +26,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
-                            @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
+                            @if(Auth::user()->isPublisher())
                                 <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                             @endif
                             @if(Auth::user()->isAdmin())
@@ -55,7 +55,7 @@
                     @if(Auth::check())
                         <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
 
-                        @if(Auth::user()->isPublisher() && Auth::user()->isApproved())
+                        @if(Auth::user()->isPublisher())
 <!--                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>-->
                         @endif
 
