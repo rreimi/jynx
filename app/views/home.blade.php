@@ -99,6 +99,46 @@
     </div>
 </div>
 
+@if ($lastvisited)
+    <h2>{{Lang::get('content.last_visited_items')}}</h2>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="carousel slide" id="lastvisiteditems-carousel">
+                <div class="carousel-inner">
+                    @foreach ($lastvisited as $key => $pub)
+                    @if ($key%4 == 0)
+                    <div class="item @if ($key==0) active @endif">
+                        <ul class="row-fluid last-visited-items dashboard-item-list thumbnails">
+                            @endif
+                            <li class="span3 pub-thumb">
+                                <div class="put-info-box">
+                                    @if (isset($pub->images[0]))
+                                    <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                        <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                    </a>
+                                    @endif
+                                    <div class="pub-info-desc">
+                                        <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                            <h2 class="pub-title">{{ $pub->title }}</h2>
+                                        </a>
+                                        <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
+                                        <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                                    </div>
+                                </div>
+                            </li>
+                            @if (((($key+1)%4) == 0) || (($key+1) == count($lastvisited)))
+                        </ul>
+                    </div>
+                    @endif
+                    @endforeach
+                </div>
+                <a data-slide="prev" href="#lastvisiteditems-carousel" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#lastvisiteditems-carousel" class="right carousel-control">›</a>
+            </div>
+        </div>
+    </div>
+@endif
+
 @stop
 
 @section('scripts')
@@ -112,6 +152,9 @@
             interval: false
         });
         jQuery('#recentitems-carousel.carousel').carousel({
+            interval: false
+        });
+        jQuery('#lastvisiteditems-carousel.carousel').carousel({
             interval: false
         });
     });
