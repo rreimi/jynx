@@ -28,7 +28,7 @@ class PublicationController extends BaseController {
         $data['publication']->increment('visits_number');
         //TODO Validar que la publicacion exista
 
-        // Create cookie for last visited
+        // INIT - Create cookie for last visited
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
 
         $cookieArray = Cookie::get($cookieName);
@@ -40,11 +40,11 @@ class PublicationController extends BaseController {
             $existIndex = array_search($id, $cookieArray);
 
             // Si existe mover elementos desde esa posicion, si no existe desde el tamaño completo del arreglo
-            $indexIter = ($existIndex == false) ? (sizeof($cookieArray)) : $existIndex ;
+            $indexIter = ($existIndex === false) ? (sizeof($cookieArray)) : $existIndex ;
 
             // Se mantiene tamaño maximo del arreglo como 8 elementos
-            if ($indexIter > 7){
-                $indexIter = 7;
+            if ($indexIter > ($this->sliderSize - 1)){
+                $indexIter = ($this->sliderSize - 1);
             }
 
             // Se desplazan todas las posiciones
@@ -62,6 +62,15 @@ class PublicationController extends BaseController {
         }
 
         $cookie = Cookie::forever($cookieName, $cookieArray);
+
+        // END - Create cookie for last visited
+
+        // INIT - Create log of publication
+        $pubVisit = new PublicationVisit();
+        $pubVisit->publication_id = $id;
+        $pubVisit->date = new DateTime('now');
+        $pubVisit->save();
+        // END - Create log of publication
 
 //        var_dump(DB::getQueryLog());
 //        die();

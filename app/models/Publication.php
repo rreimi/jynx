@@ -22,10 +22,6 @@ class Publication extends Eloquent {
 	 */
 	//protected $hidden = array('password');
 
-    public function scopeMostvisited($query, $pageSize){
-        $query->orderBy('visits_number', 'desc')->with('publisher', 'images')->take($pageSize);
-    }
-
     public function scopeRecent($query, $pageSize){
         $query->orderBy('created_at', 'desc')->with('publisher', 'images')->take($pageSize);
     }

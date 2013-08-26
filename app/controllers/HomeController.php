@@ -38,11 +38,11 @@ class HomeController extends BaseController {
         $data['recent'] = array();
         $data['lastvisited'] = array();
 
-
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = Publication::published()->mostvisited(12)->get();
-        $data['recent'] = Publication::published()->recent(12)->get();
+        $data['mostvisited'] = PublicationVisit::mostVisited($this->sliderSize)->get();
+        $data['recent'] = Publication::published()->recent($this->sliderSize)->get();
 
+        /* Get cookie of last visited by the user */
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){

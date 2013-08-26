@@ -28,24 +28,24 @@
     <div class="row-fluid">
         <div class="carousel slide" id="mostvisited-carousel">
             <div class="carousel-inner">
-                @foreach ($mostvisited as $key => $pub)
+                @foreach ($mostvisited as $key => $pubVisit)
                 @if ($key%4 == 0)
                 <div class="item @if ($key==0) active @endif">
                     <ul class="row-fluid most-visited-items dashboard-item-list thumbnails">
                 @endif
                         <li class="span3 pub-thumb">
                             <div class="put-info-box">
-                                @if (isset($pub->images[0]))
-                                <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                @if (isset($pubVisit->publication->images[0]))
+                                <a href="{{ URL::to('publicacion/detalle/' . $pubVisit->publication->id)}}">
+                                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pubVisit->publication->id . '/' . $pubVisit->publication->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pubVisit->publication->title }}"/>
                                 </a>
                                 @endif
                                 <div class="pub-info-desc">
-                                    <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                        <h2 class="pub-title">{{ $pub->title }}</h2>
+                                    <a href="{{ URL::to('publicacion/detalle/' . $pubVisit->publication->id)}}">
+                                        <h2 class="pub-title">{{ $pubVisit->publication->title }}</h2>
                                     </a>
-                                    <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
-                                    <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                                    <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pubVisit->publication->publisher->seller_name }}</span>
+                                    <!--                <p class="pub-short-desc"> $pubVisit->publication->short_description </p>-->
                                 </div>
                             </div>
                         </li>
