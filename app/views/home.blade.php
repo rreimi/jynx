@@ -14,7 +14,13 @@
     <div class="carousel-inner">
         @foreach ($activeadvertisings as $key => $adv)
         <div class="item @if ($key == 0) active @endif">
-            <img class="home-banner-top-img-medium"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])  }}" alt="{{ $adv->name }}"/>
+            @if ($adv->external_url != '')
+                <a href="{{ $adv->external_url }}" target="_blank">
+            @endif
+                <img class="home-banner-top-img-medium"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])  }}" alt="{{ $adv->name }}"/>
+            @if ($adv->external_url != '')
+                </a>
+            @endif
         </div>
         @endforeach
     </div>
