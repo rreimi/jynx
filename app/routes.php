@@ -48,6 +48,8 @@ Route::controller('anunciante','AdvertiserController');
 
 Route::controller('estadisticas','StatsController');
 
+Route::controller('contactanos','ContactUsController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');

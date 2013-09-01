@@ -109,6 +109,7 @@ return array(
     "delete" => "Eliminar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
+    "send" => "Enviar",
     "continue"  => "Continuar",
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
@@ -389,5 +390,15 @@ return array(
     // General
     "required_label" => "Requerido",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
+
+    // Contactanos form
+    "contactus" => "Contacto",
+    "contactus_name" => "Nombre completo",
+    "contactus_email" => "Correo",
+    "contactus_phone" => "Teléfono",
+    "contactus_subject" => "Asunto",
+    "contactus_message" => "Mensaje",
+    "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
+    "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
 
 );

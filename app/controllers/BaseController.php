@@ -78,4 +78,12 @@ class BaseController extends Controller {
         Session::flash('flash_global_message', json_encode($object));
     }
 
+    protected function sendMail($template, $data, $receivers, $subject){
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers['email'], $receivers['name'])->subject($subject);
+        });
+    }
+
 }

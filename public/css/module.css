@@ -414,6 +414,11 @@ div#home-banner-top .carousel-control {
     padding-top: 2em;
 }
 
+/* Contactanos */
+.contactanos-form textarea {
+    height: 125px;
+}
+
 /* Global rules */
 .manito {
     cursor: pointer;
