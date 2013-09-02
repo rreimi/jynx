@@ -90,6 +90,7 @@ return array(
 
     //Menu
     "home" => "Inicio",
+    "products_and_services" => "Productos y Servicios",
     "about_us" => "Nosotros",
     "partners" => "Aliados",
     "contact" => "Contacto",
@@ -99,6 +100,8 @@ return array(
     "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
+    "have_account" => "No tienes cuenta?",
+    "forgot_password" => "Olvidaste tu contraseñá?",
 
     //Options
     "new_publication" => "Nueva publicación",
@@ -183,7 +186,7 @@ return array(
     "login_email" => "Correo electrónico",
     "login_password" => "Contraseña",
     "login_remember" => "Recuérdame",
-    "login_signin" => "Entrar",
+    "login_signin" => "Ingresar",
     "login_error" => "Verifica tu usuario y contraseña ",
     "login_header" => "Ingresa si estás registrado",
 

@@ -8,7 +8,7 @@ class PublicationController extends BaseController {
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
-        $this->beforeFilter('auth');
+        //$this->beforeFilter('auth');
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());

@@ -4,12 +4,154 @@ body {
     font-size:12px;
 }
 
+
+/* Layout */
+
+.site-header {
+    height:113px;
+    border-bottom: 2px solid #aaa;
+}
+
+.header-form {
+    /*height: 59px;*/
+    width:720px;
+}
+
+.header-form .span5 {
+    width:48%;
+    margin-left: 2%;
+    height: 70px;
+}
+
+.header-form .header-login-form.span5 {
+    margin-left:0;
+    width:50%;
+}
+
+.header-menu-container {
+    margin-bottom: 0;
+    width:720px;
+}
+
+.logo {
+    position: relative;
+    height:113px;
+    background-color: #fff;
+    width:200px;
+}
+
+.top-menu-search .input-append {
+    border-radius: 9px;
+    width:85%;
+}
+
+/* Header items */
+
+.header-login-form input {
+    border-radius: 9px;
+    border:1px solid #ddd;
+    width: 120px;
+    margin-right: 12px;
+}
+
+.guest-options {
+    margin-top:9px;
+    float:right;
+}
+
+.guest-options a {
+    color:#333;
+}
+
+@media (max-width: 740px) {
+    .site-header {
+        height: auto;
+    }
+
+    .header-form {
+        width:100%;
+    }
+
+    .header-form .span5 {
+        width:100%;
+        height: auto;
+    }
+
+    .header-login-form form {
+        float:none;
+    }
+
+    .header-menu-container {
+        width:100%;
+        margin-top: 10px;
+    }
+
+    .logo {
+        float:left;
+        width:71px;
+        height:51px;
+        margin-right:10px;
+    }
+
+    .top-menu-search .input-append {
+        border-radius: 9px;
+        width:80%;
+    }
+
+
+    .header-menu-container {
+        position: absolute;
+        z-index: 15000;
+        top: 0;
+        right: 10px;
+    }
+
+    .header-menu-container .nav-collapse {
+        background-color: #fff;
+    }
+
+    .guest-options {
+        float:none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header-form {
+        width:940px;
+    }
+
+    .header-menu-container {
+        width:940px;
+    }
+
+    .header-login-form input {
+        width:133px;
+    }
+}
+
+
+.slider-area {
+    background-color: #333;
+}
+
+.home-slideshow {
+    margin:auto;
+}
+
 .sidebar-search-form .input {
     width:100%;
 }
 
-.top-menu-search {
+.header-form form {
     margin:0.9em 0 0 0;
+}
+
+.header-menu-container .navbar-inner {
+    background: none;
+    border-radius: 0;
+    border: none;
+    z-index: 1000;
+    box-shadow: none;
 }
 
 .cursor-pointer {

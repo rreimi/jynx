@@ -146,6 +146,14 @@ h2 {
 
 /* Dashboard */
 
+
+/* Home carousel */
+
+
+.main-banner-img {
+    width:100%;
+}
+
 div#home-banner-top {
 
 }
@@ -194,8 +202,13 @@ div#home-banner-top .carousel-control {
 }
 
 .navbar .nav > li > a {
-    padding: 16px 20px;
+    /*padding: 16px 20px;*/
 }
+
+.navbar .public-menu > li > a {
+    text-transform: uppercase;
+}
+
 
 .checkbox.terminos .popover-content {
     font-size: 12px;
@@ -303,7 +316,7 @@ div#home-banner-top .carousel-control {
     height: 375px;
     position: absolute;
     left: 0;
-    top: 53.5px;
+    top: 45px;
     z-index: 10000;
     display: none;
     overflow:hidden;
@@ -315,11 +328,12 @@ div#home-banner-top .carousel-control {
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b);/*IE 5.5-7*/
 }
 
-.logo {
+.category-menu-link {
     position: relative;
+    height: 45px;
 }
 
-.logo:hover .main-menu {
+.category-menu-link:hover .main-menu {
     display: block;
 }
 
@@ -418,3 +432,9 @@ div#home-banner-top .carousel-control {
 .manito {
     cursor: pointer;
 }
+
+
+
+
+
+

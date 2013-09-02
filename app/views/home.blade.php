@@ -1,9 +1,8 @@
 @extends('layout_home_no_sidebar')
 
-@section('content')
-<?php //var_dump($activeadvertisings); die(); ?>
 
-<div id="home-banner-top" class="float-right home-banner-top-carousel carousel slide">
+@section('slideshow')
+<div id="home-banner-top" class="home-slideshow carousel container slide">
 
     <ol class="carousel-indicators">
         @foreach ($activeadvertisings as $key => $adv)
@@ -14,7 +13,7 @@
     <div class="carousel-inner">
         @foreach ($activeadvertisings as $key => $adv)
         <div class="item @if ($key == 0) active @endif">
-            <img class="home-banner-top-img-medium"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])  }}" alt="{{ $adv->name }}"/>
+            <img class="main-banner-img"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])->responsive('max-width=940', 'resize', 724) }}" alt="{{ $adv->name }}"/>
         </div>
         @endforeach
     </div>
@@ -22,6 +21,10 @@
     <!--a data-slide="prev" href="#home-banner-top" class="left carousel-control">‹</a-->
     <!--a data-slide="next" href="#home-banner-top" class="right carousel-control">›</a-->
 </div><!-- pub-images-box -->
+@stop
+
+@section('content')
+<?php //var_dump($activeadvertisings); die(); ?>
 
 <h2>{{Lang::get('content.mostvisited_items')}}</h2>
 <div class="container-fluid">
@@ -37,7 +40,7 @@
                             <div class="put-info-box">
                                 @if (isset($pubVisit->publication->images[0]))
                                 <a href="{{ URL::to('publicacion/detalle/' . $pubVisit->publication->id)}}">
-                                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pubVisit->publication->id . '/' . $pubVisit->publication->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pubVisit->publication->title }}"/>
+                                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pubVisit->publication->id . '/' . $pubVisit->publication->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height']) }}" alt="{{ $pubVisit->publication->title }}"/>
                                 </a>
                                 @endif
                                 <div class="pub-info-desc">
@@ -143,7 +146,10 @@
 
 @section('scripts')
 @parent
+{{ HTML::script('js/imagecow.js') }}
 <script type="text/javascript">
+    Imagecow.init();
+
     jQuery(document).ready(function(){
         jQuery('#home-banner-top.carousel').carousel({
             interval: 8000
