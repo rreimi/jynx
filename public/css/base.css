@@ -290,3 +290,11 @@ nav-filters-container {
 #header {
     height: 54px;
 }
+
+input.dial{
+    box-shadow: none;
+}
+
+input.dial:focus{
+    box-shadow: none;
+}

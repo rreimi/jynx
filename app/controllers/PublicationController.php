@@ -150,6 +150,9 @@ class PublicationController extends BaseController {
         $publications->groupBy('id');
         $publications = $publications->paginate($this->page_size);
 
+        $publisherFilterValues=array();
+        $categoryFilterValues=array();
+
         foreach (PublicationView::publishersWithPublications()->get() as $item) {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
         }

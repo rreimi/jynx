@@ -25,8 +25,5 @@ class BackendController extends BaseController {
         return Redirect::to('dashboard');
     }
 
-    public function getSearch(){
-
-    }
 
 }

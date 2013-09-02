@@ -2,21 +2,11 @@
 
 class Category extends Eloquent {
 
+    const TYPE_PRODUCT="Product";
+
+    const TYPE_SERVICE="Service";
+
     private static $cacheTime = 1000000;
-
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	//protected $table = 'categories';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	//protected $hidden = array('password');
 
     public function scopeOrderByName($query, $order = 'asc') {
         return $query->orderBy('name', $order);
@@ -27,11 +17,11 @@ class Category extends Eloquent {
     }
 
     public function scopeOnlyServices($query) {
-        return $query->where('type', 'Services');
+        return $query->where('type', self::TYPE_SERVICE);
     }
 
     public function scopeOnlyProducts($query) {
-        return $query->where('type', 'Product');
+        return $query->where('type', self::TYPE_PRODUCT);
     }
 
     public function parent() {

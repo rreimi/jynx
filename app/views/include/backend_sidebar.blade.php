@@ -4,7 +4,7 @@
     <li><a href="{{ URL::to('anunciante/lista')}}">{{ Lang::get('content.backend_menu_publishers') }}</a></li>
     <li><a href="{{ URL::to('publicacion/lista')}}">{{ Lang::get('content.backend_menu_publications') }}</a></li>
     <li><a href="{{ URL::to('publicidad/lista')}}">{{ Lang::get('content.backend_menu_advertisings') }}</a></li>
-    <li><a href="#">{{ Lang::get('content.backend_menu_stats') }}</a></li>
+    <li><a href="{{ URL::to('estadisticas')}}">{{ Lang::get('content.backend_menu_stats') }}</a></li>
 <!--    <li class="sub-category"><a class="sub-category-text" href="#">SUB</a></li>-->
 <!--    <li class="active"><a href="#">Link</a></li>-->
 </ul>

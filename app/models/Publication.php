@@ -8,20 +8,6 @@ class Publication extends Eloquent {
         'long_description', 'status', 'from_date',
         'to_date', 'publisher_id', 'remember');
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	//protected $table = 'categories';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	//protected $hidden = array('password');
-
     public function scopeMostvisited($query, $pageSize){
         $query->orderBy('visits_number', 'desc')->with('publisher', 'images')->take($pageSize);
     }
