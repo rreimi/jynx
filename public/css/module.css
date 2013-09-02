@@ -351,6 +351,10 @@ div#home-banner-top .carousel-control {
     color: #3385CB;
 }
 
+.navbar .nav > li > a {
+    padding: 10px 30px 10px 0;
+}
+
 .nav-category-menu {
     float: left;
     width: 320px;

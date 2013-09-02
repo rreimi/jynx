@@ -4,6 +4,14 @@ body {
     font-size:12px;
 }
 
+.btn-primary {
+    background-color: #2F7CBB;
+    background-image: linear-gradient(to bottom, #68A5D9, #2F7CBB);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+    background-color: #2D75B0;
+}
 
 /* Layout */
 
@@ -43,6 +51,8 @@ body {
 .top-menu-search .input-append {
     border-radius: 9px;
     width:85%;
+    margin-left: 30px;
+    margin-top: 10px;
 }
 
 /* Header items */
@@ -52,15 +62,24 @@ body {
     border:1px solid #ddd;
     width: 120px;
     margin-right: 12px;
+    color: #777777;
+    font-size: 0.96em;
 }
 
 .guest-options {
     margin-top:9px;
     float:right;
+    color: #777777;
 }
 
 .guest-options a {
-    color:#333;
+    color:#777;
+}
+
+
+.guest-options a:hover {
+    color: #444;
+    text-decoration: none;
 }
 
 /* Home product carousels */
@@ -172,7 +191,7 @@ body {
 }
 
 .header-form form {
-    margin:0.9em 0 0 0;
+    margin: 20px 0 0
 }
 
 .header-menu-container .navbar-inner {
