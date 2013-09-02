@@ -318,9 +318,9 @@ div#home-banner-top .carousel-control {
     left: 0;
     top: 45px;
     z-index: 10000;
-    /*display: none;*/
+    display: none;
     overflow:hidden;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.97);
     -moz-box-shadow: 3px 3px 11px #6d6b6b;/*FF 3.5+*/
     -webkit-box-shadow: 3px 3px 11px #6d6b6b;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b)";/*IE 8*/
@@ -383,7 +383,6 @@ div#home-banner-top .carousel-control {
 }
 
 .nav-category-menu li a:hover {
-    background-color: #fafafa;
     opacity: 1;
 }
 
