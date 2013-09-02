@@ -175,7 +175,6 @@ footer {
 }
 
 @media (max-width: 1199px) {
-
     .dynamic-footer-blocks {
         width:100%;
         text-align: center;
@@ -190,13 +189,18 @@ footer {
         width: 100%;
         text-align: center;
     }
+
+    .carousel-control {
+        background-size: 193%;
+    }
+
+    .carousel-control.right {
+        background-size: 193%;
+        background-position: 97%
+    }
 }
 
 @media (max-width: 740px) {
-
-    .carousel-control {
-        background-size: 20px;
-    }
 
     .site-header {
         height: auto;
