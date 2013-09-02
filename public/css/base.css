@@ -43,6 +43,11 @@ body {
     width:720px;
 }
 
+.user-menu {
+    float:right;
+    margin-top: 20px;
+}
+
 .logo {
     position: relative;
     height:113px;
