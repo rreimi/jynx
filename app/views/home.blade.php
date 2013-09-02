@@ -29,7 +29,7 @@
 <h2>{{Lang::get('content.mostvisited_items')}}</h2>
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="carousel slide" id="mostvisited-carousel">
+        <div class="carousel slide product-carousel" id="mostvisited-carousel">
             <div class="carousel-inner">
                 @foreach ($mostvisited as $key => $pubVisit)
                 @if ($key%4 == 0)
@@ -58,8 +58,8 @@
                 @endif
                 @endforeach
             </div>
-            <a data-slide="prev" href="#mostvisited-carousel" class="left carousel-control">‹</a>
-            <a data-slide="next" href="#mostvisited-carousel" class="right carousel-control">›</a>
+            <a data-slide="prev" href="#mostvisited-carousel" class="left carousel-control"></a>
+            <a data-slide="next" href="#mostvisited-carousel" class="right carousel-control"></a>
         </div>
     </div>
 </div>
@@ -67,7 +67,7 @@
 <h2>{{Lang::get('content.recent_items')}}</h2>
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="carousel slide" id="recentitems-carousel">
+        <div class="carousel slide product-carousel" id="recentitems-carousel">
             <div class="carousel-inner">
                 @foreach ($recent as $key => $pub)
                 @if ($key%4 == 0)
@@ -96,8 +96,8 @@
                 @endif
                 @endforeach
             </div>
-            <a data-slide="prev" href="#recentitems-carousel" class="left carousel-control">‹</a>
-            <a data-slide="next" href="#recentitems-carousel" class="right carousel-control">›</a>
+            <a data-slide="prev" href="#recentitems-carousel" class="left carousel-control"></a>
+            <a data-slide="next" href="#recentitems-carousel" class="right carousel-control"></a>
         </div>
     </div>
 </div>
@@ -106,7 +106,7 @@
     <h2>{{Lang::get('content.last_visited_items')}}</h2>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="carousel slide" id="lastvisiteditems-carousel">
+            <div class="carousel slide product-carousel" id="lastvisiteditems-carousel">
                 <div class="carousel-inner">
                     @foreach ($lastvisited as $key => $pub)
                     @if ($key%4 == 0)
@@ -135,8 +135,8 @@
                     @endif
                     @endforeach
                 </div>
-                <a data-slide="prev" href="#lastvisiteditems-carousel" class="left carousel-control">‹</a>
-                <a data-slide="next" href="#lastvisiteditems-carousel" class="right carousel-control">›</a>
+                <a data-slide="prev" href="#lastvisiteditems-carousel" class="left carousel-control"></a>
+                <a data-slide="next" href="#lastvisiteditems-carousel" class="right carousel-control"></a>
             </div>
         </div>
     </div>

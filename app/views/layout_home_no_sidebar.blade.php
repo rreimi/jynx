@@ -35,7 +35,7 @@
     </div><!--/row-->
     <hr>
 </div><!--/.fluid-container-->
-<footer>
+<footer class="container-fluid">
     @section('footer')
     @include('include.footer')
     @show

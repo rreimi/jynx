@@ -91,8 +91,94 @@ body {
     background-color: #ddd;
 }
 
+/* Footer layout */
+
+
+footer {
+    color:#fff;
+
+}
+.footer-block {
+    float:left;
+}
+
+.footer-title {
+    height:50px;
+    line-height: 50px;
+    border-bottom:1px solid #eee;
+}
+
+.products-footer {
+    width:31%;
+}
+
+.services-footer {
+    width:34%;
+}
+
+.contact-footer {
+    width:35%
+}
+
+.us-footer {
+    width: 26%;
+}
+
+.allies-footer {
+    width: 22%;
+}
+
+.help-footer {
+    width: 17%;
+}
+
+.news-footer {
+    width: 35%;
+}
+
+.dynamic-footer-blocks {
+    width:65%;
+}
+
+.footer-static-blocks {
+    width: 35%;
+}
+
+
+.logos-footer {
+    width:35%;
+    text-align: center;
+}
+
+.copyright-footer {
+    width:100%;
+    text-align: center;
+}
+
+@media (max-width: 1199px) {
+
+    .dynamic-footer-blocks {
+        width:100%;
+        text-align: center;
+    }
+
+    .footer-static-blocks {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logos-footer {
+        width: 100%;
+        text-align: center;
+    }
+}
 
 @media (max-width: 740px) {
+
+    .carousel-control {
+        background-size: 20px;
+    }
+
     .site-header {
         height: auto;
     }
@@ -141,6 +227,34 @@ body {
 
     .guest-options {
         float:none;
+    }
+
+    .footer-block {
+        text-align: center;
+    }
+
+    .footer-static-blocks {
+        width:100%;
+        text-align: center;
+    }
+
+    .logos-footer {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-block {
+        float:none;
+        width:100%;
+    }
+
+    .footer-static-blocks {
+        width:100%;
+    }
+
+    .dynamic-footer-blocks {
+        width:100%;
     }
 }
 
@@ -425,8 +539,8 @@ nav-filters-container {
     vertical-align: middle;
 }
 
-#footer {
-    height: 55px;
+footer {
+    background-color: #0e0e0e;
 }
 
 .footer {
@@ -443,13 +557,6 @@ nav-filters-container {
 
 .footer a:hover {
     color: #FFF;
-}
-
-.copyright {
-    height: 55px;
-    width: 100%;
-    padding-top: 15px;
-    background: #1B1B1B;
 }
 
 .well {
