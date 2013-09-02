@@ -95,6 +95,7 @@ return array(
     "partners" => "Aliados",
     "contact" => "Contacto",
     "help" => "Ayuda",
+    "news" => "Noticias y Ofertas",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "admin_dashboard" => "Admin Dashboard",
