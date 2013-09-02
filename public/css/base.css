@@ -561,6 +561,8 @@ nav-filters-container {
     vertical-align: middle;
 }
 
+/*Footer*/
+
 footer {
     background-color: #0e0e0e;
 }
@@ -580,6 +582,12 @@ footer {
 .footer a:hover {
     color: #FFF;
 }
+
+
+footer [class^="icon-"], [class*=" icon-"] {
+    background-image: none;
+}
+
 
 .well {
     background-color: #FFF;
