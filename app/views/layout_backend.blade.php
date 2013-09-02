@@ -16,8 +16,11 @@
 </head>
 <body>
 
-@include('include.top_menu')
-<div class="container-fluid main-container" id="body">
+<header id="header" class="site-header">
+    @include('include.header')
+</header>
+
+<div id="body" class="container-fluid main-container">
     <div class="row-fluid">
         <div class="span3">
             <div class="sidebar-nav well well-small">
@@ -32,7 +35,8 @@
         </div>
     </div>
 </div>
-<footer>
+
+<footer id="footer">
     @section('footer')
     @include('include.footer')
     @show
