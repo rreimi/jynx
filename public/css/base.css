@@ -63,6 +63,35 @@ body {
     color:#333;
 }
 
+/* Home product carousels */
+
+.product-carousel {
+    width: 87%;
+    margin:auto;
+}
+
+.carousel-control {
+    background: url('../img/flechas.png') 0 center no-repeat #eee;
+    border-radius: 0 0 0 0;
+    height: 252px;
+    left: -9.81%;
+    top: 17px;
+    width: 6.1%;
+    opacity: 1;
+    outline: none !important;
+}
+
+.carousel-control.right {
+    background: url('../img/flechas.png') -60px center no-repeat #eee;
+    left: auto;
+    right: -9.81%;
+}
+
+.carousel-control:hover {
+    background-color: #ddd;
+}
+
+
 @media (max-width: 740px) {
     .site-header {
         height: auto;
