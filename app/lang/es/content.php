@@ -100,8 +100,8 @@ return array(
     "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
-    "have_account" => "No tienes cuenta?",
-    "forgot_password" => "Olvidaste tu contraseñá?",
+    "have_account" => "¿No tienes cuenta?",
+    "forgot_password" => "¿Olvidaste tu contraseña?",
 
     //Options
     "new_publication" => "Nueva publicación",
