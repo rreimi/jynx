@@ -23,7 +23,7 @@
                         <button type="submit" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
                     {{ Form::close() }}
                     <div class="guest-options clear-both">
-                        <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> | {{Lang::get('content.have_account')}} <a href="{{URL::to('/login')}}"><b>{{Lang::get('content.register_signup')}}</b></a>
+                        <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> &nbsp;  |  &nbsp; <a href="{{URL::to('/login')}}"><b>{{Lang::get('content.register_signup')}}</b></a>
                     </div>
                 </div>
             </div>
@@ -91,6 +91,8 @@
                             <li><a href="{{URL::to('')}}">{{Lang::get('content.contact')}}</a></li>
 
                             <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
+
+                            <li><a href="{{URL::to('')}}">{{Lang::get('content.news')}}</a></li>
                             @if(Auth::check())
 
                             @if(Auth::user()->isPublisher())

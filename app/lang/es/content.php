@@ -95,12 +95,12 @@ return array(
     "partners" => "Aliados",
     "contact" => "Contacto",
     "help" => "Ayuda",
+    "news" => "Noticias y Ofertas",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
-    "have_account" => "¿No tienes cuenta?",
     "forgot_password" => "¿Olvidaste tu contraseña?",
 
     //Options
