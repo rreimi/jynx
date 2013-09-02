@@ -16,7 +16,9 @@
 </head>
 <body>
 
-@include('include.top_menu')
+<header class="site-header">
+    @include('include.header')
+</header>
 <div class="container-fluid main-container" id="body">
     <div class="row-fluid">
         <div class="span3">

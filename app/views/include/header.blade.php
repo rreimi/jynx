@@ -17,9 +17,9 @@
                     {{ Form::close() }}
                 </div>
                 <div class="header-login-form span5">
-                    {{ Form::open(array('method' => 'post', 'action' => 'HomeController@getSearch', 'class' => 'form-inline pull-right')) }}
-                        {{ Form::text('q', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
-                        {{ Form::text('q', '', array('placeholder' => Lang::get('content.login_password'), 'class' => 'input-medium')) }}
+                    {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right')) }}
+                        {{ Form::text('login_email', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
+                        {{ Form::text('login_password', '', array('placeholder' => Lang::get('content.login_password'), 'class' => 'input-medium')) }}
                         <button type="submit" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
                     {{ Form::close() }}
                     <div class="guest-options clear-both">

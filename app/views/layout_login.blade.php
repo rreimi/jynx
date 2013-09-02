@@ -12,7 +12,11 @@
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
 </head>
-@include('include.top_menu')
+
+<header class="site-header">
+    @include('include.header')
+</header>
+
 <body class="login">
     <div class="container main-container" id="body">
         @yield('content')
