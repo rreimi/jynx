@@ -17,7 +17,9 @@
             <div class="carousel-inner">
                 @foreach ($publication->images as $key => $img)
                 <div class="item @if ($key == 0) active @endif">
-                    <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'], $detailSize['height'])  }}" alt="{{ $publication->title }}"/>
+                    <div class="pub-image-wrapper">
+                        <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                    </div>
                 </div>
                 @endforeach
             </div>

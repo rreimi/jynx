@@ -260,7 +260,7 @@ footer .contact-row.contact-text {
     line-height: 45px;
 }
 
-footer [class^="icon-"], [class*=" icon-"] {
+footer [class^="icon-"] {
     background-image: none;
     display: none;
 }
