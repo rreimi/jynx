@@ -1,79 +1,114 @@
 <div class="container">
     <div class="dynamic-footer-blocks">
         <div class="row-fluid products-footer footer-block">
-            <div class="footer-title">
-                PRODUCTOS
-            </div>
-
+            <a href="#">
+                <div class="footer-title">
+                    {{Lang::get('content.product_title')}}
+                </div>
+            </a>
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
+                @foreach ($categories as $cat)
+                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                    @if (isset($category) && ($cat->id == $category->id))
+                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                    @else
+                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                    @endif
+                </li>
+                @endforeach
             </ul>
         </div>
-
         <div class="row-fluid services-footer footer-block">
-            <div class="footer-title">
-                SERVICIOS
-            </div>
+            <a href="#">
+                <div class="footer-title">
+                    {{Lang::get('content.services_title')}}
+                </div>
+            </a>
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
+                @foreach ($services as $cat)
+                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                    @if (isset($category) && ($cat->id == $category->id))
+                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                    @else
+                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                    @endif
+                </li>
+                @endforeach
             </ul>
         </div>
 
         <div class="row-fluid contact-footer footer-block">
-            <div class="footer-title">
-                CONTACTO
+            <a href="#">
+                <div class="footer-title">
+                    {{Lang::get('content.contact')}}
+                </div>
+            </a>
+            <div>
+                <div class="contact-row address contact-text">
+                    {{Lang::get('content.address_line1')}}<br/>
+                    {{Lang::get('content.address_line2')}}
+                </div>
+                <br/>
+                <div class="contact-row phone contact-text">
+                    {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{Lang::get('content.phones_line2')}}
+                </div>
+                <br/>
+                <div class="contact-row fax contact-text">
+                    {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
+                </div>
+                <br/>
+                <a href="mailto:informatica@cavenit.com">
+                    <div class="contact-row mail contact-text">
+                        {{Lang::get('content.contact_email')}}
+                    </div>
+                </a>
+                <br/>
+                <a href="https://www.facebook.com/cavenit" target="_blank">
+                    <div class="contact-row facebook contact-text">
+                        {{Lang::get('content.facebook')}}
+                    </div>
+                </a>
+                <br/>
+                <a href="https://twitter.com/cavenit" target="_blank">
+                    <div class="contact-row twitter contact-text">
+                        {{Lang::get('content.twitter')}}
+                    </div>
+                </a>
             </div>
-            <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-            </ul>
         </div>
     </div>
     <div class="footer-block footer-static-blocks">
-        <div class="footer-title footer-block us-footer">
-            NOSOTROS
-        </div>
-
-        <div class="footer-title footer-block allies-footer">
-            ALIADOS
-        </div>
-
-        <div class="footer-title footer-block help-footer">
-            AYUDA
-        </div>
-
-        <div class="footer-title footer-block news-footer">
-            NOTICIAS Y OFERTAS
-        </div>
+        <a href="#">
+            <div class="footer-title footer-block us-footer">
+                {{Lang::get('content.about_us')}}
+            </div>
+        </a>
+        <a href="#">
+            <div class="footer-title footer-block allies-footer">
+                {{Lang::get('content.partners')}}
+            </div>
+        </a>
+        <a href="#">
+            <div class="footer-title footer-block help-footer">
+                {{Lang::get('content.help')}}
+            </div>
+        </a>
+        <a href="#">
+            <div class="footer-title footer-block news-footer">
+                {{Lang::get('content.news')}}
+            </div>
+        </a>
     </div>
-
-
-
     <div class="footer-block logos-footer">
-        LOGOS
-    </div>
-
-    <div class="copyright clear-both copyright-footer">
-        &copy; Copyright 2013 - Mercatino
-        <div class="androb">
-            Desarrollado por <a href="http://www.androb.com" target="_blank">ANDROB</a>
-        </div>
+        <img src="../img/logos.png">
     </div>
 </div>
+<div class="clear-both copyright-footer">
+    <div class="androb">
+        {{Lang::get('content.copyright')}} <a href="http://www.androb.com" target="_blank">{{Lang::get('content.androb')}}</a>
+    </div>
+</div>
+
