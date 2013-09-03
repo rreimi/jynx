@@ -5,7 +5,7 @@ class BaseController extends Controller {
     protected $pageSort;
     protected $pageOrder;
     protected $sliderSize = 12;
-    protected static $thumbSize = array('width' => 150, 'height' => 150);
+    protected static $thumbSize = array('width' => 200, 'height' => 200);
     protected static $detailSize = array('width' => 300, 'height' => 300);
     protected static $bannerTopHomeSize = array('width' => 1170, 'height' => 390);
 

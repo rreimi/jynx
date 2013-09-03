@@ -17,7 +17,7 @@
         <div class="row-fluid">
         @endif
             <div class="span4 pub-thumb">
-                <div class="put-info-box">
+                <div class="pub-info-box">
                     @if (isset($pub->images[0]))
                     <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
                         <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>

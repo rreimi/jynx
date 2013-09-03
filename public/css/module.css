@@ -1,15 +1,25 @@
 h1 {
-    color:#375970;
+    color:#3385CB;
     font-size:2.6em;
-    font-family: 'Trebuchet MS', arial, sans-serif;
     font-weight: normal;
 }
 
 h2 {
-    color:#375970;
-    font-size:1.8em;
-    font-family: 'Trebuchet MS', arial, sans-serif;
+    color:#3385CB;
+    font-size:1.4em;
     font-weight: normal;
+}
+
+h2.home-title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.title-arrow {
+    color:#FFD233;
+    font-family: Arial;
+    font-size-adjust: inherit;
+    font-stretch: ultra-condensed;
 }
 
 .sorting-arrow {
@@ -29,6 +39,21 @@ h2 {
     float:left;
 }
 
+.pub-rating-box {
+    height: 25px;
+}
+
+
+.pub-rating-box .current-rating {
+    float:right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.pub-rating-box .current-rating .rating-value {
+    /*display: none;*/
+}
+
 .pub-title {
     font-size: 1.1em;
     line-height: 1.1em;
@@ -40,12 +65,12 @@ h2 {
     display: block;
 }
 
-.put-info-box {
+.pub-info-box {
     position: relative;
-    height: 240px;
+    height: 280px;
 }
 
-.put-info-box img {
+.pub-info-box img {
     margin:10px auto;
     display: block;
 }
@@ -286,19 +311,36 @@ div#home-banner-top .carousel-control {
 /* Rating */
 
 .current-rating {
-    height:45px;
+    /*height:45px;*/
+    line-height: 15px;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+    font-family: Verdana;
 }
 
+
+
 .current-rating .full {
-    background-color: #333;
+    background-color: #FFD233;
+    color:#fff;
 }
 
 .current-rating .half {
-    background-color: #888;
+    background: -moz-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* FF3.6+ */
+    background: -webkit-gradient(linear, 0deg, color-stop(50%, #ffd233), color-stop(50%, #dddddd));/* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* Opera 11.10+ */
+    background: -ms-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd233', endColorstr='#dddddd', GradientType='1'); /* for IE */
+    background: linear-gradient(90deg, #ffd233 50%, #dddddd 50%);/* W3C */
+    background-color: #ffd233;
+    color:#888;
 }
 
 .current-rating .empty {
     background-color: #ddd;
+    color:#888;
 }
 
 .current-rating .rating-box {
@@ -446,8 +488,29 @@ div#home-banner-top .carousel-control {
     cursor: pointer;
 }
 
+/* Home slideshow */
 
+.home-slideshow:hover .carousel-control {
+    display: block;
+}
 
+.home-slideshow .carousel-control {
+    height: 52px;
+    width: 40px;
+    background: #ccc;
+    opacity: 0.9;
+    border: 1px solid #ccc;
+    left:5%;
+    top:42%;
+    display: none;
+    line-height: 38px;
+    font-family: Tahoma;
+}
 
+.home-slideshow .carousel-control.right {
+    left:auto;
+    right:5%;
+
+}
 
 
