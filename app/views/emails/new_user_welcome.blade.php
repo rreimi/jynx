@@ -2,7 +2,7 @@ Hola {{ $userName }},<br/>
 <br/>
 Gracias por registrarte en TuMercato.com.<br/>
 <br/>
-Por favor valida tu correo haciendo clic aquí {{ $validationLink }}<br/>
+Por favor valida tu correo haciendo clic <a href="{{ $validationLink }}">aquí</a><br/>
 <br/>
 Ahora podrás revisar los productos y servicios que ofrecen los socios de la Cámara de Comercio Venezolana-Italiana  y próximamente de muchas otras organizaciones ítalo-venezolanas.<br/>
 <br/>

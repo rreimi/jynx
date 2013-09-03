@@ -86,4 +86,12 @@ class BaseController extends Controller {
         });
     }
 
+    protected function sendMultipleMail($template, $data, $receivers, $subject){
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers['email'])->subject($subject);
+        });
+    }
+
 }

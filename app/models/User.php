@@ -80,4 +80,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->role==self::ROLE_PUBLISHER;
     }
 
+    public function scopeAdminEmailList($query){
+        return $query->where('role',self::ROLE_ADMIN);
+    }
+
 }

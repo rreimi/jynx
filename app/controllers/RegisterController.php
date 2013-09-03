@@ -104,6 +104,43 @@ class RegisterController extends BaseController{
 
         });
 
+        $advertiserData = new stdClass();
+        $user = Auth::user();
+        $advertiserData->full_name = $user->full_name;
+        $advertiserData->email = $user->email;
+        $advertiserData->publisher_type=Input::get('publisher_type');
+        $advertiserData->seller_name=Input::get('publisher_seller');
+        $advertiserData->letter_rif_ci=Input::get('publisher_id_type');
+        $advertiserData->rif_ci=Input::get('publisher_id');
+        $state = State::find(Input::get('publisher_state'));
+        $advertiserData->state_id = $state->name;
+        $advertiserData->city=Input::get('publisher_city');
+        $advertiserData->phone1=Input::get('publisher_phone1');
+        $advertiserData->phone2=Input::get('publisher_phone2');
+        $advertiserData->media=Input::get('publisher_media');
+
+        // Send email notification to admins about new advertiser
+        $welcomeData = array(
+            'contentEmail' => 'admin_notification_new_adviser',
+            'advertiserData' => $advertiserData,
+        );
+
+        $adminUsers = User::adminEmailList()->get();
+
+        $adminEmails = array();
+
+        foreach ($adminUsers as $adminU){
+            $adminEmails[] = $adminU->email;
+        }
+
+        $receiver = array(
+            'email' => $adminEmails,
+        );
+
+        $subject = Lang::get('content.email_new_adviser_request');
+
+        self::sendMultipleMail('emails.layout_email', $welcomeData, $receiver, $subject);
+
         return Redirect::to('registro/datos-contactos');
 
     }
