@@ -35,6 +35,24 @@ class RegisterController extends BaseController{
             )
         );
 
+        // TODO: FALTA DEFINIR LA URL DE ACTIVACION DE CUENTA
+
+        // Send welcome email
+        $welcomeData = array(
+            'contentEmail' => 'new_user_welcome',
+            'userName' => $user->full_name,
+            'validationLink' => 'www.validation.com',
+        );
+
+        $receiver = array(
+            'email' => $user->email,
+            'name' => $user->full_name,
+        );
+
+        $subject = Lang::get('content.email_welcome_user_subject');
+
+        self::sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
+
         return Redirect::to('registro/datos-anunciante');
     }
 

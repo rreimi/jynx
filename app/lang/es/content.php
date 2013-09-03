@@ -401,4 +401,7 @@ return array(
     "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
 
+    // Emails
+    'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
+
 );
