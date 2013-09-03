@@ -2,32 +2,36 @@
     <div class="dynamic-footer-blocks">
         <div class="row-fluid products-footer footer-block">
             <div class="footer-title">
-                PRODUCTOS
+                {{Lang::get('content.product_title')}}
             </div>
 
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
+                @foreach ($categories as $cat)
+                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                    @if (isset($category) && ($cat->id == $category->id))
+                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                    @else
+                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                    @endif
+                </li>
+                @endforeach
             </ul>
         </div>
 
         <div class="row-fluid services-footer footer-block">
             <div class="footer-title">
-                SERVICIOS
+                {{Lang::get('content.services_title')}}
             </div>
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
+                @foreach ($services as $cat)
+                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                    @if (isset($category) && ($cat->id == $category->id))
+                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                    @else
+                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                    @endif
+                </li>
+                @endforeach
             </ul>
         </div>
 
@@ -35,15 +39,41 @@
             <div class="footer-title">
                 CONTACTO
             </div>
-            <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-            </ul>
+            <div>
+                <div class="contact-row address contact-text">
+                    Av. San Juan Bosco, Edif. Centro Altamira,<br/>
+                    Nivel Mezzanina Caracas 1060, Venezuela
+                </div>
+                <br/>
+                <div class="contact-row phone contact-text">
+                    Teléfonos: 58-212-2632427 / 2634614<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        58-212-2642845 / 2643742
+                </div>
+                <br/>
+                <div class="contact-row fax contact-text">
+                    Fax: 58-212-2647213
+                </div>
+                <br/>
+                <a href="mailto:informatica@cavenit.com">
+                    <div class="contact-row mail contact-text">
+                    informatica@cavenit.com
+                    </div>
+                </a>
+                <br/>
+                <a href="https://www.facebook.com/cavenit" target="_blank">
+                    <div class="contact-row facebook contact-text">
+                        CAVENIT
+                    </div>
+                </a>
+                <br/>
+                <a href="https://twitter.com/cavenit" target="_blank">
+                    <div class="contact-row twitter contact-text">
+                    @cavenit
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     <div class="footer-block footer-static-blocks">
@@ -64,16 +94,13 @@
         </div>
     </div>
 
-
-
     <div class="footer-block logos-footer">
-        LOGOS
-    </div>
-
-    <div class="copyright clear-both copyright-footer">
-        &copy; Copyright 2013 - Mercatino
-        <div class="androb">
-            Desarrollado por <a href="http://www.androb.com" target="_blank">ANDROB</a>
-        </div>
+        <img src="../img/logos.png">
     </div>
 </div>
+<div class="clear-both copyright-footer">
+    <div class="androb">
+        &copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por <a href="http://www.androb.com" target="_blank">ANDROB</a>
+    </div>
+</div>
+

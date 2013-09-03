@@ -26,6 +26,7 @@ return array(
     //Category, Search
 	"categories_title" => "Categorías",
     "sub_categories_title" => "Sub-categorías",
+    "product_title" => "Productos",
     "services_title"   => "Servicios",
     "sell_by"          => "Por",
     "sell_by_full"          => "Publicado por",
