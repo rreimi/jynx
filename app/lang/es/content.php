@@ -104,6 +104,20 @@ return array(
     "logout" => "Cerrar sesión",
     "forgot_password" => "¿Olvidaste tu contraseña?",
 
+    //Footer
+    "address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
+    "address_line2" => "Nivel Mezzanina Caracas 1060, Venezuela",
+    "phones_label" => "Teléfonos:",
+    "phones_line1" => "58-212-2632427 / 2634614",
+    "phones_line2" => "58-212-2642845 / 2643742",
+    "fax_label" => "Fax:",
+    "fax_line1" => "58-212-2647213",
+    "contact_email" => "informatica@cavenit.com",
+    "facebook" => "CAVENIT",
+    "twitter" => "@cavenit",
+    "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
+    "androb" => "ANDROB",
+
     //Options
     "new_publication" => "Nueva publicación",
     "edit_publication" => "Editar publicación",
