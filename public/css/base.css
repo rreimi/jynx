@@ -30,7 +30,7 @@ body {
 .header-form .span5 {
     width:48%;
     margin-left: 2%;
-    height: 70px;
+    height: 80px;
 }
 
 .header-form .header-login-form.span5 {
@@ -592,8 +592,4 @@ footer {
     background-color: #FFF;
     border: none;
     box-shadow: none;
-}
-
-#header {
-    height: 54px;
 }
