@@ -18,6 +18,8 @@ body {
 .site-header {
     height:113px;
     border-bottom: 2px solid #aaa;
+    background-color: #fff;
+
 }
 
 .header-form {
@@ -39,6 +41,11 @@ body {
 .header-menu-container {
     margin-bottom: 0;
     width:720px;
+}
+
+.user-menu {
+    float:right;
+    margin-top: 20px;
 }
 
 .logo {

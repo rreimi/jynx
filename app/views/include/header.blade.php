@@ -17,13 +17,42 @@
                     {{ Form::close() }}
                 </div>
                 <div class="header-login-form span5">
-                    {{ Form::open(array('method' => 'post', 'action' => 'HomeController@getSearch', 'class' => 'form-inline pull-right')) }}
-                        {{ Form::text('q', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
-                        {{ Form::text('q', '', array('placeholder' => Lang::get('content.login_password'), 'class' => 'input-medium')) }}
+                    @if(Auth::check())
+                        <div class="btn-group user-menu">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                {{ Auth::user()->email }}
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
+                                @if(Auth::user()->isPublisher())
+                                <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                                @endif
+                                @if(Auth::user()->isAdmin())
+                                <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
+                                @endif
+                                @if(Auth::user()->isBasic())
+                                <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
+                                @endif
+                                <li class="divider"></li>
+                                <li><a href="{{ URL::to('logout') }}">{{ Lang::get('content.exit') }}</a></li>
+                            </ul>
+                        </div>
+                    @else
+                    {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right')) }}
+                        {{ Form::text('login_email', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
+                        <input type="password" class="input-medium" name="login_password" placeholder="{{Lang::get('content.login_password')}}">
                         <button type="submit" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
                     {{ Form::close() }}
+                    @endif
                     <div class="guest-options clear-both">
-                        <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> &nbsp;  |  &nbsp; <a href="{{URL::to('/login')}}"><b>{{Lang::get('content.register_signup')}}</b></a>
+                        @if(Auth::check())
+                            @if (Auth::user()->isBasic() && Auth::user()->is_publisher == 0)
+                                <a href="{{URL::to('/registro/datos-anunciante')}}">{{Lang::get('content.register_dialog_header')}}</a>
+                            @endif
+                        @else
+                            <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> &nbsp;  |  &nbsp; <a href="{{URL::to('/login')}}"><b>{{Lang::get('content.register_signup')}}</b></a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -45,33 +74,6 @@
 
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">
-                        @if(Auth::check())
-                        <ul class="nav user-menu">
-                            <li class="divider-vertical"></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->email }} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-
-                                    <li>
-                                        <span class="category-tree-button">Categorías <i class="icon-chevron-down"></i></span>
-                                    </li>
-                                    <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
-                                    @if(Auth::user()->isPublisher())
-                                    <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
-                                    @endif
-                                    @if(Auth::user()->isAdmin())
-                                    <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
-                                    @endif
-                                    @if(Auth::user()->isBasic())
-                                    <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
-                                    @endif
-                                    <li class="divider"></li>
-                                    <li><a href="{{ URL::to('logout') }}">{{ Lang::get('content.exit') }}</a></li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                        @endif
                         <ul class="nav public-menu">
                             <!--                    @if(Auth::check())-->
                             <!--                        <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>-->

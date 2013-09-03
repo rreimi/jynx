@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<header class="site-header">
+<header id="header" class="site-header">
     @include('include.header')
 </header>
 
@@ -28,7 +28,7 @@
     @show
 </div>
 
-<div class="container main-container" id="body">
+<div id="body" class="container main-container">
     <div class="row-fluid">
         <div class="span12">
             @yield('content')
@@ -36,9 +36,10 @@
     </div><!--/row-->
     <hr>
 </div><!--/.fluid-container-->
-<footer class="container-fluid">
+
+<footer id="footer" class="container-fluid">
     @section('footer')
-    @include('include.footer')
+        @include('include.footer')
     @show
 </footer>
 
