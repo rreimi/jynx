@@ -41,6 +41,33 @@ class ReportController extends BaseController {
         $rep->save();
 
         if( $rep->id ) {
+
+            // Send email notification to admins about reports.
+            $user = User::with('publisher')->find(Auth::user()->id);
+
+            $data = array(
+                'contentEmail' => 'admin_notification_new_report',
+                'userName' => $user->full_name,
+                'publicationId' => Request::get('publication_id'),
+                'sellerName' => $user->publisher->seller_name
+            );
+
+            $adminUsers = User::adminEmailList()->get();
+
+            $adminEmails = array();
+
+            foreach ($adminUsers as $adminU){
+                $adminEmails[] = $adminU->email;
+            }
+
+            $receiver = array(
+                'email' => $adminEmails,
+            );
+
+            $subject = Lang::get('content.email_admin_notification_new_report');
+
+            self::sendMultipleMail('emails.layout_email', $data, $receiver, $subject);
+
             return Response::json(null, 200);
         } else {
             return Response::json(null, 400);
