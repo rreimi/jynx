@@ -1,5 +1,6 @@
 <!-- Stored in app/views/layouts/master.blade.php -->
 <!DOCTYPE html>
+<html>
 <head>
     <title>{{ $title }} - {{ App::environment() }}
     </title>
@@ -18,7 +19,14 @@
 </head>
 <body>
 
-@include('include.top_menu')
+<header class="site-header">
+    @include('include.header')
+</header>
+
+<div class="container-fluid slider-area">
+    @section('slideshow')
+    @show
+</div>
 
 <div class="container main-container" id="body">
     <div class="row-fluid">
@@ -28,7 +36,7 @@
     </div><!--/row-->
     <hr>
 </div><!--/.fluid-container-->
-<footer>
+<footer class="container-fluid">
     @section('footer')
     @include('include.footer')
     @show

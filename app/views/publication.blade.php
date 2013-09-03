@@ -28,9 +28,11 @@
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                <br/>
-                <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @if (!is_null(Auth::user()))
+                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+                    <br/>
+                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+                @endif
             @endif
         </h1>
 
@@ -82,7 +84,7 @@
         </div><!--/.contacs-info-->
         @endif
 
-        @if (Auth::user()->id != $publication->publisher->user_id)
+        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
         <hr/>
         <div class="report-info">
             <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>

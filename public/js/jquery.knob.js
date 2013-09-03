@@ -168,8 +168,7 @@
 
             this.$
                 .wrap($('<div style="' + (this.o.inline ? 'display:inline;' : '') +
-                        'width:' + this.o.width + 'px;height:' +
-                        this.o.height + 'px;"></div>'))
+                        'height:' +this.o.height + 'px;"></div>'))
                 .before(this.$c);
 
             this.scale = (window.devicePixelRatio || 1) /

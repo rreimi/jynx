@@ -59,7 +59,7 @@ h2 {
 }
 
 .pub-thumb {
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     margin-bottom: 1em;
 }
 
@@ -146,6 +146,14 @@ h2 {
 
 /* Dashboard */
 
+
+/* Home carousel */
+
+
+.main-banner-img {
+    width:100%;
+}
+
 div#home-banner-top {
 
 }
@@ -194,8 +202,13 @@ div#home-banner-top .carousel-control {
 }
 
 .navbar .nav > li > a {
-    padding: 16px 20px;
+    /*padding: 16px 20px;*/
 }
+
+.navbar .public-menu > li > a {
+    text-transform: uppercase;
+}
+
 
 .checkbox.terminos .popover-content {
     font-size: 12px;
@@ -303,11 +316,11 @@ div#home-banner-top .carousel-control {
     height: 375px;
     position: absolute;
     left: 0;
-    top: 53.5px;
+    top: 45px;
     z-index: 10000;
     display: none;
     overflow:hidden;
-    background: #ffffff;
+    background-color: rgba(255, 255, 255, 0.97);
     -moz-box-shadow: 3px 3px 11px #6d6b6b;/*FF 3.5+*/
     -webkit-box-shadow: 3px 3px 11px #6d6b6b;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b)";/*IE 8*/
@@ -315,16 +328,31 @@ div#home-banner-top .carousel-control {
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=11, Direction=135, Color=#6d6b6b);/*IE 5.5-7*/
 }
 
-.logo {
+.category-menu-link {
     position: relative;
+    height: 45px;
 }
 
-.logo:hover .main-menu {
+.category-menu-link:hover .main-menu {
     display: block;
 }
 
 .main-menu:hover {
     display: block;
+}
+
+
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+    color: #3385CB;
+}
+
+.main-menu a:hover, a:active {
+    text-decoration: none;
+    color: #3385CB;
+}
+
+.navbar .nav > li > a {
+    padding: 10px 30px 10px 0;
 }
 
 .nav-category-menu {
@@ -359,7 +387,6 @@ div#home-banner-top .carousel-control {
 }
 
 .nav-category-menu li a:hover {
-    background-color: #fafafa;
     opacity: 1;
 }
 
@@ -418,3 +445,9 @@ div#home-banner-top .carousel-control {
 .manito {
     cursor: pointer;
 }
+
+
+
+
+
+

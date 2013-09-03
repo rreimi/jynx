@@ -19,7 +19,9 @@
 </head>
 <body>
 
-@include('include.top_menu')
+<header class="site-header">
+    @include('include.header')
+</header>
 
 <div class="container main-container well-small" id="body">
     <div class="row-fluid">
