@@ -404,5 +404,6 @@ return array(
     // Emails
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
     'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
+    'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
 
 );
