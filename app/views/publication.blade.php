@@ -17,7 +17,9 @@
             <div class="carousel-inner">
                 @foreach ($publication->images as $key => $img)
                 <div class="item @if ($key == 0) active @endif">
-                    <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resizeCrop', $detailSize['width'], $detailSize['height'])  }}" alt="{{ $publication->title }}"/>
+                    <div class="pub-image-wrapper">
+                        <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                    </div>
                 </div>
                 @endforeach
             </div>
@@ -28,9 +30,11 @@
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                <br/>
-                <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @if (!is_null(Auth::user()))
+                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+                    <br/>
+                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+                @endif
             @endif
         </h1>
 
@@ -82,7 +86,7 @@
         </div><!--/.contacs-info-->
         @endif
 
-        @if (Auth::user()->id != $publication->publisher->user_id)
+        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
         <hr/>
         <div class="report-info">
             <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>

@@ -18,19 +18,26 @@
 </head>
 <body>
 
-@include('include.top_menu')
+<header id="header" class="site-header">
+    @include('include.header')
+</header>
 
-<div class="container main-container" id="body">
+<div class="container-fluid slider-area">
+    @section('slideshow')
+    @show
+</div>
+
+<div id="body" class="container main-container">
     <div class="row-fluid">
         <div class="span12">
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->
-    <hr>
 </div><!--/.fluid-container-->
-<footer>
+
+<footer id="footer" class="container-fluid">
     @section('footer')
-    @include('include.footer')
+        @include('include.footer')
     @show
 </footer>
 

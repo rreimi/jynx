@@ -55,3 +55,24 @@ Route::controller('/','HomeController');
 View::share('title', 'Mercatino');
 View::share('categories', BaseController::getCategories());
 View::share('services', BaseController::getServices());
+
+Route::filter('cache', function( $response = null )
+{
+    $uri = URI::full() == '/' ? 'home' : Str::slug( URI::full() );
+
+    $cached_filename = "response-$uri";
+
+    if ( is_null($response) )
+    {
+        return Cache::get( $cached_filename );
+    }
+    else if ( $response->status == 200 )
+    {
+        $cache_time = 30; // 30 minutes
+
+        if ( $cache_time > 0 ) {
+            Cache::put( $cached_filename , $response , $cache_time );
+        }
+    }
+
+});

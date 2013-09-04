@@ -8,7 +8,7 @@ class PublicationController extends BaseController {
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
-        $this->beforeFilter('auth');
+        //$this->beforeFilter('auth');
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
@@ -70,7 +70,6 @@ class PublicationController extends BaseController {
         // INIT - Create log of publication
         $pubVisit = new PublicationVisit();
         $pubVisit->publication_id = $id;
-        $pubVisit->date = new DateTime('now');
         $pubVisit->save();
         // END - Create log of publication
 
@@ -539,6 +538,7 @@ class PublicationController extends BaseController {
             // Si cambiaron los campos Titulo o Descripcion Corta, entonces se reinicia contador de publicaciones
             if (($pub->title != $pubData['title']) || ($pub->short_description != $pubData['short_description'])){
                 $pub->visits_number = 0;
+                PublicationVisit::where('publication_id', $pubData['id'])->delete();
             }
 
             $pub->fill($pubData);

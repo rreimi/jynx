@@ -77,7 +77,7 @@
 
                     <div>
                         <h5>{{ Lang::get('content.publisher_categories') }}</h5>
-                        @foreach ($categories as $key => $category)
+                        @foreach ($all_categories as $key => $category)
                             @if ($key % 4 == 0)
                                 <div class="row-fluid">
                             @endif

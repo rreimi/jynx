@@ -12,16 +12,23 @@
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
 </head>
-@include('include.top_menu')
+
 <body class="login">
-    <div class="container main-container" id="body">
+
+    <header id="header" class="site-header">
+        @include('include.header')
+    </header>
+
+    <div id="body" class="container main-container">
         @yield('content')
     </div>
-    <footer>
+
+    <footer id="footer">
         @section('footer')
         @include('include.footer')
         @show
     </footer>
+
     @section('scripts')
         {{ HTML::script('js/jquery-1.10.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
@@ -37,6 +44,5 @@
             })
         </script>
     @show
-
 </body>
 </html>
