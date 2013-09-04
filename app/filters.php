@@ -108,7 +108,10 @@ Route::filter('csrf-json', function()
 {
     if (Session::token() != Input::get('_token'))
     {
-        return json_encode('invalid_token');
+        $result = new stdClass;
+        $result->status = "error";
+        $result->status_code = "invalid_token";
+        return Response::json($result, 400);
     }
 });
 

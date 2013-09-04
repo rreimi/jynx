@@ -39,10 +39,10 @@
                             </ul>
                         </div>
                     @else
-                    {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right')) }}
+                    {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right', 'id' => 'login-form')) }}
                         {{ Form::text('login_email', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
                         <input type="password" class="input-medium" name="login_password" placeholder="{{Lang::get('content.login_password')}}">
-                        <button type="submit" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
+                        <button type="button" onclick="Mercatino.loginForm.send();" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
                     {{ Form::close() }}
                     @endif
                     <div class="guest-options clear-both">

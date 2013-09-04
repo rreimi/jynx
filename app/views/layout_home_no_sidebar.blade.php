@@ -50,6 +50,10 @@
 @include('include.modal_register')
 @show
 
+@section('modal-login')
+@include('include.modal_login')
+@show
+
 @section('scripts')
 {{ HTML::script('js/jquery-1.10.1.min.js') }}
 {{ HTML::script('js/jquery.validate.min.js') }}

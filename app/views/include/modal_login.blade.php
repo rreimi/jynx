@@ -5,7 +5,7 @@
     </div>
 
     <div class="modal-body">
-        @include('register_step1')
+        @include('login')
     </div>
     <div class='modal-footer'>
         <a href="javascript:Mercatino.registerForm.send()" class="btn btn-warning">{{Lang::get('content.register_signup')}}</a>
