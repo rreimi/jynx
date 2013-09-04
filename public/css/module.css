@@ -196,7 +196,7 @@ h2.home-title {
     margin-left: 28px;
 }
 
-.pub-seller {
+.pub-name {
     background: url('../img/pub_nombre.png') 0 center no-repeat;
     padding-left: 40px;
 }
@@ -232,7 +232,7 @@ h2.home-title {
 .publication-info .contact {
     float: left;
     width: 315px;
-    padding-left: 15px;
+    padding-right: 15px;
     margin-top: 0;
 }
 
@@ -641,6 +641,42 @@ div#home-banner-top .carousel-control {
 }
 
 /* Contactanos */
-.contactanos-form textarea {
-    height: 125px;
+
+.contactus-form .phone-format-label {
+    margin-left: 0px;
+}
+
+.contactus-form {
+    float: left;
+    margin-left: -100px;
+}
+
+.contact-info {
+    margin-left: 410px;
+    margin-top: 55px;
+}
+
+.contact-info .contact-row.contact-text {
+    padding-left: 40px;
+}
+
+.contact-info a {
+    color: #333;
+}
+
+.contact-info a:hover {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+.contact-info .contact-row.mail:hover {
+    background: url('../img/correo3.png') 0 center no-repeat;
+}
+
+.contact-info .contact-row.facebook:hover {
+    background: url('../img/facebook3.png') 0 center no-repeat;
+}
+
+.contact-info .contact-row.twitter:hover {
+    background: url('../img/twitter3.png') 0 center no-repeat;
 }
