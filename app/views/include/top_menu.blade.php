@@ -50,7 +50,7 @@
 
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.partners')}}</a></li>
 
-                    <li><a href="{{URL::to('')}}">{{Lang::get('content.contact')}}</a></li>
+                    <li><a href="{{URL::to('/contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
                     @if(Auth::check())
                         <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>

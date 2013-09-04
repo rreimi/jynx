@@ -127,6 +127,10 @@ return array(
         'publisher_city' => 'Ciudad',
         'publisher_phone1' => 'Teléfono 1',
 
+        'name' => 'Nombre completo',
+        'phone' => 'Teléfono',
+        'subject' => 'Asunto',
+        'contact_message' => 'Mensaje',
     ),
 
 );

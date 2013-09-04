@@ -17,7 +17,7 @@ body {
 /* Layout */
 
 .site-header {
-    height:113px;
+    /*height:113px;*/
     border-bottom: 2px solid #aaa;
     background-color: #fff;
 
@@ -44,6 +44,10 @@ body {
     width:720px;
 }
 
+.navbar-inner .container {
+    padding-top: 6px;
+}
+
 .user-menu {
     float:right;
     margin-top: 20px;
@@ -54,6 +58,7 @@ body {
     height:113px;
     background-color: #fff;
     width:200px;
+    margin-top: 5px;
 }
 
 .top-menu-search .input-append {
@@ -143,7 +148,7 @@ footer {
     background-color: #333333;
     color: #AAAAAA;
     min-width: 230px;
-    margin-top: 45px;
+    margin-top: 40px;
 }
 
 footer.container-fluid {
@@ -159,7 +164,7 @@ footer .contact-row {
 footer .contact-row.contact-text {
     display: block;
     padding-left: 35px;
-    width: 230px;
+    width: 231px;
     margin: auto;
 }
 
@@ -215,16 +220,20 @@ footer .contact-row.contact-text {
     margin-bottom: 18px;
 }
 
+.footer-title:hover {
+    text-decoration: underline;
+}
+
 .products-footer {
     width:31%;
 }
 
 .services-footer {
-    width:34%;
+    width:33%;
 }
 
 .contact-footer {
-    width:35%
+    width:36%
 }
 
 .us-footer {
@@ -266,7 +275,7 @@ footer .contact-row.contact-text {
     line-height: 45px;
 }
 
-footer [class^="icon-"] {
+footer [class^="icon-"], footer [class*="icon-"] {
     background-image: none;
     display: none;
 }
@@ -714,4 +723,57 @@ nav-filters-container {
     background-color: #FFF;
     border: none;
     box-shadow: none;
+}
+
+input.dial{
+    box-shadow: none;
+}
+
+input.dial:focus{
+    box-shadow: none;
+}
+
+@media (min-width: 1024px) {
+    .stats .stats-column{
+        min-height: 246px;
+    }
+}
+
+@media (max-width: 800px) {
+    .stats .stats-column{
+        min-height: 246px;
+    }
+}
+
+.stats .stats-row{
+    text-align: center;
+}
+
+.stats .stats-row h4{
+    margin: 0 0 4px 0;
+}
+
+.stats .page-header h2{
+    margin:4px 0;
+}
+
+.stats .stats-row p{
+    margin: 0;
+}
+
+.stats .stats-row .caption{
+    padding:0 4px;
+}
+
+.stats .stats-row{
+    margin:0;
+}
+
+.stats .page-header{
+    margin: 4px 0 10px;
+    padding-bottom:0;
+}
+
+.stats .stats-column{
+    padding: 0;
 }

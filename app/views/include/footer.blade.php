@@ -51,8 +51,8 @@
                 <br/>
                 <div class="contact-row phone contact-text">
                     {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     {{Lang::get('content.phones_line2')}}
                 </div>
                 <br/>
@@ -62,7 +62,7 @@
                 <br/>
                 <a href="mailto:informatica@cavenit.com">
                     <div class="contact-row mail contact-text">
-                        {{Lang::get('content.contact_email')}}
+                        {{Lang::get('content.cavenit_email')}}
                     </div>
                 </a>
                 <br/>

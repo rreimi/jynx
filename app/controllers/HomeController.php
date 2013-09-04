@@ -37,6 +37,8 @@ class HomeController extends BaseController {
         $data['mostvisited'] = array();
         $data['recent'] = array();
         $data['lastvisited'] = array();
+        $activationFlag = Input::get('activacion');
+        $data['activationFlag'] = (isset($activationFlag) && !empty($activationFlag)) ? $activationFlag : '' ;
 
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
         $data['mostvisited'] = PublicationVisit::mostVisited($this->sliderSize)->get();

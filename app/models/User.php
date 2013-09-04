@@ -11,6 +11,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     const ROLE_BASIC="Basic";
 
+    const STATUS_ACTIVE="Active";
+
+    const STATUS_INACTIVE="Inactive";
+
+    const STATUS_SUSPENDED="Suspended";
+
     protected $softDelete = true;
 
     protected $fillable = array('full_name', 'email',
@@ -53,7 +59,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * Get the e-mail address where password reminders are sent.
 	 *
-	 * @return string
+	 * @retur        $data = array( 'postActivation' => 'show' );n string
 	 */
 	public function getReminderEmail()
 	{
@@ -68,6 +74,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
     }
 
+    public function scopeRoleBasic($query){
+        return $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+    }
+
+    public function scopeRolePublisher($query){
+        return $query->where('role',self::ROLE_PUBLISHER);
+    }
+
     public function isAdmin(){
         return $this->role==self::ROLE_ADMIN;
     }
@@ -78,6 +92,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isPublisher(){
         return $this->role==self::ROLE_PUBLISHER;
+    }
+
+    public function scopeAdminEmailList($query){
+        return $query->where('role',self::ROLE_ADMIN);
     }
 
 }
