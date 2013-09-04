@@ -43,7 +43,7 @@
                         <input type="text" value="{{ $publications }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
                         <div class="caption">
                             <h4>{{ Lang::get('content.stats_publications') }}</h4>
-                            <p>{{ Lang::get('content.stats_publications') }}</p>
+                            <p>{{ Lang::get('content.stats_description_publications') }}</p>
                         </div>
                     </div>
                 </li>
