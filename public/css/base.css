@@ -2,6 +2,7 @@
 
 body {
     font-size:12px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
 }
 
 .btn-primary {
@@ -95,10 +96,25 @@ body {
     margin:auto;
 }
 
+.last-visited-box {
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.last-visited-box .product-carousel .carousel-control {
+    background-color: #fff;
+}
+
+.last-visited-box .home-title {
+    margin-left:20px;
+    color:#FFD233;
+}
+
 .carousel-control {
     background: url('../img/flechas.png') 0 center no-repeat #eee;
     border-radius: 0 0 0 0;
-    height: 252px;
+    height: 308px;
     left: -9.81%;
     top: 17px;
     width: 6.1%;
@@ -248,7 +264,7 @@ footer .contact-row.contact-text {
     line-height: 45px;
 }
 
-footer [class^="icon-"], [class*=" icon-"] {
+footer [class^="icon-"] {
     background-image: none;
     display: none;
 }
