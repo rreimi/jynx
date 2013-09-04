@@ -35,6 +35,7 @@ return array(
     "contacts" => "Contactos, Sucursales, Distribuidores",
     "city" => "Ciudad",
     "state" => "Estado",
+    "states" => "Estados",
     "location" => "Ubicación",
 
     //Search
@@ -128,6 +129,7 @@ return array(
     "delete" => "Eliminar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
+    "send" => "Enviar",
     "continue"  => "Continuar",
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
@@ -181,6 +183,8 @@ return array(
     "new_advertising" => "Nueva publicidad",
     "edit_advertising" => "Editar publicidad",
     "continue" => "Continuar",
+    "products" => "Productos",
+    "services" => "Servicios",
 
     // Messages
     "edit_advertising_success" => "La publicidad se ha guardado correctamente",
@@ -409,4 +413,46 @@ return array(
     "required_label" => "Requerido",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
 
+    // Contactanos form
+    "contactus" => "Contacto",
+    "contactus_name" => "Nombre completo",
+    "contactus_email" => "Correo",
+    "contactus_phone" => "Teléfono",
+    "contactus_subject" => "Asunto",
+    "contactus_message" => "Mensaje",
+    "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
+    "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
+
+    // Emails
+    'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
+    'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
+    'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
+    'email_admin_notification_new_report' => 'Se ha generado una nueva denuncia en TuMercato.com',
+
+    // Home - Post activation dialog
+    'home_post_activation_title' => 'Usuario registrado',
+    'home_post_activation_description' => 'Su usuario ha sido registrado en TuMercato.com y debe proceder a su activación
+                                    haciendo clic en el enlace que le hemos enviado por correo electrónico para disfrutar
+                                    de todas las ventajas adicionales que le ofrece TuMercato.com.',
+    'home_post_activation_description2' => 'Si desea continuar navegando ahora haga clic en el siguiente botón.',
+    'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
+
+    "stats_users_basic" => "Básico",
+    "stats_description_users_basic" => "Cántidad de usuarios Básicos",
+    "stats_users_publisher" => "Publicadores",
+    "stats_description_users_publisher" => "Cantidad de usuarios Publicadores",
+    "stats_users_to_approve" => "Aspirando",
+    "stats_description_users_to_approve"=>"Cantidad de usuarios aspirando a ser Publicadores",
+    "stats_publications"=>"Publicaciones",
+    "stats_description_publications"=>"Cantidad de Publicaciones",
+    "stats_publications_reports"=>"Publicaciones denunciadas",
+    "stats_description_publications_reports"=>"Cantidad de publicaciones denunciadas",
+    "stats_reports"=>"Denuncias Totales",
+    "stats_description_reports" => "Cantidad de denuncias",
+    "stats_products"=>"Productos",
+    "stats_description_products"=>"Cantidad de productos por categoría",
+    "stats_services"=>"Servicios",
+    "stats_description_services"=>"Cantidad de servicios por categoría",
+    "stats_publishers"=>"Publicadores",
+    "stats_description_publishers"=>"Cantidad de publicadores por estado"
 );

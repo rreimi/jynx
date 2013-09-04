@@ -7,7 +7,7 @@
 class RegisterController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth',array('except'=>array('postIndex','getFinalizar')));
+        $this->beforeFilter('auth', array('except'=>array('postIndex','getFinalizar', 'getActivacion')));
     }
 
     public function postIndex(){
@@ -18,7 +18,7 @@ class RegisterController extends BaseController{
             return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
         }
 
-        $user=new User();
+        $user = new User();
 
         $user->email=Input::get('register_email');
         $user->full_name=Input::get('register_full_name');
@@ -26,16 +26,27 @@ class RegisterController extends BaseController{
         $user->is_publisher=0;
         $user->role=User::ROLE_BASIC;
         $user->step=2;
+        $user->activation_hash=hash('md5', uniqid());
+        $user->status=User::STATUS_INACTIVE;
         $user->save();
 
-        Auth::attempt(
-            array(
-                'email' => Input::get('register_email'),
-                'password' => Input::get('register_password')
-            )
+        // Send welcome email
+        $welcomeData = array(
+            'contentEmail' => 'new_user_welcome',
+            'userName' => $user->full_name,
+            'activationLink' => URL::to('registro/activacion?u=') . $user->id . '&key=' . $user->activation_hash,
         );
 
-        return Redirect::to('registro/datos-anunciante');
+        $receiver = array(
+            'email' => $user->email,
+            'name' => $user->full_name,
+        );
+
+        $subject = Lang::get('content.email_welcome_user_subject');
+
+        self::sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
+
+        return Redirect::to('/?activacion=show');
     }
 
     public function getDatosAnunciante(){
@@ -86,6 +97,43 @@ class RegisterController extends BaseController{
 
         });
 
+        $advertiserData = new stdClass();
+        $user = Auth::user();
+        $advertiserData->full_name = $user->full_name;
+        $advertiserData->email = $user->email;
+        $advertiserData->publisher_type=Input::get('publisher_type');
+        $advertiserData->seller_name=Input::get('publisher_seller');
+        $advertiserData->letter_rif_ci=Input::get('publisher_id_type');
+        $advertiserData->rif_ci=Input::get('publisher_id');
+        $state = State::find(Input::get('publisher_state'));
+        $advertiserData->state_id = $state->name;
+        $advertiserData->city=Input::get('publisher_city');
+        $advertiserData->phone1=Input::get('publisher_phone1');
+        $advertiserData->phone2=Input::get('publisher_phone2');
+        $advertiserData->media=Input::get('publisher_media');
+
+        // Send email notification to admins about new advertiser
+        $welcomeData = array(
+            'contentEmail' => 'admin_notification_new_adviser',
+            'advertiserData' => $advertiserData,
+        );
+
+        $adminUsers = User::adminEmailList()->get();
+
+        $adminEmails = array();
+
+        foreach ($adminUsers as $adminU){
+            $adminEmails[] = $adminU->email;
+        }
+
+        $receiver = array(
+            'email' => $adminEmails,
+        );
+
+        $subject = Lang::get('content.email_new_adviser_request');
+
+        self::sendMultipleMail('emails.layout_email', $welcomeData, $receiver, $subject);
+
         return Redirect::to('registro/datos-contactos');
 
     }
@@ -108,6 +156,35 @@ class RegisterController extends BaseController{
         }
         $this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
         return Redirect::to('/');
+    }
+
+    public function getActivacion(){
+
+        // Validate data
+        if (!isset($_GET['key']) || empty($_GET['key']) ||
+            !isset($_GET['u']) || empty($_GET['u'])){
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $key = $_GET['key'];
+        $userId = $_GET['u'];
+
+        // Retrieve user
+        $user = User::where('activation_hash', $key)->find($userId);
+
+        if (!isset($user)){
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        // Activate user
+        $user->status = User::STATUS_ACTIVE;
+        $user->save();
+
+        // Authenticate user
+        Auth::login($user);
+
+        return Redirect::to('registro/datos-anunciante');
+
     }
 
     private function registroPublicadorReglas(){

@@ -13,7 +13,13 @@
     <div class="carousel-inner">
         @foreach ($activeadvertisings as $key => $adv)
         <div class="item @if ($key == 0) active @endif">
-            <img class="main-banner-img"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])->responsive('max-width=940', 'resize', 724) }}" alt="{{ $adv->name }}"/>
+            @if ($adv->external_url != '')
+                <a href="{{ $adv->external_url }}" target="_blank">
+            @endif
+                    <img class="main-banner-img"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])->responsive('max-width=940', 'resize', 724) }}" alt="{{ $adv->name }}"/>
+            @if ($adv->external_url != '')
+                </a>
+            @endif
         </div>
         @endforeach
     </div>
@@ -159,6 +165,27 @@
     </div>
 @endif
 
+@if ( $activationFlag == 'show' )
+<div id="postActivationDialog" class="modal hide fade" tabindex="-1" role="dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="myModalLabel">{{ Lang::get('content.home_post_activation_title') }}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{ Lang::get('content.home_post_activation_description') }}</p>
+        <p>{{ Lang::get('content.home_post_activation_description2') }}</p>
+
+        <div class="text-center">
+            <a class="btn btn-large btn-warning publisher-info" data-dismiss="modal" nohref>
+                {{ Lang::get('content.home_post_activation_dialog_go_home') }}
+            </a>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+@endif
+
 @stop
 
 @section('scripts')
@@ -180,6 +207,13 @@
         jQuery('#lastvisiteditems-carousel.carousel').carousel({
             interval: false
         });
+        @if ( $activationFlag == 'show' )
+            jQuery('#postActivationDialog').modal('show').css({
+                width: '76%',
+                left:'12%',
+                'margin-left':'0'
+            });
+        @endif
     });
 </script>
 @stop

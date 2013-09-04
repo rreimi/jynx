@@ -91,6 +91,7 @@ class AdvertisingController extends BaseController {
     public function getCrear() {
 
         $adv = new Advertising();
+        $adv->external_url = 'http://';
 
         return View::make('advertising_form',
                     array('adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.select')),
@@ -166,7 +167,7 @@ class AdvertisingController extends BaseController {
         $rules = array(
             'name' => 'required',
             'status' => 'required',
-            'external_url' => 'required',
+            'external_url' => 'required | url',
             'full_name' => 'required',
             'email' => 'email',
             'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),

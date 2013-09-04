@@ -11,7 +11,7 @@
             <ol class="carousel-indicators">
                 @foreach ($publication->images as $key => $img)
                     <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
-                @endforeach
+                @endforeachreturn $this->hasMany('Contact');
             </ol>
 
             <div class="carousel-inner">

@@ -1,5 +1,6 @@
 <!-- Stored in app/views/layouts/master.blade.php -->
 <!DOCTYPE html>
+<html>
 <head>
     <title>{{ $title }} - {{ App::environment() }}
     </title>

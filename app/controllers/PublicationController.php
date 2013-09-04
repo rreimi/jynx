@@ -24,8 +24,7 @@ class PublicationController extends BaseController {
 
 		/* Cargar la lista de categorias */
         $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
-        /* Increment visits counter */
-        $data['publication']->increment('visits_number');
+
         //TODO Validar que la publicacion exista
 
         // INIT - Create cookie for last visited
@@ -64,6 +63,9 @@ class PublicationController extends BaseController {
         $cookie = Cookie::forever($cookieName, $cookieArray);
 
         // END - Create cookie for last visited
+
+        /* Increment visits counter */
+        $data['publication']->increment('visits_number');
 
         // INIT - Create log of publication
         $pubVisit = new PublicationVisit();
@@ -160,6 +162,9 @@ class PublicationController extends BaseController {
 
         $publications->groupBy('id');
         $publications = $publications->paginate($this->page_size);
+
+        $publisherFilterValues=array();
+        $categoryFilterValues=array();
 
         foreach (PublicationView::publishersWithPublications()->get() as $item) {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
