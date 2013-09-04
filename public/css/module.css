@@ -12,7 +12,7 @@ h2 {
 
 h2.home-title {
     text-transform: uppercase;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .title-arrow {
@@ -201,9 +201,9 @@ div#home-banner-top {
 }
 
 div#home-banner-top ol.carousel-indicators {
-    left: 395px;
+    left: inherit;
     margin: 0;
-    top: 230px;
+    top: 374px;
 }
 
 div#home-banner-top .carousel-control {
@@ -375,7 +375,7 @@ div#home-banner-top .carousel-control {
     height: 375px;
     position: absolute;
     left: 0;
-    top: 34px;
+    top: 35px;
     z-index: 10000;
     display: none;
     overflow:hidden;

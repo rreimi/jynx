@@ -17,7 +17,7 @@ body {
 /* Layout */
 
 .site-header {
-    height:113px;
+    /*height:113px;*/
     border-bottom: 2px solid #aaa;
     background-color: #fff;
 
@@ -44,6 +44,10 @@ body {
     width:720px;
 }
 
+.navbar-inner .container {
+    padding-top: 6px;
+}
+
 .user-menu {
     float:right;
     margin-top: 20px;
@@ -54,6 +58,7 @@ body {
     height:113px;
     background-color: #fff;
     width:200px;
+    margin-top: 5px;
 }
 
 .top-menu-search .input-append {
@@ -138,6 +143,7 @@ footer {
     background-color: #333333;
     color: #AAAAAA;
     min-width: 230px;
+    margin-top: 40px;
 }
 
 footer.container-fluid {
