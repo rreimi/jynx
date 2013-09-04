@@ -1,4 +1,4 @@
-{{ Form::open(array('url' => 'registro','class'=>'big-form register-form')) }}
+{{ Form::open(array('url' => 'registro','class'=>'big-form register-form', 'id' => 'register-form')) }}
     <h4 class='header'>{{ Lang::get('content.register_header') }}</h4>
     <fieldset>
         <div class="control-group {{ $errors->has('register_email')? 'error':'' }}">
@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('.register-form').validateBootstrap({placement:'left'});
+        jQuery('.register-form').validateBootstrap({placement:'bottom'});
     });
 </script>
 @stop

@@ -100,6 +100,11 @@ body {
     border: 1px solid #ccc;
     border-radius: 30px;
     overflow: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=90, Color=#dddddd)";/*IE 8*/
+    -moz-box-shadow: 0px 0px 10px #dddddd;/*FF 3.5+*/
+    -webkit-box-shadow: 0px 0px 10px #dddddd;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0px 0px 10px #dddddd;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=90, Color=#dddddd); /*IE 5.5-7*/
 }
 
 .last-visited-box .product-carousel .carousel-control {
@@ -138,6 +143,7 @@ footer {
     background-color: #333333;
     color: #AAAAAA;
     min-width: 230px;
+    margin-top: 45px;
 }
 
 footer.container-fluid {

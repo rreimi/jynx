@@ -51,7 +51,7 @@
                                 <a href="{{URL::to('/registro/datos-anunciante')}}">{{Lang::get('content.register_dialog_header')}}</a>
                             @endif
                         @else
-                            <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> &nbsp;  |  &nbsp; <a href="{{URL::to('/login')}}"><b>{{Lang::get('content.register_signup')}}</b></a>
+                            <a href="{{URL::to('/olvido')}}">{{Lang::get('content.forgot_password')}}</a> &nbsp;  |  &nbsp; <a nohref onclick="Mercatino.registerForm.show();"><b>{{Lang::get('content.register_signup')}}</b></a>
                         @endif
                     </div>
                 </div>

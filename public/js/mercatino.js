@@ -1,3 +1,31 @@
+jQuery.fn.serializeObject = function() {
+    var arrayData, objectData;
+    arrayData = this.serializeArray();
+    objectData = {};
+
+    $.each(arrayData, function() {
+        var value;
+
+        if (this.value != null) {
+            value = this.value;
+        } else {
+            value = '';
+        }
+
+        if (objectData[this.name] != null) {
+            if (!objectData[this.name].push) {
+                objectData[this.name] = [objectData[this.name]];
+            }
+
+            objectData[this.name].push(value);
+        } else {
+            objectData[this.name] = value;
+        }
+    });
+
+    return objectData;
+};
+
 $.pnotify.defaults.history = false;
 
 $.pnotify.defaults.delay = 3000;
@@ -119,6 +147,52 @@ Mercatino.modalConfirm = {
     }
 };
 
+
+Mercatino.registerForm = {
+    show: function(title, content, url){
+        //jQuery('#modal-confirm .modal-header h3').html(title);
+        //jQuery('#modal-confirm .modal-body p').html(content);
+        //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+        jQuery('#modal-register').modal('show');
+
+    },
+    hide: function(){
+        jQuery('#modal-register').modal('hide');
+    },
+    send: function(){
+
+
+//        var comment = jQuery('#modal-register textarea').val();
+//
+//        if (comment == ""){
+//            Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_commend_required')}}", type:'error'});
+//            return;
+//        }
+
+        //this.hide();
+
+//        console.log(jQuery('#register-form').serializeObject());
+//        return false;
+
+        var formData = jQuery('#register-form').serializeObject();
+
+        jQuery.ajax({
+            url: jQuery('#register-form').attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function(result) {
+
+                console.log(result);
+
+                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
+                jQuery('#modal-report .modal-body textarea').val('');
+            },
+            error: function(result) {
+                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_error')}}", type:'error'});
+            }
+        });
+    }
+};
 
 
 

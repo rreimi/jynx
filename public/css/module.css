@@ -298,6 +298,16 @@ div#home-banner-top .carousel-control {
     padding-bottom: 0px;
 }
 
+/* Modal register */
+
+.modal-register {
+    width: 70%; /* desired relative width */
+    left: 15%; /* (100%-width)/2 */
+    /* place center */
+    margin-left:auto;
+    margin-right:auto;
+}
+
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;

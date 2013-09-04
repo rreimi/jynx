@@ -34,7 +34,6 @@
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->
-    <hr>
 </div><!--/.fluid-container-->
 
 <footer id="footer">
@@ -45,6 +44,10 @@
 
 @section('modal-confirm')
 @include('include.modal_confirm')
+@show
+
+@section('modal-register')
+@include('include.modal_register')
 @show
 
 @section('scripts')
