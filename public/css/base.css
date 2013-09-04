@@ -603,13 +603,46 @@ input.dial:focus{
 }
 
 @media (min-width: 1024px) {
-    .stats .thumbnail{
-        min-height: 350px;
+    .stats .stats-column{
+        min-height: 246px;
     }
 }
 
 @media (max-width: 800px) {
-    .stats .thumbnail{
-        min-height: 310px;
+    .stats .stats-column{
+        min-height: 246px;
     }
+}
+
+.stats .stats-row{
+    text-align: center;
+}
+
+.stats .stats-row h4{
+    margin: 0 0 4px 0;
+}
+
+.stats .page-header h2{
+    margin:4px 0;
+}
+
+.stats .stats-row p{
+    margin: 0;
+}
+
+.stats .stats-row .caption{
+    padding:0 4px;
+}
+
+.stats .stats-row{
+    margin:0;
+}
+
+.stats .page-header{
+    margin: 4px 0 10px;
+    padding-bottom:0;
+}
+
+.stats .stats-column{
+    padding: 0;
 }

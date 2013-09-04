@@ -1,9 +1,6 @@
 @extends('layout_backend')
 
 @section('content')
-    <div class="well">
-        <p>instrucciones de como usar el backend, un well tal vez se vea mejor que hero-unit aqui en backend</p>
-    </div>
     <div class="row-fluid">
 
         {{ Form::open(array('url' => 'dashboard/approve','class'=>'')) }}

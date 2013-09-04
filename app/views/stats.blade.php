@@ -2,79 +2,104 @@
 
 @section('content')
     <div class="row-fluid stats">
-        <div class="page-header">
-            <h1><small>Cántidad total de usuarios: </small>{{ $users }}</h1>
+        <div class="display-stats hide">
+            <div class="page-header">
+                <h2><small>Cántidad total de usuarios: </small>{{ $users }}</h2>
+            </div>
+
+            <ul class="thumbnails stats-row">
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $users_basic }}" class="dial users" data-max="{{ $users }}"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_users_basic') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_users_basic') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $users_publisher }}" class="dial users" data-max="{{ $users }}"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_users_publisher') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_users_publisher') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $users_to_approve }}" class="dial users" data-max="{{ $users }}"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_users_to_approve') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_users_to_approve') }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="thumbnails stats-row">
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $publications }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_publications') }}</h4>
+                            <p>{{ Lang::get('content.stats_publications') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $reports_pending }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_publications_reports') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_publications_reports') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail stats-column">
+                        <input type="text" value="{{ $reports }}" class="dial publications" data-max="{{ $reports }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_reports') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_reports') }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="thumbnails text-center">
+                <li class="span6">
+                    <div class="thumbnail ">
+                        <div id="products" style="width: auto;"></div>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_products') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_products') }}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="span6">
+                    <div class="thumbnail">
+                        <div id="services" style="width: auto;"></div>
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_services') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_services') }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="thumbnails text-center">
+                <li class="span12">
+                    <div class="thumbnail ">
+                        <div class="caption">
+                            <h4>{{ Lang::get('content.stats_publishers') }}</h4>
+                            <p>{{ Lang::get('content.stats_description_publishers') }}</p>
+                        </div>
+                        <div id="states" style="width: auto;"></div>
+                    </div>
+                </li>
+            </ul>
         </div>
-
-        <ul class="thumbnails text-center">
-            <li class="span4">
-                <div class="thumbnail ">
-                    <input type="text" value="{{ $users_basic }}" class="dial users" data-max="{{ $users }}"/>
-                    <div class="caption">
-                        <h3>Básicos</h3>
-                        <p>Cántidad de usuarios Básicos</p>
-                    </div>
-                </div>
-            </li>
-            <li class="span4">
-                <div class="thumbnail">
-                    <input type="text" value="{{ $users_publisher }}" class="dial users" data-max="{{ $users }}"/>
-                    <div class="caption">
-                        <h3>Publicadores</h3>
-                        <p>Cantidad de usuarios Publicadores</p>
-                    </div>
-                </div>
-            </li>
-            <li class="span4">
-                <div class="thumbnail">
-                    <input type="text" value="{{ $users_to_approve }}" class="dial users" data-max="{{ $users }}"/>
-                    <div class="caption">
-                        <h3>Aspirando</h3>
-                        <p>Cantidad de usuarios aspirando a ser Publicadores</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
-        <div class="page-header">
-            <h1><small>Cántidad total de Publicaciones: </small>{{ $users }}</h1>
-        </div>
-
-        <ul class="thumbnails text-center">
-            <li class="span6">
-                <div class="thumbnail ">
-                    <div id="products" style="width: 400px;"></div>
-                    <div class="caption">
-                        <h3>Productos</h3>
-                        <p>Cantidad de productos por categoría</p>
-                    </div>
-                </div>
-            </li>
-            <li class="span6">
-                <div class="thumbnail">
-                    <div id="services" style="width: 400px;"></div>
-                    <div class="caption">
-                        <h3>Servicios</h3>
-                        <p>Cantidad de servicios por categoría</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
-        <ul class="thumbnails text-center">
-            <li class="span12">
-                <div class="thumbnail ">
-                    <div id="states" style="width: 900px;"></div>
-                    <div class="caption">
-                        <h3>Publicadores</h3>
-                        <p>Cantidad de publicadores por estado</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
     </div>
-
 
 @stop
 
@@ -85,84 +110,75 @@
     <script type="text/javascript">
 
         google.load("visualization", "1", {packages:['corechart','geochart']});
-        google.setOnLoadCallback(function(){
-            var data = google.visualization.arrayToDataTable({{ $category_products }});
-
-            var chart = new google.visualization.BarChart(document.getElementById('products'));
-            chart.draw(data);
-
-        });
-
-        google.setOnLoadCallback(function(){
-            var data = google.visualization.arrayToDataTable({{ $category_services }});
-
-        var chart = new google.visualization.BarChart(document.getElementById('services'));
-        chart.draw(data);
-
-        });
-
-        google.setOnLoadCallback(function(){
-            var data = google.visualization.arrayToDataTable({{ $states_publishers }});
-
-            var options = {
-                region: 'VE',
-                resolution:'provinces'
-            };
-
-            var chart = new google.visualization.GeoChart(document.getElementById('states'));
-            chart.draw(data, options);
-        });
-
 
         jQuery(function(){
+
             jQuery('.users').knob({
                 skin:'tron',
                 readOnly:true,
                 thickness:'0.3',
-                width:(verge.viewportW()>=768 && verge.viewportW()<=956)?156:(verge.viewportW()>1024?220:200),
-                height:(verge.viewportW()>=768 && verge.viewportW()<=956)?156:(verge.viewportW()>1024?220:200),
+                width:156,
+                height:156,
                 inline:false,
-
-                draw : function () {
-
-                    var a = this.angle(this.cv)  // Angle
-                        , sa = this.startAngle          // Previous start angle
-                        , sat = this.startAngle         // Start angle
-                        , ea                            // Previous end angle
-                        , eat = sat + a                 // End angle
-                        , r = true;
-
-                    this.g.lineWidth = this.lineWidth;
-
-                    this.o.cursor
-                        && (sat = eat - 0.3)
-                    && (eat = eat + 0.3);
-
-                    if (this.o.displayPrevious) {
-                        ea = this.startAngle + this.angle(this.value);
-                        this.o.cursor
-                            && (sa = ea - 0.3)
-                        && (ea = ea + 0.3);
-                        this.g.beginPath();
-                        this.g.strokeStyle = this.previousColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                        this.g.stroke();
-                    }
-
-                    this.g.beginPath();
-                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                    this.g.stroke();
-
-                    this.g.lineWidth = 2;
-                    this.g.beginPath();
-                    this.g.strokeStyle = this.o.fgColor;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                    this.g.stroke();
-
-                    return false;
-                }
+                draw : Mercatino.tronSkin
             });
+
+
+            jQuery('.publications').knob({
+                skin:'tron',
+                readOnly:true,
+                thickness:'0.3',
+                width:156,
+                height:156,
+                inline:false,
+                draw :Mercatino.tronSkin
+            });
+
+
+            google.setOnLoadCallback(function(){
+                var data = google.visualization.arrayToDataTable({{ $category_products }});
+
+                var options={
+                    legend:{position:'none'}
+                }
+                var chart = new google.visualization.BarChart(document.getElementById('products'));
+                chart.draw(data,options);
+
+            });
+
+            google.setOnLoadCallback(function(){
+                var data = google.visualization.arrayToDataTable({{ $category_services }});
+
+                var options={
+                    legend:{position:'none'}
+                }
+                var chart = new google.visualization.BarChart(document.getElementById('services'));
+                chart.draw(data,options);
+
+            });
+
+            google.setOnLoadCallback(function(){
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', '{{ Lang::get("content.states") }}');
+                data.addColumn('number', '{{ Lang::get("content.stats_users_publisher") }}');
+
+                data.addRows({{ $states_publishers }});
+
+                var options = {
+                    region: 'VE',
+                    resolution:'provinces',
+                    displayMode: 'region',
+                    colorAxis: {colors: ['#3F4EFF','#2EAFFF']}
+                };
+
+                var chart = new google.visualization.GeoChart(document.getElementById('states'));
+                chart.draw(data, options);
+            });
+
+            jQuery('.display-stats').removeClass('hide');
+
+
         });
     </script>
 @stop

@@ -11,6 +11,11 @@ class StatsController extends BaseController {
 
         $data['users_to_approve']=User::toApprove()->count();
 
+        $data['reports']=PublicationReport::pendingReports()->count();
+
+        $data['reports_pending']=count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
+
+        $data['publications']=Publication::count();
 
         $elements=DB::table('categories')
             ->join('publications_categories','categories.id','=','publications_categories.category_id')
@@ -23,8 +28,8 @@ class StatsController extends BaseController {
             ->get();
 
 
-        $data['category_products'][]=array('Categorias','Productos');
-        $data['category_services'][]=array('Categorias','Servicios');
+        $data['category_products'][]=array(Lang::get('content.categories_title'),Lang::get('content.products'));
+        $data['category_services'][]=array(Lang::get('content.categories_title'),Lang::get('content.services'));
 
         foreach($elements as $element){
             if($element->type==Category::TYPE_PRODUCT){
@@ -39,46 +44,19 @@ class StatsController extends BaseController {
 
         $states=DB::table('publishers')
             ->join('states','states.id','=','publishers.state_id')
-            ->select('states.name',DB::raw('count(publishers.id) as publishers'))
+            ->select('states.code','states.name',DB::raw('count(publishers.id) as publishers'))
             ->groupBy('states.id')
             ->get();
 
-        $data['states_publishers'][]=array('Estados','Publicadores');
-
         foreach($states as $state){
-            $data['states_publishers'][]=array($state->name,$state->publishers);
+            $stateValues=new stdClass();
+            $stateValues->v=$state->code;
+            $stateValues->f=$state->name;
+            $data['states_publishers'][]=array($stateValues,intval($state->publishers));
         }
 
         $data['states_publishers']=json_encode($data['states_publishers']);
 
-        //cantidad de denuncias pendietes por revisar
-
-        /*
-
-        echo "<br>Denuncias Pendientes ";
-        echo PublicationReport::pendingReports()->count();
-
-        //Cantidad total de publicaciones
-
-        echo "<br>Publicaciones ";
-        echo Publication::count(); //Preguntar si son todas las publicaciones
-
-
-        //Cantidad de publicadores por estado (Mapa)
-
-        echo "Publicadores por estado <br>";
-
-
-
-        foreach(State::with('publishers')->get() as $state){
-            echo $state->name.': '.count($state->publishers)."<br>";
-        }
-
-        echo "<br>";
-        */
-
-        /*var_dump();
-        */
         return View::make('stats',$data);
 
     }
