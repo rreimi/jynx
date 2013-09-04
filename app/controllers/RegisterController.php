@@ -7,7 +7,7 @@
 class RegisterController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth',array('except'=>array('postIndex','getFinalizar')));
+        $this->beforeFilter('auth', array('except'=>array('postIndex','getFinalizar', 'getActivacion')));
     }
 
     public function postIndex(){
@@ -18,7 +18,7 @@ class RegisterController extends BaseController{
             return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
         }
 
-        $user=new User();
+        $user = new User();
 
         $user->email=Input::get('register_email');
         $user->full_name=Input::get('register_full_name');
@@ -26,22 +26,15 @@ class RegisterController extends BaseController{
         $user->is_publisher=0;
         $user->role=User::ROLE_BASIC;
         $user->step=2;
+        $user->activation_hash=hash('md5', uniqid());
+        $user->status=User::STATUS_INACTIVE;
         $user->save();
-
-        Auth::attempt(
-            array(
-                'email' => Input::get('register_email'),
-                'password' => Input::get('register_password')
-            )
-        );
-
-        // TODO: FALTA DEFINIR LA URL DE ACTIVACION DE CUENTA
 
         // Send welcome email
         $welcomeData = array(
             'contentEmail' => 'new_user_welcome',
             'userName' => $user->full_name,
-            'validationLink' => 'www.validation.com',
+            'activationLink' => URL::to('registro/activacion?u=') . $user->id . '&key=' . $user->activation_hash,
         );
 
         $receiver = array(
@@ -53,7 +46,7 @@ class RegisterController extends BaseController{
 
         self::sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
-        return Redirect::to('registro/datos-anunciante');
+        return Redirect::to('/?activacion=show');
     }
 
     public function getDatosAnunciante(){
@@ -163,6 +156,35 @@ class RegisterController extends BaseController{
         }
         $this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
         return Redirect::to('/');
+    }
+
+    public function getActivacion(){
+
+        // Validate data
+        if (!isset($_GET['key']) || empty($_GET['key']) ||
+            !isset($_GET['u']) || empty($_GET['u'])){
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $key = $_GET['key'];
+        $userId = $_GET['u'];
+
+        // Retrieve user
+        $user = User::where('activation_hash', $key)->find($userId);
+
+        if (!isset($user)){
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        // Activate user
+        $user->status = User::STATUS_ACTIVE;
+        $user->save();
+
+        // Authenticate user
+        Auth::login($user);
+
+        return Redirect::to('registro/datos-anunciante');
+
     }
 
     private function registroPublicadorReglas(){
