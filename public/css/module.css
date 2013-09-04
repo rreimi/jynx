@@ -530,4 +530,7 @@ div#home-banner-top .carousel-control {
 
 }
 
-
+/* Contactanos */
+.contactanos-form textarea {
+    height: 125px;
+}
