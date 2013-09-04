@@ -153,7 +153,7 @@ footer .contact-row {
 footer .contact-row.contact-text {
     display: block;
     padding-left: 35px;
-    width: 230px;
+    width: 231px;
     margin: auto;
 }
 
@@ -218,11 +218,11 @@ footer .contact-row.contact-text {
 }
 
 .services-footer {
-    width:34%;
+    width:33%;
 }
 
 .contact-footer {
-    width:35%
+    width:36%
 }
 
 .us-footer {
@@ -264,7 +264,7 @@ footer .contact-row.contact-text {
     line-height: 45px;
 }
 
-footer [class^="icon-"] {
+footer [class^="icon-"], footer [class*="icon-"] {
     background-image: none;
     display: none;
 }
