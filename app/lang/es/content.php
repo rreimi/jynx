@@ -50,7 +50,7 @@ return array(
     "rate_publication" => "Evaluar publicación",
     "rate_it" => "Calificar",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
-    "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
+    "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
     "report_it" => "Denunciar",
     "id" => "ID",
@@ -90,6 +90,10 @@ return array(
     'report_message_invalid_data' => 'Datos inv&aacute;lidos.',
     'report_message_not_exist' => 'La denuncia a la que hace referencia no existe.',
     'report_message_change_success' => 'La denuncia ha sigo actualizada exitosamente',
+
+    //Ratings
+    'rate_instructions' => 'Califica la publicación del 1 al 5, donde 1 es la puntuación más baja y 5 la más alta.',
+    'rate_comment_instructions' => "Comentarios sobre la calificación:",
 
     //Menu
     "home" => "Inicio",

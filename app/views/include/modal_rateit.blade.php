@@ -19,7 +19,7 @@
         <textarea id="report_comment_txt" class="input-block-level" name="report_comment" rows="8"></textarea>
     </div>
     <div class='modal-footer'>
-        <a href="javascript:Mercatino.rateitForm.send()" class="btn btn-success">{{Lang::get('content.rate_it')}}</a>
+        <a href="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>
         <a href="javascript:Mercatino.rateitForm.hide()" class="btn secondary">{{Lang::get('content.cancel')}}</a>
     </div>
 </div>
