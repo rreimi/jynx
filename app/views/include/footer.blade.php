@@ -103,7 +103,7 @@
         </a>
     </div>
     <div class="footer-block logos-footer">
-        <img src="../img/logos.png">
+        <img src="/img/logos.png">
     </div>
 </div>
 <div class="clear-both copyright-footer">
