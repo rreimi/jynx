@@ -74,6 +74,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
     }
 
+    public function scopeRoleBasic($query){
+        return $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+    }
+
+    public function scopeRolePublisher($query){
+        return $query->where('role',self::ROLE_PUBLISHER);
+    }
+
     public function isAdmin(){
         return $this->role==self::ROLE_ADMIN;
     }

@@ -18,7 +18,7 @@ class PublicationReport extends Eloquent {
                                 'comment', 'date', 'status');
 
     public function scopePendingReports($query){
-        $query->where('status', '=', 'Pending')
+        $query->where('status','Pending')
             ->orderBy('id', 'desc');
     }
 

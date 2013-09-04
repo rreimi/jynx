@@ -24,3 +24,33 @@ INSERT INTO `states` (`id`, `name`) VALUES
 (23, 'Yaracuy'),
 (24, 'Zulia');
 
+/*
+Lista que se entiende con google chart
+
+Anzoátegui
+Apure
+Aragua
+Barinas
+Bolívar
+Carabobo
+Cojedes
+Delta Amacuro
+Dependencias Federales
+Distrito Federal
+Falcón
+Guárico
+Lara
+Mérida
+Miranda
+Monagas
+Nueva Esparta
+Portuguesa
+Sucre
+Táchira
+Trujillo
+Vargas
+Yaracuy
+Zulia
+Amazonas
+
+*/
