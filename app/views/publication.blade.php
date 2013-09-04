@@ -11,7 +11,7 @@
             <ol class="carousel-indicators">
                 @foreach ($publication->images as $key => $img)
                     <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
-                @endforeachreturn $this->hasMany('Contact');
+                @endforeach
             </ol>
 
             <div class="carousel-inner">
@@ -61,7 +61,7 @@
 
             <div>
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
-                <p class="pub-seller">{{ $publication->publisher->seller_name }}</p>
+                <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
                 <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
                 <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</p>
                 <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
@@ -75,7 +75,7 @@
                 <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
                     @foreach ($publication->contacts as $contact)
                         <div class="contact">
-                            <p class="pub-seller">{{ $contact->full_name }}
+                            <p class="pub-name">{{ $contact->full_name }}
                                 @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
                             <p/>
                             <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
@@ -98,6 +98,55 @@
         </div>
         @include('include.modal_report')
         @include('include.modal_rateit')
+        <div class="clear-both"></div>
+        <br/><br/>
+        @if ($lastvisited)
+        <div class="last-visited-box">
+            <h2 class="home-title">{{Lang::get('content.last_visited_items')}}</h2>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="carousel slide product-carousel" id="lastvisiteditems-carousel">
+                        <div class="carousel-inner">
+                            @foreach ($lastvisited as $key => $pub)
+                            @if ($key%4 == 0)
+                            <div class="item @if ($key==0) active @endif">
+                                <ul class="row-fluid last-visited-items dashboard-item-list thumbnails">
+                                    @endif
+                                    <li class="span3 pub-thumb">
+                                        <div class="pub-rating-box">
+                                            @if ($pub->rating_avg != "")
+                                            {{ RatingHelper::getRatingBar($pub->rating_avg) }}
+                                            @endif
+                                        </div>
+                                        <div class="pub-info-box">
+                                            @if (isset($pub->images[0]))
+                                            <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                                <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                            </a>
+                                            @endif
+                                            <div class="pub-info-desc">
+                                                <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                                    <h2 class="pub-title">{{ $pub->title }}</h2>
+                                                </a>
+                                                <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
+                                                <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @if (((($key+1)%4) == 0) || (($key+1) == count($lastvisited)))
+                                </ul>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                        <a data-slide="prev" href="#lastvisiteditems-carousel" class="left carousel-control"></a>
+                        <a data-slide="next" href="#lastvisiteditems-carousel" class="right carousel-control"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
     </div><!--/row-fluid-->
 @stop
 

@@ -38,7 +38,7 @@
         </div>
 
         <div class="row-fluid contact-footer footer-block">
-            <a href="#">
+            <a href="/contactanos">
                 <div class="footer-title">
                     {{Lang::get('content.contact')}}
                 </div>

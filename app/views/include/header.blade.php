@@ -28,10 +28,13 @@
                                 @if(Auth::user()->isPublisher())
                                 <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                                 @endif
+                                @if(Auth::user()->is_publisher==1)
+                                <li class="disabled"><a href="#">{{Lang::get('content.my_publications')}}</a></li>
+                                @endif
                                 @if(Auth::user()->isAdmin())
                                 <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                                 @endif
-                                @if(Auth::user()->isBasic())
+                                @if(Auth::user()->canBePublisher())
                                 <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
                                 @endif
                                 <li class="divider"></li>
@@ -47,7 +50,7 @@
                     @endif
                     <div class="guest-options clear-both">
                         @if(Auth::check())
-                            @if (Auth::user()->isBasic() && Auth::user()->is_publisher == 0)
+                            @if (Auth::user()->canBePublisher())
                                 <a href="{{URL::to('/registro/datos-anunciante')}}">{{Lang::get('content.register_dialog_header')}}</a>
                             @endif
                         @else
