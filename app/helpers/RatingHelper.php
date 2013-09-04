@@ -14,15 +14,15 @@ class RatingHelper {
         $val = 1;
         while ($val <= $maxValue) {
             if ($val <= intval($rating)) {
-                $html .= '<span class="rating-box full"></span>';
+                $html .= '<span class="rating-box full"><span class="rating-value">' . $val . '</span></span>';
             } else if (($rating < ($val)) && ($rating >= ($val-0.5))) {
-                $html .= '<span class="rating-box half"></span>';
+                $html .= '<span class="rating-box half"><span class="rating-value">' . $val . '</span></span>';
             } else {
-                $html .= '<span class="rating-box empty"></span>';
+                $html .= '<span class="rating-box empty"><span class="rating-value">' . $val . '</span></span>';
             }
             $val++;
         }
-        $html .= '</div>';
+        $html .= '<div class="clearfix"></div></div>';
         return $html;
     }
 }

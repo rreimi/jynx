@@ -26,6 +26,7 @@ return array(
     //Category, Search
 	"categories_title" => "Categorías",
     "sub_categories_title" => "Sub-categorías",
+    "product_title" => "Productos",
     "services_title"   => "Servicios",
     "sell_by"          => "Por",
     "sell_by_full"          => "Publicado por",
@@ -104,6 +105,20 @@ return array(
     "logout" => "Cerrar sesión",
     "forgot_password" => "¿Olvidaste tu contraseña?",
 
+    //Footer
+    "address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
+    "address_line2" => "Nivel Mezzanina Caracas 1060, Venezuela",
+    "phones_label" => "Teléfonos:",
+    "phones_line1" => "58-212-2632427 / 2634614",
+    "phones_line2" => "58-212-2642845 / 2643742",
+    "fax_label" => "Fax:",
+    "fax_line1" => "58-212-2647213",
+    "cavenit_email" => "informatica@cavenit.com",
+    "facebook" => "CAVENIT",
+    "twitter" => "@cavenit",
+    "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
+    "androb" => "ANDROB",
+
     //Options
     "new_publication" => "Nueva publicación",
     "edit_publication" => "Editar publicación",
@@ -113,6 +128,7 @@ return array(
     "delete" => "Eliminar",
     "cancel" => "Cancelar",
     "save" => "Guardar",
+    "send" => "Enviar",
     "continue"  => "Continuar",
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
@@ -395,6 +411,30 @@ return array(
     // General
     "required_label" => "Requerido",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
+
+    // Contactanos form
+    "contactus" => "Contacto",
+    "contactus_name" => "Nombre completo",
+    "contactus_email" => "Correo",
+    "contactus_phone" => "Teléfono",
+    "contactus_subject" => "Asunto",
+    "contactus_message" => "Mensaje",
+    "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
+    "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
+
+    // Emails
+    'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
+    'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
+    'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
+    'email_admin_notification_new_report' => 'Se ha generado una nueva denuncia en TuMercato.com',
+
+    // Home - Post activation dialog
+    'home_post_activation_title' => 'Usuario registrado',
+    'home_post_activation_description' => 'Su usuario ha sido registrado en TuMercato.com y debe proceder a su activación
+                                    haciendo clic en el enlace que le hemos enviado por correo electrónico para disfrutar
+                                    de todas las ventajas adicionales que le ofrece TuMercato.com.',
+    'home_post_activation_description2' => 'Si desea continuar navegando ahora haga clic en el siguiente botón.',
+    'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
 
     "stats_users_basic" => "Básico",
     "stats_description_users_basic" => "Cántidad de usuarios Básicos",

@@ -34,7 +34,6 @@
             @yield('content')
         </div><!--/span-->
     </div><!--/row-->
-    <hr>
 </div><!--/.fluid-container-->
 
 <footer id="footer" class="container-fluid">

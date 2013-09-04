@@ -5,8 +5,8 @@ class BaseController extends Controller {
     protected $pageSort;
     protected $pageOrder;
     protected $sliderSize = 12;
-    protected static $thumbSize = array('width' => 150, 'height' => 150);
-    protected static $detailSize = array('width' => 300, 'height' => 300);
+    protected static $thumbSize = array('width' => 200, 'height' => 200);
+    protected static $detailSize = array('width' => 450, 'height' => 450);
     protected static $bannerTopHomeSize = array('width' => 1170, 'height' => 390);
 
     protected $phoneNumberRegex = '/^(04[16|26|14|24|12]{2})?(02[0-9]{2})?-[0-9]{7}$/';
@@ -76,6 +76,22 @@ class BaseController extends Controller {
         $object->message = $message;
         $object->type = $type;
         Session::flash('flash_global_message', json_encode($object));
+    }
+
+    protected function sendMail($template, $data, $receivers, $subject){
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers['email'], $receivers['name'])->subject($subject);
+        });
+    }
+
+    protected function sendMultipleMail($template, $data, $receivers, $subject){
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers['email'])->subject($subject);
+        });
     }
 
 }
