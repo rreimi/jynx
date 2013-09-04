@@ -48,6 +48,7 @@ return array(
     //Publications
     "publication" => "Publicacion|Publicaciones",
     "rate_publication" => "Evaluar publicación",
+    "rate_it" => "Calificar",
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Diganos las razones por las cuales desea denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",

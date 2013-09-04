@@ -36,71 +36,68 @@
                     <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
                 @endif
             @endif
-        </h1>
+        </h1><div class="triangle"></div>
 
-        <div>{{$publication->visits_number}} {{Lang::get('content.visits_number')}}</div>
-        <div>{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
+        <div class="publication-info">
+            <div>{{ $publication->short_description }}</div>
 
-        <div class="publication-description">
-            <h2>{{Lang::get('content.descripcion')}}</h2>
-            <p class="pub-short-desc">{{ $publication->short_description }}</p>
-            <p class="pub-long-desc">{{ $publication->long_description }}</p>
-        </div>
+            <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
 
-        <div class="publication-categories">
-            <h2>{{Lang::get('content.categories_title')}}</h2>
-            <ul>
-                @foreach ($publication->categories as $cat)
-                <li>{{ $cat->name }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="evaluation"><b>{{Lang::get('content.evaluation')}}</b>: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
 
-        <div class="publisher-info">
-            <h2>{{Lang::get('content.sell_by_full')}}</h2>
-            <p>
-            <span class="pub-seller pub-line">{{ $publication->publisher->seller_name }}</span>
-            <span class="pub-phone pub-line">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</span>
-            <span class="pub-location pub-line">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</span>
-            @if ($publication->publisher->phone2)
-                <span class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}</span>
+            <div>
+                <h2><span class="title-arrow">></span>{{Lang::get('content.descripcion')}}</h2>
+                <p>{{ $publication->long_description }}</p>
+            </div>
+
+            <div>
+                <h2><span class="title-arrow">></span>{{Lang::get('content.categories_title')}}</h2>
+                <ul>
+                    @foreach ($publication->categories as $cat)
+                    <li>{{ $cat->name }}</li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div>
+                <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
+                <p class="pub-seller">{{ $publication->publisher->seller_name }}</p>
+                <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
+                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</p>
+                <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
+                @if ($publication->publisher->phone2)
+                    {{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}
+                @endif
+            </div><!--/.publisher-info-->
+
+            @if (count($publication->contacts) > 0)
+            <div>
+                <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
+                    @foreach ($publication->contacts as $contact)
+                        <div class="contact">
+                            <p class="pub-seller">{{ $contact->full_name }}
+                                @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
+                            <p/>
+                            <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
+                            <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $contact->phone }}</p>
+                            <p class="pub-location">{{Lang::get('content.location')}}: {{ $contact->address }}, {{ $contact->city }}</p>
+                        </div>
+                    @endforeach
+            </div><!--/.contacs-info-->
             @endif
-            </p>
-        </div><!--/.publisher-info-->
-
-        <hr/>
-
-        @if (count($publication->contacts) > 0)
-        <div class="contacs-info">
-            <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
-            <ol class="contact-list">
-                @foreach ($publication->contacts as $contact)
-                <li>
-                    {{ $contact->full_name }}<br/>
-                    @if (isset($contact->distributor)) {{ $contact->distributor }}<br/> @endif
-                    {{ $contact->email }}<br/>
-                    {{ $contact->phone }}
-                </li>
-                @endforeach
-            </ol>
-        </div><!--/.contacs-info-->
-        @endif
-
-        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-        <hr/>
-        <div class="report-info">
-            <p>{{ Lang::get('content.report_publication_msg') }}: <a nohref class="btn btn-warning btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
         </div>
-        @endif
-
-        <hr/>
-        <div class="report-info">
-            <p><a nohref class="btn btn-success btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
+        <div class="publication-buttons">
+            @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
+            <div class="report-info">
+                <p><a nohref class="btn btn-primary btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
+            </div>
+            @endif
+            <div class="report-info">
+                <p><a nohref class="btn btn-primary btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
+            </div>
         </div>
-
         @include('include.modal_report')
         @include('include.modal_rateit')
-
     </div><!--/row-fluid-->
 @stop
 
