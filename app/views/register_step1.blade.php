@@ -1,4 +1,4 @@
-{{ Form::open(array('url' => 'registro','class'=>'big-form register-form')) }}
+{{ Form::open(array('url' => 'registro','class'=>'big-form register-form', 'id' => 'register-form')) }}
     <h4 class='header'>{{ Lang::get('content.register_header') }}</h4>
     <fieldset>
         <div class="control-group {{ $errors->has('register_email')? 'error':'' }}">
@@ -16,9 +16,6 @@
         <label class="checkbox terminos">
             {{ Form::checkbox('register_conditions',true,null,array('class'=>'required')) }} {{ Lang::get('content.register_conditions') }}
         </label>
-        <div class="register-controls text-right">
-            {{ Form::submit(Lang::get('content.register_signup'),array('class' => 'btn btn-warning')) }}
-        </div>
     </fieldset>
 {{ Form::close() }}
 
@@ -27,7 +24,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('.register-form').validateBootstrap({placement:'left'});
+        jQuery('#register-form').validateBootstrap({placement:'bottom'});
     });
 </script>
 @stop

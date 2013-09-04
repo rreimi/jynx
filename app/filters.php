@@ -103,5 +103,17 @@ Route::filter('csrf', function()
 	}
 });
 
+
+Route::filter('csrf-json', function()
+{
+    if (Session::token() != Input::get('_token'))
+    {
+        $result = new stdClass;
+        $result->status = "error";
+        $result->status_code = "invalid_token";
+        return Response::json($result, 400);
+    }
+});
+
 Route::filter('referer', 'RefererFilter');
 Route::filter('previousReferer', 'PreviousRefererFilter');

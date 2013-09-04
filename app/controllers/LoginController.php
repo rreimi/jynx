@@ -11,15 +11,28 @@ class LoginController extends BaseController{
     }
 
     public function getIndex(){
-        return View::make('login');
+        return View::make('/login');
     }
 
     public function postIndex(){
 
-        $validator = Validator::make(Input::all(),self::rules());
+        $validator = Validator::make(Input::all(), LoginController::rules());
 
         if($validator->fails()){
-            return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
+
+            if (Request::ajax())
+            {
+                $result = new stdClass;
+                $result->status = "error";
+                $result->status_code = "validation";
+                $result->errors = array();
+                foreach ($validator->messages()->getMessages() as $msg) {
+                    $result->errors[] =$msg[0];
+                }
+                return Response::json($result, 400);
+            } else {
+                return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
+            }
         }
 
         if (Auth::attempt(
@@ -29,22 +42,49 @@ class LoginController extends BaseController{
             ),
             Input::get('login_remember')!=null)
         ){
-            if(Auth::user()->isAdmin()){
-                return Redirect::to('dashboard');
-            }else{
-                return Redirect::to('/');
-            }
-        }else{
-            $validator->errors()->add('login_email',Lang::get('content.login_error'));
-            //$validator->errors()->add('login_password','any');
 
-            return Redirect::to('login')->withErrors($validator);
+            if (Request::ajax())
+            {
+                $result = new stdClass;
+                $result->status = "success";
+                $result->status_code = "login_success";
+                $result->redirect_url = URL::to('/');
+
+                if(Auth::user()->isAdmin()){
+                    $result->redirect_url = URL::to('/dashboard');
+                }
+                return Response::json($result, 200);
+            } else {
+                if(Auth::user()->isAdmin()){
+                    return Redirect::to('dashboard');
+                }else{
+                    return Redirect::to('/');
+                }
+            }
+
+
+        }else{
+
+            $validator->errors()->add('login_email',Lang::get('content.login_error'));
+
+            if (Request::ajax())
+            {
+                $result = new stdClass;
+                $result->status = "error";
+                $result->status_code = "validation";
+                $result->errors = array();
+                foreach ($validator->messages()->getMessages() as $msg) {
+                    $result->errors[] =$msg[0];
+                }
+                return Response::json($result, 400);
+            } else {
+                return Redirect::to('login')->withErrors($validator);
+            }
         }
 
     }
 
-    private function rules(){
-
+    public static function rules(){
         return array(
             'login_email' => 'required|exists:users,email',
             'login_password' => 'required'

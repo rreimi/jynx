@@ -8,14 +8,30 @@ class RegisterController extends BaseController{
 
     public function __construct(){
         $this->beforeFilter('auth', array('except'=>array('postIndex','getFinalizar', 'getActivacion')));
+        $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
     }
 
     public function postIndex(){
 
-        $validator = Validator::make(Input::all(),self::registroReglas());
+        $validator = Validator::make(Input::all(), RegisterController::registroReglas());
 
         if($validator->fails()){
-            return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
+            if (Request::ajax())
+            {
+                $result = new stdClass;
+                $result->status = "error";
+                $result->status_code = "validation";
+                $result->errors = array();
+
+                foreach ($validator->messages()->getMessages() as $msg) {
+                    $result->errors[] =$msg[0];
+                }
+
+                return Response::json($result, 400);
+            } else {
+                return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
+            }
+
         }
 
         $user = new User();
@@ -46,7 +62,16 @@ class RegisterController extends BaseController{
 
         self::sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
-        return Redirect::to('/?activacion=show');
+        if (Request::ajax()) {
+            $result = new stdClass;
+            $result->status = "success";
+            $result->status_code = "register_success";
+            $result->redirect_url = URL::to('/?activacion=show');
+            return Response::json($result, 200);
+        } else {
+            return Redirect::to('/?activacion=show');
+        }
+
     }
 
     public function getDatosAnunciante(){
@@ -203,7 +228,7 @@ class RegisterController extends BaseController{
         );
     }
 
-    private function registroReglas(){
+    public static function registroReglas(){
 
         return array(
             'register_email' => 'required|unique:users,email',

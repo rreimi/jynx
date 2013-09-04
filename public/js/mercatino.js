@@ -1,3 +1,31 @@
+jQuery.fn.serializeObject = function() {
+    var arrayData, objectData;
+    arrayData = this.serializeArray();
+    objectData = {};
+
+    $.each(arrayData, function() {
+        var value;
+
+        if (this.value != null) {
+            value = this.value;
+        } else {
+            value = '';
+        }
+
+        if (objectData[this.name] != null) {
+            if (!objectData[this.name].push) {
+                objectData[this.name] = [objectData[this.name]];
+            }
+
+            objectData[this.name].push(value);
+        } else {
+            objectData[this.name] = value;
+        }
+    });
+
+    return objectData;
+};
+
 $.pnotify.defaults.history = false;
 
 $.pnotify.defaults.delay = 3000;
@@ -119,6 +147,91 @@ Mercatino.modalConfirm = {
     }
 };
 
+
+Mercatino.registerForm = {
+    show: function(title, content, url){
+        //jQuery('#modal-confirm .modal-header h3').html(title);
+        //jQuery('#modal-confirm .modal-body p').html(content);
+        //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+        jQuery('#register-form')[0].reset();
+        jQuery('#modal-register').modal('show');
+    },
+    hide: function(){
+        jQuery('#modal-register').modal('hide');
+    },
+    send: function(){
+
+        var formData = jQuery('#register-form').serializeObject();
+        var url = jQuery('#register-form').attr('action');
+
+        jQuery.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(result) {
+                var data = result.responseJSON;
+                window.location.href = data.redirect_url;
+            },
+            error: function(result) {
+                var data = result.responseJSON;
+
+                if (data.status_code == 'validation') {
+                    for (var i = 0; i < data.errors.length; i++){
+                        Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                    }
+                    return false;
+                };
+
+                if (data.status_code == 'invalid_token') {
+                    window.location.href = "/";
+                };
+            }
+        });
+    }
+};
+
+Mercatino.loginForm = {
+    show: function(title, content, url){
+        //jQuery('#modal-confirm .modal-header h3').html(title);
+        //jQuery('#modal-confirm .modal-body p').html(content);
+        //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+        jQuery('#login-form')[0].reset();
+        jQuery('#modal-register').modal('show');
+    },
+    hide: function(){
+        jQuery('#modal-register').modal('hide');
+    },
+    send: function(){
+
+        var formData = jQuery('#login-form').serializeObject();
+        var url = jQuery('#login-form').attr('action');
+
+        jQuery.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(result) {
+                var data = result.responseJSON;
+                window.location.href = data.redirect_url;
+            },
+            error: function(result) {
+                var data = result.responseJSON;
+                if (data.status_code == 'validation') {
+                    for (var i = 0; i < data.errors.length; i++){
+                        Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                    }
+                    return false;
+                };
+
+                if (data.status_code == 'invalid_token') {
+                    window.location.href = "/";
+                };
+            }
+        });
+    }
+};
 
 Mercatino.tronSkin=function(){
     var a = this.angle(this.cv)  // Angle

@@ -156,6 +156,7 @@ return array(
     "backend_users_section_title" => "Aprobaciones pendientes",
     "backend_reports_section_title" => "Denuncias pendientes",
     "backend_user_approve" => "Aprobar",
+    "backend_user_not_approve" => "Desaprobar",
 
     // Messages
     "delete_publication_invalid" => "La publicación que intentas eliminar es inválida",
