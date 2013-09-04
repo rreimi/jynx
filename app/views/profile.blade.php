@@ -64,7 +64,7 @@
             @if($user->isPublisher())
                 <h2 id="anunciante">{{Lang::get('content.profile_edit_publisher')}}</h2>
                 <div class="control-group {{ $errors->has('seller_name') ? 'error':'' }}">
-                    <label class="control-label" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
+                    <label class="control-label required-field" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
                     <div class="controls">
                         {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_seller_name'))) }}
                         {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="control-group {{ $errors->has('publisher_type') ? 'error':'' }}">
-                    <label class="control-label" for="title">{{ Lang::get('content.profile_publisher_type') }}</label>
+                    <label class="control-label required-field" for="title">{{ Lang::get('content.profile_publisher_type') }}</label>
                     <div class="controls">
                         {{ Form::select('publisher_type',
                             array(
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="control-group letter-rif-ci {{ ($errors->has('letter_rif_ci') || $errors->has('rif_ci')) ? 'error':'' }}">
-                    <label class="control-label" for="title">{{ Lang::get('content.profile_id') }}</label>
+                    <label class="control-label required-field" for="title">{{ Lang::get('content.profile_id') }}</label>
                     <div class="controls controls-row">
                         {{ Form::select('letter_rif_ci',
                             array('' => Lang::get('content.select')),
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="control-group {{ $errors->has('state') ? 'error':'' }}">
-                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_state') }}</label>
+                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_state') }}</label>
                     <div class="controls">
                         {{ Form::select('state',
                             array_merge(array('' => Lang::get('content.select')), $states),
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="control-group {{ $errors->has('city') ? 'error':'' }}">
-                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_city') }}</label>
+                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_city') }}</label>
                     <div class="controls">
                         {{ Form::text('city', $user->publisher->city, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_city'))) }}
                         {{ $errors->first('city', '<div class="field-error alert alert-error">:message</div>') }}
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
-                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
+                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                     <div class="controls">
                         {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_phone1'))) }}
                         <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
