@@ -25,7 +25,7 @@ Route::controller('login','LoginController');
 
 Route::get('logout',function(){
     Auth::logout();
-    return Redirect::to('login');
+    return Redirect::to('/');
 });
 
 Route::controller('registro','RegisterController');
