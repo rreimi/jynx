@@ -61,6 +61,13 @@ h2.home-title {
     height: 2.0em;
 }
 
+.pub-title:hover, .pub-title:focus, .pub-info-desc a:hover,  pub-info-desc a:focus {
+    color: #64A3D7;
+    text-decoration: none;
+}
+
+.pub-info-desc a:
+
 .pub-line {
     display: block;
 }
@@ -96,6 +103,7 @@ h2.home-title {
     border: 1px solid #CCCCCC;
     height: 450px;
     width: 450px;
+    margin-top: 60px;
 }
 
 .pub-images-carousel .carousel-inner .pub-image-wrapper {
@@ -125,6 +133,89 @@ h2.home-title {
     right:4%;
 }
 
+.publication-detail h1 {
+    background-color: #3385CB;
+    color: #FFF;
+    font-size: 1.2em;
+    padding-left: 20px;
+    width: 55%;
+    margin-top: 30px;
+    float: left;
+}
+
+.triangle {
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #3385CB;
+    border-top: 20px solid transparent;
+    float: left;
+    height: 0;
+    margin-top: 30px;
+    width: 0;
+}
+
+
+.publication-info {
+    float: left;
+    width: 660px;
+    margin-left: 20px;
+    font-size: 1.1em;
+    color: #444444;
+}
+
+.publication-info div {
+    margin-top: 20px;
+}
+
+.publication-info .evaluation {
+    width: 168px;
+}
+
+.publication-info .current-rating {
+    margin-top: 3px;
+    float: right;
+}
+
+.publication-info h2 {
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 1.1em;
+    height: 30px;
+}
+
+.publication-info .title-arrow {
+    margin-right: 5px;
+}
+
+.publication-detail .publication-info p {
+    font-size: 1em;
+    margin-left: 13px;
+}
+
+.publication-info ul {
+    font-size: 0.9em;
+    margin-left: 28px;
+}
+
+.pub-name {
+    background: url('../img/pub_nombre.png') 0 center no-repeat;
+    padding-left: 40px;
+}
+
+.pub-phone {
+    background: url('../img/pub_telefono.png') 0 center no-repeat;
+    padding-left: 40px;
+}
+
+.pub-location {
+    background: url('../img/pub_direccion.png') 0 center no-repeat;
+    padding-left: 40px;
+}
+
+.pub-email {
+    background: url('../img/pub_correo.png') 0 center no-repeat;
+    padding-left: 40px;
+}
+
 .pub-list-btn-group {
     margin-bottom: 1em;
 }
@@ -136,6 +227,19 @@ h2.home-title {
 .pub-table .title-with-categories {
     font-size:.9em; color:#777;
     display: block;
+}
+
+.publication-info .contact {
+    float: left;
+    width: 315px;
+    padding-right: 15px;
+    margin-top: 0;
+}
+
+.publication-buttons {
+    float: right;
+    text-align: center;
+    width: 450px;
 }
 
 /*.pub-table .row-title {*/
@@ -194,10 +298,6 @@ h2.home-title {
 
 .main-banner-img {
     width:100%;
-}
-
-div#home-banner-top {
-
 }
 
 div#home-banner-top ol.carousel-indicators {
@@ -531,6 +631,42 @@ div#home-banner-top .carousel-control {
 }
 
 /* Contactanos */
-.contactanos-form textarea {
-    height: 125px;
+
+.contactus-form .phone-format-label {
+    margin-left: 0px;
+}
+
+.contactus-form {
+    float: left;
+    margin-left: -100px;
+}
+
+.contact-info {
+    margin-left: 410px;
+    margin-top: 55px;
+}
+
+.contact-info .contact-row.contact-text {
+    padding-left: 40px;
+}
+
+.contact-info a {
+    color: #333;
+}
+
+.contact-info a:hover {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+.contact-info .contact-row.mail:hover {
+    background: url('../img/correo3.png') 0 center no-repeat;
+}
+
+.contact-info .contact-row.facebook:hover {
+    background: url('../img/facebook3.png') 0 center no-repeat;
+}
+
+.contact-info .contact-row.twitter:hover {
+    background: url('../img/twitter3.png') 0 center no-repeat;
 }
