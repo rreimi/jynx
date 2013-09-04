@@ -31,7 +31,7 @@
         <label class="control-label required-field" for="phone">{{ Lang::get('content.contactus_phone') }}</label>
         <div class="controls">
             {{ Form::text('phone', $contactUs->phone, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.contactus_phone'))) }}
-            <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
+            <br/><label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
             {{ $errors->first('phone', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>
@@ -64,6 +64,45 @@
     </div>
 
     {{ Form::close() }}
+
+
+    <div class="contact-info">
+        <div class="contact-row address contact-text">
+            {{Lang::get('content.address_line1')}}<br/>
+            {{Lang::get('content.address_line2')}}
+        </div>
+        <br/>
+        <div class="contact-row phone contact-text">
+            {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{Lang::get('content.phones_line2')}}
+        </div>
+        <br/>
+        <div class="contact-row fax contact-text">
+            {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
+        </div>
+        <br/>
+        <a href="mailto:informatica@cavenit.com">
+            <div class="contact-row mail contact-text">
+                {{Lang::get('content.cavenit_email')}}
+            </div>
+        </a>
+        <br/>
+        <a href="https://www.facebook.com/cavenit" target="_blank">
+            <div class="contact-row facebook contact-text">
+                {{Lang::get('content.facebook')}}
+            </div>
+        </a>
+        <br/>
+        <a href="https://twitter.com/cavenit" target="_blank">
+            <div class="contact-row twitter contact-text">
+                {{Lang::get('content.twitter')}}
+            </div>
+        </a>
+    </div>
+</div>
+
 
 </div><!--/row-fluid-->
 @stop
