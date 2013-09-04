@@ -170,8 +170,8 @@ Mercatino.registerForm = {
             data: formData,
             dataType: 'json',
             success: function(result) {
-                var data = result.responseJSON;
-                window.location.href = data.redirect_url;
+                //var data = result.responseJSON;
+                window.location.href = result.redirect_url;
             },
             error: function(result) {
                 var data = result.responseJSON;
