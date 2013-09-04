@@ -3,7 +3,7 @@
 @section('content')
     <div class="row-fluid">
 
-        {{ Form::open(array('url' => 'dashboard/approve','class'=>'')) }}
+        {{ Form::open(array('url' => 'dashboard/approve','class'=>'','id'=>'approve_form')) }}
 
             <table class="table table-bordered table-condensed">
                 <h2>{{ Lang::get('content.backend_users_section_title') }}</h2>
@@ -31,7 +31,9 @@
                 </tbody>
             </table>
             <div class="text-right">
-                <button class="btn btn-success" type="submit">{{ Lang::get('content.backend_user_approve') }}</button>
+                <input type="hidden" name="approve" id="approve" value=""/>
+                <button class="btn btn-warning not_approve" type="button">{{ Lang::get('content.backend_user_not_approve') }}</button>
+                <button class="btn btn-success approve" type="button">{{ Lang::get('content.backend_user_approve') }}</button>
             </div>
 
             {{ $users->links() }}
@@ -99,6 +101,16 @@
     };
 
     jQuery(document).ready(function(){
+
+        jQuery('.not_approve').on('click',function(){
+            jQuery('#approve').val(false);
+            jQuery('#approve_form').submit();
+        });
+
+        jQuery('.approve').on('click',function(){
+            jQuery('#approve').val(true);
+            jQuery('#approve_form').submit();
+        });
 
         jQuery('.report-modal').on('click',function(){
             var remote=jQuery(this).data('remote');
