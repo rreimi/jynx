@@ -81,6 +81,9 @@ class PublicationController extends BaseController {
 
         /* TODO Cargar la lista de los últimos productos vistos por el usuario actual */
 
+        $publisher = User::find($data['publication']->publisher->user_id);
+        $data['publisher_email']=$publisher->email;
+
         return Response::view('publication', $data)->withCookie($cookie);
 	}
 
@@ -179,6 +182,7 @@ class PublicationController extends BaseController {
             'state' => $state,
             'user' => $user,
             'is_post' => $isPost
+
             ) //end array
         );
     }
