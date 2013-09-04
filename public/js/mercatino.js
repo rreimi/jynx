@@ -214,7 +214,7 @@ Mercatino.loginForm = {
             dataType: 'json',
             success: function(result) {
                 var data = result.responseJSON;
-                window.location.reload();
+                //window.location.reload();
                 setTimeout(function(){window.location.reload()}, 1500);
             },
             error: function(result) {
