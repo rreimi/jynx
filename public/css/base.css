@@ -193,6 +193,10 @@ footer .contact-row.contact-text {
     margin-bottom: 18px;
 }
 
+.footer-title:hover {
+    text-decoration: underline;
+}
+
 .products-footer {
     width:31%;
 }

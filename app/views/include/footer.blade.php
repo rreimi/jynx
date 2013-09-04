@@ -62,7 +62,7 @@
                 <br/>
                 <a href="mailto:informatica@cavenit.com">
                     <div class="contact-row mail contact-text">
-                        {{Lang::get('content.contact_email')}}
+                        {{Lang::get('content.cavenit_email')}}
                     </div>
                 </a>
                 <br/>

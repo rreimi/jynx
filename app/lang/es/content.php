@@ -112,7 +112,7 @@ return array(
     "phones_line2" => "58-212-2642845 / 2643742",
     "fax_label" => "Fax:",
     "fax_line1" => "58-212-2647213",
-    "contact_email" => "informatica@cavenit.com",
+    "cavenit_email" => "informatica@cavenit.com",
     "facebook" => "CAVENIT",
     "twitter" => "@cavenit",
     "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
