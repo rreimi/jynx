@@ -13,6 +13,7 @@ class PublicationController extends BaseController {
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
         View::share('detailSize', self::$detailSize);
+        View::share('thumbSize', self::$thumbSize);
 
     }
 
@@ -85,6 +86,29 @@ class PublicationController extends BaseController {
 
         $publisher = User::find($data['publication']->publisher->user_id);
         $data['publisher_email']=$publisher->email;
+
+        $data['lastvisited'] = array();
+        /* Get cookie of last visited by the user */
+        $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
+        $cookieArray = Cookie::get($cookieName);
+        if (isset($cookieArray)){
+            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
+
+            $lastVisitedOrdered = array();
+
+            foreach ($cookieArray as $item){
+                foreach ($lastVisited as $key => $value){
+                    if ($value->id == $item){
+                        $lastVisitedOrdered[] = $value;
+                        break;
+                    }
+                }
+            }
+
+            $data['lastvisited'] = $lastVisitedOrdered;
+
+        }
+
 
         return Response::view('publication', $data)->withCookie($cookie);
 	}
