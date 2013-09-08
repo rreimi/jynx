@@ -42,6 +42,10 @@
     @show
 </footer>
 
+@section('modal-remainder')
+@include('include.modal_remainder')
+@show
+
 @section('modal-confirm')
 @include('include.modal_confirm')
 @show
@@ -71,6 +75,11 @@
             if (Mercatino) {
                 Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
             }
+
+            jQuery('.remainder-trigger').on('click', function () {
+                Mercatino.remainderForm.show();
+            });
+        
         });
     </script>
 @endif

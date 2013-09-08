@@ -147,6 +147,15 @@ Mercatino.modalConfirm = {
     }
 };
 
+Mercatino.remainderForm = {
+    show:function(){
+        //href="{{URL::to('/olvido')}}"
+        jQuery('#modalRemainder').modal('show');
+    },
+    hide:function(){
+        jQuery('#modalRemainder').modal('hide');
+    }
+}
 
 Mercatino.registerForm = {
     show: function(title, content, url){
@@ -271,7 +280,7 @@ Mercatino.tronSkin=function(){
     this.g.stroke();
 
     return false;
-}
+};
 
 
 
