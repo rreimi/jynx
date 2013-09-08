@@ -15,56 +15,55 @@
     {{ HTML::style('css/module.css') }}
 </head>
 <body>
+    <header id="header" class="site-header">
+        @include('include.header')
+    </header>
 
-<header id="header" class="site-header">
-    @include('include.header')
-</header>
+    <div id="body" class="container-fluid main-container">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="sidebar-nav well well-small">
+                    @section('sidebar')
+                        @include('include.backend_sidebar')
+                    @show
+                </div>
+            </div>
 
-<div id="body" class="container-fluid main-container">
-    <div class="row-fluid">
-        <div class="span3">
-            <div class="sidebar-nav well well-small">
-                @section('sidebar')
-                    @include('include.backend_sidebar')
-                @show
+            <div class="span9">
+                @yield('content')
             </div>
         </div>
-
-        <div class="span9">
-            @yield('content')
-        </div>
     </div>
-</div>
 
-<footer id="footer">
-    @section('footer')
-    @include('include.footer')
+    <footer id="footer">
+        @section('footer')
+        @include('include.footer')
+        @show
+    </footer>
+
+    @section('modal-confirm')
+    @include('include.modal_confirm')
     @show
-</footer>
 
-@section('modal-confirm')
-@include('include.modal_confirm')
-@show
+    @section('scripts')
+    {{ HTML::script('js/jquery-1.10.1.min.js') }}
+    {{ HTML::script('js/jquery.validate.min.js') }}
+    {{ HTML::script('js/bootstrap.min.js') }}
+    {{ HTML::script('js/jquery.pnotify.min.js') }}
+    {{ HTML::script('js/mercatino.js') }}
+    {{ HTML::script('js/verge/verge.min.js') }}
+    {{ HTML::script('js/footer.js') }}
+    {{ HTML::script('js/messages_es.js') }}
+    @show
 
-@section('scripts')
-{{ HTML::script('js/jquery-1.10.1.min.js') }}
-{{ HTML::script('js/jquery.validate.min.js') }}
-{{ HTML::script('js/bootstrap.min.js') }}
-{{ HTML::script('js/jquery.pnotify.min.js') }}
-{{ HTML::script('js/mercatino.js') }}
-{{ HTML::script('js/verge/verge.min.js') }}
-{{ HTML::script('js/footer.js') }}
-{{ HTML::script('js/messages_es.js') }}
-@show
-
-@if (!is_null(Session::get('flash_global_message')))
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        if (Mercatino) {
-            Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
-        }
-    });
-</script>
-@endif
+    @if (!is_null(Session::get('flash_global_message')))
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            if (Mercatino) {
+                Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
+            }
+        });
+    </script>
+    @endif
 </body>
 </html>
