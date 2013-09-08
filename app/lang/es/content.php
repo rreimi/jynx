@@ -432,6 +432,7 @@ return array(
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
     'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
     'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
+    'email_disapproved_user_notification' => 'En este momento su solicitud no pudo ser aprobada por TuMercato.com',
     'email_admin_notification_new_report' => 'Se ha generado una nueva denuncia en TuMercato.com',
 
     // Home - Post activation dialog

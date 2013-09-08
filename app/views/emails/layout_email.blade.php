@@ -18,6 +18,8 @@
                 @include('emails.admin_notification_new_adviser')
             @elseif ($contentEmail == 'approved_user_notification')
                 @include('emails.approved_user_notification')
+            @elseif ($contentEmail == 'disapproved_user_notification')
+                @include('emails.disapproved_user_notification')
             @elseif ($contentEmail == 'admin_notification_new_report')
                 @include('emails.admin_notification_new_report')
             @endif
