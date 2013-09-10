@@ -29,20 +29,13 @@
         @show
     </footer>
 
-    @section('scripts')
-        {{ HTML::script('js/jquery-1.10.1.min.js') }}
-        {{ HTML::script('js/bootstrap.min.js') }}
-        {{ HTML::script('js/jquery.pnotify.min.js') }}
-        {{ HTML::script('js/jquery.validate.min.js') }}
-        {{ HTML::script('js/messages_es.js') }}
-        {{ HTML::script('js/mercatino.js') }}
-        {{ HTML::script('js/verge/verge.min.js') }}
-        {{ HTML::script('js/footer.js') }}
-        <script type="text/javascript">
-            jQuery(document).ready(function(){
-                Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();
-            })
-        </script>
-    @show
+@section('scripts')
+@include('include.scripts')
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        Messages.configErrors({{ $errors }},"{{ Lang::get('content.site_messages_title_error') }}").show();
+    })
+</script>
+@show
 </body>
 </html>
