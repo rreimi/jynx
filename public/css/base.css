@@ -92,6 +92,7 @@ body {
 .guest-options a:hover {
     color: #444;
     text-decoration: none;
+    cursor: pointer;
 }
 
 /* Home product carousels */

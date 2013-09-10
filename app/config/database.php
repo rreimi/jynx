@@ -54,10 +54,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'database',
-			'username'  => 'user',
-			'password'  => 'pass',
+			'host'      => 'dev-androb-db.cmqedjomepug.us-west-2.rds.amazonaws.com',
+            //'host'      => 'localhost',
+			'database'  => 'mercatino',
+            //'username'  => 'root',
+            //'password'  => '',
+			'username'  => 'mercatino',
+			'password'  => 'mercatinoandrob',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

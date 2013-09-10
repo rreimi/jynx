@@ -48,8 +48,6 @@
 
                     <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
 
-                    <li><a href="{{URL::to('')}}">{{Lang::get('content.partners')}}</a></li>
-
                     <li><a href="{{URL::to('/contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
                     @if(Auth::check())
