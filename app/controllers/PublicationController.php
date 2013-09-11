@@ -634,7 +634,9 @@ class PublicationController extends BaseController {
 
     }
 
-    /* cron job Send notification email to users which their publications are next to expire. */
+    /** Cron job = Executed 01:00 am - publicacion/verificar-vencimiento-publicacion
+     *  Send notification email to users which their publications are next to expire.
+    **/
     public function getVerificarVencimientoPublicacion(){
 
         $pubs = Publication::nextToExpirePublication()->get();
