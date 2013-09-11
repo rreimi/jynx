@@ -434,6 +434,10 @@ return array(
     'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
     'email_disapproved_user_notification' => 'En este momento su solicitud no pudo ser aprobada por TuMercato.com',
     'email_admin_notification_new_report' => 'Se ha generado una nueva denuncia en TuMercato.com',
+    'email_publication_next_expire' => 'Su publicación #:pubId en TuMercato.com está por caducar',
+    'email_cron_admin_notification_pub_next_expire_subject' => 'Notificación exitosa de próximos vencimientos de publicaciones',
+    'email_cron_admin_notification_pub_next_expire_content' => 'Estimado Administrador,<br/><br/>Han sido enviados existosamente los correos de notificación a
+                                        los usuarios que tienen publicaciones próximas a vencer.',
 
     // Home - Post activation dialog
     'home_post_activation_title' => 'Usuario registrado',

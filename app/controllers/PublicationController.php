@@ -634,6 +634,49 @@ class PublicationController extends BaseController {
 
     }
 
+    /* cron job Send notification email to users which their publications are next to expire. */
+    public function getVerificarVencimientoPublicacion(){
+
+        $pubs = Publication::nextToExpirePublication()->get();
+
+        // Send notification email to users which publication is next to expire
+        $data = array(
+            'contentEmail' => 'user_notification_publication_next_expire',
+        );
+
+        foreach ($pubs as $pub){
+            $data['sellerName'] = $pub->publisher->seller_name;
+            $data['fromDate'] = date("d-m-Y", strtotime($pub->from_date));
+            $data['toDate'] = date("d-m-Y", strtotime($pub->to_date));
+            $data['myPubLink'] = URL::to('publicacion/lista');
+
+            $receiver = array(
+                'email' => $pub->publisher->user->email,
+            );
+
+            $subject = Lang::get('content.email_publication_next_expire', array('pubId' => $pub->id));
+
+            self::sendMultipleMail('emails.layout_email', $data, $receiver, $subject);
+        }
+
+        // Notify the admin about the result of the operation
+        $receiver = array(
+            'email' => Config::get('emails/addresses.email_cron_report'),
+            'name' => Config::get('emails/addresses.name_cron_report'),
+        );
+
+        $data = array(
+            'contentEmail' => 'general_notification',
+            'notification' => Lang::get('content.email_cron_admin_notification_pub_next_expire_content'),
+        );
+
+        $subject = Lang::get('content.email_cron_admin_notification_pub_next_expire_subject');
+
+        self::sendMail('emails.layout_email', $data, $receiver, $subject);
+
+        return;
+    }
+
     private static function getPublicationStatuses($blankCaption = '') {
 
         $options = array (

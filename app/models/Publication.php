@@ -89,4 +89,12 @@ class Publication extends Eloquent {
         });
     }
 
+    /* Method used to retrieve all publications next to expire (next 3 days) and send email notification. */
+    public function scopeNextToExpirePublication($query){
+        $dateReference = Date('Y-m-d', strtotime("+3 days"));
+
+        return $query->where('to_date', $dateReference)
+                     ->where('remember', true);
+    }
+
 }
