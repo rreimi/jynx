@@ -28,6 +28,13 @@ Route::get('logout',function(){
     return Redirect::to('/');
 });
 
+Route::post('olvido', function()
+{
+    $credentials = array('email' => Input::get('remainder_email'));
+
+    return Password::remind($credentials);
+});
+
 Route::controller('registro','RegisterController');
 
 Route::controller('publicacion','PublicationController');

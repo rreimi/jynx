@@ -48,7 +48,7 @@ class LoginController extends BaseController{
                 $result = new stdClass;
                 $result->status = "success";
                 $result->status_code = "login_success";
-                $result->redirect_url = URL::to('/');
+                $result->redirect_url = '';
 
                 if(Auth::user()->isAdmin()){
                     $result->redirect_url = URL::to('/dashboard');

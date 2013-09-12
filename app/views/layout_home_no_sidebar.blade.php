@@ -18,27 +18,31 @@
     {{ HTML::style('css/module.css') }}
 </head>
 <body>
+    <header id="header" class="site-header">
+        @include('include.header')
+    </header>
 
-<header id="header" class="site-header">
-    @include('include.header')
-</header>
+    <div class="container-fluid slider-area">
+        @section('slideshow')
+        @show
+    </div>
 
-<div class="container-fluid slider-area">
-    @section('slideshow')
-    @show
-</div>
+    <div id="body" class="container main-container">
+        <div class="row-fluid">
+            <div class="span12">
+                @yield('content')
+            </div><!--/span-->
+        </div><!--/row-->
+    </div><!--/.fluid-container-->
 
-<div id="body" class="container main-container">
-    <div class="row-fluid">
-        <div class="span12">
-            @yield('content')
-        </div><!--/span-->
-    </div><!--/row-->
-</div><!--/.fluid-container-->
+    <footer id="footer" class="container-fluid">
+        @section('footer')
+            @include('include.footer')
+        @show
+    </footer>
 
-<footer id="footer" class="container-fluid">
-    @section('footer')
-        @include('include.footer')
+    @section('modal-confirm')
+    @include('include.modal_confirm')
     @show
 </footer>
 
@@ -54,34 +58,8 @@
 @include('include.modal_register')
 @show
 
-@section('modal-login')
-@include('include.modal_login')
-@show
-
 @section('scripts')
-{{ HTML::script('js/jquery-1.10.1.min.js') }}
-{{ HTML::script('js/jquery.validate.min.js') }}
-{{ HTML::script('js/bootstrap.min.js') }}
-{{ HTML::script('js/jquery.pnotify.min.js') }}
-{{ HTML::script('js/mercatino.js') }}
-{{ HTML::script('js/verge/verge.min.js') }}
-{{ HTML::script('js/footer.js') }}
-{{ HTML::script('js/messages_es.js') }}
+@include('include.scripts')
 @show
-
-@if (!is_null(Session::get('flash_global_message')))
-    <script type="text/javascript">
-        jQuery(document).ready(function(){
-            if (Mercatino) {
-                Mercatino.showFlashMessage({{ Session::get('flash_global_message') }});
-            }
-
-            jQuery('.remainder-trigger').on('click', function () {
-                Mercatino.remainderForm.show();
-            });
-        
-        });
-    </script>
-@endif
 </body>
 </html>

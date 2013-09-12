@@ -154,6 +154,9 @@ Mercatino.remainderForm = {
     },
     hide:function(){
         jQuery('#modalRemainder').modal('hide');
+    },
+    send:function(){
+        jQuery('#remainderForm').submit();
     }
 }
 
@@ -184,7 +187,6 @@ Mercatino.registerForm = {
             },
             error: function(result) {
                 var data = result.responseJSON;
-
                 if (data.status_code == 'validation') {
                     for (var i = 0; i < data.errors.length; i++){
                         Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
@@ -201,12 +203,17 @@ Mercatino.registerForm = {
 };
 
 Mercatino.loginForm = {
-    show: function(title, content, url){
+    init: function(title, content, url){
         //jQuery('#modal-confirm .modal-header h3').html(title);
         //jQuery('#modal-confirm .modal-body p').html(content);
         //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
         jQuery('#login-form')[0].reset();
-        jQuery('#modal-register').modal('show');
+
+        jQuery('#login-form input').bind('keydown', function(event){
+            if (event.which == 13) {
+                Mercatino.loginForm.send();
+            };
+        })
     },
     hide: function(){
         jQuery('#modal-register').modal('hide');
@@ -222,9 +229,11 @@ Mercatino.loginForm = {
             data: formData,
             dataType: 'json',
             success: function(result) {
-                var data = result.responseJSON;
-                //window.location.reload();
-                setTimeout(function(){window.location.reload()}, 1500);
+                if (result.redirect_url == '') {
+                    window.location.reload();
+                } else {
+                    window.location.href = result.redirect_url;
+                }
             },
             error: function(result) {
                 var data = result.responseJSON;

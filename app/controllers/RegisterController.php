@@ -60,7 +60,7 @@ class RegisterController extends BaseController{
 
         $subject = Lang::get('content.email_welcome_user_subject');
 
-        RegisterController::sendMailRegister('emails.layout_email', $welcomeData, $receiver, $subject);
+        BaseController::sendAjaxMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
        //$this->sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
@@ -238,14 +238,6 @@ class RegisterController extends BaseController{
             'register_password' => 'required|confirmed',
             'register_password_confirmation' => 'required'
         );
-    }
-
-    public static function sendMailRegister($template, $data, $receivers, $subject){
-
-       /* Mail::send($template, $data, function($message) use ($receivers, $subject){
-            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
-            $message->to($receivers['email'], $receivers['name'])->subject($subject);
-        });*/
     }
 
 }
