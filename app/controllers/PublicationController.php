@@ -679,6 +679,42 @@ class PublicationController extends BaseController {
         return;
     }
 
+    /** Cron job = Executed 02:00 am - publicacion/cambiar-estatus-por-fechas
+     *  Update publication's status according to date range specified in the publication.
+     **/
+    public function getCambiarEstatusPorFechas(){
+
+        $currentDate = Date('Y-m-d', strtotime('now'));
+
+        // Activate publications - Change status to Published for publications that have from_date today and status On_Hold
+        Publication::where('from_date', $currentDate)
+                    ->where('status', 'On_Hold')
+                    ->update(array('status'=>'Published'));
+
+        // Desactivate publications - Change status to Finished for publications that have to_date less than today
+        Publication::where('to_date', '<', $currentDate)
+                    ->where('status', 'Published')
+                    ->update(array('status'=>'Finished'));
+
+        // Notify the admin about the result of the operation
+        $receiver = array(
+            'email' => Config::get('emails/addresses.email_cron_report'),
+            'name' => Config::get('emails/addresses.name_cron_report'),
+        );
+
+        $data = array(
+            'contentEmail' => 'general_notification',
+            'notification' => Lang::get('content.email_cron_admin_notification_pub_change_status_date_content'),
+        );
+
+        $subject = Lang::get('content.email_cron_admin_notification_pub_change_status_date_subject');
+
+        self::sendMail('emails.layout_email', $data, $receiver, $subject);
+
+        return;
+
+    }
+
     private static function getPublicationStatuses($blankCaption = '') {
 
         $options = array (
