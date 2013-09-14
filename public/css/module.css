@@ -429,7 +429,7 @@ div#home-banner-top .carousel-control {
     content: "* ";
 }
 
-.phone-format-label {
+.phone-format-label, .order-label, .external-url-label {
     display: inline;
     font-size: 1em;
     margin-left: 10px;
