@@ -109,6 +109,8 @@ return array(
 
         'email' => 'Correo',
         'full_name' => 'Nombre persona / Razón social',
+        'external_url' => 'Url externa',
+        'order' => 'Orden de presentación',
         'password' => 'Contraseña',
         'password_confirmation' => 'Confirma Contraseña',
         'seller_name' => 'Nombre vendedor / Nombre empresa',
