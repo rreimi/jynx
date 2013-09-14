@@ -149,6 +149,7 @@ return array(
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
+    "backend_menu_reports" => "Denuncias",
     "backend_search_publication_title" => "Buscar publicaciones",
 
 
@@ -157,6 +158,10 @@ return array(
     "backend_reports_section_title" => "Denuncias pendientes",
     "backend_user_approve" => "Aprobar",
     "backend_user_not_approve" => "Desaprobar",
+
+    // Backend reports total
+    "backend_reports_total" => "Denuncias totales",
+    'backend_report_total_view_title' => 'Detalle de denuncia',
 
     // Messages
     "delete_publication_invalid" => "La publicación que intentas eliminar es inválida",
@@ -173,6 +178,7 @@ return array(
     "image_url" => "Imagen",
     "external_url" => "Url externa",
     "full_name" => "Nombre completo de persona contacto",
+    "order" => "Orden",
     "email" => "Correo de contacto",
     "phone1" => "Teléfono 1 de contacto",
     "phone2" => "Teléfono 2 de contacto",
@@ -417,6 +423,8 @@ return array(
     // General
     "required_label" => "Requerido",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
+    "external_url_label" => "Debe comenzar con http://",
+    "order_label" => "Valor numérico más alto tiene mayor prioridad",
 
     // Contactanos form
     "contactus" => "Contacto",

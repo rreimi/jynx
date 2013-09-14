@@ -3,6 +3,7 @@
 class ReportController extends BaseController {
 
     private $prefix = 'report';
+    private $page_size = '6';
 
     /**
      * @ajax
@@ -84,6 +85,16 @@ class ReportController extends BaseController {
         );
     }
 
+    public function getDetalleInfo($id){
+        $response = PublicationReport::with('user', 'publication')->find($id);
+
+        return View::make('include.report_total_view',
+            array(
+                'report'=> $response
+            )
+        );
+    }
+
     public function postProcesar(){
         //Get report data
         $repData = array(
@@ -121,6 +132,12 @@ class ReportController extends BaseController {
 
         return Response::json('change_success', 200);
 
+    }
+
+    public function getLista(){
+        $data['reports'] = PublicationReport::totalReports()->with('user')->with('publication')->paginate($this->page_size);;
+
+        return View::make('reports_total_list', $data);
     }
 
 }
