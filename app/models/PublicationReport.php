@@ -22,6 +22,10 @@ class PublicationReport extends Eloquent {
             ->orderBy('id', 'desc');
     }
 
+    public function scopeTotalReports($query){
+        $query->orderBy('id', 'desc');
+    }
+
     public function user(){
         return $this->belongsTo('User');
     }

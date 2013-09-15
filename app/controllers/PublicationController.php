@@ -129,7 +129,7 @@ class PublicationController extends BaseController {
         }
         $isPost = !is_null(Input::get('_token'));
         $state = self::retrieveListState($isPost);
-        $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg'))->orderBy($state['sort'], $state['order']);
+        $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg, reports'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
