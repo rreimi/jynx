@@ -87,11 +87,6 @@
             </div>
         </a>
         <a href="#">
-            <div class="footer-title footer-block allies-footer">
-                {{Lang::get('content.partners')}}
-            </div>
-        </a>
-        <a href="#">
             <div class="footer-title footer-block help-footer">
                 {{Lang::get('content.help')}}
             </div>

@@ -432,7 +432,15 @@ return array(
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
     'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
     'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
+    'email_disapproved_user_notification' => 'En este momento su solicitud no pudo ser aprobada por TuMercato.com',
     'email_admin_notification_new_report' => 'Se ha generado una nueva denuncia en TuMercato.com',
+    'email_publication_next_expire' => 'Su publicación #:pubId en TuMercato.com está por caducar',
+    'email_cron_admin_notification_pub_next_expire_subject' => 'Notificación exitosa de próximos vencimientos de publicaciones',
+    'email_cron_admin_notification_pub_next_expire_content' => 'Estimado Administrador,<br/><br/>Han sido enviados existosamente los correos de notificación a
+                                        los usuarios que tienen publicaciones próximas a vencer.',
+    'email_cron_admin_notification_pub_change_status_date_subject' => 'Actualización existosa de publicaciones programadas',
+    'email_cron_admin_notification_pub_change_status_date_content' => 'Estimado Administrador,<br/><br/>Han sido publicadas/finalizadas existosamente
+                                        las publicaciones de acuerdo al rango de fechas establecido para cada una.',
 
     // Home - Post activation dialog
     'home_post_activation_title' => 'Usuario registrado',
@@ -444,20 +452,20 @@ return array(
 
     "stats_users_basic" => "Básico",
     "stats_description_users_basic" => "Cántidad de usuarios Básicos",
-    "stats_users_publisher" => "Publicadores",
-    "stats_description_users_publisher" => "Cantidad de usuarios Publicadores",
+    "stats_users_publisher" => "Anunciantes",
+    "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Aspirando",
-    "stats_description_users_to_approve"=>"Cantidad de usuarios aspirando a ser Publicadores",
+    "stats_description_users_to_approve"=>"Cantidad de usuarios aspirando a ser Anunciantes",
     "stats_publications"=>"Publicaciones",
     "stats_description_publications"=>"Cantidad de Publicaciones",
-    "stats_publications_reports"=>"Publicaciones denunciadas",
-    "stats_description_publications_reports"=>"Cantidad de publicaciones denunciadas",
-    "stats_reports"=>"Denuncias Totales",
-    "stats_description_reports" => "Cantidad de denuncias",
+    "stats_publications_reports"=>"Publicaciones con denuncia",
+    "stats_description_publications_reports"=>"Cantidad de publicaciones donde se ha realizado alguna denuncia",
+    "stats_reports"=>"Total de denuncias",
+    "stats_description_reports" => "Cantidad de denuncias realizadas en todas las publicaciones",
     "stats_products"=>"Productos",
-    "stats_description_products"=>"Cantidad de productos por categoría",
+    "stats_description_products"=>"Cantidad de publicaciones por categorías de productos",
     "stats_services"=>"Servicios",
-    "stats_description_services"=>"Cantidad de servicios por categoría",
-    "stats_publishers"=>"Publicadores",
-    "stats_description_publishers"=>"Cantidad de publicadores por estado"
+    "stats_description_services"=>"Cantidad de publicaciones por categorías de servicios",
+    "stats_publishers"=>"Anunciantes",
+    "stats_description_publishers"=>"Cantidad de anunciantes por estado"
 );
