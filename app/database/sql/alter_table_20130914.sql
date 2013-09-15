@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `vacancy` tinyint(2),
   `job_type` enum('Contracted','Temporary','Internship','Independent'),
   `temporary_months` tinyint(2),
-  `descripton` varchar(300) NOT NULL,
+  `description` varchar(300) NOT NULL,
   `requirements` varchar(300),
   `academic_level` enum('Secondary','Senior Technician','Master / Specialization','PhD'),
   `experience_years` tinyint(2),
