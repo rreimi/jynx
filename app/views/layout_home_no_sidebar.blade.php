@@ -44,17 +44,26 @@
     @section('modal-confirm')
     @include('include.modal_confirm')
     @show
+</footer>
 
-    @section('modal-register')
-    @include('include.modal_register')
-    @show
+@section('modal-remainder')
+@include('include.modal_remainder')
+@show
 
-    @section('modal-login')
-    @include('include.modal_login')
-    @show
+@section('modal-reset')
+@include('include.modal_reset')
+@show
 
-    @section('scripts')
-    @include('include.scripts')
-    @show
+@section('modal-confirm')
+@include('include.modal_confirm')
+@show
+
+@section('modal-register')
+@include('include.modal_register')
+@show
+
+@section('scripts')
+@include('include.scripts')
+@show
 </body>
 </html>

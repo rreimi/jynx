@@ -94,4 +94,12 @@ class BaseController extends Controller {
        });
     }
 
+    public static function sendAjaxMail($template, $data, $receivers, $subject){
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers['email'], $receivers['name'])->subject($subject);
+        });
+    }
+
 }
