@@ -1,9 +1,7 @@
 @extends('layout_home')
-
-@section('sidebar')
 @parent
 @stop
-
+@section('sidebar')
 @section('content')
 
 <div class="row-fluid">
@@ -79,27 +77,12 @@
             {{Lang::get('content.phones_line2')}}
         </div>
         <br/>
-        <div class="contact-row fax contact-text">
-            {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
-        </div>
-        <br/>
         <a href="mailto:informatica@cavenit.com">
             <div class="contact-row mail contact-text">
                 {{Lang::get('content.cavenit_email')}}
             </div>
         </a>
-        <br/>
-        <a href="https://www.facebook.com/cavenit" target="_blank">
-            <div class="contact-row facebook contact-text">
-                {{Lang::get('content.facebook')}}
-            </div>
-        </a>
-        <br/>
-        <a href="https://twitter.com/cavenit" target="_blank">
-            <div class="contact-row twitter contact-text">
-                {{Lang::get('content.twitter')}}
-            </div>
-        </a>
+
     </div>
 </div>
 

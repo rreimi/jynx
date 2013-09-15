@@ -450,10 +450,10 @@ return array(
 
     // Home - Post activation dialog
     'home_post_activation_title' => 'Usuario registrado',
-    'home_post_activation_description' => 'Su usuario ha sido registrado en TuMercato.com y debe proceder a su activación
-                                    haciendo clic en el enlace que le hemos enviado por correo electrónico para disfrutar
+    'home_post_activation_description' => 'Tu usuario ha sido registrado en TuMercato.com y debes proceder a activarlo
+                                    haciendo clic en el enlace que te hemos enviado por correo electrónico para disfrutar
                                     de todas las ventajas adicionales que le ofrece TuMercato.com.',
-    'home_post_activation_description2' => 'Si desea continuar navegando ahora haga clic en el siguiente botón.',
+    'home_post_activation_description2' => 'Si deseas continuar navegando ahora, haz clic en el siguiente botón.',
     'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
 
     "stats_users_basic" => "Básico",
