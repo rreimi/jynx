@@ -158,6 +158,7 @@ class AdvertisingController extends BaseController {
             'status' => Input::get('status'),
             'external_url' => Input::get('external_url'),
             'full_name' => Input::get('full_name'),
+            'order' => Input::get('order'),
             'email' => Input::get('email'),
             'phone1' => Input::get('phone1'),
             'phone2' => Input::get('phone2')
@@ -169,7 +170,8 @@ class AdvertisingController extends BaseController {
             'status' => 'required',
             'external_url' => 'required | url',
             'full_name' => 'required',
-            'email' => 'email',
+            'order' => 'required | integer',
+            'email' => 'required | email',
             'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
             'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
