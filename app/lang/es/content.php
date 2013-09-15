@@ -78,13 +78,22 @@ return array(
     'status_publication_Published' => 'Publicada',
     'status_publication_On_Hold' => 'Pausada',
     'status_publication_Suspended' => 'Suspendida',
+    'status_publication_Finished' => 'Finalizada',
 
     // Reports
+    'reports' =>  'Denuncias',
     'report_title' => 'Denuncia',
     'backend_report_view_title' => 'Denuncia pendiente',
+    'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
+    'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
 
     // Reports status
-    'status_pending' => 'Pendiente',
+    'status_report_Pending' => 'Pendiente',
+    'status_report_Correct' => 'Correcto',
+    'status_report_Incorrect' => 'Incorrecto',
+
+    // Reports search
+    'reports_search_placeholder' => 'Buscar...',
 
     // Reports messages
     'report_message_invalid_data' => 'Datos inv&aacute;lidos.',
@@ -160,7 +169,7 @@ return array(
     "backend_user_not_approve" => "Desaprobar",
 
     // Backend reports total
-    "backend_reports_total" => "Denuncias totales",
+    "backend_reports_total" => "Denuncias",
     'backend_report_total_view_title' => 'Detalle de denuncia',
 
     // Messages

@@ -23,8 +23,7 @@ class PublicationReport extends Eloquent {
     }
 
     public function scopeTotalReports($query){
-        $query->where('status', '!=', 'Pending')
-            ->orderBy('id', 'desc');
+        $query->orderBy('id', 'desc');
     }
 
     public function user(){

@@ -23,6 +23,9 @@
             @endif
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('visits_number')}}">{{Lang::get('content.visits_number')}} <i class="{{UrlHelper::getSortIcon('visits_number')}}"></i></a></th>
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('rating_avg')}}">{{Lang::get('content.rating_avg')}} <i class="{{UrlHelper::getSortIcon('rating_avg')}}"></i></a></th>
+            @if ($user->isAdmin())
+            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('reports')}}">{{Lang::get('content.reports')}} <i class="{{UrlHelper::getSortIcon('reports')}}"></i></a></th>
+            @endif
             <!--                        <th>{{Lang::get('content.category_name')}}</th>-->
             <th class="options"></th>
         </tr>
@@ -43,6 +46,15 @@
             @endif
             <td class="row-visits_number">{{ $pub->visits_number }}</td>
             <td class="row-rating_avg">{{ $pub->rating_avg }}</td>
+            @if ($user->isAdmin())
+            <td class="row-reports">
+                @if ($pub->reports > 0)
+                    <a href="{{ URL::to('denuncia/lista/publicacion/' . $pub->id) }}">{{ $pub->reports }}</a>
+                @else
+                    {{ $pub->reports }}
+                @endif
+            </td>
+            @endif
             <!--                        <td>{{ $pub->categories_name }}</td>-->
             <td nowrap class="row-options">
                 <a rel="tooltip" target="_blank"  title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('publicacion/detalle/' . $pub->id)}}">
@@ -89,29 +101,29 @@
 
         /* Filter fields */
 
-            /* All date filters */
-            jQuery('.datepicker').datepicker({
-                dateFormat: "dd-mm-yy",
-                changeMonth: true,
-                changeYear: true
-            });
-
-            /* Set dynamic date range */
-            jQuery('.datepicker.from-start-date').bind("change", function(){
-                jQuery('.datepicker.to-start-date').datepicker( "option", "minDate", jQuery(this).val());
-            });
-            jQuery('.datepicker.to-start-date').bind("change", function(){
-                jQuery('.datepicker.from-start-date').datepicker( "option", "maxDate", jQuery(this).val());
-            });
-
-            /* Set dynamic date range */
-            jQuery('.datepicker.from-end-date').bind("change", function(){
-                jQuery('.datepicker.to-end-date').datepicker( "option", "minDate", jQuery(this).val());
-            });
-            jQuery('.datepicker.to-end-date').bind("change", function(){
-                jQuery('.datepicker.from-end-date').datepicker( "option", "maxDate", jQuery(this).val());
-            });
-
+        /* All date filters */
+        jQuery('.datepicker').datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true
         });
+
+        /* Set dynamic date range */
+        jQuery('.datepicker.from-start-date').bind("change", function(){
+            jQuery('.datepicker.to-start-date').datepicker( "option", "minDate", jQuery(this).val());
+        });
+        jQuery('.datepicker.to-start-date').bind("change", function(){
+            jQuery('.datepicker.from-start-date').datepicker( "option", "maxDate", jQuery(this).val());
+        });
+
+        /* Set dynamic date range */
+        jQuery('.datepicker.from-end-date').bind("change", function(){
+            jQuery('.datepicker.to-end-date').datepicker( "option", "minDate", jQuery(this).val());
+        });
+        jQuery('.datepicker.to-end-date').bind("change", function(){
+            jQuery('.datepicker.from-end-date').datepicker( "option", "maxDate", jQuery(this).val());
+        });
+
+    });
 </script>
 @stop
