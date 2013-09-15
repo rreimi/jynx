@@ -34,7 +34,17 @@
                 <label class="control-label required-field" for="external_url">{{ Lang::get('content.external_url') }}</label>
                 <div class="controls">
                     {{ Form::text('external_url', $advertising->external_url, array('class' => 'required url', 'placeholder'=> Lang::get('content.external_url'))) }}
+                    <label class="external-url-label">{{ Lang::get('content.external_url_label') }}</label>
                     {{ $errors->first('external_url', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+
+            <div class="control-group {{ $errors->has('order') ? 'error':'' }}">
+                <label class="control-label required-field" for="order">{{ Lang::get('content.order') }}</label>
+                <div class="controls">
+                    {{ Form::text('order', $advertising->order, array('class' => 'required numeric-only input-mini')) }}
+                    <label class="order-label">{{ Lang::get('content.order_label') }}</label>
+                    {{ $errors->first('order', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
 
@@ -185,6 +195,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
+        jQuery('.numeric-only').numericField();
         jQuery('.advertising-form').validateBootstrap();
     });
 </script>
