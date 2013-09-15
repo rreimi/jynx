@@ -50,6 +50,10 @@
 @include('include.modal_remainder')
 @show
 
+@section('modal-reset')
+@include('include.modal_reset')
+@show
+
 @section('modal-confirm')
 @include('include.modal_confirm')
 @show

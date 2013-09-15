@@ -19,6 +19,15 @@
 
 @if (Auth::guest())
 <script type="text/javascript">
+    jQuery(document).ready(function(){
+        var hash=location.hash.substr(1);
 
+        if(hash){
+            if(hash.indexOf('token')!=-1){
+                var token=hash.replace('token/','');
+                Mercatino.resetForm.show(token);
+            }
+        }
+    });
 </script>
 @endif

@@ -233,7 +233,7 @@ class RegisterController extends BaseController{
     public static function registroReglas(){
 
         return array(
-            'register_email' => 'required|unique:users,email',
+            'register_email' => 'required|email|unique:users,email',
             'register_full_name' => 'required',
             'register_password' => 'required|confirmed',
             'register_password_confirmation' => 'required'

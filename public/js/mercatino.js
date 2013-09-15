@@ -147,16 +147,146 @@ Mercatino.modalConfirm = {
     }
 };
 
-Mercatino.remainderForm = {
-    show:function(){
-        //href="{{URL::to('/olvido')}}"
-        jQuery('#modalRemainder').modal('show');
-    },
-    hide:function(){
-        jQuery('#modalRemainder').modal('hide');
+Mercatino.resetForm={
+    show:function(token){
+        jQuery('#modalReset').modal('show');
+
+        jQuery('#resetValidation').val(token);
+        jQuery('.reset-send').button('reset');
+        jQuery('#resetForm').get(0).reset();
+        jQuery('.reset-question').removeClass('hide');
+        jQuery('.reset-answer').addClass('hide');
     },
     send:function(){
-        jQuery('#remainderForm').submit();
+        var form=jQuery('#resetForm');
+        var formData = form.serializeObject();
+        var url = form.attr('action');
+
+        jQuery('.reset-send').button('loading');
+
+        jQuery.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(result) {
+
+                jQuery('.reset-question').addClass('hide');
+                jQuery('.reset-answer')
+                    .css('opacity',0)
+                    .removeClass('hide').
+                    animate({'opacity':1},500);
+                setTimeout(function(){
+                    window.location.href = "/";
+                },3000);
+
+            },
+            error: function(result) {
+                var data = result.responseJSON;
+                if (data.status_code == 'validation') {
+                    for (var i = 0; i < data.errors.length; i++){
+                        Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                    }
+                    jQuery('.reset-send').button('reset');
+                    return false;
+                }
+
+                if(data.status_code='error_token'){
+                    Mercatino.showFlashMessage({title:'', message: data.status_value, type:'error'});
+                    setTimeout(function(){
+                        window.location.href = "/";
+                    },3000);
+                    return false;
+                }
+
+                if (data.status_code == 'invalid_token') {
+                    window.location.href = "/";
+                }
+            }
+        });
+    }
+};
+
+Mercatino.reminderForm = {
+    show:function(){
+        jQuery('#modalReminder').modal('show');
+
+        jQuery('.reminder-cancel').attr('disabled',false);
+        jQuery('.reminder-send').button('reset');
+
+        jQuery('#reminderForm').get(0).reset();
+        jQuery('.reminder-question').removeClass('hide');
+        jQuery('.reminder-answer').addClass('hide');
+    },
+    hide:function(){
+        jQuery('#modalReminder').modal('hide');
+    },
+    send:function(){
+        if($('.reminder-question').hasClass('hide')){
+            Mercatino.reminderForm.hide();
+            return false;
+        }
+
+        var form=jQuery('#reminderForm');
+        var formData = form.serializeObject();
+        var url = form.attr('action');
+
+        jQuery('.reminder-send').button('loading');
+
+        jQuery.ajax({
+            url: jQuery('#reminderValidation').val(),
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(result) {
+                jQuery('.reminder-question').addClass('hide');
+                jQuery('.reminder-answer')
+                    .css('opacity',0)
+                    .removeClass('hide').
+                    animate({'opacity':1},500);
+
+                jQuery('.reminder-cancel').attr('disabled',true);
+                jQuery('.reminder-send').button('complete');
+
+
+                jQuery.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(result) {
+                        Mercatino.showFlashMessage({title:'',message:result.status_value,type:'success'});
+                    },
+                    error: function(result) {
+                        var data = result.responseJSON;
+                        if (data.status_code == 'validation') {
+                            for (var i = 0; i < data.errors.length; i++){
+                                Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                            }
+                            return false;
+                        }
+
+                        if (data.status_code == 'invalid_token') {
+                            window.location.href = "/";
+                        }
+                    }
+                });
+            },
+            error: function(result) {
+                var data = result.responseJSON;
+                if (data.status_code == 'validation') {
+                    for (var i = 0; i < data.errors.length; i++){
+                        Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                    }
+                    jQuery('.reminder-send').button('reset');
+                    return false;
+                }
+
+                if (data.status_code == 'invalid_token') {
+                    window.location.href = "/";
+                }
+            }
+        });
     }
 }
 

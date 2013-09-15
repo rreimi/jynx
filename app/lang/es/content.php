@@ -18,6 +18,9 @@ return array(
     'no' => 'No',
     'close' => 'Cerrar',
 
+    "sending"=>"Enviando...",
+    "finalize"=>"Finalizar",
+
     //Dashboard
     "mostvisited_items" => "Los más visitados",
     "recent_items" => "Los más recientes",
@@ -109,6 +112,9 @@ return array(
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
     "forgot_password" => "¿Olvidaste tu contraseña?",
+
+    "password"=>"Contraseña",
+    "password_confirmation"=>"Confirme la contraseña",
 
     //Footer
     "address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
@@ -467,5 +473,17 @@ return array(
     "stats_services"=>"Servicios",
     "stats_description_services"=>"Cantidad de publicaciones por categorías de servicios",
     "stats_publishers"=>"Anunciantes",
-    "stats_description_publishers"=>"Cantidad de anunciantes por estado"
+    "stats_description_publishers"=>"Cantidad de anunciantes por estado",
+
+    "reminder_question"=>"¿ Cual es tu correo ?",
+    "reminder_header"=>"Te ayudaré",
+    "reminder_answer"=>"En minutos por favor verifica tu correo, te envíaremos un email con el enlace para cambiar tu contraseña",
+    "reminder_success"=>"Verifica tu correo, para que puedas cambiar tu contraseña",
+
+    "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
+    "reset_question"=>"Agrega tus datos para cambiar la contraseña",
+    "reset_answer"=>"Tu contraseña fue cambiada exitosamente",
+    "reset_header"=>"Cambio de contraseña"
+
+
 );
