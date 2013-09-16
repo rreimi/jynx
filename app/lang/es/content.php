@@ -507,6 +507,7 @@ return array(
     "reminder_header"=>"Te ayudaré",
     "reminder_answer"=>"En minutos por favor verifica tu correo, te envíaremos un email con el enlace para cambiar tu contraseña",
     "reminder_success"=>"Verifica tu correo, para que puedas cambiar tu contraseña",
+    "reminder_email_subject" => "Recuperación de contraseña para TuMercato.com",
 
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
     "reset_question"=>"Agrega tus datos para cambiar la contraseña",
