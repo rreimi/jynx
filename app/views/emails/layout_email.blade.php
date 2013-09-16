@@ -26,6 +26,8 @@
                 @include('emails.user_notification_publication_next_expire')
             @elseif ($contentEmail == 'general_notification')
                 @include('emails.general_notification')
+            @elseif ($contentEmail == 'contactUs')
+                @include('emails.contactUs')
             @endif
 
             Atentamente,<br/>
