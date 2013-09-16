@@ -3,7 +3,7 @@
 class AdvertisingController extends BaseController {
 
     private $prefix = 'advertising';
-    private $page_size = '6';
+    private $page_size = '10';
     private $advListSort = array('id', 'name', 'status', 'created_at');
 //    private $pub_img_dir = 'advertisement';
 

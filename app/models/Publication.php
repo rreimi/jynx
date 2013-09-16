@@ -52,6 +52,9 @@ class Publication extends Eloquent {
         return $this->hasMany('PublicationImage');
     }
 
+    public function ratings() {
+        return $this->hasMany('PublicationRating');
+    }
 
     public function publisher() {
         return $this->belongsTo('Publisher');

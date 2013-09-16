@@ -55,6 +55,7 @@ return array(
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
+    "rating_comment_required" => "Por favor indique los comentarios",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -81,13 +82,22 @@ return array(
     'status_publication_Published' => 'Publicada',
     'status_publication_On_Hold' => 'Pausada',
     'status_publication_Suspended' => 'Suspendida',
+    'status_publication_Finished' => 'Finalizada',
 
     // Reports
+    'reports' =>  'Denuncias',
     'report_title' => 'Denuncia',
     'backend_report_view_title' => 'Denuncia pendiente',
+    'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
+    'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
 
     // Reports status
-    'status_pending' => 'Pendiente',
+    'status_report_Pending' => 'Pendiente',
+    'status_report_Correct' => 'Correcto',
+    'status_report_Incorrect' => 'Incorrecto',
+
+    // Reports search
+    'reports_search_placeholder' => 'Buscar...',
 
     // Reports messages
     'report_message_invalid_data' => 'Datos inv&aacute;lidos.',
@@ -156,6 +166,7 @@ return array(
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
+    "backend_menu_reports" => "Denuncias",
     "backend_search_publication_title" => "Buscar publicaciones",
 
 
@@ -165,6 +176,10 @@ return array(
     "backend_user_approve" => "Aprobar",
     "backend_user_not_approve" => "Desaprobar",
 
+    // Backend reports total
+    "backend_reports_total" => "Denuncias",
+    'backend_report_total_view_title' => 'Detalle de denuncia',
+
     // Messages
     "delete_publication_invalid" => "La publicación que intentas eliminar es inválida",
     "delete_publication_success" => "La publicación se ha eliminado correctamente",
@@ -173,6 +188,7 @@ return array(
     "modal_publication_delete_content" => "¿Está seguro que deseas eliminar esta publicación?",
     "report_send_success" => "La denuncia se ha enviado correctamente",
     "report_send_error" => "Ha ocurrido un error enviando la denuncia",
+    "rating_send_success" => "La calificación se ha enviado correctamente",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -180,6 +196,7 @@ return array(
     "image_url" => "Imagen",
     "external_url" => "Url externa",
     "full_name" => "Nombre completo de persona contacto",
+    "order" => "Orden",
     "email" => "Correo de contacto",
     "phone1" => "Teléfono 1 de contacto",
     "phone2" => "Teléfono 2 de contacto",
@@ -333,13 +350,21 @@ return array(
     "profile_city" => "Ciudad",
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
+    "profile_avatar" => "Imagen de perfil",
     "profile_view_contact" => "Detalle de contacto",
     "profile_edit_contact" => "Editar contacto",
     "profile_delete_contact_title" => "Eliminar contacto",
     "profile_delete_contact_content" => "¿Está seguro que desea eliminar este contacto?",
 
+    // File Uploader
+    "fileuploader_select_image" => "Seleccione imagen",
+    "fileuploader_change" => "Cambiar",
+    "fileuploader_remove" => "Eliminar",
+
     // Messages
     "profile_update_success" => "Su perfil ha sido actualizado exitosamente",
+    "profile_update_file_error" => "Ha ocurrido un error al intentar guardar la imagen de perfil",
+    "profile_update_file_delete_error" => "Ha ocurrido un error al intentar reemplazar la imagen de perfil",
     "profile_edit_contact_error" => "Ha ocurrido un error al intentar guardar el contacto",
     "profile_edit_contact_success" => "El contacto ha sido editado exitosamente",
     "profile_add_contact_success" => "El contacto ha sido agregado exitosamente",
@@ -398,6 +423,7 @@ return array(
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
+    "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
@@ -424,6 +450,8 @@ return array(
     // General
     "required_label" => "Requerido",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
+    "external_url_label" => "Debe comenzar con http://",
+    "order_label" => "Valor numérico más alto tiene mayor prioridad",
 
     // Contactanos form
     "contactus" => "Contacto",
@@ -451,10 +479,10 @@ return array(
 
     // Home - Post activation dialog
     'home_post_activation_title' => 'Usuario registrado',
-    'home_post_activation_description' => 'Su usuario ha sido registrado en TuMercato.com y debe proceder a su activación
-                                    haciendo clic en el enlace que le hemos enviado por correo electrónico para disfrutar
+    'home_post_activation_description' => 'Tu usuario ha sido registrado en TuMercato.com y debes proceder a activarlo
+                                    haciendo clic en el enlace que te hemos enviado por correo electrónico para disfrutar
                                     de todas las ventajas adicionales que le ofrece TuMercato.com.',
-    'home_post_activation_description2' => 'Si desea continuar navegando ahora haga clic en el siguiente botón.',
+    'home_post_activation_description2' => 'Si deseas continuar navegando ahora, haz clic en el siguiente botón.',
     'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
 
     "stats_users_basic" => "Básico",

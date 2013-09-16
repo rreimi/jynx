@@ -60,6 +60,7 @@
         <tr>
             <th>{{Lang::get('content.name')}}</th>
             <th>{{Lang::get('content.status')}}</th>
+            <th>{{Lang::get('content.order')}}</th>
             <th>{{Lang::get('content.image_url')}}</th>
             <th>{{Lang::get('content.external_url')}}</th>
             <th>{{Lang::get('content.full_name')}}</th>
@@ -71,6 +72,7 @@
         <tr>
             <td>{{ $adv->name }}</td>
             <td>{{ Lang::get('content.status_'. $adv->status) }}</td>
+            <td>{{ $adv->order }}</td>
             <td>{{ $adv->image_url }}</td>
             <td>{{ $adv->external_url }}</td>
             <td>{{ $adv->full_name }}</td>
