@@ -66,8 +66,6 @@ h2.home-title {
     text-decoration: none;
 }
 
-.pub-info-desc a:
-
 .pub-line {
     display: block;
 }
@@ -576,8 +574,8 @@ div#home-banner-top .carousel-control {
         -ms-filter: none;
         box-shadow:none;
         filter: none;
-        background: #ffffff
-        overflow:visible;
+        background: #ffffff;
+        overflow: visible;
         height: auto;
     }
 
@@ -707,7 +705,6 @@ div#home-banner-top .carousel-control {
     }
 }
 
-
 /* INIT - File Upload */
 .fileupload {
     margin-bottom: 9px;
@@ -827,3 +824,4 @@ div#home-banner-top .carousel-control {
 }
 
 /* END - File Upload */
+
