@@ -148,7 +148,8 @@ class ProfileController extends BaseController{
             $publisher->city = $profileData['city'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
-            $publisher->categories()->sync(Input::get('publisher_categories'));
+            $publisherCats = (is_array(Input::get('publisher_categories'))) ? Input::get('publisher_categories') : array();
+            $publisher->categories()->sync($publisherCats);
             $publisher->save();
 
             // Save avatar (if is received)
