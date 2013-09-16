@@ -68,8 +68,8 @@
         <div class="contact-column">
             <label>{{Lang::get('content.contactus_caracas')}}</label>
             <div class="contact-row address contact-text">
-                {{Lang::get('content.address_line1')}}<br/>
-                {{Lang::get('content.address_line2')}}
+                {{Lang::get('content.caracas_address_line1')}}<br/>
+                {{Lang::get('content.caracas_address_line2')}}
             </div>
             <div class="contact-row phone contact-text">
                 {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
@@ -83,20 +83,17 @@
                 </div>
             </a>
 
-            <label>{{Lang::get('content.contactus_acarigua')}}</label>
+            <label>{{Lang::get('content.contactus_maracaibo')}}</label>
             <div class="contact-row address contact-text">
-                {{Lang::get('content.acarigua_address_line1')}}<br/>
-                {{Lang::get('content.acarigua_address_line2')}}
+                {{Lang::get('content.maracaibo_address_line1')}}<br/>
+                {{Lang::get('content.maracaibo_address_line2')}}
             </div>
-            <div class="contact-row phone contact-text">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.acarigua_phones_line1')}}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{Lang::get('content.acarigua_phones_line2')}}
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.maracaibo_phones_line1')}}<br/>
             </div>
-            <a href="mailto:{{Lang::get('content.acarigua_email')}}">
+            <a href="mailto:{{Lang::get('content.maracaibo_email')}}">
                 <div class="contact-row mail contact-text">
-                    {{Lang::get('content.acarigua_email')}}
+                    {{Lang::get('content.maracaibo_email')}}
                 </div>
             </a>
 
@@ -115,14 +112,12 @@
             </a>
 
             <label>{{Lang::get('content.contactus_valencia')}}</label>
-            <div class="contact-row address contact-text line1">
-                {{Lang::get('content.valencia_address_line1')}}
+            <div class="contact-row address contact-text">
+                {{Lang::get('content.valencia_address_line1')}}<br/>
+                {{Lang::get('content.valencia_address_line2')}}
             </div>
-            <div class="contact-row phone contact-text">
+            <div class="contact-row phone contact-text line1">
                 {{Lang::get('content.phones_label')}} {{Lang::get('content.valencia_phones_line1')}}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{Lang::get('content.valencia_phones_line2')}}
             </div>
             <a href="mailto:{{Lang::get('content.valencia_email')}}">
                 <div class="contact-row mail contact-text">
@@ -149,41 +144,35 @@
                 </div>
             </a>
 
-            <label>{{Lang::get('content.contactus_acarigua')}}</label>
+            <label>{{Lang::get('content.contactus_barquisimeto')}}</label>
             <div class="contact-row address contact-text">
-                {{Lang::get('content.acarigua_address_line1')}}<br/>
-                {{Lang::get('content.acarigua_address_line2')}}
+                {{Lang::get('content.barquisimeto_address_line1')}}<br/>
+                {{Lang::get('content.barquisimeto_address_line2')}}
             </div>
-            <div class="contact-row phone contact-text">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.acarigua_phones_line1')}}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{Lang::get('content.acarigua_phones_line2')}}
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.barquisimeto_phones_line1')}}<br/>
             </div>
-            <a href="mailto:{{Lang::get('content.acarigua_email')}}">
+            <a href="mailto:{{Lang::get('content.barquisimeto_email')}}">
                 <div class="contact-row mail contact-text">
-                    {{Lang::get('content.acarigua_email')}}
+                    {{Lang::get('content.barquisimeto_email')}}
                 </div>
             </a>
 
-            <label>{{Lang::get('content.contactus_acarigua')}}</label>
-            <div class="contact-row address contact-text">
-                {{Lang::get('content.acarigua_address_line1')}}<br/>
-                {{Lang::get('content.acarigua_address_line2')}}
+            <label>{{Lang::get('content.contactus_ptoordaz')}}</label>
+            <div class="contact-row address contact-text line1">
+                {{Lang::get('content.ptoordaz_address_line1')}}<br/>
+                {{Lang::get('content.ptoordaz_address_line2')}}
             </div>
-            <div class="contact-row phone contact-text">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.acarigua_phones_line1')}}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{Lang::get('content.acarigua_phones_line2')}}
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.ptoordaz_phones_line1')}}<br/>
             </div>
-            <a href="mailto:{{Lang::get('content.acarigua_email')}}">
+            <a href="mailto:{{Lang::get('content.ptoordaz_email')}}">
                 <div class="contact-row mail contact-text">
-                    {{Lang::get('content.acarigua_email')}}
+                    {{Lang::get('content.ptoordaz_email')}}
                 </div>
             </a>
+
         </div>
-
 
     </div>
 </div>

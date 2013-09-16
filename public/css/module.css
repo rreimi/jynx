@@ -648,6 +648,7 @@ div#home-banner-top .carousel-control {
 
 .contactus-form {
     float: left;
+    margin-bottom: 0px;
 }
 
 .contact-info {
@@ -695,7 +696,14 @@ div#home-banner-top .carousel-control {
     line-height: 24px;
 }
 
-
 .contactus-form label, .contact-info label {
     cursor: auto;
 }
+
+@media (max-width:380px) {
+    .contact-column {
+        margin-left: 0px;
+        width: 274px;
+    }
+}
+
