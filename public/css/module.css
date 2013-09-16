@@ -66,8 +66,6 @@ h2.home-title {
     text-decoration: none;
 }
 
-.pub-info-desc a:
-
 .pub-line {
     display: block;
 }
@@ -580,8 +578,8 @@ div#home-banner-top .carousel-control {
         -ms-filter: none;
         box-shadow:none;
         filter: none;
-        background: #ffffff
-        overflow:visible;
+        background: #ffffff;
+        overflow: visible;
         height: auto;
     }
 
@@ -652,16 +650,18 @@ div#home-banner-top .carousel-control {
 
 .contactus-form {
     float: left;
-    margin-left: -100px;
+    margin-bottom: 0px;
 }
 
 .contact-info {
-    margin-left: 410px;
+    float: left;
     margin-top: 55px;
+    font-size: 0.9em;
 }
 
 .contact-info .contact-row.contact-text {
     padding-left: 40px;
+    min-height: 24px;
 }
 
 .contact-info a {
@@ -677,12 +677,36 @@ div#home-banner-top .carousel-control {
     background: url('../img/correo3.png') 0 center no-repeat;
 }
 
-.contact-info .contact-row.facebook:hover {
-    background: url('../img/facebook3.png') 0 center no-repeat;
+.contact-info .contact-row {
+    margin-bottom: 5px;
 }
 
-.contact-info .contact-row.twitter:hover {
-    background: url('../img/twitter3.png') 0 center no-repeat;
+.contact-info .contact-row.mail {
+    margin-bottom: 15px;
+}
+
+.contact-column {
+    float: left;
+    margin-left: 45px;
+}
+
+.contact-info label {
+    color: #3385CB;
+}
+
+.contact-info .contact-row.phone.line1 {
+    line-height: 24px;
+}
+
+.contactus-form label, .contact-info label {
+    cursor: auto;
+}
+
+@media (max-width:380px) {
+    .contact-column {
+        margin-left: 0px;
+        width: 274px;
+    }
 }
 
 /* INIT - File Upload */
@@ -804,3 +828,4 @@ div#home-banner-top .carousel-control {
 }
 
 /* END - File Upload */
+
