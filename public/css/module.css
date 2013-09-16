@@ -680,3 +680,17 @@ div#home-banner-top .carousel-control {
 .contact-info .contact-row.twitter:hover {
     background: url('../img/twitter3.png') 0 center no-repeat;
 }
+
+/* File Upload */
+
+.fileupload .thumbnail {
+    display: inline-block;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.fileupload-exists .fileupload-new, .fileupload-new .fileupload-exists {
+    display: none;
+}

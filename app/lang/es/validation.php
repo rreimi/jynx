@@ -121,6 +121,7 @@ return array(
         'city' => 'Ciudad',
         'phone1' => 'Teléfono 1',
         'phone2' => 'Teléfono 2',
+        'avatar' => 'Imagen de perfil',
 
         'publisher_id_type' => 'Tipo de documento',
         'publisher_id' => 'Cédula / Rif',
