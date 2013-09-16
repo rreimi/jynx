@@ -5,6 +5,7 @@
     </div>
 
     <div class="modal-body">
+        {{ Form::open(array('url' => 'evaluacion','class'=>'big-form register-form', 'id' => 'rating-form')) }}
         <span class="divider-vertical" style="margin-bottom:1em;">{{Lang::get('content.rate_instructions')}}</span>
         <div class="rating-form rating-c ">
             <select id="rating-sel" name="rating-select">
@@ -17,6 +18,8 @@
         </div>
         <span class="divider-vertical" style="margin-bottom:1em;">{{Lang::get('content.rate_comment_instructions')}}</span>
         <textarea id="report_comment_txt" class="input-block-level" name="report_comment" rows="8"></textarea>
+        <input type="hidden" name="rating_publication_id" />
+        {{ Form::close() }}
     </div>
     <div class='modal-footer'>
         <a href="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>

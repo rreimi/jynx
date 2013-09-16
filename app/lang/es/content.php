@@ -55,6 +55,7 @@ return array(
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
+    "rating_comment_required" => "Por favor indique los comentarios",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -186,6 +187,7 @@ return array(
     "modal_publication_delete_content" => "¿Está seguro que deseas eliminar esta publicación?",
     "report_send_success" => "La denuncia se ha enviado correctamente",
     "report_send_error" => "Ha ocurrido un error enviando la denuncia",
+    "rating_send_success" => "La calificación se ha enviado correctamente",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -420,6 +422,7 @@ return array(
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
+    "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
@@ -475,10 +478,10 @@ return array(
 
     // Home - Post activation dialog
     'home_post_activation_title' => 'Usuario registrado',
-    'home_post_activation_description' => 'Su usuario ha sido registrado en TuMercato.com y debe proceder a su activación
-                                    haciendo clic en el enlace que le hemos enviado por correo electrónico para disfrutar
+    'home_post_activation_description' => 'Tu usuario ha sido registrado en TuMercato.com y debes proceder a activarlo
+                                    haciendo clic en el enlace que te hemos enviado por correo electrónico para disfrutar
                                     de todas las ventajas adicionales que le ofrece TuMercato.com.',
-    'home_post_activation_description2' => 'Si desea continuar navegando ahora haga clic en el siguiente botón.',
+    'home_post_activation_description2' => 'Si deseas continuar navegando ahora, haz clic en el siguiente botón.',
     'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
 
     "stats_users_basic" => "Básico",
