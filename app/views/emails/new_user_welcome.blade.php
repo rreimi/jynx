@@ -12,8 +12,3 @@ Encuentra lo que buscas con mayor confianza en cualquier parte de Venezuela.<br/
 <br/>
 ¡Los esperamos!<br/>
 <br/>
-Atentamente,<br/>
-El equipo de TuMercato.com<br/>
-<br/>
-ESTE MENSAJE FUE ENVIADO AUTOMATICAMENTE Y NO RECIBE RESPUESTAS.<br/>
-Para cualquier información adicional, comentario o sugerencia: http://www.tumercato.com/contactanos/  o envíe un mensaje a: info@tumercato.com

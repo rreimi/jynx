@@ -27,6 +27,12 @@
             @elseif ($contentEmail == 'general_notification')
                 @include('emails.general_notification')
             @endif
+
+            Atentamente,<br/>
+            El equipo de TuMercato.com<br/>
+            <br/>
+            ESTE MENSAJE FUE ENVIADO AUTOMATICAMENTE Y NO RECIBE RESPUESTAS.<br/>
+            Para cualquier información adicional, comentario o sugerencia: http://www.tumercato.com/contactanos/  o envíe un mensaje a: {{ Config::get('emails/addresses.email_info') }}
         </div><!--/span-->
     </div><!--/row-->
 </div><!--/.fluid-container-->
