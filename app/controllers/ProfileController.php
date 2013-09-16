@@ -27,19 +27,27 @@ class ProfileController extends BaseController{
 
     public function getIndex(){
         $user = Auth::user();
+        $avatarUrl = null;
 
         $categoriesSelected=array();
         if($user->isPublisher()){
             foreach($user->publisher->categories AS $category){
                 array_push($categoriesSelected,$category->id);
             }
+
+            // Retornar ruta del avatar
+            if ($user->publisher->avatar != null){
+                $avatarUrl = $user->publisher->avatar;
+            }
+
         }
 
         return View::make('profile',
             array(
                 'user'=>$user,
                 'states' => State::lists('name','id'),
-                'categoriesSelected' => $categoriesSelected
+                'categoriesSelected' => $categoriesSelected,
+                'avatar' => $avatarUrl
             )
         );
     }
@@ -89,6 +97,7 @@ class ProfileController extends BaseController{
             $profileData['city'] = Input::get('city');
             $profileData['phone1'] = Input::get('phone1');
             $profileData['phone2'] = Input::get('phone2');
+            $profileData['avatar'] = Input::file('avatar');
 
             $profileRules['seller_name'] = 'required';
             $profileRules['publisher_type'] = 'required';
@@ -98,6 +107,7 @@ class ProfileController extends BaseController{
             $profileRules['city'] = 'required';
             $profileRules['phone1'] = array('required', 'regex:'. $this->phoneNumberRegex);
             $profileRules['phone2'] = array('regex:'. $this->phoneNumberRegex);
+            $profileRules['avatar'] = 'image';
         }
 
         $messages = array(
@@ -126,6 +136,8 @@ class ProfileController extends BaseController{
 
         $user->save();
 
+        $fileOperation = 'success';
+
         if (Auth::user()->isPublisher()){
             $publisher = $user->publisher;
             $publisher->seller_name = $profileData['seller_name'];
@@ -136,12 +148,51 @@ class ProfileController extends BaseController{
             $publisher->city = $profileData['city'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
-            $publisher->categories()->sync(Input::get('publisher_categories'));
+            $publisherCats = (is_array(Input::get('publisher_categories'))) ? Input::get('publisher_categories') : array();
+            $publisher->categories()->sync($publisherCats);
             $publisher->save();
 
+            // Save avatar (if is received)
+            if(Input::hasFile('avatar')){
+                $avatar = Input::file('avatar');
+                $fileName = $avatar->getClientOriginalName();
+                $fileExt = substr($fileName, strpos($fileName, '.')+1);
+                $fileFinalName = 'avatar-'. $user->id .'.'. $fileExt;
+
+                $destinationPath = 'uploads/profile/';
+
+                try {
+                    $avatar->move($destinationPath, $fileFinalName);
+
+                    $publisher->avatar = $destinationPath . $fileFinalName;
+                    $publisher->save();
+                } catch (Exception $e){
+                    $fileOperation = 'error';
+                }
+            // Eliminar avatar previo (si existe)
+            } else {
+                if ($publisher->avatar != null){
+                    $avatar = $publisher->avatar;
+                    $publisher->avatar = null;
+                    $publisher->save();
+
+                    try {
+                        File::delete($avatar);
+                    } catch (Exception $e){
+                        $fileOperation = 'error-delete';
+                    }
+
+                }
+            }
         }
 
-        self::addFlashMessage(null, Lang::get('content.profile_update_success'), 'success');
+        if ($fileOperation == 'success'){
+            self::addFlashMessage(null, Lang::get('content.profile_update_success'), 'success');
+        } else if ($fileOperation == 'error-delete'){
+            self::addFlashMessage(null, Lang::get('content.profile_update_file_delete_error'), 'error');
+        } else {
+            self::addFlashMessage(null, Lang::get('content.profile_update_file_error'), 'error');
+        }
 
         return Redirect::to('perfil');
     }

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row-fluid profile-form">
-        {{ Form::open(array('url' => 'perfil', 'class' => 'form-horizontal perfil-form' )) }}
+        {{ Form::open(array('url' => 'perfil', 'class' => 'form-horizontal perfil-form', 'enctype' => 'multipart/form-data' )) }}
 
             <h1>{{Lang::get('content.profile_edit')}}</h1>
             <h2 id="basico">{{Lang::get('content.profile_edit_basic')}}</h2>
@@ -136,6 +136,24 @@
                         {{ Form::text('phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
                         <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                         {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_avatar') }}</label>
+                    <div class="controls">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                <span class="btn btn-file">
+                                    <span class="fileupload-new">{{ Lang::get('content.fileuploader_select_image') }}</span>
+                                    <span class="fileupload-exists">{{ Lang::get('content.fileuploader_change') }}</span>
+                                    <input type="file" name="avatar" />
+                                </span>
+                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">{{ Lang::get('content.fileuploader_remove') }}</a>
+                            </div>
+                        </div>
+                        {{ $errors->first('avatar', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
                 </div>
 
@@ -308,44 +326,51 @@
             });
 
             var passwordError = {{ $errors->has('password') || $errors->has('current-password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
-        if (passwordError){
-            jQuery("input:password").val('');
-            jQuery('.btn-password').click();
-        } else {
-            jQuery("input:password").val('');
-            jQuery("input:password").attr('disabled', 'disabled');
-        }
+            if (passwordError){
+                jQuery("input:password").val('');
+                jQuery('.btn-password').click();
+            } else {
+                jQuery("input:password").val('');
+                jQuery("input:password").attr('disabled', 'disabled');
+            }
 
-        @if(Auth::user()->isPublisher())
-        var publisherType=jQuery('.publisher_type');
-        var publisherIdType=jQuery('.publisher_id_type');
+            @if(Auth::user()->isPublisher())
+            var publisherType=jQuery('.publisher_type');
+            var publisherIdType=jQuery('.publisher_id_type');
 
-        publisherType.on('change',function(){
-            jQuery('option:not(.default)', '.publisher_id_type').remove();
-            if(this.value=='Person'){
+            publisherType.on('change',function(){
+                jQuery('option:not(.default)', '.publisher_id_type').remove();
+                if(this.value=='Person'){
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+                } else if(this.value=='Business'){
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+                } else {
+                    publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
+                }
+            });
+
+            if(publisherType.val()=='Person'){
                 publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            } else if(this.value=='Business'){
+            } else if(publisherType.val()=='Business'){
                 publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
             } else {
                 publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
             }
-        });
 
-        if(publisherType.val()=='Person'){
-            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-        } else if(publisherType.val()=='Business'){
-            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-        } else {
-            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
-        }
+            publisherType.trigger('change');
+            publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+            @endif
 
-        publisherType.trigger('change');
-        publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
-        @endif
+            jQuery('.perfil-form').validateBootstrap();
+            jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
+            jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
 
-        jQuery('.perfil-form').validateBootstrap();
-        jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
-        jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
+            // Set if exists avatar
+            if ('{{ $avatar }}'){
+                jQuery('.fileupload').removeClass('fileupload-new');
+                jQuery('.fileupload').addClass('fileupload-exists');
+                jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
+            }
 
         });
 

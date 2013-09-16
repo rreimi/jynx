@@ -349,13 +349,21 @@ return array(
     "profile_city" => "Ciudad",
     "profile_phone1" => "Teléfono 1",
     "profile_phone2" => "Teléfono 2",
+    "profile_avatar" => "Imagen de perfil",
     "profile_view_contact" => "Detalle de contacto",
     "profile_edit_contact" => "Editar contacto",
     "profile_delete_contact_title" => "Eliminar contacto",
     "profile_delete_contact_content" => "¿Está seguro que desea eliminar este contacto?",
 
+    // File Uploader
+    "fileuploader_select_image" => "Seleccione imagen",
+    "fileuploader_change" => "Cambiar",
+    "fileuploader_remove" => "Eliminar",
+
     // Messages
     "profile_update_success" => "Su perfil ha sido actualizado exitosamente",
+    "profile_update_file_error" => "Ha ocurrido un error al intentar guardar la imagen de perfil",
+    "profile_update_file_delete_error" => "Ha ocurrido un error al intentar reemplazar la imagen de perfil",
     "profile_edit_contact_error" => "Ha ocurrido un error al intentar guardar el contacto",
     "profile_edit_contact_success" => "El contacto ha sido editado exitosamente",
     "profile_add_contact_success" => "El contacto ha sido agregado exitosamente",
