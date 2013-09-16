@@ -127,7 +127,7 @@ return array(
 
     //Footer
     "address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
-    "address_line2" => "Nivel Mezzanina Caracas 1060, Venezuela",
+    "address_line2" => "Nivel Mezzanina, Caracas 1060, Venezuela",
     "phones_label" => "Teléfonos:",
     "phones_line1" => "58-212-2632427 / 2634614",
     "phones_line2" => "58-212-2642845 / 2643742",
@@ -450,6 +450,34 @@ return array(
     "contactus_message" => "Mensaje",
     "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
+
+    "contactus_caracas" => "Caracas",
+    "caracas_address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
+    "caracas_address_line2" => "Nivel Mezzanina, Caracas 1060",
+    "contactus_acarigua" => "Acarigua",
+    "acarigua_address_line1" => "Av. 13 de Junio, Quinta Azahar, Acarigua,",
+    "acarigua_address_line2" => "Edo. Portuguesa 3302",
+    "acarigua_phones_line1" => "58-255-6221462 / 6642750",
+    "acarigua_phones_line2" => "58-255-6215872 / /6239086",
+    "acarigua_email" => "acarigua@cavenit.com",
+    "contactus_maracay" => "Maracay",
+    "maracay_address_line1" => "Casa de Italia de Maracay, Calle Los Nísperos,",
+    "maracay_address_line2" => "La Floresta, Piso 2, Maracay, Edo. Aragua 2102",
+    "maracay_phones_line1" => "58-243-2427741",
+    "maracay_email" => "maracay@cavenit.com",
+
+    "contactus_valencia" => "Valencia",
+    "valencia_address_line1" => "Urbanización La Trigaleña Av. 91 (Italia)",
+    "valencia_address_line2" => "Nº 132-371, Valencia, Edo. Carabobo 2001",
+    "valencia_phones_line1" => "58-241-8432757 / 8432757",
+    "valencia_email" => "valencia@cavenit.com",
+
+    "contactus_acarigua" => "Acarigua",
+    "acarigua_address_line1" => "Av. 13 de Junio, Quinta Azahar, Acarigua,",
+    "acarigua_address_line2" => "Edo. Portuguesa 3302",
+    "acarigua_phones_line1" => "58-255-6221462 / 6642750",
+    "acarigua_phones_line2" => "58-255-6215872 / /6239086",
+    "acarigua_email" => "acarigua@cavenit.com",
 
     // Emails
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',

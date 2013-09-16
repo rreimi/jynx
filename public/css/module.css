@@ -648,16 +648,17 @@ div#home-banner-top .carousel-control {
 
 .contactus-form {
     float: left;
-    margin-left: -100px;
 }
 
 .contact-info {
-    margin-left: 410px;
+    float: left;
     margin-top: 55px;
+    font-size: 0.9em;
 }
 
 .contact-info .contact-row.contact-text {
     padding-left: 40px;
+    min-height: 24px;
 }
 
 .contact-info a {
@@ -673,10 +674,28 @@ div#home-banner-top .carousel-control {
     background: url('../img/correo3.png') 0 center no-repeat;
 }
 
-.contact-info .contact-row.facebook:hover {
-    background: url('../img/facebook3.png') 0 center no-repeat;
+.contact-info .contact-row {
+    margin-bottom: 5px;
 }
 
-.contact-info .contact-row.twitter:hover {
-    background: url('../img/twitter3.png') 0 center no-repeat;
+.contact-info .contact-row.mail {
+    margin-bottom: 15px;
+}
+
+.contact-column {
+    float: left;
+    margin-left: 45px;
+}
+
+.contact-info label {
+    color: #3385CB;
+}
+
+.contact-info .contact-row.phone.line1 {
+    line-height: 24px;
+}
+
+
+.contactus-form label, .contact-info label {
+    cursor: auto;
 }
