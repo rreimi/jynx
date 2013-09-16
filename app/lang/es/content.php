@@ -55,6 +55,7 @@ return array(
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
+    "rating_comment_required" => "Por favor indique los comentarios",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -186,6 +187,7 @@ return array(
     "modal_publication_delete_content" => "¿Está seguro que deseas eliminar esta publicación?",
     "report_send_success" => "La denuncia se ha enviado correctamente",
     "report_send_error" => "Ha ocurrido un error enviando la denuncia",
+    "rating_send_success" => "La calificación se ha enviado correctamente",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -412,6 +414,7 @@ return array(
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
+    "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
