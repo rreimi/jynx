@@ -98,8 +98,12 @@
         </div>
         @include('include.modal_report')
         @include('include.modal_rateit')
-        <div class="clear-both"></div>
-        <br/><br/>
+        <div class="clearfix"></div>
+
+        <!-- Ratings -->
+
+        {{ $publication->ratings }}
+
         @if ($lastvisited)
         <div class="last-visited-box">
             <h2 class="home-title">{{Lang::get('content.last_visited_items')}}</h2>
@@ -158,12 +162,11 @@
     Imagecow.init();
 
     Mercatino.reportForm = {
-        show: function(title, content, url){
+        show: function(){
             //jQuery('#modal-confirm .modal-header h3').html(title);
             //jQuery('#modal-confirm .modal-body p').html(content);
             //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
             jQuery('#modal-report').modal('show');
-
         },
         hide: function(){
             jQuery('#modal-report').modal('hide')
@@ -194,11 +197,14 @@
     };
 
     Mercatino.rateitForm = {
-        show: function(title, content, url){
+        show: function(publicationId){
             //jQuery('#modal-confirm .modal-header h3').html(title);
             //jQuery('#modal-confirm .modal-body p').html(content);
             //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+            jQuery('#rating-form').get(0).reset();
             jQuery('#modal-rateit').modal('show');
+            jQuery('#rating-form input[name="rating_publication_id"]').val(publicationId);
+            jQuery('#rating-sel').barrating('clear');
 
         },
         hide: function(){
@@ -208,22 +214,36 @@
             var comment = jQuery('#modal-rateit textarea').val();
 
             if (comment == ""){
-                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_commend_required')}}", type:'error'});
+                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_comment_required')}}", type:'error'});
                 return;
             }
+
+            var formData = jQuery('#rating-form').serializeObject();
+            var url = jQuery('#rating-form').attr('action');
 
             this.hide();
 
             jQuery.ajax({
-                url: "{{ URL::to('evaluar') }}",
+                url: url,
                 type: 'POST',
-                data: { publication_id: '{{ $publication->id }}' , comment: comment },
+                data: formData,
+                dataType: 'json',
                 success: function(result) {
-                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_success')}}", type:'success'});
-                    jQuery('#modal-rateit .modal-body textarea').val('');
+                    Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
+                    jQuery('#rating-form').reset();
                 },
                 error: function(result) {
-                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.report_send_error')}}", type:'error'});
+                    var data = result.responseJSON;
+                    if (data.status_code == 'validation') {
+                        for (var i = 0; i < data.errors.length; i++){
+                            Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
+                        }
+                        return false;
+                    };
+
+                    if (data.status_code == 'invalid_token') {
+                        window.location.href = "/";
+                    };
                 }
             });
         }
@@ -235,7 +255,7 @@
         });
 
         jQuery('#rateit-link').bind('click', function(){
-            Mercatino.rateitForm.show();
+            Mercatino.rateitForm.show('{{ $publication->id }}');
         });
 
         jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
