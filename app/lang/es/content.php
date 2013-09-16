@@ -108,6 +108,7 @@ return array(
     "news" => "Noticias y Ofertas",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "my_jobs" => "Mis ofertas laborales",
     "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
