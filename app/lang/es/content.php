@@ -167,7 +167,8 @@ return array(
     "backend_menu_stats" => "Estadísticas",
     "backend_menu_reports" => "Denuncias",
     "backend_search_publication_title" => "Buscar publicaciones",
-
+    "backend_search_user_title" => "Buscar usuarios",
+    "backend_search_advertiser_title" => "Buscar anunciantes",
 
     // Backend Dashboard
     "backend_users_section_title" => "Aprobaciones pendientes",
@@ -380,11 +381,11 @@ return array(
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
-
+    "filter_user_role" => "Rol:",
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o mas Categorias',
     "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
-
+    "filter_role_placeholder" => 'Seleccione Rol',
     // Users
     "users" => 'Usuarios',
     "user_name" => 'Nombre',
