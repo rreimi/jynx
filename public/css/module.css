@@ -240,6 +240,19 @@ h2.home-title {
     width: 450px;
 }
 
+#pub-images-box .carousel-indicators li {
+    background-color: rgba(150, 150, 150, 0.25);
+}
+
+#pub-images-box .carousel-indicators li.active {
+    background-color: rgba(25, 25, 25, 0.25);
+}
+
+#pub-images-box .carousel-indicators {
+    bottom: 15px;
+    top: inherit;
+}
+
 /*.pub-table .row-title {*/
     /*width: 25%;*/
 /*}*/

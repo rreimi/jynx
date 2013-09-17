@@ -63,11 +63,12 @@
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
                 <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
                 <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
-                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</p>
+                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
+                    @if ($publication->publisher->phone2)
+                    / {{ $publication->publisher->phone2 }}
+                    @endif</p>
                 <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
-                @if ($publication->publisher->phone2)
-                    {{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}
-                @endif
+
             </div><!--/.publisher-info-->
 
             @if (count($publication->contacts) > 0)

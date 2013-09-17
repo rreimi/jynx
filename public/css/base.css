@@ -238,19 +238,15 @@ footer .contact-row.contact-text {
 }
 
 .us-footer {
-    width: 26%;
-}
-
-.allies-footer {
-    width: 22%;
+    width: 24%;
 }
 
 .help-footer {
-    width: 17%;
+    width: 29%;
 }
 
-.news-footer {
-    width: 35%;
+.jobs-footer {
+    width: 47%;
 }
 
 .dynamic-footer-blocks {
@@ -259,6 +255,7 @@ footer .contact-row.contact-text {
 
 .footer-static-blocks {
     width: 35%;
+    text-align: right;
 }
 
 .logos-footer {
@@ -427,6 +424,7 @@ footer a:hover, footer a:active {
 
     .footer-static-blocks {
         width:100%;
+        text-align: center;
     }
 
     .dynamic-footer-blocks {

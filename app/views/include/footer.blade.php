@@ -92,8 +92,8 @@
             </div>
         </a>
         <a href="#">
-            <div class="footer-title footer-block news-footer">
-                {{Lang::get('content.news')}}
+            <div class="footer-title footer-block jobs-footer">
+                {{Lang::get('content.jobs')}}
             </div>
         </a>
     </div>
