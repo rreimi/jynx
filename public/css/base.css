@@ -588,16 +588,18 @@ nav-filters-container {
 .nav-filter-active .label {
     margin-bottom: 0.5em;
     line-height: 1.54em;
+    background-color: #EEEEEE;
+    color: #666666;
+    font-weight: normal;
+    text-shadow: none;
+    line-height: 24px;
+    padding: 2px 10px;
+    white-space: inherit;
+    min-width: 225px;
 }
 
 .nav-filter-active .label .close {
     margin-left:5px;
-}
-
-.side-nav .icon-leaf{
-    opacity: .25;
-    margin-right: 2px;
-
 }
 
 .side-nav .icon-chevron-right, .side-nav .icon-chevron-down {
