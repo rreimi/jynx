@@ -10,11 +10,13 @@ class ContactUsController extends BaseController {
 
     public function getIndex(){
         $contactUs = new stdClass();
-        $contactUs->name = "";
-        $contactUs->email = "";
-        $contactUs->phone = "";
+        $contactUs->name = (Auth::check()) ? (Auth::user()->full_name) : "";
+        $contactUs->email = (Auth::check()) ? (Auth::user()->email) : "";
+        $contactUs->phone = (Auth::check() && Auth::user()->isPublisher()) ? (Auth::user()->publisher->phone1) : "";
         $contactUs->subject = "";
         $contactUs->contact_message = "";
+
+        $user = (Auth::check()) ? (Auth::user()) : null;
 
         return View::make('contactUs_form', array(
                 'contactUs' => $contactUs,
@@ -58,9 +60,11 @@ class ContactUsController extends BaseController {
             'name' => Config::get('emails/addresses.name_contactus'),
         );
 
-        $subject = Lang::get('content.contactUs_email_new_message_subject');
+        $contactUsData['contentEmail'] = 'contactUs';
 
-        self::sendMail('emails.contactUs.template', $contactUsData, $receivers, $subject);
+        $subject = Lang::get('content.contactus_email_new_message_subject');
+
+        self::sendMail('emails.layout_email', $contactUsData, $receivers, $subject);
 
         self::addFlashMessage(null, Lang::get('content.contactus_success'), 'success');
 

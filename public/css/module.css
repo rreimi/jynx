@@ -419,6 +419,10 @@ div#home-banner-top .carousel-control {
     margin-right:auto;
 }
 
+.register-form-conditions {
+    display: none;
+}
+
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;

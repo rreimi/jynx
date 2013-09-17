@@ -246,13 +246,14 @@ return array(
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
-    "register_conditions" => "Acepto <a href=\":url\">términos y condiciones de servicio</a>",
+    "register_conditions" => "Acepto <a nohref onclick='javascript:showConditions();'>términos y condiciones de servicio</a>",
     "register_dialog_header" => "",
     "register_dialog_description" => "",
     "register_dialog_continue" => "Sí quiero",
     "register_dialog_cancel" => "No por los momentos, quiero navegar",
     "register_title_success" => "Bienvenido",
     "register_description_success" => "Proceso de registro completo",
+    "register_hide_conditions_back" => "<< Regresar y completar el registro",
 
     "register_dialog_header" => "¿Quieres optar a ser anunciante?",
     "register_dialog_description" => "Para ser anunciante, tienes que ser un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y pasarás por un proceso de aprobación luego de responder una serie de preguntas. Si cumples estos requisitos y deseas optar a publicar, selecciona 'Sí quiero'.",
@@ -543,6 +544,7 @@ return array(
     "reminder_header"=>"Te ayudaré",
     "reminder_answer"=>"En minutos por favor verifica tu correo, te envíaremos un email con el enlace para cambiar tu contraseña",
     "reminder_success"=>"Verifica tu correo, para que puedas cambiar tu contraseña",
+    "reminder_email_subject" => "Recuperación de contraseña para TuMercato.com",
 
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
     "reset_question"=>"Agrega tus datos para cambiar la contraseña",
