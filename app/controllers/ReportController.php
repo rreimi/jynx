@@ -4,7 +4,7 @@ class ReportController extends BaseController {
 
     private $prefix = 'report';
     private $page_size = '6';
-    private $repListSort = array('id', 'comment', 'date', 'status');
+    private $listSort = array('id', 'comment', 'date', 'status');
 
     /**
      * @ajax
@@ -147,10 +147,8 @@ class ReportController extends BaseController {
             return Redirect::to('/');
         }
 
-        $isPost = !is_null(Input::get('_token'));
-        $state = self::retrieveListState($isPost);
-
-        $reports = PublicationReport::totalReports()->with('user')->with('publication');
+        $state = self::retrieveListState();
+        $reports = PublicationReport::totalReports($state['sort'], $state['order'])->with('user')->with('publication');
 
         // Limit reports by received filters.
         if (!empty($state['filtering_type']) && !empty($state['filtering_id'])){
@@ -192,7 +190,6 @@ class ReportController extends BaseController {
             'reports' => $reports,
             'state' => $state,
             'user' => $user,
-            'is_post' => $isPost,
             'filteringType' => $filterType,
             'filteringId' => $filterId
         ) //end array
@@ -214,14 +211,19 @@ class ReportController extends BaseController {
         return $options;
     }
 
-    private function retrieveListState($isPost){
+    private function retrieveListState(){
+
+        Session::forget('rep_list.state');
+
         $state = Session::get('rep_list.state');
-        $state['active_custom_filters'] = is_null($state['active_custom_filters'])? 0 : $state['active_custom_filters'];
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
+
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
 
         /* Basic filters and sort */
 
         //Sort
-        $sort = (in_array(Input::get('sort'), $this->repListSort) ? Input::get('sort') : null);
+        $sort = (in_array(Input::get('sort'), $this->listSort) ? Input::get('sort') : null);
 
         if ((isset($sort)) || !(isset($state['sort']))) {
             $state['sort'] = (isset($sort))? $sort : 'id';
@@ -267,12 +269,14 @@ class ReportController extends BaseController {
         /* End custom filters */
 
         /* Basic filters not count */
-        $basicFilters = array('q', 'sort', 'order');
+        $ignoreFilters = array('active_filters', 'sort', 'order');
         if ($isPost) {
-            $state['active_custom_filters'] = 0;
+            $state['active_filters'] = 0;
             foreach ($state as $key => $item) {
-                if (isset($item) && !empty($item) && (!in_array($key, $basicFilters))){
-                    $state['active_custom_filters']++;
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
                 }
             }
         }

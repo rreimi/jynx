@@ -459,6 +459,11 @@ footer a:hover, footer a:active {
     margin:auto;
 }
 
+.search-sidebar-box {
+    margin-bottom:1.5em;
+    border-bottom: 1px solid #ccc;
+}
+
 .sidebar-search-form .input {
     width:100%;
 }

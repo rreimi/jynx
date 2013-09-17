@@ -4,7 +4,7 @@ class UserController extends BaseController {
 
     private $prefix = 'user';
     private $page_size = '6';
-    private $userListSort = array('id', 'email', 'role', 'full_name', 'created_at');
+    private $listSort = array('id', 'email', 'role', 'full_name', 'created_at', 'status');
 
     public function __construct() {
         $this->beforeFilter('auth');
@@ -25,7 +25,7 @@ class UserController extends BaseController {
         $q = $state['q'];
 
         if (!empty($q)){
-            $users->orWhere(function($query) use ($q)
+            $users->where(function($query) use ($q)
             {
                 $query->orWhere('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('role', 'LIKE', '%' . $q . '%')
@@ -40,6 +40,12 @@ class UserController extends BaseController {
             $users->where('status', '=', $status);
         }
 
+        $rol = $state['filter_role'];
+
+        if (!empty($rol)){
+            $users->where('role', '=', $rol);
+        }
+
         // Don't show publishers users
         $users->where('role', '!=', User::ROLE_PUBLISHER);
 
@@ -48,6 +54,7 @@ class UserController extends BaseController {
 
         return View::make('user_list', array(
             'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
+            'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
             'users' => $users,
             'state' => $state,
             ) //end array
@@ -60,8 +67,11 @@ class UserController extends BaseController {
 
     private function retrieveListState(){
         $state = Session::get('user_list.state');
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
 
-        $sort = (in_array(Input::get('sort'), $this->userListSort) ? Input::get('sort') : null);
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
+
+        $sort = (in_array(Input::get('sort'), $this->listSort) ? Input::get('sort') : null);
 
         if ((isset($sort)) || !(isset($state['sort']))) {
             $state['sort'] = (isset($sort))? $sort : 'id';
@@ -83,6 +93,25 @@ class UserController extends BaseController {
 
         if ((isset($status)) || !(isset($state['filter_status']))) {
             $state['filter_status'] = (isset($status))? $status : '';
+        }
+
+        $role = (!is_null(Input::get('filter_role')) ? Input::get('filter_role') : null);
+
+        if ((isset($role)) || !(isset($state['filter_role']))) {
+            $state['filter_role'] = (isset($role))? $role : '';
+        }
+
+        /* Basic filters not count */
+        $ignoreFilters = array('active_filters', 'sort', 'order');
+        if ($isPost) {
+            $state['active_filters'] = 0;
+            foreach ($state as $key => $item) {
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
+                }
+            }
         }
 
         Session::put('user_list.state', $state);
@@ -241,9 +270,9 @@ class UserController extends BaseController {
     private static function getUserRoles($blankCaption = '') {
 
         $options = array (
-            'Basic' => Lang::get('content.role_Basic'),
+            User::ROLE_BASIC => Lang::get('content.role_Basic'),
 //            'Publisher' => Lang::get('content.role_Publisher'),
-            'Admin' => Lang::get('content.role_Admin'),
+            User::ROLE_ADMIN => Lang::get('content.role_Admin'),
         );
 
         if (!empty($blankCaption)){

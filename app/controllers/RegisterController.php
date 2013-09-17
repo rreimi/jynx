@@ -237,7 +237,7 @@ class RegisterController extends BaseController{
             'register_full_name' => 'required',
             'register_password' => 'required|confirmed',
             'register_password_confirmation' => 'required',
-            'register_conditions' => 'required'
+            'register_conditions' => 'accepted'
         );
     }
 
