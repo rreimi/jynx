@@ -86,10 +86,6 @@
 {{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('select.filter-field').bind('change', function(){
-            //jQuery('#pub_list_form').submit();
-        });
-
         jQuery('.chosen-select').chosen({
             width: "100%"
         });
@@ -97,6 +93,7 @@
         jQuery('.reset-fields').bind('click', function(){
             jQuery('.filter-field').val('');
             jQuery('.chosen-select').val('').trigger("chosen:updated");
+            jQuery('#pub_list_form').submit();
         });
 
         /* Filter fields */
