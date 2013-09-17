@@ -30,15 +30,14 @@
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (!is_null(Auth::user()))
-                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                    <br/>
-                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
-                @endif
-            @endif
         </h1><div class="triangle"></div>
 
         <div class="publication-info">
+            @if (!is_null(Auth::user()))
+            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @endif
+            @endif
             <div>{{ $publication->short_description }}</div>
 
             <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
