@@ -373,7 +373,7 @@ return array(
     "filter_active" => 'Filtros Activos',
     "filter_available" => 'Filtros Disponibles',
     "filter_seller_title" => 'Vendedor',
-    "filter_state_title" => 'Ubicacion',
+    "filter_state_title" => 'Ubicación',
     "filter_category_title" => 'Categoría',
     "filter_publication_start_date" => 'Fecha de inicio:',
     "filter_publication_end_date" => 'Fecha fin:',
