@@ -321,7 +321,7 @@ div#home-banner-top ol.carousel-indicators {
     top: 374px;
 }
 
-div#home-banner-top carousel-indicators li:hover {
+div#home-banner-top .carousel-indicators li:hover {
     cursor: pointer;
 }
 
