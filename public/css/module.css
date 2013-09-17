@@ -253,6 +253,10 @@ h2.home-title {
     top: inherit;
 }
 
+#pub-images-box .carousel-indicators li:hover {
+    cursor: pointer;
+}
+
 /*.pub-table .row-title {*/
     /*width: 25%;*/
 /*}*/
@@ -315,6 +319,10 @@ div#home-banner-top ol.carousel-indicators {
     left: inherit;
     margin: 0;
     top: 374px;
+}
+
+div#home-banner-top carousel-indicators li:hover {
+    cursor: pointer;
 }
 
 div#home-banner-top .carousel-control {
