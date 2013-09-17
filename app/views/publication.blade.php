@@ -87,23 +87,29 @@
             </div><!--/.contacs-info-->
             @endif
         </div>
-        <div class="publication-buttons">
-            @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
+        <div class="publication-rating">
+
+            <div class="title-block">
+                <div class="publication-buttons">
+                    <div class="report-info">
+                        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
+                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        @endif
+                    </div>
+                </div>
+                <h2 class="title">CALIFICACIONES</h2>
             </div>
-            @endif
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
-            </div>
+
+            {{ $publication->ratings }}
+
+            @include('include.modal_report')
+            @include('include.modal_rateit')
+
         </div>
-        @include('include.modal_report')
-        @include('include.modal_rateit')
         <div class="clearfix"></div>
 
         <!-- Ratings -->
-
-        {{ $publication->ratings }}
 
         @if ($lastvisited)
         <div class="last-visited-box">
