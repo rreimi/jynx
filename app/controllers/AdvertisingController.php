@@ -4,7 +4,7 @@ class AdvertisingController extends BaseController {
 
     private $prefix = 'advertising';
     private $page_size = '10';
-    private $advListSort = array('id', 'name', 'status', 'created_at');
+    private $listSort = array('id', 'name', 'status', 'order', 'image_url', 'external_url', 'full_name');
 //    private $pub_img_dir = 'advertisement';
 
     public function __construct() {
@@ -26,10 +26,10 @@ class AdvertisingController extends BaseController {
         $q = $state['q'];
 
         if (!empty($q)){
-            $advertisings->orWhere(function($query) use ($q)
+            $advertisings->where(function($query) use ($q)
             {
                 $query->orWhere('name', 'LIKE', '%' . $q . '%')
-//                    ->orWhere('categories_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('full_name', 'LIKE', '%' . $q . '%')
 //                    ->orWhere('from_date', 'LIKE', '%' . $q . '%')
 //                    ->orWhere('to_date', 'LIKE', '%' . $q . '%')
                 ;
@@ -55,13 +55,18 @@ class AdvertisingController extends BaseController {
 
     private function retrieveListState(){
         $state = Session::get('adv_list.state');
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
 
-        $sort = (in_array(Input::get('sort'), $this->advListSort) ? Input::get('sort') : null);
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
+
+        //Sort
+        $sort = (in_array(Input::get('sort'), $this->listSort) ? Input::get('sort') : null);
 
         if ((isset($sort)) || !(isset($state['sort']))) {
             $state['sort'] = (isset($sort))? $sort : 'id';
         }
 
+        //Order
         $order = (in_array(Input::get('order'), array('asc', 'desc')) ? Input::get('order') : null);
 
         if ((isset($order)) || !(isset($state['order']))) {
@@ -78,6 +83,19 @@ class AdvertisingController extends BaseController {
 
         if ((isset($status)) || !(isset($state['filter_status']))) {
             $state['filter_status'] = (isset($status))? $status : '';
+        }
+
+        /* Basic filters not count */
+        $ignoreFilters = array('active_filters', 'sort', 'order');
+        if ($isPost) {
+            $state['active_filters'] = 0;
+            foreach ($state as $key => $item) {
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
+                }
+            }
         }
 
         Session::put('adv_list.state', $state);
