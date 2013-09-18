@@ -72,7 +72,7 @@
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('usuario/editar/' . $user->id)}}">
                     <i class="icon-pencil"></i>
                 </a>
-                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_user_delete_title') }}', '{{ Lang::get('content.modal_user_delete_content') }}', '{{URL::to('usuario/eliminar/' . $user->id)}}')">
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn" nohref onclick="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_user_delete_title') }}', '{{ Lang::get('content.modal_user_delete_content') }}', '{{URL::to('usuario/eliminar/' . $user->id)}}')">
                     <i class="icon-trash"></i>
                 </a>
             </td>

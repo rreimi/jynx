@@ -59,6 +59,7 @@ body {
     background-color: #fff;
     width:200px;
     margin-top: 5px;
+    display: none;
 }
 
 .top-menu-search .input-append {

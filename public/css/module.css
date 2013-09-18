@@ -428,6 +428,10 @@ div#home-banner-top .carousel-control {
     margin-right:auto;
 }
 
+.modal-register .modal-body {
+    padding-bottom: 2em;
+}
+
 .register-form-conditions {
     display: none;
 }

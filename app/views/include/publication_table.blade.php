@@ -63,7 +63,7 @@
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn btn-mini" href="{{URL::to('publicacion/editar/' . $pub->id)}}">
                     <i class="icon-pencil"></i>
                 </a>
-                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn btn-mini" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn btn-mini" nohref onclick="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">
                     <i class="icon-trash"></i>
                 </a>
             </td>
