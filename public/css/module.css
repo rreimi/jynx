@@ -578,6 +578,14 @@ div#home-banner-top .carousel-control {
     margin: 20px;
 }
 
+.publication-rating .pagination {
+    text-align: center;
+}
+
+.publication-rating .pagination .limit {
+    display: none;
+}
+
 /* Main menu */
 
 .main-menu{
