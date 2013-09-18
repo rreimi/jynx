@@ -113,7 +113,7 @@
     <div id="startDialog" class="modal hide fade" tabindex="-1" role="dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3 id="myModalLabel">{{ Lang::get('content.register_dialog_header') }}</h3>
+            <h3 id="myModalLabel">{{ Lang::get('content.register_dialog_activated') }}. {{ Lang::get('content.register_dialog_header') }}</h3>
         </div>
         <div class="modal-body">
             <p>{{ Lang::get('content.register_dialog_description') }}</p>

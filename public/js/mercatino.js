@@ -59,9 +59,9 @@ if (jQuery) {
             messages: {},
 //            focusInvalid: true,
 //            focusCleanup:true,
-//            onsubmit:true,
-//            onkeyup:false,
-//            onclick:false
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
             errorPlacement: function(error, element) {
                 jQuery(element).parent().addClass(this.inputErrorClass);
                 jQuery(element).popover('destroy');
@@ -298,6 +298,9 @@ Mercatino.registerForm = {
         jQuery('#modal-register').modal('hide');
     },
     send: function(){
+        if (!jQuery('#register-form').valid()){
+            return false;
+        }
 
         var formData = jQuery('#register-form').serializeObject();
         var url = jQuery('#register-form').attr('action');
@@ -323,6 +326,17 @@ Mercatino.registerForm = {
                 if (data.status_code == 'invalid_token') {
                     window.location.href = "/";
                 };
+            }
+        });
+    },
+    init: function () {
+        jQuery('#register-form').validateBootstrap({
+            placement:'bottom',
+            rules: {
+                register_password: "required",
+                register_password_confirmation: {
+                    equalTo: "#register_password"
+                }
             }
         });
     }

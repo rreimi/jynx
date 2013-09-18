@@ -29,6 +29,9 @@
                 Mercatino.resetForm.show(token);
             }
         }
+
+        Mercatino.registerForm.init();
+        Mercatino.loginForm.init();
     });
 </script>
 @endif

@@ -1,6 +1,6 @@
 <div id="modal-rateit" class="modal modal-rateit hide fade">
     <div class="modal-header">
-        <a href="javascript:Mercatino.rateitForm.hide()" class="close">&times;</a>
+        <a nohref onclick="javascript:Mercatino.rateitForm.hide()" class="close">&times;</a>
         <h3>{{Lang::get('content.rate_publication')}}</h3>
     </div>
 
@@ -24,8 +24,8 @@
         {{ Form::close() }}
     </div>
     <div class='modal-footer'>
-        <a href="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>
-        <a href="javascript:Mercatino.rateitForm.hide()" class="btn secondary">{{Lang::get('content.cancel')}}</a>
+        <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>
+        <a nohref onclick="javascript:Mercatino.rateitForm.hide()" class="btn secondary">{{Lang::get('content.cancel')}}</a>
     </div>
 </div>
 
