@@ -7,7 +7,7 @@
 class RatingController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except'=>array('postDenunciasPublicacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
     }
 
@@ -77,7 +77,7 @@ class RatingController extends BaseController{
      * Retrieve reviews by publication_id
      * @param $publicationId = the publication id
      */
-    public function postDenunciasPublicacion($publicationId, $offset = 0) {
+    public function postDenunciasPublicacion($publicationId, $pageNumber = 1) {
 
         // Check valid publication
         $pub = Publication::find($publicationId);
@@ -86,7 +86,10 @@ class RatingController extends BaseController{
             return Response::json('error_rating_invalid_pub', 404);
         }
 
+        $pageSize = PublicationRating::$limitPagination;
         $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+
+        $offset = $pageSize * ($pageNumber-1);
 
         $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
 
@@ -95,10 +98,12 @@ class RatingController extends BaseController{
         $result = new stdClass;
         $result->totalRatings = $totalRatings;
         $result->ratings = $ratingsHtml;
-        $result->pageSize = PublicationRating::$limitPagination;
-//        if (sizeof($ratingsList) < PublicationRating::$limitPagination){
-//            $result->limit = true;
-//        }
+        $result->pageSize = $pageSize;
+        if ($pageNumber == 1){
+            $result->limit = 'top';
+        } elseif ($pageNumber >= ($totalRatings/$pageSize)){
+            $result->limit = 'bottom';
+        }
 
         return Response::json($result, 200);
 
@@ -110,16 +115,37 @@ class RatingController extends BaseController{
 
         foreach($ratings as $rating) {
             $html .= '<div class="rating-block">';
-
-                $html .= 'vote = ' . $rating->vote .'<br/>';
-                $html .= 'user = ' . $rating->user->full_name .'<br/>';
-                $html .= 'fecha = ' . $rating->created_at .'<br/>';
-                $html .= 'comentario = ' . $rating->comment .'<br/>';
-
+                $html .= '<div class="head">';
+                        $html .= RatingHelper::getRatingBar($rating->vote);
+                        $html .= '<div class="info">';
+                            $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                            $originalDate = $rating->created_at;
+                            $newDate = date("d-m-Y", strtotime($originalDate));
+                            $html .= '<span class="date">' . $newDate .'</span>';
+                            $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                        $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="description">';
+                    $html .= $rating->comment;
+                $html .= '</div>';
             $html .= '</div>';
         }
 
-        $html .= '<div class="clearfix"></div>';
+        if (sizeof($ratings) == 0){
+            $html .= '<div class="no-ratings">';
+            $html .= Lang::get('content.rating_publication_no_items');
+            $html .= '</div>';
+        } else {
+            $html .= '<div class="pagination">
+                            <ul>
+                                <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
+                                <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
+                                <li><a class="current-page" nohref></a></li>
+                                <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
+                                <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
+                            </ul>
+                        </div>';
+        }
 
         return $html;
     }

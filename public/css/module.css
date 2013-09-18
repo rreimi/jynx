@@ -529,13 +529,65 @@ div#home-banner-top .carousel-control {
 .publication-rating .title {
     border-bottom: 1px solid #AAAAAA;
     color: #858585;
-    margin: 15px 35px 0 35px;
+    margin: 15px 35px 0;
+    font-size: 1.3em;
+    padding-bottom: 15px;
 }
 
 .publication-rating .rating-block {
     margin: 0 35px;
     padding: 20px 0;
     border-bottom: 1px solid #AAAAAA;
+}
+
+.publication-rating .rating-block .current-rating {
+    float: left;
+    margin-top: 3px;
+    width: 10%;
+}
+
+.publication-rating .rating-block .info {
+    float: left;
+    width: 90%;
+}
+
+.publication-rating .rating-block .info span {
+    margin-left: 25px;
+}
+
+.publication-rating .rating-block .info .nickname {
+    color: #006CD8;
+}
+
+.publication-rating .rating-block .info .date {
+    color: #AAAAAA;
+}
+
+.publication-rating .rating-block .title-rating {
+    color: #858585;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.publication-rating .rating-block .description {
+    margin-top: 35px;
+    font-size: 1.2em;
+    color: #AAAAAA;
+}
+
+.publication-rating .items .no-ratings {
+    font-size: 1.2em;
+    color: #AAAAAA;
+    text-align: center;
+    margin: 20px;
+}
+
+.publication-rating .pagination {
+    text-align: center;
+}
+
+.publication-rating .pagination .limit {
+    display: none;
 }
 
 /* Main menu */

@@ -215,34 +215,54 @@
 
     Mercatino.ratings = {
         url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
-        offset:  0,
+        currentPage:  0,
+        lastAction: 'next',
 
-        retrieve: function(direction){
+        previousPage: function(){
+            this.currentPage--;
+            this.retrieve(this.currentPage);
+        },
+
+        nextPage: function(){
+            this.currentPage++;
+            this.retrieve(this.currentPage);
+        },
+
+        retrieve: function(pageNumber){
             jQuery.ajax({
-                url: this.url + "/" + this.offset,
+                url: this.url + "/" + this.currentPage,
                 type: 'POST',
                 dataType: 'json',
                 success: function(result) {
                     jQuery('.publication-rating .items').html(result.ratings);
-                    if (direction == 'next'){
-                        Mercatino.ratings.offset += result.pageSize;
-                        if (Mercatino.ratings.offset > result.totalRatings){
-                            console.log('desactiva next');
-                            Mercatino.ratings.offset -= result.pageSize * 2;
-                        }
-                    } else if (direction == 'previous') {
-                        Mercatino.ratings.offset -= result.pageSize;
-                        if (Mercatino.ratings.offset < 0){
-                            console.log('desactiva previous');
-                            Mercatino.ratings.offset += result.pageSize * 2;
-                        }
-                    }
-                    console.log('success ' + Mercatino.ratings.offset);
+
+
+                    console.log(result.limit);
+                    Mercatino.ratings.assignPages(result.limit);
+
                 },
                 error: function(result) {
-                    console.log('errorrrrrrrrrrrrrrrr ' + Mercatino.ratings.offset);
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_publication_retrieve_error')}}", type:'error'});
                 }
             });
+        },
+
+        assignPages: function(limit){
+
+            var currentPage = this.currentPage;
+            var previousPage = this.currentPage - 1;
+            var nextPage = this.currentPage + 1;
+
+            if (limit == 'top'){
+                jQuery('.publication-rating .pagination .top-page').addClass('limit');
+            } else if (limit == 'bottom'){
+                jQuery('.publication-rating .pagination .bottom-page').addClass('limit');
+            }
+
+            jQuery('.publication-rating .pagination .previous-page').html(previousPage);
+            jQuery('.publication-rating .pagination .current-page').html(currentPage);
+            jQuery('.publication-rating .pagination .next-page').html(nextPage);
+
         }
     }
 
@@ -258,7 +278,7 @@
             /* Configure validations */
         });
 
-        Mercatino.ratings.retrieve('next');
+        Mercatino.ratings.nextPage();
     });
 </script>
 @stop
