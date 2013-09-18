@@ -6,26 +6,35 @@
 
 @section('content')
     <div class="row-fluid publication-detail">
-        <!-- Carousel -->
-        <div id="pub-images-box" class="float-right pub-images-carousel carousel slide">
-            <ol class="carousel-indicators">
-                @foreach ($publication->images as $key => $img)
-                    <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
-                @endforeach
-            </ol>
+        <div class="float-right">
+            <!-- Carousel -->
+            <div id="pub-images-box" class=" pub-images-carousel carousel slide">
+                <ol class="carousel-indicators">
+                    @foreach ($publication->images as $key => $img)
+                        <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
+                    @endforeach
+                </ol>
 
-            <div class="carousel-inner">
-                @foreach ($publication->images as $key => $img)
-                <div class="item @if ($key == 0) active @endif">
-                    <div class="pub-image-wrapper">
-                        <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                <div class="carousel-inner">
+                    @foreach ($publication->images as $key => $img)
+                    <div class="item @if ($key == 0) active @endif">
+                        <div class="pub-image-wrapper">
+                            <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
 
-            <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
-            <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+            </div>
+            @if (!is_null($publication->latitude) && !is_null($publication->longitude))
+                <div class="google-map">
+                    Mapa con ubicación principal
+                    <br/><br/>
+                    <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
+                </div>
+            @endif
         </div><!-- pub-images-box -->
         <!-- End Carousel -->
 
@@ -86,14 +95,16 @@
             </div><!--/.contacs-info-->
             @endif
         </div>
+
+        <div class="clearfix"></div>
         <div class="publication-rating">
 
             <div class="title-block">
                 <div class="publication-buttons">
                     <div class="report-info">
                         @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                        <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
                         @endif
                     </div>
                 </div>
@@ -106,7 +117,6 @@
             @include('include.modal_rateit')
 
         </div>
-        <div class="clearfix"></div>
 
         <!-- Ratings -->
 

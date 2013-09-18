@@ -75,7 +75,9 @@ return array(
     "seller_name" => 'Anunciante',
     "rating_avg" => 'Puntaje',
     "evaluation" => 'Evaluación',
-    "remember_publication" => 'Recordar vencimiento de la publicación via correo',
+    "remember_publication" => 'Recordar vencimiento de la publicación vía correo',
+    "latitude" => 'Latitud',
+    "longitude" => 'Longitud',
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
