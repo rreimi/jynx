@@ -70,7 +70,58 @@ class RatingController extends BaseController{
             return Response::view('errors.missing', array(), 404);
         }
 
+    }
 
+    /**
+     * @ajax
+     * Retrieve reviews by publication_id
+     * @param $publicationId = the publication id
+     */
+    public function postDenunciasPublicacion($publicationId, $offset = 0) {
+
+        // Check valid publication
+        $pub = Publication::find($publicationId);
+
+        if (is_null($pub)){
+            return Response::json('error_rating_invalid_pub', 404);
+        }
+
+        $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+
+        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
+
+        $ratingsHtml = $this->getRatingBlock($ratingsList);
+
+        $result = new stdClass;
+        $result->totalRatings = $totalRatings;
+        $result->ratings = $ratingsHtml;
+        $result->pageSize = PublicationRating::$limitPagination;
+//        if (sizeof($ratingsList) < PublicationRating::$limitPagination){
+//            $result->limit = true;
+//        }
+
+        return Response::json($result, 200);
 
     }
+
+    private function getRatingBlock($ratings){
+
+        $html = '';
+
+        foreach($ratings as $rating) {
+            $html .= '<div class="rating-block">';
+
+                $html .= 'vote = ' . $rating->vote .'<br/>';
+                $html .= 'user = ' . $rating->user->full_name .'<br/>';
+                $html .= 'fecha = ' . $rating->created_at .'<br/>';
+                $html .= 'comentario = ' . $rating->comment .'<br/>';
+
+            $html .= '</div>';
+        }
+
+        $html .= '<div class="clearfix"></div>';
+
+        return $html;
+    }
+
 }

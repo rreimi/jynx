@@ -155,6 +155,7 @@ h2.home-title {
 .publication-info {
     float: left;
     width: 660px;
+    margin-bottom: 20px;
     margin-left: 20px;
     font-size: 1.1em;
     color: #444444;
@@ -256,6 +257,17 @@ h2.home-title {
 
 #pub-images-box .carousel-indicators li:hover {
     cursor: pointer;
+}
+
+.google-map {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.google-map img {
+    border: 1px solid #BBBBBB;
+    padding: 5px;
 }
 
 /*.pub-table .row-title {*/
@@ -508,14 +520,22 @@ div#home-banner-top .carousel-control {
     background-color: #FAFAFA;
     border: 1px solid #CCCCCC;
     border-radius: 30px 30px 30px 30px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     overflow: hidden;
     width: 100%;
+    margin-top: 30px;
 }
 
 .publication-rating .title {
+    border-bottom: 1px solid #AAAAAA;
     color: #858585;
-    margin-left: 20px;
+    margin: 15px 35px 0 35px;
+}
+
+.publication-rating .rating-block {
+    margin: 0 35px;
+    padding: 20px 0;
+    border-bottom: 1px solid #AAAAAA;
 }
 
 /* Main menu */
@@ -561,7 +581,7 @@ div#home-banner-top .carousel-control {
 }
 
 .navbar .nav > li > a {
-    padding: 2px 30px 10px 0;
+    padding: 2px 30px 13px 0;
 }
 
 .nav-category-menu {

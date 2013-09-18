@@ -24,7 +24,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts' , 'ratings')->find($id);
+        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
 
         //TODO Validar que la publicacion exista
 
@@ -506,6 +506,8 @@ class PublicationController extends BaseController {
             'status' => Input::get('status'),
             'from_date' => Input::get('from_date'),
             'to_date' => Input::get('to_date'),
+            'latitude' => (Input::get('latitude')=='')?null:Input::get('latitude'),
+            'longitude' => (Input::get('longitude')=='')?null:Input::get('longitude'),
             'visits_number' => Input::get('visits_number'),
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
@@ -522,6 +524,8 @@ class PublicationController extends BaseController {
             'status' => 'required',
             'from_date' => 'required|date_format:d-m-Y',
             'to_date' => 'required|date_format:d-m-Y',
+            'latitude' => 'numeric|min:-90|max:90',
+            'longitude' => 'numeric|min:-90|max:90',
             'categories' => 'required',
         );
 

@@ -76,7 +76,9 @@ return array(
     "seller_name" => 'Anunciante',
     "rating_avg" => 'Puntaje',
     "evaluation" => 'Evaluación',
-    "remember_publication" => 'Recordar vencimiento de la publicación via correo',
+    "remember_publication" => 'Recordar vencimiento de la publicación vía correo',
+    "latitude" => 'Latitud',
+    "longitude" => 'Longitud',
     "ratings" => "Calificaciones",
 
     //Publication status
@@ -251,7 +253,6 @@ return array(
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
     "register_conditions" => "Acepto <a nohref onclick='javascript:showConditions();'>términos y condiciones de servicio</a>",
-    "register_dialog_header" => "",
     "register_dialog_description" => "",
     "register_dialog_continue" => "Sí quiero",
     "register_dialog_cancel" => "No por los momentos, quiero navegar",
@@ -259,6 +260,7 @@ return array(
     "register_description_success" => "Proceso de registro completo",
     "register_hide_conditions_back" => "<< Regresar y completar el registro",
 
+    "register_dialog_activated" => "Tu usuario ha sido activado",
     "register_dialog_header" => "¿Quieres optar a ser anunciante?",
     "register_dialog_description" => "Para ser anunciante, tienes que ser un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y pasarás por un proceso de aprobación luego de responder una serie de preguntas. Si cumples estos requisitos y deseas optar a publicar, selecciona 'Sí quiero'.",
     "register_dialog_description2" => "De lo contrario, si no perteneces a la Cámara de Comercio Venezolano-Italiana (CAVENIT) o no deseas optar a publicar por los momentos, selecciona 'No por los momentos, quiero navegar' para proceder a ingresar.",
