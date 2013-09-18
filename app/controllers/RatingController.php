@@ -16,17 +16,23 @@ class RatingController extends BaseController{
         if (Request::ajax()) {
 
             $rules = array('vote' => 'required',
-                'comment' => 'required',
+                'comment' => 'required|max:300',
                 'user_id' => 'required',
+                'title' => 'required|max:80',
                 'publication_id' => 'required');
 
             $data = new stdClass;
+            $data->title = Input::get('title');
             $data->comment = Input::get('report_comment');
-            $data->vote = floatval(Input::get('rating-select'));
+            $data->vote = intval(Input::get('rating-select'));
             $data->user_id = Auth::user()->id;
             $data->publication_id = intval(Input::get('rating_publication_id'));
 
-            $validator = Validator::make((array) $data, $rules);
+            $messages = [
+                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres',
+            ];
+
+            $validator = Validator::make((array) $data, $rules, $messages);
 
             $result = new stdClass;
 

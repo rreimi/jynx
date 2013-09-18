@@ -88,14 +88,14 @@
             @endif
         </div>
         <div class="publication-buttons">
-            @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
+            @if (!(Auth::guest()) && (Auth::user()->id != $publication->publisher->user_id))
             <div class="report-info">
                 <p><a nohref class="btn btn-primary btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
             </div>
-            @endif
             <div class="report-info">
                 <p><a nohref class="btn btn-primary btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
             </div>
+            @endif
         </div>
         @include('include.modal_report')
         @include('include.modal_rateit')
@@ -197,69 +197,17 @@
         }
     };
 
-    Mercatino.rateitForm = {
-        show: function(publicationId){
-            //jQuery('#modal-confirm .modal-header h3').html(title);
-            //jQuery('#modal-confirm .modal-body p').html(content);
-            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
-            jQuery('#rating-form').get(0).reset();
-            jQuery('#modal-rateit').modal('show');
-            jQuery('#rating-form input[name="rating_publication_id"]').val(publicationId);
-            jQuery('#rating-sel').barrating('clear');
-
-        },
-        hide: function(){
-            jQuery('#modal-rateit').modal('hide')
-        },
-        send: function(){
-            var comment = jQuery('#modal-rateit textarea').val();
-
-            if (comment == ""){
-                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_comment_required')}}", type:'error'});
-                return;
-            }
-
-            var formData = jQuery('#rating-form').serializeObject();
-            var url = jQuery('#rating-form').attr('action');
-
-            this.hide();
-
-            jQuery.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function(result) {
-                    Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
-                    jQuery('#rating-form').reset();
-                },
-                error: function(result) {
-                    var data = result.responseJSON;
-                    if (data.status_code == 'validation') {
-                        for (var i = 0; i < data.errors.length; i++){
-                            Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
-                        }
-                        return false;
-                    };
-
-                    if (data.status_code == 'invalid_token') {
-                        window.location.href = "/";
-                    };
-                }
-            });
-        }
-    };
-
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
           Mercatino.reportForm.show();
         });
 
+        Mercatino.rateitForm.init();
+
         jQuery('#rateit-link').bind('click', function(){
             Mercatino.rateitForm.show('{{ $publication->id }}');
+            /* Configure validations */
         });
-
-        jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
     });
 </script>
 @stop

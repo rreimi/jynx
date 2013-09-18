@@ -4,7 +4,7 @@ class PublicationRating extends Eloquent {
 
     public $timestamps = true;
     protected $table = 'publications_ratings';
-    protected $fillable = array('user_id', 'publication_id', 'comment', 'vote');
+    protected $fillable = array('user_id', 'publication_id', 'comment', 'vote', 'title');
 
     public function publication(){
         return $this->belongsTo('Publication');
