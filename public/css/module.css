@@ -174,7 +174,7 @@ h2.home-title {
     float: right;
 }
 
-.publication-info h2 {
+.publication-info h2, .publication-rating h2 {
     text-transform: uppercase;
     font-weight: normal;
     font-size: 1.1em;

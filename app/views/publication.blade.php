@@ -30,15 +30,14 @@
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (!is_null(Auth::user()))
-                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                    <br/>
-                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
-                @endif
-            @endif
         </h1><div class="triangle"></div>
 
         <div class="publication-info">
+            @if (!is_null(Auth::user()))
+            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @endif
+            @endif
             <div>{{ $publication->short_description }}</div>
 
             <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
@@ -100,7 +99,7 @@
                         @endif
                     </div>
                 </div>
-                <h2 class="title">CALIFICACIONES</h2>
+                <h2 class="title">{{Lang::get('content.ratings')}}</h2>
             </div>
             <div class="items">
                 <!-- Here is placed the content with the ajax function-->
@@ -204,59 +203,6 @@
         }
     };
 
-    Mercatino.rateitForm = {
-        show: function(publicationId){
-            //jQuery('#modal-confirm .modal-header h3').html(title);
-            //jQuery('#modal-confirm .modal-body p').html(content);
-            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
-            jQuery('#rating-form').get(0).reset();
-            jQuery('#modal-rateit').modal('show');
-            jQuery('#rating-form input[name="rating_publication_id"]').val(publicationId);
-            jQuery('#rating-sel').barrating('clear');
-
-        },
-        hide: function(){
-            jQuery('#modal-rateit').modal('hide')
-        },
-        send: function(){
-            var comment = jQuery('#modal-rateit textarea').val();
-
-            if (comment == ""){
-                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_comment_required')}}", type:'error'});
-                return;
-            }
-
-            var formData = jQuery('#rating-form').serializeObject();
-            var url = jQuery('#rating-form').attr('action');
-
-            this.hide();
-
-            jQuery.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function(result) {
-                    Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
-                    jQuery('#rating-form').reset();
-                },
-                error: function(result) {
-                    var data = result.responseJSON;
-                    if (data.status_code == 'validation') {
-                        for (var i = 0; i < data.errors.length; i++){
-                            Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
-                        }
-                        return false;
-                    };
-
-                    if (data.status_code == 'invalid_token') {
-                        window.location.href = "/";
-                    };
-                }
-            });
-        }
-    };
-
     Mercatino.ratings = {
         url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
         offset:  0,
@@ -295,11 +241,12 @@
           Mercatino.reportForm.show();
         });
 
+        Mercatino.rateitForm.init();
+
         jQuery('#rateit-link').bind('click', function(){
             Mercatino.rateitForm.show('{{ $publication->id }}');
+            /* Configure validations */
         });
-
-        jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
 
         Mercatino.ratings.retrieve('next');
     });

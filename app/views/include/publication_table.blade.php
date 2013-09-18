@@ -35,7 +35,7 @@
         @foreach ($publications as $key => $pub)
         <tr>
             <td class="row-title"><b>{{ e($pub->title) }}</b>
-                <span class="title-with-categories">{{ $pub->categories }})</span>
+                <span class="title-with-categories">{{ $pub->categories }}</span>
             </td>
             <td nowrap class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>
             <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>
