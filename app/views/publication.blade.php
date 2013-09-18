@@ -30,15 +30,14 @@
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (!is_null(Auth::user()))
-                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                    <br/>
-                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
-                @endif
-            @endif
         </h1><div class="triangle"></div>
 
         <div class="publication-info">
+            @if (!is_null(Auth::user()))
+            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @endif
+            @endif
             <div>{{ $publication->short_description }}</div>
 
             <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
@@ -87,23 +86,29 @@
             </div><!--/.contacs-info-->
             @endif
         </div>
-        <div class="publication-buttons">
-            @if (!(Auth::guest()) && (Auth::user()->id != $publication->publisher->user_id))
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
+        <div class="publication-rating">
+
+            <div class="title-block">
+                <div class="publication-buttons">
+                    <div class="report-info">
+                        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
+                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        @endif
+                    </div>
+                </div>
+                <h2 class="title">{{Lang::get('content.ratings')}}</h2>
             </div>
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
-            </div>
-            @endif
+
+            {{ $publication->ratings }}
+
+            @include('include.modal_report')
+            @include('include.modal_rateit')
+
         </div>
-        @include('include.modal_report')
-        @include('include.modal_rateit')
         <div class="clearfix"></div>
 
         <!-- Ratings -->
-
-        {{ $publication->ratings }}
 
         @if ($lastvisited)
         <div class="last-visited-box">

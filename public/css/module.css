@@ -173,7 +173,7 @@ h2.home-title {
     float: right;
 }
 
-.publication-info h2 {
+.publication-info h2, .publication-rating h2 {
     text-transform: uppercase;
     font-weight: normal;
     font-size: 1.1em;
@@ -236,7 +236,8 @@ h2.home-title {
 
 .publication-buttons {
     float: right;
-    text-align: center;
+    margin-right: 35px;
+    text-align: right;
     width: 450px;
 }
 
@@ -469,8 +470,6 @@ div#home-banner-top .carousel-control {
     font-family: Verdana;
 }
 
-
-
 .current-rating .full {
     background-color: #FFD233;
     color:#fff;
@@ -499,6 +498,20 @@ div#home-banner-top .carousel-control {
     float:left;
     display: block;
     margin-right:2px;
+}
+
+.publication-rating {
+    background-color: #FAFAFA;
+    border: 1px solid #CCCCCC;
+    border-radius: 30px 30px 30px 30px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.publication-rating .title {
+    color: #858585;
+    margin-left: 20px;
 }
 
 /* Main menu */
