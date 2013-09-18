@@ -428,6 +428,7 @@ return array(
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
+    "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones. ",
 
     // Advertiser
     "advertisers" => 'Anunciantes',

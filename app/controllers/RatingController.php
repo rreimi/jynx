@@ -7,7 +7,7 @@
 class RatingController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except'=>array('postDenunciasPublicacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
     }
 
@@ -96,9 +96,6 @@ class RatingController extends BaseController{
         $result->totalRatings = $totalRatings;
         $result->ratings = $ratingsHtml;
         $result->pageSize = PublicationRating::$limitPagination;
-//        if (sizeof($ratingsList) < PublicationRating::$limitPagination){
-//            $result->limit = true;
-//        }
 
         return Response::json($result, 200);
 
@@ -108,18 +105,29 @@ class RatingController extends BaseController{
 
         $html = '';
 
-        foreach($ratings as $rating) {
-            $html .= '<div class="rating-block">';
-
-                $html .= 'vote = ' . $rating->vote .'<br/>';
-                $html .= 'user = ' . $rating->user->full_name .'<br/>';
-                $html .= 'fecha = ' . $rating->created_at .'<br/>';
-                $html .= 'comentario = ' . $rating->comment .'<br/>';
-
+        if (sizeof($ratings) == 0){
+            $html .= '<div class="no-ratings">';
+                $html .= Lang::get('content.rating_publication_no_items');
             $html .= '</div>';
         }
 
-        $html .= '<div class="clearfix"></div>';
+        foreach($ratings as $rating) {
+            $html .= '<div class="rating-block">';
+                $html .= '<div class="head">';
+                        $html .= RatingHelper::getRatingBar($rating->vote);
+                        $html .= '<div class="info">';
+                            $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                            $originalDate = $rating->created_at;
+                            $newDate = date("d-m-Y", strtotime($originalDate));
+                            $html .= '<span class="date">' . $newDate .'</span>';
+                            $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                        $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="description">';
+                    $html .= $rating->comment;
+                $html .= '</div>';
+            $html .= '</div>';
+        }
 
         return $html;
     }
