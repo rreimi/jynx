@@ -259,6 +259,17 @@ h2.home-title {
     cursor: pointer;
 }
 
+.google-map {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.google-map img {
+    border: 1px solid #BBBBBB;
+    padding: 5px;
+}
+
 /*.pub-table .row-title {*/
     /*width: 25%;*/
 /*}*/
@@ -505,9 +516,10 @@ div#home-banner-top .carousel-control {
     background-color: #FAFAFA;
     border: 1px solid #CCCCCC;
     border-radius: 30px 30px 30px 30px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     overflow: hidden;
     width: 100%;
+    margin-top: 30px;
 }
 
 .publication-rating .title {
