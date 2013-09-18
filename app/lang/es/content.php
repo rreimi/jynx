@@ -94,6 +94,10 @@ return array(
     'backend_report_view_title' => 'Denuncia pendiente',
     'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
     'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
+    'valid_report' => 'Denuncia válida',
+    'invalid_report' => 'Denuncia inválida',
+    'suspend_publication' => 'Editar/Suspender publicación',
+    'suspend_user' => 'Editar/Suspender usuario',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
@@ -306,7 +310,7 @@ return array(
     "backend_phone" => "Teléfono",
 
     "backend_report_id" => "ID",
-    "backend_report_user" => "Usuario",
+    "backend_report_user" => "Nombre",
     "backend_report_publication" => "Publicación",
     "backend_report_comment" => "Comentario",
     "backend_report_date" => "Fecha",
