@@ -56,6 +56,7 @@ return array(
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
     "rating_comment_required" => "Por favor indique los comentarios",
+    "rating_title_required" => "Por favor indique el título",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -78,6 +79,7 @@ return array(
     "remember_publication" => 'Recordar vencimiento de la publicación vía correo',
     "latitude" => 'Latitud',
     "longitude" => 'Longitud',
+    "ratings" => "Calificaciones",
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
@@ -108,7 +110,8 @@ return array(
 
     //Ratings
     'rate_instructions' => 'Califica la publicación del 1 al 5, donde 1 es la puntuación más baja y 5 la más alta.',
-    'rate_comment_instructions' => "Comentarios sobre la calificación:",
+    'rate_title' => 'Título',
+    'rate_comment_instructions' => "Comentarios sobre la calificación (max. 300 caracteres):",
 
     //Menu
     "home" => "Inicio",

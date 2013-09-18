@@ -97,28 +97,29 @@
         </div>
 
         <div class="clearfix"></div>
+
+        <!-- Ratings -->
         <div class="publication-rating">
 
             <div class="title-block">
                 <div class="publication-buttons">
                     <div class="report-info">
                         @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-                        <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                        <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
                         @endif
                     </div>
                 </div>
-                <h2 class="title">CALIFICACIONES</h2>
+                <h2 class="title">{{Lang::get('content.ratings')}}</h2>
             </div>
-
-            {{ $publication->ratings }}
+            <div class="items">
+                <!-- Here is placed the content with the ajax function-->
+            </div>
 
             @include('include.modal_report')
             @include('include.modal_rateit')
 
         </div>
-
-        <!-- Ratings -->
 
         @if ($lastvisited)
         <div class="last-visited-box">
@@ -212,69 +213,52 @@
         }
     };
 
-    Mercatino.rateitForm = {
-        show: function(publicationId){
-            //jQuery('#modal-confirm .modal-header h3').html(title);
-            //jQuery('#modal-confirm .modal-body p').html(content);
-            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
-            jQuery('#rating-form').get(0).reset();
-            jQuery('#modal-rateit').modal('show');
-            jQuery('#rating-form input[name="rating_publication_id"]').val(publicationId);
-            jQuery('#rating-sel').barrating('clear');
+    Mercatino.ratings = {
+        url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        offset:  0,
 
-        },
-        hide: function(){
-            jQuery('#modal-rateit').modal('hide')
-        },
-        send: function(){
-            var comment = jQuery('#modal-rateit textarea').val();
-
-            if (comment == ""){
-                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_comment_required')}}", type:'error'});
-                return;
-            }
-
-            var formData = jQuery('#rating-form').serializeObject();
-            var url = jQuery('#rating-form').attr('action');
-
-            this.hide();
-
+        retrieve: function(direction){
             jQuery.ajax({
-                url: url,
+                url: this.url + "/" + this.offset,
                 type: 'POST',
-                data: formData,
                 dataType: 'json',
                 success: function(result) {
-                    Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
-                    jQuery('#rating-form').reset();
+                    jQuery('.publication-rating .items').html(result.ratings);
+                    if (direction == 'next'){
+                        Mercatino.ratings.offset += result.pageSize;
+                        if (Mercatino.ratings.offset > result.totalRatings){
+                            console.log('desactiva next');
+                            Mercatino.ratings.offset -= result.pageSize * 2;
+                        }
+                    } else if (direction == 'previous') {
+                        Mercatino.ratings.offset -= result.pageSize;
+                        if (Mercatino.ratings.offset < 0){
+                            console.log('desactiva previous');
+                            Mercatino.ratings.offset += result.pageSize * 2;
+                        }
+                    }
+                    console.log('success ' + Mercatino.ratings.offset);
                 },
                 error: function(result) {
-                    var data = result.responseJSON;
-                    if (data.status_code == 'validation') {
-                        for (var i = 0; i < data.errors.length; i++){
-                            Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
-                        }
-                        return false;
-                    };
-
-                    if (data.status_code == 'invalid_token') {
-                        window.location.href = "/";
-                    };
+                    console.log('errorrrrrrrrrrrrrrrr ' + Mercatino.ratings.offset);
                 }
             });
         }
-    };
+    }
 
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
           Mercatino.reportForm.show();
         });
 
+        Mercatino.rateitForm.init();
+
         jQuery('#rateit-link').bind('click', function(){
             Mercatino.rateitForm.show('{{ $publication->id }}');
+            /* Configure validations */
         });
 
-        jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
+        Mercatino.ratings.retrieve('next');
     });
 </script>
 @stop

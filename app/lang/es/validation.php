@@ -83,6 +83,9 @@ return array(
         ),
         'from_date' => array(
             'date_format' => 'El formato de fecha no es válido',
+        ),
+        'comment' => array(
+            'max' => 'asdasdas'
         )
     ),
 
@@ -134,6 +137,7 @@ return array(
         'phone' => 'Teléfono',
         'subject' => 'Asunto',
         'contact_message' => 'Mensaje',
+        'comment' => 'Comentario',
     ),
 
 );

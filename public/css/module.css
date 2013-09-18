@@ -155,6 +155,7 @@ h2.home-title {
 .publication-info {
     float: left;
     width: 660px;
+    margin-bottom: 20px;
     margin-left: 20px;
     font-size: 1.1em;
     color: #444444;
@@ -173,7 +174,7 @@ h2.home-title {
     float: right;
 }
 
-.publication-info h2 {
+.publication-info h2, .publication-rating h2 {
     text-transform: uppercase;
     font-weight: normal;
     font-size: 1.1em;
@@ -522,8 +523,15 @@ div#home-banner-top .carousel-control {
 }
 
 .publication-rating .title {
+    border-bottom: 1px solid #AAAAAA;
     color: #858585;
-    margin-left: 20px;
+    margin: 15px 35px 0 35px;
+}
+
+.publication-rating .rating-block {
+    margin: 0 35px;
+    padding: 20px 0;
+    border-bottom: 1px solid #AAAAAA;
 }
 
 /* Main menu */
