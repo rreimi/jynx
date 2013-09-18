@@ -24,7 +24,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts' , 'ratings')->find($id);
+        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
 
         //TODO Validar que la publicacion exista
 

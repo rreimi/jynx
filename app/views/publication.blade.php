@@ -87,6 +87,8 @@
             </div><!--/.contacs-info-->
             @endif
         </div>
+
+        <!-- Ratings -->
         <div class="publication-rating">
 
             <div class="title-block">
@@ -100,16 +102,15 @@
                 </div>
                 <h2 class="title">CALIFICACIONES</h2>
             </div>
-
-            {{ $publication->ratings }}
+            <div class="items">
+                <!-- Here is placed the content with the ajax function-->
+            </div>
 
             @include('include.modal_report')
             @include('include.modal_rateit')
 
         </div>
         <div class="clearfix"></div>
-
-        <!-- Ratings -->
 
         @if ($lastvisited)
         <div class="last-visited-box">
@@ -256,6 +257,39 @@
         }
     };
 
+    Mercatino.ratings = {
+        url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        offset:  0,
+
+        retrieve: function(direction){
+            jQuery.ajax({
+                url: this.url + "/" + this.offset,
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    jQuery('.publication-rating .items').html(result.ratings);
+                    if (direction == 'next'){
+                        Mercatino.ratings.offset += result.pageSize;
+                        if (Mercatino.ratings.offset > result.totalRatings){
+                            console.log('desactiva next');
+                            Mercatino.ratings.offset -= result.pageSize * 2;
+                        }
+                    } else if (direction == 'previous') {
+                        Mercatino.ratings.offset -= result.pageSize;
+                        if (Mercatino.ratings.offset < 0){
+                            console.log('desactiva previous');
+                            Mercatino.ratings.offset += result.pageSize * 2;
+                        }
+                    }
+                    console.log('success ' + Mercatino.ratings.offset);
+                },
+                error: function(result) {
+                    console.log('errorrrrrrrrrrrrrrrr ' + Mercatino.ratings.offset);
+                }
+            });
+        }
+    }
+
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
           Mercatino.reportForm.show();
@@ -266,6 +300,8 @@
         });
 
         jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
+
+        Mercatino.ratings.retrieve('next');
     });
 </script>
 @stop
