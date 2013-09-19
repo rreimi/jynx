@@ -120,7 +120,7 @@ return array(
     //Menu
     "home" => "Inicio",
     "products_and_services" => "Productos y Servicios",
-    "about_us" => "Nosotros",
+    "about_us" => "Acerca de",
     "partners" => "Aliados",
     "contact" => "Contacto",
     "help" => "Ayuda",
@@ -509,6 +509,8 @@ return array(
     "ptoordaz_address_line2" => "Castillito, 8050, Puerto Ordaz, Edo.  Bolívar",
     "ptoordaz_phones_line1" => "58-286-9227705",
     "ptoordaz_email" => "puertordaz@cavenit.com",
+
+    // Acerca de
 
 
     // Emails
