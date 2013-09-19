@@ -28,9 +28,8 @@ class RatingController extends BaseController{
             $data->user_id = Auth::user()->id;
             $data->publication_id = intval(Input::get('rating_publication_id'));
 
-            $messages = [
-                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres',
-            ];
+            $messages = array(
+                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres');
 
             $validator = Validator::make((array) $data, $rules, $messages);
 
