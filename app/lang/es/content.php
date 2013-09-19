@@ -384,6 +384,7 @@ return array(
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o mas Categorias',
     "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
+    "select_default"=>"Seleccione",
 
     // Users
     "users" => 'Usuarios',
@@ -512,7 +513,44 @@ return array(
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
     "reset_question"=>"Agrega tus datos para cambiar la contraseña",
     "reset_answer"=>"Tu contraseña fue cambiada exitosamente",
-    "reset_header"=>"Cambio de contraseña"
+    "reset_header"=>"Cambio de contraseña",
+
+    "job_type_contracted"=>"Contratado",
+    "job_type_internship"=>"Pasantía",
+    "job_type_temporary"=>"Temporal",
+    "job_type_independent"=>"Independiente",
+
+    "job_academic_level_secondary" => "Secundaria",
+    "job_academic_level_senior_technician" => "Técnico superior",
+    "job_academic_level_master_specialization" =>"Maestría Especialización",
+    "job_academic_level_phd"=>"Doctorado",
+
+    "male"=>"Masculino",
+
+    "female"=>"Femenino",
+
+    "indistinct"=>"Indistinto",
+
+    "new_job"=> "Nueva oferta",
+    "company_name"=>"Nombre de la empresa",
+    "job_title"=>"Nombre del cargo",
+    "vacancy"=>"Vacantes",
+    "job_type"=>"Tipo de cargo",
+    "temporary_months"=>"Duración",
+    "areas"=>"Areas",
+    "description"=>"Descripción del cargo",
+    "requirements"=>"Requisitos",
+    "academic_level"=>"Nivel Académico",
+    "careers"=>"Carreras afines",
+    "experience_years"=>"Experiencia",
+    "age"=>"Edad",
+    "sex"=>"Sexo",
+    "languages"=>"Idiomas",
+    "salary"=>"Rango salarial",
+    "benefits"=>"Beneficios",
+    "start_date"=>"Fecha de publicación",
+    "close_date"=>"Fecha de cierre"
+
 
 
 );

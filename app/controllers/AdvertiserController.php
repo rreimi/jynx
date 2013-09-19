@@ -8,17 +8,13 @@ class AdvertiserController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth');
+        $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertiser', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
     }
 
     public function getLista() {
-
-        // Si no es admin lo boto
-        if (!Auth::user()->isAdmin()){
-            return Redirect::to('/');
-        }
 
         $state = self::retrieveListState();
         $advertisers = User::with('publisher')->orderBy($state['sort'], $state['order']);

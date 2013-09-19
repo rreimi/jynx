@@ -2,6 +2,10 @@
 
 class StatsController extends BaseController {
 
+    public function __construct(){
+        $this->beforeFilter('admin');
+    }
+
     public function getIndex(){
         $data['users']=User::count();
 

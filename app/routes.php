@@ -50,6 +50,8 @@ Route::controller('estadisticas','StatsController');
 
 Route::controller('contactanos','ContactUsController');
 
+Route::controller('bolsa-trabajo','JobController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'Mercatino');

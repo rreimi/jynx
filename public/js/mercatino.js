@@ -60,6 +60,7 @@ if (jQuery) {
         var placement = options.placement || 'right';
         var messages = options.messages || {};
 
+
         return this.validate({
             errorPlacement: function(error, element) {
                 jQuery(element).parent().addClass(inputErrorClass);
