@@ -124,6 +124,7 @@ class LoginController extends BaseController{
 
             Password::remind($credentials,function($message, $user){
                 $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+                $message->subject(Lang::get('content.reminder_email_subject'));
             });
 
             $result = new stdClass;

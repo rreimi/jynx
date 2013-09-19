@@ -18,7 +18,7 @@ Route::get('/clearcache', function(){
 });
 
 Route::get("/debug", function(){
-    die;
+
 });
 
 Route::controller('login','LoginController');
@@ -50,9 +50,12 @@ Route::controller('estadisticas','StatsController');
 
 Route::controller('contactanos','ContactUsController');
 
+Route::controller('evaluacion', 'RatingController');
+
 Route::controller('bolsa-trabajo','JobController');
 
 Route::controller('/','HomeController');
+
 
 View::share('title', 'Mercatino');
 View::share('categories', BaseController::getCategories());

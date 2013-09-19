@@ -238,19 +238,15 @@ footer .contact-row.contact-text {
 }
 
 .us-footer {
-    width: 26%;
-}
-
-.allies-footer {
-    width: 22%;
+    width: 24%;
 }
 
 .help-footer {
-    width: 17%;
+    width: 29%;
 }
 
-.news-footer {
-    width: 35%;
+.jobs-footer {
+    width: 47%;
 }
 
 .dynamic-footer-blocks {
@@ -259,6 +255,7 @@ footer .contact-row.contact-text {
 
 .footer-static-blocks {
     width: 35%;
+    text-align: right;
 }
 
 .logos-footer {
@@ -342,7 +339,6 @@ footer a:hover, footer a:active {
     .logos-footer {
         padding-top: 0px;
     }
-
 }
 
 @media (max-width: 740px) {
@@ -428,6 +424,7 @@ footer a:hover, footer a:active {
 
     .footer-static-blocks {
         width:100%;
+        text-align: center;
     }
 
     .dynamic-footer-blocks {
@@ -460,6 +457,11 @@ footer a:hover, footer a:active {
 
 .home-slideshow {
     margin:auto;
+}
+
+.search-sidebar-box {
+    margin-bottom:1.5em;
+    border-bottom: 1px solid #ccc;
 }
 
 .sidebar-search-form .input {
@@ -586,16 +588,18 @@ nav-filters-container {
 .nav-filter-active .label {
     margin-bottom: 0.5em;
     line-height: 1.54em;
+    background-color: #EEEEEE;
+    color: #666666;
+    font-weight: normal;
+    text-shadow: none;
+    line-height: 24px;
+    padding: 2px 10px;
+    white-space: inherit;
+    min-width: 225px;
 }
 
 .nav-filter-active .label .close {
     margin-left:5px;
-}
-
-.side-nav .icon-leaf{
-    opacity: .25;
-    margin-right: 2px;
-
 }
 
 .side-nav .icon-chevron-right, .side-nav .icon-chevron-down {

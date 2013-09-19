@@ -6,39 +6,47 @@
 
 @section('content')
     <div class="row-fluid publication-detail">
-        <!-- Carousel -->
-        <div id="pub-images-box" class="float-right pub-images-carousel carousel slide">
-            <ol class="carousel-indicators">
-                @foreach ($publication->images as $key => $img)
-                    <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
-                @endforeach
-            </ol>
+        <div class="float-right">
+            <!-- Carousel -->
+            <div id="pub-images-box" class=" pub-images-carousel carousel slide">
+                <ol class="carousel-indicators">
+                    @foreach ($publication->images as $key => $img)
+                        <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
+                    @endforeach
+                </ol>
 
-            <div class="carousel-inner">
-                @foreach ($publication->images as $key => $img)
-                <div class="item @if ($key == 0) active @endif">
-                    <div class="pub-image-wrapper">
-                        <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                <div class="carousel-inner">
+                    @foreach ($publication->images as $key => $img)
+                    <div class="item @if ($key == 0) active @endif">
+                        <div class="pub-image-wrapper">
+                            <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
 
-            <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
-            <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+            </div>
+            @if (!is_null($publication->latitude) && !is_null($publication->longitude))
+                <div class="google-map">
+                    Mapa con ubicación principal
+                    <br/><br/>
+                    <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
+                </div>
+            @endif
         </div><!-- pub-images-box -->
         <!-- End Carousel -->
 
         <h1>{{ $publication->title }}
-            @if (!is_null(Auth::user()))
-                @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
-                    <br/>
-                    <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
-                @endif
-            @endif
         </h1><div class="triangle"></div>
 
         <div class="publication-info">
+            @if (!is_null(Auth::user()))
+            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            @endif
+            @endif
             <div>{{ $publication->short_description }}</div>
 
             <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
@@ -63,11 +71,12 @@
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
                 <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
                 <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
-                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}</p>
+                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
+                    @if ($publication->publisher->phone2)
+                    / {{ $publication->publisher->phone2 }}
+                    @endif</p>
                 <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
-                @if ($publication->publisher->phone2)
-                    {{Lang::get('content.phone')}}:  {{ $publication->publisher->phone2 }}
-                @endif
+
             </div><!--/.publisher-info-->
 
             @if (count($publication->contacts) > 0)
@@ -86,23 +95,31 @@
             </div><!--/.contacs-info-->
             @endif
         </div>
-        <div class="publication-buttons">
-            @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="report-link">{{Lang::get('content.report_it')}}</a></p>
-            </div>
-            @endif
-            <div class="report-info">
-                <p><a nohref class="btn btn-primary btn-small" id="rateit-link">{{Lang::get('content.rate_it')}}</a></p>
-            </div>
-        </div>
-        @include('include.modal_report')
-        @include('include.modal_rateit')
+
         <div class="clearfix"></div>
 
         <!-- Ratings -->
+        <div class="publication-rating">
 
-        {{ $publication->ratings }}
+            <div class="title-block">
+                <div class="publication-buttons">
+                    <div class="report-info">
+                        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
+                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        @endif
+                    </div>
+                </div>
+                <h2 class="title">{{Lang::get('content.ratings')}}</h2>
+            </div>
+            <div class="items">
+                <!-- Here is placed the content with the ajax function-->
+            </div>
+
+            @include('include.modal_report')
+            @include('include.modal_rateit')
+
+        </div>
 
         @if ($lastvisited)
         <div class="last-visited-box">
@@ -196,69 +213,72 @@
         }
     };
 
-    Mercatino.rateitForm = {
-        show: function(publicationId){
-            //jQuery('#modal-confirm .modal-header h3').html(title);
-            //jQuery('#modal-confirm .modal-body p').html(content);
-            //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
-            jQuery('#rating-form').get(0).reset();
-            jQuery('#modal-rateit').modal('show');
-            jQuery('#rating-form input[name="rating_publication_id"]').val(publicationId);
-            jQuery('#rating-sel').barrating('clear');
+    Mercatino.ratings = {
+        url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        currentPage:  0,
+        lastAction: 'next',
 
+        previousPage: function(){
+            this.currentPage--;
+            this.retrieve(this.currentPage);
         },
-        hide: function(){
-            jQuery('#modal-rateit').modal('hide')
+
+        nextPage: function(){
+            this.currentPage++;
+            this.retrieve(this.currentPage);
         },
-        send: function(){
-            var comment = jQuery('#modal-rateit textarea').val();
 
-            if (comment == ""){
-                Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_comment_required')}}", type:'error'});
-                return;
-            }
-
-            var formData = jQuery('#rating-form').serializeObject();
-            var url = jQuery('#rating-form').attr('action');
-
-            this.hide();
-
+        retrieve: function(pageNumber){
             jQuery.ajax({
-                url: url,
+                url: this.url + "/" + this.currentPage,
                 type: 'POST',
-                data: formData,
                 dataType: 'json',
                 success: function(result) {
-                    Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
-                    jQuery('#rating-form').reset();
+                    jQuery('.publication-rating .items').html(result.ratings);
+
+
+                    console.log(result.limit);
+                    Mercatino.ratings.assignPages(result.limit);
+
                 },
                 error: function(result) {
-                    var data = result.responseJSON;
-                    if (data.status_code == 'validation') {
-                        for (var i = 0; i < data.errors.length; i++){
-                            Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
-                        }
-                        return false;
-                    };
-
-                    if (data.status_code == 'invalid_token') {
-                        window.location.href = "/";
-                    };
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_publication_retrieve_error')}}", type:'error'});
                 }
             });
+        },
+
+        assignPages: function(limit){
+
+            var currentPage = this.currentPage;
+            var previousPage = this.currentPage - 1;
+            var nextPage = this.currentPage + 1;
+
+            if (limit == 'top'){
+                jQuery('.publication-rating .pagination .top-page').addClass('limit');
+            } else if (limit == 'bottom'){
+                jQuery('.publication-rating .pagination .bottom-page').addClass('limit');
+            }
+
+            jQuery('.publication-rating .pagination .previous-page').html(previousPage);
+            jQuery('.publication-rating .pagination .current-page').html(currentPage);
+            jQuery('.publication-rating .pagination .next-page').html(nextPage);
+
         }
-    };
+    }
 
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
           Mercatino.reportForm.show();
         });
 
+        Mercatino.rateitForm.init();
+
         jQuery('#rateit-link').bind('click', function(){
             Mercatino.rateitForm.show('{{ $publication->id }}');
+            /* Configure validations */
         });
 
-        jQuery('#rating-sel').barrating({showValues:true, showSelectedRating:false});
+        Mercatino.ratings.nextPage();
     });
 </script>
 @stop

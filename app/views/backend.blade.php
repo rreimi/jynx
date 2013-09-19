@@ -43,7 +43,6 @@
             <h2>{{ Lang::get('content.backend_reports_section_title') }}</h2>
             <thead>
             <tr>
-                <th>{{ Lang::get('content.backend_report_id') }}</th>
                 <th>{{ Lang::get('content.backend_report_user') }}</th>
                 <th>{{ Lang::get('content.backend_report_publication') }}</th>
                 <th>{{ Lang::get('content.backend_report_date') }}</th>
@@ -54,7 +53,6 @@
             <tbody>
                 @foreach ($reports as $key => $rep)
                     <tr>
-                        <td>{{ $rep->id }}</td>
                         <td>{{ $rep->user->full_name }}</td>
                         <td>{{ $rep->publication->title }}</td>
                         <td>{{ $rep->date }}</td>

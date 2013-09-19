@@ -3,7 +3,7 @@
 <ul class="nav-filter-active">
     @foreach ($activeFilters as $type => $filter)
     <li>
-        <div class="label">{{ Lang::get('content.filter_' . $filter->type . '_title') }}: {{$filter->label}}<a class="close" href="{{ UrlHelper::fullExcept(array($filter->type)) }}">&times;</a></div>
+        <div class="label"><a class="close" href="{{ UrlHelper::fullExcept(array($filter->type)) }}">&times;</a>{{ Lang::get('content.filter_' . $filter->type . '_title') }}: {{$filter->label}}</div>
     </li>
     @endforeach
 </ul>

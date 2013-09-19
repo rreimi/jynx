@@ -56,6 +56,7 @@ return array(
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
     "rating_comment_required" => "Por favor indique los comentarios",
+    "rating_title_required" => "Por favor indique el título",
     "report_it" => "Denunciar",
     "id" => "ID",
     "title" => "Título",
@@ -75,7 +76,10 @@ return array(
     "seller_name" => 'Anunciante',
     "rating_avg" => 'Puntaje',
     "evaluation" => 'Evaluación',
-    "remember_publication" => 'Recordar vencimiento de la publicación via correo',
+    "remember_publication" => 'Recordar vencimiento de la publicación vía correo',
+    "latitude" => 'Latitud',
+    "longitude" => 'Longitud',
+    "ratings" => "Calificaciones",
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
@@ -90,6 +94,10 @@ return array(
     'backend_report_view_title' => 'Denuncia pendiente',
     'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
     'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
+    'valid_report' => 'Denuncia válida',
+    'invalid_report' => 'Denuncia inválida',
+    'suspend_publication' => 'Editar/Suspender publicación',
+    'suspend_user' => 'Editar/Suspender usuario',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
@@ -106,16 +114,17 @@ return array(
 
     //Ratings
     'rate_instructions' => 'Califica la publicación del 1 al 5, donde 1 es la puntuación más baja y 5 la más alta.',
-    'rate_comment_instructions' => "Comentarios sobre la calificación:",
+    'rate_title' => 'Título',
+    'rate_comment_instructions' => "Comentarios sobre la calificación (max. 300 caracteres):",
 
     //Menu
     "home" => "Inicio",
     "products_and_services" => "Productos y Servicios",
-    "about_us" => "Nosotros",
+    "about_us" => "Acerca de",
     "partners" => "Aliados",
     "contact" => "Contacto",
     "help" => "Ayuda",
-    "news" => "Noticias y Ofertas",
+    "jobs" => "Bolsa de Trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
@@ -129,7 +138,7 @@ return array(
 
     //Footer
     "address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
-    "address_line2" => "Nivel Mezzanina Caracas 1060, Venezuela",
+    "address_line2" => "Nivel Mezzanina, 1060, Caracas, Venezuela",
     "phones_label" => "Teléfonos:",
     "phones_line1" => "58-212-2632427 / 2634614",
     "phones_line2" => "58-212-2642845 / 2643742",
@@ -168,7 +177,8 @@ return array(
     "backend_menu_stats" => "Estadísticas",
     "backend_menu_reports" => "Denuncias",
     "backend_search_publication_title" => "Buscar publicaciones",
-
+    "backend_search_user_title" => "Buscar usuarios",
+    "backend_search_advertiser_title" => "Buscar anunciantes",
 
     // Backend Dashboard
     "backend_users_section_title" => "Aprobaciones pendientes",
@@ -247,14 +257,15 @@ return array(
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
-    "register_conditions" => "Acepto <a href=\":url\">términos y condiciones de servicio</a>",
-    "register_dialog_header" => "",
+    "register_conditions" => "Acepto <a nohref onclick='javascript:showConditions();'>términos y condiciones de servicio</a>",
     "register_dialog_description" => "",
     "register_dialog_continue" => "Sí quiero",
     "register_dialog_cancel" => "No por los momentos, quiero navegar",
     "register_title_success" => "Bienvenido",
     "register_description_success" => "Proceso de registro completo",
+    "register_hide_conditions_back" => "<< Regresar y completar el registro",
 
+    "register_dialog_activated" => "Tu usuario ha sido activado",
     "register_dialog_header" => "¿Quieres optar a ser anunciante?",
     "register_dialog_description" => "Para ser anunciante, tienes que ser un asociado a la Cámara de Comercio Venezolano-Italiana (CAVENIT) y pasarás por un proceso de aprobación luego de responder una serie de preguntas. Si cumples estos requisitos y deseas optar a publicar, selecciona 'Sí quiero'.",
     "register_dialog_description2" => "De lo contrario, si no perteneces a la Cámara de Comercio Venezolano-Italiana (CAVENIT) o no deseas optar a publicar por los momentos, selecciona 'No por los momentos, quiero navegar' para proceder a ingresar.",
@@ -300,7 +311,7 @@ return array(
     "backend_phone" => "Teléfono",
 
     "backend_report_id" => "ID",
-    "backend_report_user" => "Usuario",
+    "backend_report_user" => "Nombre",
     "backend_report_publication" => "Publicación",
     "backend_report_comment" => "Comentario",
     "backend_report_date" => "Fecha",
@@ -373,19 +384,20 @@ return array(
     "filter_active" => 'Filtros Activos',
     "filter_available" => 'Filtros Disponibles',
     "filter_seller_title" => 'Vendedor',
-    "filter_state_title" => 'Ubicacion',
+    "filter_state_title" => 'Ubicación',
     "filter_category_title" => 'Categoría',
     "filter_publication_start_date" => 'Fecha de inicio:',
     "filter_publication_end_date" => 'Fecha fin:',
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
-
+    "filter_user_role" => "Rol:",
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o mas Categorias',
     "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
     "select_default"=>"Seleccione",
 
+    "filter_role_placeholder" => 'Seleccione Rol',
     // Users
     "users" => 'Usuarios',
     "user_name" => 'Nombre',
@@ -425,6 +437,8 @@ return array(
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
+    "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones. ",
+    "rating_publication_retrieve_error" => "Ha ocurrido un error intentando recuperar calificaciones para la publicación.",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
@@ -463,6 +477,44 @@ return array(
     "contactus_message" => "Mensaje",
     "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
+
+    "contactus_caracas" => "Caracas",
+    "caracas_address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
+    "caracas_address_line2" => "Nivel Mezzanina, 1060, Caracas",
+    "contactus_acarigua" => "Acarigua",
+    "acarigua_address_line1" => "Av. 13 de Junio, Quinta Azahar, 3302,",
+    "acarigua_address_line2" => "Acarigua, Edo. Portuguesa",
+    "acarigua_phones_line1" => "58-255-6221462 / 6642750",
+    "acarigua_phones_line2" => "58-255-6215872 / 6239086",
+    "acarigua_email" => "acarigua@cavenit.com",
+    "contactus_maracay" => "Maracay",
+    "maracay_address_line1" => "Casa de Italia de Maracay, Calle Los Nísperos,",
+    "maracay_address_line2" => "La Floresta, Piso 2, 2102, Maracay, Edo. Aragua",
+    "maracay_phones_line1" => "58-243-2427741",
+    "maracay_email" => "maracay@cavenit.com",
+    "contactus_valencia" => "Valencia",
+    "valencia_address_line1" => "Urbanización La Trigaleña Av. 91 (Italia),",
+    "valencia_address_line2" => "Nº 132-371, 2001, Valencia, Edo. Carabobo",
+    "valencia_phones_line1" => "58-241-8432757 / 8432757",
+    "valencia_email" => "valencia@cavenit.com",
+    "contactus_maracaibo" => "Maracaibo",
+    "maracaibo_address_line1" => "C.C. Las Tejas, Calle 68 con con Av.20 PB",
+    "maracaibo_address_line2" => "1-1, El Paraíso, 4001, Maracaibo, Edo. Zulia",
+    "maracaibo_phones_line1" => "58-261-7834044",
+    "maracaibo_email" => "maracaibo@cavenit.com",
+    "contactus_barquisimeto" => "Barquisimeto",
+    "barquisimeto_address_line1" => "Club Italo Carretera Vía El Ujano,",
+    "barquisimeto_address_line2" => "3001, Barquisimeto, Edo. Lara",
+    "barquisimeto_phones_line1" => "58-251-9767416",
+    "barquisimeto_email" => "barquisimeto@cavenit.com",
+    "contactus_ptoordaz" => "Puerto Ordaz",
+    "ptoordaz_address_line1" => "Carrera Ciudad Piar, Edif. Uyapar, Ofc. 2-7,",
+    "ptoordaz_address_line2" => "Castillito, 8050, Puerto Ordaz, Edo.  Bolívar",
+    "ptoordaz_phones_line1" => "58-286-9227705",
+    "ptoordaz_email" => "puertordaz@cavenit.com",
+
+    // Acerca de
+
 
     // Emails
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
@@ -509,6 +561,7 @@ return array(
     "reminder_header"=>"Te ayudaré",
     "reminder_answer"=>"En minutos por favor verifica tu correo, te envíaremos un email con el enlace para cambiar tu contraseña",
     "reminder_success"=>"Verifica tu correo, para que puedas cambiar tu contraseña",
+    "reminder_email_subject" => "Recuperación de contraseña para TuMercato.com",
 
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
     "reset_question"=>"Agrega tus datos para cambiar la contraseña",

@@ -83,6 +83,25 @@
             </div>
         </div>
 
+        <hr>
+        <div class="control-group {{ $errors->has('latitude') ? 'error':'' }}">
+            <div class="text-warning alert-block">Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación</div>
+            <label class="control-label" for="latitude">{{ Lang::get('content.latitude') }}</label>
+            <div class="controls">
+                {{ Form::text('latitude', $publication->latitude, array('class' => 'input-xlarge', 'min' => '-90', 'max' => '90', 'placeholder'=> Lang::get('content.latitude'))) }}
+                {{ $errors->first('latitude', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
+        <div class="control-group {{ $errors->has('longitude') ? 'error':'' }}">
+            <label class="control-label" for="longitude">{{ Lang::get('content.longitude') }}</label>
+            <div class="controls">
+                {{ Form::text('longitude', $publication->longitude, array('class' => 'input-xlarge', 'min' => '-90', 'max' => '90', 'placeholder'=> Lang::get('content.longitude'))) }}
+                {{ $errors->first('longitude', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+        <hr>
+
         <div class="control-group">
             <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
         </div>

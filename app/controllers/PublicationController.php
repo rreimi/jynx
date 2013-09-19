@@ -4,7 +4,7 @@ class PublicationController extends BaseController {
 
     private $prefix = 'publication';
     private $page_size = '6';
-    private $pubListSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at', 'status', 'rating_avg', 'seller_name');
+    private $listSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at', 'status', 'rating_avg', 'seller_name');
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
@@ -24,7 +24,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts' , 'ratings')->find($id);
+        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
 
         //TODO Validar que la publicacion exista
 
@@ -115,20 +115,14 @@ class PublicationController extends BaseController {
 
     public function getLista() {
 
-        /* Get sort params */
-        //$sort = (in_array(Input::get('sort'), $this->pubListSort) ? Input::get('sort') : 'id');
-        //$order = (in_array(Input::get('order'), array('asc')) ? Input::get('order') : 'desc');
-
-        //$q = Input::get('q');
-
         $user = Auth::user();
 
         // Si no es publisher lo boto
         if (!$user->isAdmin() && !$user->isPublisher()){
             return Redirect::to('/');
         }
-        $isPost = !is_null(Input::get('_token'));
-        $state = self::retrieveListState($isPost);
+
+        $state = self::retrieveListState();
         $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg, reports'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
@@ -209,9 +203,7 @@ class PublicationController extends BaseController {
             'pub_categories' => $categoryFilterValues,
             'publications' => $publications,
             'state' => $state,
-            'user' => $user,
-            'is_post' => $isPost
-
+            'user' => $user
             ) //end array
         );
     }
@@ -220,14 +212,16 @@ class PublicationController extends BaseController {
         return $this->getLista();
     }
 
-    private function retrieveListState($isPost){
+    private function retrieveListState(){
         $state = Session::get('pub_list.state');
-        $state['active_custom_filters'] = is_null($state['active_custom_filters'])? 0 : $state['active_custom_filters'];
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
+
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
 
         /* Basic filters and sort */
 
         //Sort
-        $sort = (in_array(Input::get('sort'), $this->pubListSort) ? Input::get('sort') : null);
+        $sort = (in_array(Input::get('sort'), $this->listSort) ? Input::get('sort') : null);
 
         if ((isset($sort)) || !(isset($state['sort']))) {
             $state['sort'] = (isset($sort))? $sort : 'id';
@@ -300,12 +294,14 @@ class PublicationController extends BaseController {
         /* End custom filters */
 
         /* Basic filters not count */
-        $basicFilters = array('q', 'sort', 'order');
+        $ignoreFilters = array('active_filters', 'sort', 'order');
         if ($isPost) {
-            $state['active_custom_filters'] = 0;
+            $state['active_filters'] = 0;
             foreach ($state as $key => $item) {
-                if (isset($item) && !empty($item) && (!in_array($key, $basicFilters))){
-                    $state['active_custom_filters']++;
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
                 }
             }
         }
@@ -510,6 +506,8 @@ class PublicationController extends BaseController {
             'status' => Input::get('status'),
             'from_date' => Input::get('from_date'),
             'to_date' => Input::get('to_date'),
+            'latitude' => (Input::get('latitude')=='')?null:Input::get('latitude'),
+            'longitude' => (Input::get('longitude')=='')?null:Input::get('longitude'),
             'visits_number' => Input::get('visits_number'),
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
@@ -526,6 +524,8 @@ class PublicationController extends BaseController {
             'status' => 'required',
             'from_date' => 'required|date_format:d-m-Y',
             'to_date' => 'required|date_format:d-m-Y',
+            'latitude' => 'numeric|min:-90|max:90',
+            'longitude' => 'numeric|min:-90|max:90',
             'categories' => 'required',
         );
 

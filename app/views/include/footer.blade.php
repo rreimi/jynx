@@ -60,7 +60,7 @@
                     {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
                 </div>
                 <br/>
-                <a href="mailto:informatica@cavenit.com">
+                <a href="mailto:{{Lang::get('content.cavenit_email')}}">
                     <div class="contact-row mail contact-text">
                         {{Lang::get('content.cavenit_email')}}
                     </div>
@@ -92,8 +92,8 @@
             </div>
         </a>
         <a href="#">
-            <div class="footer-title footer-block news-footer">
-                {{Lang::get('content.news')}}
+            <div class="footer-title footer-block jobs-footer">
+                {{Lang::get('content.jobs')}}
             </div>
         </a>
     </div>

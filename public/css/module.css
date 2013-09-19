@@ -66,8 +66,6 @@ h2.home-title {
     text-decoration: none;
 }
 
-/*.pub-info-desc a:*/
-
 .pub-line {
     display: block;
 }
@@ -99,7 +97,7 @@ h2.home-title {
     border:1px solid #aaa;
 }
 
-.pub-images-carousel{
+.pub-images-carousel {
     border: 1px solid #CCCCCC;
     height: 450px;
     width: 450px;
@@ -157,6 +155,7 @@ h2.home-title {
 .publication-info {
     float: left;
     width: 660px;
+    margin-bottom: 20px;
     margin-left: 20px;
     font-size: 1.1em;
     color: #444444;
@@ -175,7 +174,7 @@ h2.home-title {
     float: right;
 }
 
-.publication-info h2 {
+.publication-info h2, .publication-rating h2 {
     text-transform: uppercase;
     font-weight: normal;
     font-size: 1.1em;
@@ -238,8 +237,37 @@ h2.home-title {
 
 .publication-buttons {
     float: right;
-    text-align: center;
+    margin-right: 35px;
+    text-align: right;
     width: 450px;
+}
+
+#pub-images-box .carousel-indicators li {
+    background-color: rgba(150, 150, 150, 0.25);
+}
+
+#pub-images-box .carousel-indicators li.active {
+    background-color: rgba(25, 25, 25, 0.25);
+}
+
+#pub-images-box .carousel-indicators {
+    bottom: 15px;
+    top: inherit;
+}
+
+#pub-images-box .carousel-indicators li:hover {
+    cursor: pointer;
+}
+
+.google-map {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.google-map img {
+    border: 1px solid #BBBBBB;
+    padding: 5px;
 }
 
 /*.pub-table .row-title {*/
@@ -304,6 +332,10 @@ div#home-banner-top ol.carousel-indicators {
     left: inherit;
     margin: 0;
     top: 374px;
+}
+
+div#home-banner-top .carousel-indicators li:hover {
+    cursor: pointer;
 }
 
 div#home-banner-top .carousel-control {
@@ -408,6 +440,14 @@ div#home-banner-top .carousel-control {
     margin-right:auto;
 }
 
+.modal-register .modal-body {
+    padding-bottom: 2em;
+}
+
+.register-form-conditions {
+    display: none;
+}
+
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;
@@ -446,8 +486,6 @@ div#home-banner-top .carousel-control {
     font-family: Verdana;
 }
 
-
-
 .current-rating .full {
     background-color: #FFD233;
     color:#fff;
@@ -476,6 +514,80 @@ div#home-banner-top .carousel-control {
     float:left;
     display: block;
     margin-right:2px;
+}
+
+.publication-rating {
+    background-color: #FAFAFA;
+    border: 1px solid #CCCCCC;
+    border-radius: 30px 30px 30px 30px;
+    margin-bottom: 35px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.publication-rating .title {
+    border-bottom: 1px solid #AAAAAA;
+    color: #858585;
+    margin: 15px 35px 0;
+    font-size: 1.3em;
+    padding-bottom: 15px;
+}
+
+.publication-rating .rating-block {
+    margin: 0 35px;
+    padding: 20px 0;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+.publication-rating .rating-block .current-rating {
+    float: left;
+    margin-top: 3px;
+    width: 10%;
+}
+
+.publication-rating .rating-block .info {
+    float: left;
+    width: 90%;
+}
+
+.publication-rating .rating-block .info span {
+    margin-left: 25px;
+}
+
+.publication-rating .rating-block .info .nickname {
+    color: #006CD8;
+}
+
+.publication-rating .rating-block .info .date {
+    color: #AAAAAA;
+}
+
+.publication-rating .rating-block .title-rating {
+    color: #858585;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.publication-rating .rating-block .description {
+    margin-top: 35px;
+    font-size: 1.2em;
+    color: #AAAAAA;
+}
+
+.publication-rating .items .no-ratings {
+    font-size: 1.2em;
+    color: #AAAAAA;
+    text-align: center;
+    margin: 20px;
+}
+
+.publication-rating .pagination {
+    text-align: center;
+}
+
+.publication-rating .pagination .limit {
+    display: none;
 }
 
 /* Main menu */
@@ -521,7 +633,7 @@ div#home-banner-top .carousel-control {
 }
 
 .navbar .nav > li > a {
-    padding: 2px 30px 10px 0;
+    padding: 2px 30px 13px 0;
 }
 
 .nav-category-menu {
@@ -576,8 +688,8 @@ div#home-banner-top .carousel-control {
         -ms-filter: none;
         box-shadow:none;
         filter: none;
-        background: #ffffff
-        overflow:visible;
+        background: #ffffff;
+        overflow: visible;
         height: auto;
     }
 
@@ -648,16 +760,18 @@ div#home-banner-top .carousel-control {
 
 .contactus-form {
     float: left;
-    margin-left: -100px;
+    margin-bottom: 0px;
 }
 
 .contact-info {
-    margin-left: 410px;
+    float: left;
     margin-top: 55px;
+    font-size: 0.9em;
 }
 
 .contact-info .contact-row.contact-text {
     padding-left: 40px;
+    min-height: 24px;
 }
 
 .contact-info a {
@@ -673,12 +787,36 @@ div#home-banner-top .carousel-control {
     background: url('../img/correo3.png') 0 center no-repeat;
 }
 
-.contact-info .contact-row.facebook:hover {
-    background: url('../img/facebook3.png') 0 center no-repeat;
+.contact-info .contact-row {
+    margin-bottom: 5px;
 }
 
-.contact-info .contact-row.twitter:hover {
-    background: url('../img/twitter3.png') 0 center no-repeat;
+.contact-info .contact-row.mail {
+    margin-bottom: 15px;
+}
+
+.contact-column {
+    float: left;
+    margin-left: 45px;
+}
+
+.contact-info label {
+    color: #3385CB;
+}
+
+.contact-info .contact-row.phone.line1 {
+    line-height: 24px;
+}
+
+.contactus-form label, .contact-info label {
+    cursor: auto;
+}
+
+@media (max-width:380px) {
+    .contact-column {
+        margin-left: 0px;
+        width: 274px;
+    }
 }
 
 /* INIT - File Upload */
@@ -800,3 +938,4 @@ div#home-banner-top .carousel-control {
 }
 
 /* END - File Upload */
+

@@ -51,40 +51,35 @@ if (jQuery) {
         });
     };// JavaScript Document
 
-    jQuery.fn.validateBootstrap = function(options){
-
-        options || (options = {});
-
-        var boxErrorClass = options.boxErrorClass || 'alert-error';
-        var inputErrorClass = options.inputErrorClass || 'error';
-        var placement = options.placement || 'right';
-        var messages = options.messages || {};
-
-
-        return this.validate({
+    jQuery.fn.validateBootstrap = function(opts){
+        var options = $.extend({}, {
+            boxErrorClass: 'alert-error',
+            inputErrorClass: 'error',
+            placement: 'right',
+            messages: {},
+//            focusInvalid: true,
+//            focusCleanup:true,
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
             errorPlacement: function(error, element) {
-                jQuery(element).parent().addClass(inputErrorClass);
+                jQuery(element).parent().addClass(this.inputErrorClass);
                 jQuery(element).popover('destroy');
                 jQuery(element).popover(
                     {
                         content:error.text(),
-                        placement:jQuery(element).data('placement') || placement
+                        placement:jQuery(element).data('placement') || this.placement
                     }
                 ).popover('show');
-                jQuery(element).siblings('.popover').addClass(boxErrorClass);
+                jQuery(element).siblings('.popover').addClass(this.boxErrorClass);
             },
             onfocusout:function(element,event){
-                jQuery(element).parent().removeClass(inputErrorClass);
-                jQuery(element).popover('hide');
-            },
-            messages:messages,
-            onkeyup:false,
-            onclick:false,
-            focusInvalid:false,
-            focusCleanup:true,
-            onsubmit:true
+                jQuery(element).parent().removeClass(this.inputErrorClass);
+                jQuery(element).popover('destroy');
+            }
+        }, opts);
 
-        });
+        return this.validate(options);
     };
 }
 
@@ -303,6 +298,9 @@ Mercatino.registerForm = {
         jQuery('#modal-register').modal('hide');
     },
     send: function(){
+        if (!jQuery('#register-form').valid()){
+            return false;
+        }
 
         var formData = jQuery('#register-form').serializeObject();
         var url = jQuery('#register-form').attr('action');
@@ -328,6 +326,17 @@ Mercatino.registerForm = {
                 if (data.status_code == 'invalid_token') {
                     window.location.href = "/";
                 };
+            }
+        });
+    },
+    init: function () {
+        jQuery('#register-form').validateBootstrap({
+            placement:'bottom',
+            rules: {
+                register_password: "required",
+                register_password_confirmation: {
+                    equalTo: "#register_password"
+                }
             }
         });
     }

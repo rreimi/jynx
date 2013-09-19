@@ -1,0 +1,1 @@
+ALTER TABLE  `publications_ratings` ADD  `title` VARCHAR(80) NOT NULL AFTER  `vote`;

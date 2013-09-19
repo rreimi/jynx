@@ -7,7 +7,7 @@
 class RatingController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except'=>array('postDenunciasPublicacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
     }
 
@@ -16,17 +16,22 @@ class RatingController extends BaseController{
         if (Request::ajax()) {
 
             $rules = array('vote' => 'required',
-                'comment' => 'required',
+                'comment' => 'required|max:300',
                 'user_id' => 'required',
+                'title' => 'required|max:80',
                 'publication_id' => 'required');
 
             $data = new stdClass;
+            $data->title = Input::get('title');
             $data->comment = Input::get('report_comment');
-            $data->vote = floatval(Input::get('rating-select'));
+            $data->vote = intval(Input::get('rating-select'));
             $data->user_id = Auth::user()->id;
             $data->publication_id = intval(Input::get('rating_publication_id'));
 
-            $validator = Validator::make((array) $data, $rules);
+            $messages = array(
+                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres');
+
+            $validator = Validator::make((array) $data, $rules, $messages);
 
             $result = new stdClass;
 
@@ -64,7 +69,84 @@ class RatingController extends BaseController{
             return Response::view('errors.missing', array(), 404);
         }
 
+    }
 
+    /**
+     * @ajax
+     * Retrieve reviews by publication_id
+     * @param $publicationId = the publication id
+     */
+    public function postDenunciasPublicacion($publicationId, $pageNumber = 1) {
+
+        // Check valid publication
+        $pub = Publication::find($publicationId);
+
+        if (is_null($pub)){
+            return Response::json('error_rating_invalid_pub', 404);
+        }
+
+        $pageSize = PublicationRating::$limitPagination;
+        $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+
+        $offset = $pageSize * ($pageNumber-1);
+
+        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
+
+        $ratingsHtml = $this->getRatingBlock($ratingsList);
+
+        $result = new stdClass;
+        $result->totalRatings = $totalRatings;
+        $result->ratings = $ratingsHtml;
+        $result->pageSize = $pageSize;
+        if ($pageNumber == 1){
+            $result->limit = 'top';
+        } elseif ($pageNumber >= ($totalRatings/$pageSize)){
+            $result->limit = 'bottom';
+        }
+
+        return Response::json($result, 200);
 
     }
+
+    private function getRatingBlock($ratings){
+
+        $html = '';
+
+        foreach($ratings as $rating) {
+            $html .= '<div class="rating-block">';
+                $html .= '<div class="head">';
+                        $html .= RatingHelper::getRatingBar($rating->vote);
+                        $html .= '<div class="info">';
+                            $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                            $originalDate = $rating->created_at;
+                            $newDate = date("d-m-Y", strtotime($originalDate));
+                            $html .= '<span class="date">' . $newDate .'</span>';
+                            $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                        $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="description">';
+                    $html .= $rating->comment;
+                $html .= '</div>';
+            $html .= '</div>';
+        }
+
+        if (sizeof($ratings) == 0){
+            $html .= '<div class="no-ratings">';
+            $html .= Lang::get('content.rating_publication_no_items');
+            $html .= '</div>';
+        } else {
+            $html .= '<div class="pagination">
+                            <ul>
+                                <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
+                                <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
+                                <li><a class="current-page" nohref></a></li>
+                                <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
+                                <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
+                            </ul>
+                        </div>';
+        }
+
+        return $html;
+    }
+
 }

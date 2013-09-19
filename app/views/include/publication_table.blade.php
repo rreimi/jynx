@@ -35,7 +35,7 @@
         @foreach ($publications as $key => $pub)
         <tr>
             <td class="row-title"><b>{{ e($pub->title) }}</b>
-                <span class="title-with-categories">{{ $pub->categories }})</span>
+                <span class="title-with-categories">{{ $pub->categories }}</span>
             </td>
             <td nowrap class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>
             <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>
@@ -63,7 +63,7 @@
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn btn-mini" href="{{URL::to('publicacion/editar/' . $pub->id)}}">
                     <i class="icon-pencil"></i>
                 </a>
-                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn btn-mini" href="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">
+                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn btn-mini" nohref onclick="javascript:Mercatino.modalConfirm.show('{{ Lang::get('content.modal_publication_delete_title') }}', '{{ Lang::get('content.modal_publication_delete_content') }}', '{{URL::to('publicacion/eliminar/' . $pub->id)}}')">
                     <i class="icon-trash"></i>
                 </a>
             </td>
@@ -86,10 +86,6 @@
 {{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('select.filter-field').bind('change', function(){
-            //jQuery('#pub_list_form').submit();
-        });
-
         jQuery('.chosen-select').chosen({
             width: "100%"
         });
@@ -97,6 +93,7 @@
         jQuery('.reset-fields').bind('click', function(){
             jQuery('.filter-field').val('');
             jQuery('.chosen-select').val('').trigger("chosen:updated");
+            jQuery('#pub_list_form').submit();
         });
 
         /* Filter fields */

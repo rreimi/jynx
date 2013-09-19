@@ -90,14 +90,13 @@
                                 @include('include.category_tree')
                             </li>
 
-                            <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
-
-
                             <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
+
+                            <li><a href="{{URL::to('')}}">{{Lang::get('content.about_us')}}</a></li>
 
                             <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
 
-                            <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.news')}}</a></li>
+                            <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.jobs')}}</a></li>
                             @if(Auth::check())
 
                             @if(Auth::user()->isPublisher())
