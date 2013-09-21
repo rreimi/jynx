@@ -10,6 +10,9 @@ class PublicationController extends BaseController {
     public function __construct() {
         //$this->beforeFilter('auth');
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
+        if (!Auth::check()){
+            $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));
+        }
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
         View::share('detailSize', self::$detailSize);

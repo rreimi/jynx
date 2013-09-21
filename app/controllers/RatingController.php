@@ -149,7 +149,10 @@ class RatingController extends BaseController{
 
         if (sizeof($ratings) == 0){
             $html .= '<div class="no-ratings">';
-            $html .= Lang::get('content.rating_publication_no_items', array('loginUrl' => URL::to('login')));
+            $html .= Lang::get('content.rating_publication_no_items');
+            if (!Auth::check()){
+                $html .= Lang::get('content.rating_publication_first_rating', array('loginUrl' => URL::to('login')));
+            }
             $html .= '</div>';
         } else {
             $html .= '<div class="pagination">

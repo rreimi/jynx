@@ -57,8 +57,14 @@ class LoginController extends BaseController{
             } else {
                 if(Auth::user()->isAdmin()){
                     return Redirect::to('dashboard');
-                }else{
-                    return Redirect::to('/');
+                } else {
+                    if (Session::get('login_redirect_referer')){
+                        $redirect = Session::get('login_redirect_referer');
+                        Session::forget('login_redirect_referer');
+                        return Redirect::to($redirect);
+                    } else {
+                        return Redirect::to('/');
+                    }
                 }
             }
 
