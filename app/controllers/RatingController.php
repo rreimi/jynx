@@ -6,6 +6,8 @@
 
 class RatingController extends BaseController{
 
+    protected $fillable = array('title', 'comment', 'vote', 'status');
+
     public function __construct(){
         $this->beforeFilter('auth', array('except'=>array('postDenunciasPublicacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
@@ -127,6 +129,21 @@ class RatingController extends BaseController{
                 $html .= '<div class="description">';
                     $html .= $rating->comment;
                 $html .= '</div>';
+                if (Auth::check() && Auth::user()->isAdmin()){
+                    $html .= '<div class="admin">';
+                        $html .= Lang::get('content.rating_status_admin_label') .":" ;
+                        $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
+                            if($rating->status){
+                                $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                            } else {
+                                $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                            }
+                            $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
+                        $html .= '</div>';
+                    $html .= '</div>';
+                }
             $html .= '</div>';
         }
 
@@ -147,6 +164,50 @@ class RatingController extends BaseController{
         }
 
         return $html;
+    }
+
+    /**
+     * @ajax
+     * Change the status of ratings
+     * @param $publicationId = the publication id
+     */
+    public function postCambiarEstatus($ratingId, $status) {
+
+        // Check valid rating
+        $rating = PublicationRating::find($ratingId);
+
+        if (is_null($rating)){
+            return Response::json('error_rating_invalid', 404);
+        }
+
+        if (is_null($status)){
+            return Response::json('error_rating_invalid_status', 404);
+        }
+
+        $message = '';
+
+        // Change status
+        if ($status == 0){
+            $rating->status = false;
+            $message = Lang::get('content.rating_change_status_off');
+        } else {
+            $rating->status = true;
+            $message = Lang::get('content.rating_change_status_on');
+        }
+
+        $resultSave = $rating->save();
+
+        $result = new stdClass;
+
+        if ($resultSave){
+            $result->result = 'success';
+            $result->message = $message;
+        } else {
+            $result->result = 'error';
+        }
+
+        return Response::json($result, 200);
+
     }
 
 }

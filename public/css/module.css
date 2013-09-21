@@ -575,11 +575,21 @@ div#home-banner-top .carousel-control {
     color: #AAAAAA;
 }
 
+.publication-rating .rating-block .admin {
+    color: #858585;
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
 .publication-rating .items .no-ratings {
     font-size: 1.2em;
     color: #AAAAAA;
     text-align: center;
     margin: 20px;
+}
+
+.publication-rating .rating-block .admin .btn-group {
+    margin-left: 10px;
 }
 
 .publication-rating .pagination {

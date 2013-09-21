@@ -439,6 +439,12 @@ return array(
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
     "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones. ",
     "rating_publication_retrieve_error" => "Ha ocurrido un error intentando recuperar calificaciones para la publicación.",
+    "rating_status_admin_label" => "Estatus de la calificación",
+    "rating_status_on_admin_label" => "Activa",
+    "rating_status_off_admin_label" => "Inactiva",
+    "rating_change_status_on" => "La califición ha sido activada satisfactoriamente",
+    "rating_change_status_off" => "La califición ha sido desactivada satisfactoriamente",
+    "rating_change_status_error" => "Ha ocurrido un error al intentar cambiar el estatus de esta calificación",
 
     // Advertiser
     "advertisers" => 'Anunciantes',

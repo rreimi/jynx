@@ -214,7 +214,8 @@
     };
 
     Mercatino.ratings = {
-        url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        retrieveUrl: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        changeStatusUrl: '{{ URL::to("evaluacion/cambiar-estatus/") }}',
         currentPage:  0,
         lastAction: 'next',
 
@@ -230,7 +231,7 @@
 
         retrieve: function(pageNumber){
             jQuery.ajax({
-                url: this.url + "/" + this.currentPage,
+                url: this.retrieveUrl + "/" + this.currentPage,
                 type: 'POST',
                 dataType: 'json',
                 success: function(result) {
@@ -239,6 +240,7 @@
 
                     console.log(result.limit);
                     Mercatino.ratings.assignPages(result.limit);
+                    Mercatino.ratings.prepare();
 
                 },
                 error: function(result) {
@@ -262,6 +264,60 @@
             jQuery('.publication-rating .pagination .previous-page').html(previousPage);
             jQuery('.publication-rating .pagination .current-page').html(currentPage);
             jQuery('.publication-rating .pagination .next-page').html(nextPage);
+
+        },
+
+        prepare: function(){
+            // Iterate each btn-group of ratings
+            jQuery(".rating-block .admin .btn-group").each(function(){
+                //console.log(jQuery(this).attr('data-toggle-name'));
+
+                // Iterate each button by group
+                jQuery('button', jQuery(this)).each(function(){
+                    // Add click event to each button of the current group
+                    jQuery(this).click(function() {
+                        console.log('click');
+                        var parentGroup = jQuery(this).parent();
+                        var previousValue = jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val();
+                        var currentValue = jQuery(this).prop('value');
+                        // Don't do anything when is clicked the same value
+                        if (previousValue == currentValue){
+                            console.log('equals');
+                            return;
+                        }
+
+                        console.log('after');
+                        // If changed save the current value
+                        jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val(currentValue);
+
+                        // Change rating's status
+                        Mercatino.ratings.changeStatus(parentGroup.attr('data-toggle-id'), currentValue);
+                    });
+                });
+
+            });
+        },
+
+        changeStatus: function(ratingId, status){
+
+            console.log('RatingId = ' + ratingId + ', Status = ' + status);
+
+            jQuery.ajax({
+                url: this.changeStatusUrl + '/' + ratingId + '/' + status,
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    console.log(result.result);
+                    if (result.result == 'success'){
+                        Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
+                    } else {
+                        Mercatino.showFlashMessage({title:'', message: "{{Lang::get('content.rating_change_status_error')}}", type:'error'});
+                    }
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_change_status_error')}}", type:'error'});
+                }
+            });
 
         }
     }
