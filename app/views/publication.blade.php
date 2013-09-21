@@ -70,13 +70,14 @@
             <div>
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
                 <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
-                <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
-                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
-                    @if ($publication->publisher->phone2)
-                    / {{ $publication->publisher->phone2 }}
-                    @endif</p>
-                <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
-
+                @if (Auth::check())
+                    <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
+                    <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
+                        @if ($publication->publisher->phone2)
+                        / {{ $publication->publisher->phone2 }}
+                        @endif</p>
+                    <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
+                @endif
             </div><!--/.publisher-info-->
 
             @if (count($publication->contacts) > 0)
@@ -87,16 +88,22 @@
                             <p class="pub-name">{{ $contact->full_name }}
                                 @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
                             <p/>
-                            <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
-                            <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $contact->phone }}</p>
-                            <p class="pub-location">{{Lang::get('content.location')}}: {{ $contact->address }}, {{ $contact->city }}</p>
+                            @if (Auth::check())
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
+                                <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $contact->phone }}</p>
+                                <p class="pub-location">{{Lang::get('content.location')}}: {{ $contact->address }}, {{ $contact->city }}</p>
+                            @endif
                         </div>
                     @endforeach
             </div><!--/.contacs-info-->
             @endif
+            @if (!Auth::check())
+            <div class="clear-both"></div>
+            <div class="contact-more-info text-warning clear-both">
+                {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
+            </div>
+            @endif
         </div>
-
-        <div class="clearfix"></div>
 
         <!-- Ratings -->
         <div class="publication-rating">
