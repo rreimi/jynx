@@ -70,13 +70,14 @@
             <div>
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
                 <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
-                <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
-                <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
-                    @if ($publication->publisher->phone2)
-                    / {{ $publication->publisher->phone2 }}
-                    @endif</p>
-                <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
-
+                @if (Auth::check())
+                    <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
+                    <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
+                        @if ($publication->publisher->phone2)
+                        / {{ $publication->publisher->phone2 }}
+                        @endif</p>
+                    <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
+                @endif
             </div><!--/.publisher-info-->
 
             @if (count($publication->contacts) > 0)
@@ -87,16 +88,22 @@
                             <p class="pub-name">{{ $contact->full_name }}
                                 @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
                             <p/>
-                            <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
-                            <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $contact->phone }}</p>
-                            <p class="pub-location">{{Lang::get('content.location')}}: {{ $contact->address }}, {{ $contact->city }}</p>
+                            @if (Auth::check())
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
+                                <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $contact->phone }}</p>
+                                <p class="pub-location">{{Lang::get('content.location')}}: {{ $contact->address }}, {{ $contact->city }}</p>
+                            @endif
                         </div>
                     @endforeach
             </div><!--/.contacs-info-->
             @endif
+            @if (!Auth::check())
+            <div class="clear-both"></div>
+            <div class="contact-more-info text-warning clear-both">
+                {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
+            </div>
+            @endif
         </div>
-
-        <div class="clearfix"></div>
 
         <!-- Ratings -->
         <div class="publication-rating">
@@ -104,10 +111,8 @@
             <div class="title-block">
                 <div class="publication-buttons">
                     <div class="report-info">
-                        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
-                        @endif
+                        <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                        <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
                     </div>
                 </div>
                 <h2 class="title">{{Lang::get('content.ratings')}}</h2>
@@ -214,7 +219,8 @@
     };
 
     Mercatino.ratings = {
-        url: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        retrieveUrl: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
+        changeStatusUrl: '{{ URL::to("evaluacion/cambiar-estatus/") }}',
         currentPage:  0,
         lastAction: 'next',
 
@@ -230,7 +236,7 @@
 
         retrieve: function(pageNumber){
             jQuery.ajax({
-                url: this.url + "/" + this.currentPage,
+                url: this.retrieveUrl + "/" + this.currentPage,
                 type: 'POST',
                 dataType: 'json',
                 success: function(result) {
@@ -239,6 +245,7 @@
 
                     console.log(result.limit);
                     Mercatino.ratings.assignPages(result.limit);
+                    Mercatino.ratings.prepare();
 
                 },
                 error: function(result) {
@@ -263,18 +270,80 @@
             jQuery('.publication-rating .pagination .current-page').html(currentPage);
             jQuery('.publication-rating .pagination .next-page').html(nextPage);
 
+        },
+
+        prepare: function(){
+            // Iterate each btn-group of ratings
+            jQuery(".rating-block .admin .btn-group").each(function(){
+                //console.log(jQuery(this).attr('data-toggle-name'));
+
+                // Iterate each button by group
+                jQuery('button', jQuery(this)).each(function(){
+                    // Add click event to each button of the current group
+                    jQuery(this).click(function() {
+                        console.log('click');
+                        var parentGroup = jQuery(this).parent();
+                        var previousValue = jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val();
+                        var currentValue = jQuery(this).prop('value');
+                        // Don't do anything when is clicked the same value
+                        if (previousValue == currentValue){
+                            console.log('equals');
+                            return;
+                        }
+
+                        console.log('after');
+                        // If changed save the current value
+                        jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val(currentValue);
+
+                        // Change rating's status
+                        Mercatino.ratings.changeStatus(parentGroup.attr('data-toggle-id'), currentValue);
+                    });
+                });
+
+            });
+        },
+
+        changeStatus: function(ratingId, status){
+
+            console.log('RatingId = ' + ratingId + ', Status = ' + status);
+
+            jQuery.ajax({
+                url: this.changeStatusUrl + '/' + ratingId + '/' + status,
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    console.log(result.result);
+                    if (result.result == 'success'){
+                        Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
+                    } else {
+                        Mercatino.showFlashMessage({title:'', message: "{{Lang::get('content.rating_change_status_error')}}", type:'error'});
+                    }
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_change_status_error')}}", type:'error'});
+                }
+            });
+
         }
     }
 
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
-          Mercatino.reportForm.show();
+            @if (Auth::check())
+                Mercatino.reportForm.show();
+            @else
+                window.location = "{{ URL::to('/login') }}";
+            @endif
         });
 
         Mercatino.rateitForm.init();
 
         jQuery('#rateit-link').bind('click', function(){
-            Mercatino.rateitForm.show('{{ $publication->id }}');
+            @if (Auth::check())
+                Mercatino.rateitForm.show('{{ $publication->id }}');
+            @else
+                window.location = "{{ URL::to('/login') }}";
+            @endif
             /* Configure validations */
         });
 

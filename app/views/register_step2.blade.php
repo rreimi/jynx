@@ -50,7 +50,7 @@
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_state')? 'error':'' }}">
                                 {{ Form::select('publisher_state',
-                                    array_merge(array('' => Lang::get('content.select_state')),$states),
+                                    $states,
                                     Input::old('publisher_state'),
                                     array('class'=>'input-block-level required'))
                                 }}
