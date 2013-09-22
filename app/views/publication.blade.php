@@ -42,6 +42,9 @@
         </h1><div class="triangle"></div>
 
         <div class="publication-info">
+
+            @include('include.add_this')
+
             @if (!is_null(Auth::user()))
             @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
             <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
