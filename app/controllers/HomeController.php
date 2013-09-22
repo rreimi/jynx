@@ -248,4 +248,8 @@ class HomeController extends BaseController {
         Auth::logout();
         return Redirect::to('login');
     }
+
+    public function getAcercaDe(){
+        return View::make('about_us');
+    }
 }
