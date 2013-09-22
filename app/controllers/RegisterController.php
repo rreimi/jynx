@@ -82,9 +82,17 @@ class RegisterController extends BaseController{
 
     public function getDatosAnunciante(){
 
+        // Reorder states to maintain the correct id
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
+
         return View::make('register_step2')->with(
             array(
-                "states" => State::lists('name','id'),
+                "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
             )
         );
