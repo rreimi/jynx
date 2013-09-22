@@ -324,6 +324,36 @@ h2.home-title {
     display: none;
 }
 
+/* About Us */
+
+.about-us-title, .contact-us-title {
+    margin-left: 33px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.about-us {
+    margin: 0px 50px;
+    text-align: justify;
+}
+
+.about-us h2 {
+    line-height: 25px;
+    margin-top: 30px;
+}
+
+.about-us-image {
+    float: left;
+    margin: 25px 25px 25px 0px;
+}
+
+.about-us-image img {
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+}
+
+
+
 /* Dashboard */
 
 
@@ -730,6 +760,14 @@ div#home-banner-top .carousel-control {
         float: none;
     }
 
+    .about-us-title, .contact-us-title {
+        margin-left: 0px;
+    }
+
+    .about-us {
+        margin: 10px;
+    }
+
 }
 
 /* Publications grid */
@@ -959,4 +997,7 @@ div#home-banner-top .carousel-control {
 }
 
 /* END - File Upload */
+
+
+
 
