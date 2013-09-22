@@ -111,10 +111,8 @@
             <div class="title-block">
                 <div class="publication-buttons">
                     <div class="report-info">
-                        @if (!is_null(Auth::user()) && (Auth::user()->id != $publication->publisher->user_id))
-                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
-                        @endif
+                        <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                        <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
                     </div>
                 </div>
                 <h2 class="title">{{Lang::get('content.ratings')}}</h2>
@@ -331,13 +329,21 @@
 
     jQuery(document).ready(function(){
         jQuery('#report-link').bind('click', function(){
-          Mercatino.reportForm.show();
+            @if (Auth::check())
+                Mercatino.reportForm.show();
+            @else
+                window.location = "{{ URL::to('/login') }}";
+            @endif
         });
 
         Mercatino.rateitForm.init();
 
         jQuery('#rateit-link').bind('click', function(){
-            Mercatino.rateitForm.show('{{ $publication->id }}');
+            @if (Auth::check())
+                Mercatino.rateitForm.show('{{ $publication->id }}');
+            @else
+                window.location = "{{ URL::to('/login') }}";
+            @endif
             /* Configure validations */
         });
 
