@@ -7,8 +7,12 @@
 class RegisterController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth', array('except'=>array('postIndex','getFinalizar', 'getActivacion')));
+        $this->beforeFilter('auth', array('except'=>array('getIndex', 'postIndex','getFinalizar', 'getActivacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
+    }
+
+    public function getIndex(){
+        return Redirect::to('/?registro=show');
     }
 
     public function postIndex(){
