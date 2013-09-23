@@ -22,7 +22,7 @@
         <div class="control-group">
             <label class="control-label text-left" for="filter_areas">{{ Lang::get('content.filter_areas') }}</label>
             <div class="controls">
-                {{ Form::select('filter_areas[]', $areas, $state['filter_areas'], ['id' => 'filter-areas', 'multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.filter_select_areas')]) }}
+                {{ Form::select('filter_areas[]', $areas, $state['filter_areas'], array('id' => 'filter-areas', 'multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.filter_select_areas'))) }}
             </div>
         </div>
 
