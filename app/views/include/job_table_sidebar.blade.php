@@ -29,8 +29,8 @@
         <div class="control-group">
             <label class="control-label" for="filter_job_date">{{ Lang::get('content.filter_job_date') }}</label>
             <div class="controls">
-                {{ Form::text('from_job_date', $state['from_job_date'], ['id' => 'from-job-date','class' => 'datepicker from-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format')]) }}
-                {{ Form::text('to_job_date', $state['to_job_date'], ['id' => 'to-job-date','class' => 'datepicker to-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format')]) }}
+                {{ Form::text('from_job_date', $state['from_job_date'], array('id' => 'from-job-date','class' => 'datepicker from-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+                {{ Form::text('to_job_date', $state['to_job_date'], array('id' => 'to-job-date','class' => 'datepicker to-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
             </div>
         </div>
 
