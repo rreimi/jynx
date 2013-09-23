@@ -219,7 +219,7 @@ class RegisterController extends BaseController{
         }
 
         // Retrieve user
-        $user = User::where('activation_hash', $key)->where('status', User::STATUS_INACTIVE)->get();
+        $user = User::where('activation_hash', $key)->where('status', User::STATUS_INACTIVE)->first();
 
         if (!isset($user)){
             return Response::view('errors.missing', array(), 404);
