@@ -81,13 +81,13 @@ class JobController extends BaseController {
 
         $jobs=$jobs->paginate($this->pageSize);
 
-        return View::make('job_list',[
+        return View::make('job_list', array(
             'jobs'=>$jobs,
             'state' => $state,
             'all'=>$all,
             'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
             'areas'=>Area::lists('name','id')
-        ]);
+        ));
     }
 
     public function getDetalle($id = null) {
@@ -104,11 +104,11 @@ class JobController extends BaseController {
 
         $companyPicture=Publisher::find($job->publisher_id)->avatar;
 
-        return Response::view('job',[
+        return Response::view('job',array(
             'job'=>$job,
             'companyPicture'=>$companyPicture,
             'referer'=>Session::get($this->prefix . '_referer')
-        ]);
+        ));
     }
 
 
