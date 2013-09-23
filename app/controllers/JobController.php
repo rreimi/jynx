@@ -85,7 +85,7 @@ class JobController extends BaseController {
             'jobs'=>$jobs,
             'state' => $state,
             'all'=>$all,
-            'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
+            'states'=> array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
             'areas'=>Area::lists('name','id')
         ));
     }
