@@ -40,7 +40,7 @@ return array(
     "state" => "Estado",
     "states" => "Estados",
     "location" => "Ubicación",
-    "contacts_more_info" => "Para obtener mayor información de contacto sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
+    "contacts_more_info" => "Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
 
     //Search
     "publications_search_placeholder" => "Buscar...",
