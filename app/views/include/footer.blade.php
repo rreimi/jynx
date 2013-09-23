@@ -91,7 +91,7 @@
                 {{Lang::get('content.help')}}
             </div>
         </a>
-        <a href="#">
+        <a href="{{URL::to('bolsa-trabajo')}}">
             <div class="footer-title footer-block jobs-footer">
                 {{Lang::get('content.jobs')}}
             </div>

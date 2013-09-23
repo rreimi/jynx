@@ -3,14 +3,91 @@
 class JobController extends BaseController {
 
     private $pageSize = '6';
+    private $prefix = 'job';
 
     public function __construct(){
-        $this->beforeFilter('auth');
-
+        $this->beforeFilter('auth',array('only'=> array('getLista')));
+        $this->beforeFilter('referer:job', array('only' => array('getLista','getIndex')));
     }
 
     public function getIndex(){
+        return $this->jobList(true);
+    }
 
+    public function postIndex(){
+        return $this->getIndex();
+    }
+
+    public function getLista(){
+        return $this->jobList(false);
+    }
+
+    public function postLista(){
+        return $this->getLista();
+    }
+
+    private function jobList($all){
+        $state = self::retrieveListState();
+
+        $jobs=JobView::select('jobs_view.*')
+            ->orderBy($state['sort'], $state['order']);
+
+        if(Auth::user()){
+            $jobs->with('publisher');
+        }
+
+        $q = $state['q'];
+
+        if (!empty($q)){
+            $jobs->where(function($query) use ($q)
+            {
+                $query->orWhere('company_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('job_title', 'LIKE', '%' . $q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $q . '%')
+                    ->orWhere('requirements', 'LIKE', '%' . $q . '%')
+                    ->orWhere('age', 'LIKE', '%' . $q . '%')
+                    ->orWhere('benefits', 'LIKE', '%' . $q . '%')
+                    ->orWhere('contact_email', 'LIKE', '%' . $q . '%')
+                    ->orWhere('location', 'LIKE', '%' . $q . '%')
+                    ->orWhere('areas', 'LIKE', '%' . $q . '%')
+                    ->orWhere('careers', 'LIKE', '%' . $q . '%')
+                ;
+            });
+        }
+
+        if (!empty($state['filter_state'])){
+            $jobs->where('state_id', '=', $state['filter_state']);
+        }
+
+        if (is_array($state['filter_areas'])) {
+            $jobs
+                ->join('jobs_areas','jobs_view.id','=','jobs_areas.job_id')
+                ->whereIn('jobs_areas.area_id', $state['filter_areas']);
+        }
+
+        if (!empty($state['from_job_date'])) {
+            $jobs->where('start_date', '>=', date("Y-m-d", strtotime($state['from_job_date'])));
+        }
+
+        if (!empty($state['to_job_date'])) {
+            $jobs->where('close_date', '<=', date("Y-m-d", strtotime($state['to_job_date'])));
+        }
+
+        if(!$all){
+            $jobs->where('publisher_id', '=', Auth::user()->publisher->id);
+        }else{
+            $jobs->where('status','=',Job::STATUS_PUBLISHED);
+        }
+
+        $jobs=$jobs->paginate($this->pageSize);
+
+        return View::make('job_list', array(
+            'jobs'=>$jobs,
+            'state' => $state,
+            'all'=>$all,
+            'states'=> array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'areas'=>Area::lists('name','id')
+        ));
     }
 
     public function getDetalle($id = null) {
@@ -27,18 +104,21 @@ class JobController extends BaseController {
 
         $companyPicture=Publisher::find($job->publisher_id)->avatar;
 
-        return Response::view('job',[
+        return Response::view('job',array(
             'job'=>$job,
-            'companyPicture'=>$companyPicture
-        ]);
+            'companyPicture'=>$companyPicture,
+            'referer'=>Session::get($this->prefix . '_referer')
+        ));
     }
 
 
     private $jobListSort = array('job_title', 'location', 'areas', 'start_date', 'close_date', 'status');
 
-    private function retrieveListState($isPost){
+    private function retrieveListState(){
         $state = Session::get('job_list.state');
-        $state['active_custom_filters'] = is_null($state['active_custom_filters'])? 0 : $state['active_custom_filters'];
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
+
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
 
         $sort = (in_array(Input::get('sort'), $this->jobListSort) ? Input::get('sort') : null);
 
@@ -58,77 +138,157 @@ class JobController extends BaseController {
             $state['q'] = (isset($q))? $q : '';
         }
 
-        //TODO agregar los custom filters
+        $filterState = (!is_null(Input::get('filter_state')) ? Input::get('filter_state') : null);
+
+        if ((isset($filterState)) || !(isset($state['filter_state']))) {
+            $state['filter_state'] = (isset($filterState))? $filterState : '';
+        }
+
+        $state['filter_areas'] = (isset($state['filter_areas']) ? $state['filter_areas'] : null);
+
+        if ($isPost) {
+            $state['filter_areas'] = Input::get('filter_areas');
+        }
+
+        $state['from_job_date'] = (isset($state['from_job_date']) ? $state['from_job_date'] : null);
+
+        if ($isPost) {
+            $state['from_job_date'] = Input::get('from_job_date');
+        }
+
+        //To start date
+        $state['to_job_date'] = (isset($state['to_job_date']) ? $state['to_job_date'] : null);
+
+        if ($isPost) {
+            $state['to_job_date'] = Input::get('to_job_date');
+        }
+
+
+        $ignoreFilters = array('active_filters', 'sort', 'order');
+        if ($isPost) {
+            $state['active_filters'] = 0;
+            foreach ($state as $key => $item) {
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
+                }
+            }
+        }
 
         Session::put('job_list.state', $state);
 
         return $state;
     }
 
-    public function getLista(){
-
-        $isPost = !is_null(Input::get('_token'));
-        $state = self::retrieveListState($isPost);
-
-        $jobs=JobView::orderBy($state['sort'], $state['order']);
-
-        //TODO agregar condicional para poder mostrar todos los jobs
-        $jobs->where('publisher_id', '=', Auth::user()->publisher->id);
-
-        $jobs=$jobs->paginate($this->pageSize);
-
-        return View::make('job_list',[
-            'jobs'=>$jobs
-        ]);
-    }
-
     public function getCrear(){
 
-        //TODO recuperar chosen
+        $job=new Job();
+        $job->area_ids=Input::old('area_ids');
+        $job->career_ids=Input::old('career_ids');
 
-        return View::make('job_form',[
+        return View::make('job_form',array(
             'companyName'=>Auth::user()->publisher->seller_name,
             'areas'=>Area::lists('name','id'),
             'careers'=>Career::lists('name','id'),
             'avatar'=>Auth::user()->publisher->avatar,
-            'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
-            'jobTypes'=>[
+            'states'=>array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'jobTypes'=>array(
                 ''=>Lang::get('content.select_default'),
                 Job::TYPE_CONTRACTED => Lang::get('content.job_type_contracted'),
                 Job::TYPE_INDEPENDENT => Lang::get('content.job_type_independent'),
                 Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
                 Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
-            ],
-            'vacancies'=>[1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10],
-            'academicLevels'=>[
+            ),
+            'vacancies'=>array(''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10),
+            'academicLevels'=>array(
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
-            ],
-            'sexes'=>[
+            ),
+            'sexes'=> array(
                 ''=>Lang::get('content.select_default'),
                 Job::SEX_MALE=>Lang::get('content.male'),
                 Job::SEX_FEMALE=>Lang::get('content.female'),
                 Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
-            ],
-            'statuses' =>[
+            ),
+            'statuses' => array(
                 ''=>Lang::get('content.select_default'),
                 Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
                 Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
                 Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
-            ],
-            'referer' => URL::previous(),
-        ]);
+            ),
+            'referer' => Session::get($this->prefix . '_referer'),
+            'job'=>$job
+        ));
+    }
+
+    public function getEditar($id) {
+
+        $job= JobView::where('publisher_id',Auth::user()->publisher->id)
+            ->find($id);
+
+        if(is_array(Input::old('area_ids'))){
+            $job->area_ids=Input::old('area_ids');
+        }else{
+            $job->area_ids=explode(',',$job->area_ids);
+        }
+
+        if(is_array(Input::old('career_ids'))){
+            $job->career_ids=Input::old('career_ids');
+        }else{
+            $job->career_ids=explode(',',$job->career_ids);
+        }
+
+        return View::make('job_form',array(
+            'companyName'=>Auth::user()->publisher->seller_name,
+            'areas'=>Area::lists('name','id'),
+            'careers'=>Career::lists('name','id'),
+            'avatar'=>Auth::user()->publisher->avatar,
+            'states'=>array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'jobTypes'=>array(
+                ''=>Lang::get('content.select_default'),
+                Job::TYPE_CONTRACTED => Lang::get('content.job_type_contracted'),
+                Job::TYPE_INDEPENDENT => Lang::get('content.job_type_independent'),
+                Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
+                Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
+            ),
+            'vacancies'=> array(''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10),
+            'academicLevels'=> array(
+                ''=>Lang::get('content.select_default'),
+                Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
+                Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
+                Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
+                Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
+            ),
+            'sexes'=> array(
+                ''=>Lang::get('content.select_default'),
+                Job::SEX_MALE=>Lang::get('content.male'),
+                Job::SEX_FEMALE=>Lang::get('content.female'),
+                Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
+            ),
+            'statuses' =>array(
+                ''=>Lang::get('content.select_default'),
+                Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
+                Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
+                Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
+                Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
+            ),
+            'referer' => Session::get($this->prefix . '_referer'),
+            'job'=>$job
+        ));
+
     }
 
     public function postGuardar(){
 
         //TODO agregar manejo para guardar la edicion
 
-        $jobData=[
+        $jobData=array(
+            'id'=>Input::get('id'),
             'company_name'=>Input::get('company_name'),
             'state_id'=>Input::get('state_id'),
             'city'=>Input::get('city'),
@@ -151,9 +311,9 @@ class JobController extends BaseController {
             'start_date'=>Input::get('start_date'),
             'close_date'=>Input::get('close_date'),
             'status'=>Input::get('status')
-        ];
+        );
 
-        $rules=[
+        $rules= array(
             'company_name'=>'required',
             'job_title'=>'required',
             'description'=>'required',
@@ -161,24 +321,35 @@ class JobController extends BaseController {
             'area_ids'=>'required',
             'contact_email'=>'required',
             'status'=>'required'
-        ];
+        );
 
         $validator=Validator::make($jobData,$rules);
 
         if($validator->fails()){
-            return Redirect::to('bolsa-trabajo/crear')
+            $action = 'crear';
+
+            if (!empty($jobData['id'])) {
+                $action = 'editar/' . $jobData['id'];
+            }
+
+
+            return Redirect::to('bolsa-trabajo/'.$action)
                 ->withErrors($validator)
                 ->withInput();
         }
 
         DB::transaction(function() use($jobData){
 
-            $job= new Job($jobData);
+            if (empty($jobData['id'])){
+                $job= new Job($jobData);
+                $job->publisher_id=Auth::user()->publisher->id;
+            }else{
+                $job = Job::find($jobData['id']);
+                $job->fill($jobData);
+            }
 
-            $job->publisher_id=Auth::user()->publisher->id;
-
-            $job->start_date = date('Y-m-d',strtotime($jobData['start_date']));
-            $job->close_date = date('Y-m-d',strtotime($jobData['close_date']));
+            $job->start_date = $jobData['start_date']!=null?date('Y-m-d',strtotime($jobData['start_date'])):null;
+            $job->close_date = $jobData['close_date']!=null?date('Y-m-d',strtotime($jobData['close_date'])):null;
 
             $job->save();
 
@@ -190,4 +361,29 @@ class JobController extends BaseController {
         return Redirect::to('bolsa-trabajo/lista');
     }
 
+
+    public function getEliminar($id) {
+
+        if(empty($id)){
+            return Response::view('errors.missing', array(), 404);
+        }
+
+        $job = Job::find($id);
+
+        if (empty($job)){
+            self::addFlashMessage(null, Lang::get('content.delete_job_invalid'), 'error');
+            return Redirect::to('bolsa-trabajo/lista');
+        }
+
+        $result = $job->delete();
+
+        if ($result){
+            self::addFlashMessage(null, Lang::get('content.delete_job_success'), 'success');
+        } else {
+            self::addFlashMessage(null, Lang::get('content.delete_job_error'), 'error');
+        }
+
+        return Redirect::to('bolsa-trabajo/lista');
+
+    }
 }

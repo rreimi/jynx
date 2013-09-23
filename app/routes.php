@@ -57,7 +57,7 @@ Route::controller('bolsa-trabajo','JobController');
 Route::controller('/','HomeController');
 
 
-View::share('title', 'Mercatino');
+View::share('title', 'TuMercato.com');
 View::share('categories', BaseController::getCategories());
 View::share('services', BaseController::getServices());
 

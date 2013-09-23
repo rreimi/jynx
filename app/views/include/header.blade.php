@@ -29,9 +29,6 @@
                                 <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                                 <li ><a href="{{URL::to('/bolsa-trabajo/lista')}}">{{Lang::get('content.my_jobs')}}</a></li>
                                 @endif
-                                @if(Auth::user()->is_publisher==1)
-                                <li class="disabled"><a href="#">{{Lang::get('content.my_publications')}}</a></li>
-                                @endif
                                 @if(Auth::user()->isAdmin())
                                 <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                                 @endif

@@ -40,7 +40,7 @@ return array(
     "state" => "Estado",
     "states" => "Estados",
     "location" => "Ubicación",
-    "contacts_more_info" => "Para obtener mayor información de contacto sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
+    "contacts_more_info" => "Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
 
     //Search
     "publications_search_placeholder" => "Buscar...",
@@ -126,6 +126,7 @@ return array(
     "contact" => "Contacto",
     "help" => "Ayuda",
     "jobs" => "Bolsa de Trabajo",
+    "edit_job" => "Editar oferta de trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
@@ -283,7 +284,7 @@ return array(
     "publisher_phone1" => "Teléfono 1",
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
-    "select_state" => "Selecciona Estado",
+    "select_state" => "Seleccione Estado",
     "publisher_seller" => "Nombre vendedor / Nombre empresa",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
@@ -326,6 +327,8 @@ return array(
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',
     "edit_publication_success" => 'La publicación se ha guardado correctamente',
     "add_publication_image_success" => 'La imagen se ha cargado correctamente',
+    "add_publication_image_error" => 'Ha ocurrido un error cargando la imagen',
+    "add_publication_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de 450x450 pixeles',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
@@ -598,8 +601,10 @@ return array(
     "vacancy"=>"Vacantes",
     "job_type"=>"Tipo de cargo",
     "temporary_months"=>"Duración",
-    "areas"=>"Areas",
+    "areas"=>"Áreas",
+    "area_sector"=>"Área o sector de la empresa",
     "description"=>"Descripción del cargo",
+    "job_location"=>"Ubicación del cargo",
     "requirements"=>"Requisitos",
     "academic_level"=>"Nivel Académico",
     "careers"=>"Carreras afines",
@@ -610,8 +615,22 @@ return array(
     "salary"=>"Rango salarial",
     "benefits"=>"Beneficios",
     "start_date"=>"Fecha de publicación",
-    "close_date"=>"Fecha de cierre"
-
+    "close_date"=>"Fecha de cierre",
+    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
+    "search_job_title"=>"Buscar ofertas",
+    "filter_areas"=>"Área/Sector de la empresa",
+    "filter_select_areas"=>"Seleccione área o sector",
+    "filter_job_date"=>"Fecha de publicación",
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo. ¡Sé el primero en publicar una!",
+    "not_jobs_user"=>"Todavía no hay ofertas en la bolsa de trabajo.",
+    "delete_job_invalid"=>"La oferta de trabajo no se pudo eliminar",
+    "delete_job_success"=>"Oferta de trabajo eliminada",
+    "delete_job_error"=>"La oferta de trabajo no se pudo eliminar",
+    "modal_job_delete_title"=>"Advertencia",
+    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
+    "contact_email_detail"=>"Envíe su currículo a",
+    "previous"=>"Regresar",
+    "more"=>"Mas información..."
 
 
 );

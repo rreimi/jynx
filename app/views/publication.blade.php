@@ -100,13 +100,14 @@
                     @endforeach
             </div><!--/.contacs-info-->
             @endif
-            @if (!Auth::check())
-            <div class="clear-both"></div>
-            <div class="contact-more-info text-warning clear-both">
-                {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
-            </div>
-            @endif
         </div>
+
+        <div class="clear-both"></div>
+        @if (!Auth::check())
+        <div class="contact-more-info text-warning">
+            {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
+        </div>
+        @endif
 
         <!-- Ratings -->
         <div class="publication-rating">

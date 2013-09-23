@@ -2,12 +2,13 @@
 
 class Job extends Eloquent{
 
-    protected $fillable=['company_name','state_id','city','job_title',
+    protected $fillable=array('company_name','state_id','city','job_title',
         'vacancy','job_type','temporary_months','description',
         'requirements','academic_level','experience_years',
         'age','sex','languages','salary','benefits',
-        'contact_email','start_date','close_date','status'
-    ];
+        'contact_email','start_date','close_date','status');
+
+    protected $softDelete = true;
 
     const TYPE_CONTRACTED='Contracted';
     const TYPE_TEMPORARY='Temporary';
