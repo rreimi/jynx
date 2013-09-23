@@ -16,7 +16,7 @@
             <div class="control-group">
                 <label class="control-label text-left" for="filter_status">{{ Lang::get('content.filter_publication_status') }}</label>
                 <div class="controls">
-                    {{ Form::select('filter_status', $advertiser_statuses, $state['filter_status'], ['id' => 'filter_status', 'class' => 'filter-field']) }}
+                    {{ Form::select('filter_status', $advertiser_statuses, $state['filter_status'], array('id' => 'filter_status', 'class' => 'filter-field')) }}
                 </div>
             </div>
         </div>
