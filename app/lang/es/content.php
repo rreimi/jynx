@@ -282,7 +282,7 @@ return array(
     "publisher_phone1" => "Teléfono 1",
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
-    "select_state" => "Selecciona Estado",
+    "select_state" => "Seleccione Estado",
     "publisher_seller" => "Nombre vendedor / Nombre empresa",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
@@ -590,8 +590,10 @@ return array(
     "vacancy"=>"Vacantes",
     "job_type"=>"Tipo de cargo",
     "temporary_months"=>"Duración",
-    "areas"=>"Areas",
+    "areas"=>"Áreas",
+    "area_sector"=>"Área o sector de la empresa",
     "description"=>"Descripción del cargo",
+    "job_location"=>"Ubicación del cargo",
     "requirements"=>"Requisitos",
     "academic_level"=>"Nivel Académico",
     "careers"=>"Carreras afines",
@@ -602,8 +604,13 @@ return array(
     "salary"=>"Rango salarial",
     "benefits"=>"Beneficios",
     "start_date"=>"Fecha de publicación",
-    "close_date"=>"Fecha de cierre"
-
+    "close_date"=>"Fecha de cierre",
+    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes ingresar o registrarte",
+    "search_job_title"=>"Buscar ofertas",
+    "filter_areas"=>"Área/Sector de la empresa",
+    "filter_select_areas"=>"Seleccione área o sector",
+    "filter_job_date"=>"Fecha de publicación",
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!"
 
 
 );

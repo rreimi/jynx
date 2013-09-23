@@ -23,6 +23,9 @@
     </header>
 
     <div id="body" class="container main-container well-small" >
+        @section('sub-title')
+
+        @show
         <div class="row-fluid">
             <div class="side-bar span3">
                 @section('sidebar')

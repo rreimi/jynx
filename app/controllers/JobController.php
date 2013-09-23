@@ -5,12 +5,85 @@ class JobController extends BaseController {
     private $pageSize = '6';
 
     public function __construct(){
-        $this->beforeFilter('auth');
-
+        $this->beforeFilter('auth',['only'=>['getDetalle','getLista']]);
     }
 
     public function getIndex(){
+        return $this->jobList(true);
+    }
 
+    public function postIndex(){
+        return $this->getIndex();
+    }
+
+    public function getLista(){
+        return $this->jobList(false);
+    }
+
+    public function postLista(){
+        return $this->getLista();
+    }
+
+    private function jobList($all){
+        $state = self::retrieveListState();
+
+        $jobs=JobView::select('jobs_view.*')
+            ->orderBy($state['sort'], $state['order']);
+
+        if(Auth::user()){
+            $jobs->with('publisher');
+        }
+
+        $q = $state['q'];
+
+        if (!empty($q)){
+            $jobs->where(function($query) use ($q)
+            {
+                $query->orWhere('company_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('job_title', 'LIKE', '%' . $q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $q . '%')
+                    ->orWhere('requirements', 'LIKE', '%' . $q . '%')
+                    ->orWhere('age', 'LIKE', '%' . $q . '%')
+                    ->orWhere('benefits', 'LIKE', '%' . $q . '%')
+                    ->orWhere('contact_email', 'LIKE', '%' . $q . '%')
+                    ->orWhere('location', 'LIKE', '%' . $q . '%')
+                    ->orWhere('areas', 'LIKE', '%' . $q . '%')
+                    ->orWhere('careers', 'LIKE', '%' . $q . '%')
+                ;
+            });
+        }
+
+        if (!empty($state['filter_state'])){
+            $jobs->where('state_id', '=', $state['filter_state']);
+        }
+
+        if (is_array($state['filter_areas'])) {
+            $jobs
+                ->join('jobs_areas','jobs_view.id','=','jobs_areas.job_id')
+                ->whereIn('jobs_areas.area_id', $state['filter_areas']);
+        }
+
+        if (!empty($state['from_job_date'])) {
+            $jobs->where('start_date', '>=', date("Y-m-d", strtotime($state['from_job_date'])));
+        }
+
+        if (!empty($state['to_job_date'])) {
+            $jobs->where('close_date', '<=', date("Y-m-d", strtotime($state['to_job_date'])));
+        }
+
+        if(!$all){
+            $jobs->where('publisher_id', '=', Auth::user()->publisher->id);
+        }
+
+        $jobs=$jobs->paginate($this->pageSize);
+
+        return View::make('job_list',[
+            'jobs'=>$jobs,
+            'state' => $state,
+            'all'=>$all,
+            'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
+            'areas'=>Area::lists('name','id')
+        ]);
     }
 
     public function getDetalle($id = null) {
@@ -36,9 +109,11 @@ class JobController extends BaseController {
 
     private $jobListSort = array('job_title', 'location', 'areas', 'start_date', 'close_date', 'status');
 
-    private function retrieveListState($isPost){
+    private function retrieveListState(){
         $state = Session::get('job_list.state');
-        $state['active_custom_filters'] = is_null($state['active_custom_filters'])? 0 : $state['active_custom_filters'];
+        $isPost = (Input::server("REQUEST_METHOD") == "POST");
+
+        $state['active_filters'] = is_null($state['active_filters'])? 0 : $state['active_filters'];
 
         $sort = (in_array(Input::get('sort'), $this->jobListSort) ? Input::get('sort') : null);
 
@@ -58,33 +133,54 @@ class JobController extends BaseController {
             $state['q'] = (isset($q))? $q : '';
         }
 
-        //TODO agregar los custom filters
+        $filterState = (!is_null(Input::get('filter_state')) ? Input::get('filter_state') : null);
+
+        if ((isset($filterState)) || !(isset($state['filter_state']))) {
+            $state['filter_state'] = (isset($filterState))? $filterState : '';
+        }
+
+        $state['filter_areas'] = (isset($state['filter_areas']) ? $state['filter_areas'] : null);
+
+        if ($isPost) {
+            $state['filter_areas'] = Input::get('filter_areas');
+        }
+
+        $state['from_job_date'] = (isset($state['from_job_date']) ? $state['from_job_date'] : null);
+
+        if ($isPost) {
+            $state['from_job_date'] = Input::get('from_job_date');
+        }
+
+        //To start date
+        $state['to_job_date'] = (isset($state['to_job_date']) ? $state['to_job_date'] : null);
+
+        if ($isPost) {
+            $state['to_job_date'] = Input::get('to_job_date');
+        }
+
+
+        $ignoreFilters = array('active_filters', 'sort', 'order');
+        if ($isPost) {
+            $state['active_filters'] = 0;
+            foreach ($state as $key => $item) {
+                if (!in_array($key, $ignoreFilters)) {
+                    if (isset($item) && !empty($item)){
+                        $state['active_filters']++;
+                    }
+                }
+            }
+        }
 
         Session::put('job_list.state', $state);
 
         return $state;
     }
 
-    public function getLista(){
-
-        $isPost = !is_null(Input::get('_token'));
-        $state = self::retrieveListState($isPost);
-
-        $jobs=JobView::orderBy($state['sort'], $state['order']);
-
-        //TODO agregar condicional para poder mostrar todos los jobs
-        $jobs->where('publisher_id', '=', Auth::user()->publisher->id);
-
-        $jobs=$jobs->paginate($this->pageSize);
-
-        return View::make('job_list',[
-            'jobs'=>$jobs
-        ]);
-    }
-
     public function getCrear(){
 
-        //TODO recuperar chosen
+        $job=new Job();
+        $job->areas=Input::old('area_ids');
+        $job->careers=Input::old('career_ids');
 
         return View::make('job_form',[
             'companyName'=>Auth::user()->publisher->seller_name,
@@ -99,7 +195,7 @@ class JobController extends BaseController {
                 Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
                 Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
             ],
-            'vacancies'=>[1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10],
+            'vacancies'=>[''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10],
             'academicLevels'=>[
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
@@ -121,6 +217,7 @@ class JobController extends BaseController {
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
             ],
             'referer' => URL::previous(),
+            'job'=>$job
         ]);
     }
 
@@ -177,8 +274,8 @@ class JobController extends BaseController {
 
             $job->publisher_id=Auth::user()->publisher->id;
 
-            $job->start_date = date('Y-m-d',strtotime($jobData['start_date']));
-            $job->close_date = date('Y-m-d',strtotime($jobData['close_date']));
+            $job->start_date = $jobData['start_date']!=null?date('Y-m-d',strtotime($jobData['start_date'])):null;
+            $job->close_date = $jobData['close_date']!=null?date('Y-m-d',strtotime($jobData['close_date'])):null;
 
             $job->save();
 

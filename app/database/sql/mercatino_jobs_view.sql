@@ -8,7 +8,7 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED VIEW jobs_view AS
   FROM jobs
     JOIN jobs_areas ON jobs.id=jobs_areas.job_id
     JOIN areas ON jobs_areas.area_id=areas.id
-    JOIN jobs_careers ON jobs.id=jobs_careers.job_id
-    JOIN careers ON jobs_careers.career_id=careers.id
+    LEFT JOIN jobs_careers ON jobs.id=jobs_careers.job_id
+    LEFT JOIN careers ON jobs_careers.career_id=careers.id
     JOIN states ON jobs.state_id=states.id
   GROUP BY jobs.id
