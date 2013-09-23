@@ -368,17 +368,26 @@ class PublicationController extends BaseController {
         //TODO validar publicacion
         //TODO renombrar la imagen si existe
         //TODO posibilidad de agregar un alt
+        $size = getimagesize($file);
 
-//        $data = exif_imagetype($file);
-//        echo "<PRE>";
-//        print_r($data);
-//        echo "</PRE>";
-//
-//        //var_dump($file);
-//        die();
+        $upload_success = false;
+        $error = '';
 
-        /* Move uploaded file to final destination */
-        $upload_success = $file->move($destinationPath, $filename);
+        //Validate image size
+
+        if ($size[0] < BaseController::$detailSize['width'] ) {
+            $error = 'invalid_size';
+        }
+
+        if ($size[1] < BaseController::$detailSize['height']) {
+            $error = 'invalid_size';
+        }
+
+
+        if (empty($error)){
+            /* Move uploaded file to final destination */
+            $upload_success = $file->move($destinationPath, $filename);
+        }
 
         //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
         /* Set full path for create resized versions */
@@ -388,9 +397,9 @@ class PublicationController extends BaseController {
         //Image::make($fullImagePath)->resize(self::$thumbSize['width'], self::$thumbSize['height'])->save(str_replace(".", self::getThumbSizeSuffix() . ".", $fullImagePath));
         //Image::make($fullImagePath)->resize(self::$detailSizeSize['width'], self::$detailSizeSize['height'])->save(str_replace(".", self::getDetailSizeSuffix() . ".", $fullImagePath));
 
-        $error = 'Error';
+//        $error = 'Error';
 
-        if( $upload_success ) {
+        if ($upload_success) {
             $image = new PublicationImage(array('image_url' => $filename));
             $image = $publication->images()->save($image);
             return Response::json($image->id, 200);
