@@ -72,9 +72,9 @@ class JobController extends BaseController {
         }
 
         if(!$all){
-            $jobs
-                ->where('publisher_id', '=', Auth::user()->publisher->id)
-                ->where('status','=',Job::STATUS_PUBLISHED);
+            $jobs->where('publisher_id', '=', Auth::user()->publisher->id);
+        }else{
+            $jobs->where('status','=',Job::STATUS_PUBLISHED);
         }
 
         $jobs=$jobs->paginate($this->pageSize);
