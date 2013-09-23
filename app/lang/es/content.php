@@ -326,6 +326,8 @@ return array(
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',
     "edit_publication_success" => 'La publicación se ha guardado correctamente',
     "add_publication_image_success" => 'La imagen se ha cargado correctamente',
+    "add_publication_image_error" => 'Ha ocurrido un error cargando la imagen',
+    "add_publication_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de 450x450 pixeles',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
