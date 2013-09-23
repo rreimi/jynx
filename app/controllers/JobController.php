@@ -6,7 +6,7 @@ class JobController extends BaseController {
     private $prefix = 'job';
 
     public function __construct(){
-        $this->beforeFilter('auth',['only'=>['getLista']]);
+        $this->beforeFilter('auth',array('only'=>['getLista']));
         $this->beforeFilter('referer:job', array('only' => array('getLista','getIndex')));
     }
 
