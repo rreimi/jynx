@@ -1,0 +1,1 @@
+ALTER TABLE  `publications_ratings` ADD  `status` TINYINT( 1 ) NOT NULL DEFAULT  '1' AFTER  `comment`

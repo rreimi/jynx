@@ -165,6 +165,12 @@ h2.home-title {
     margin-top: 20px;
 }
 
+.publication-info .social-section {
+    float: right;
+    margin-top: 0px;
+    width: 258px;
+}
+
 .publication-info .evaluation {
     width: 168px;
 }
@@ -317,6 +323,36 @@ h2.home-title {
 .form-message-box {
     display: none;
 }
+
+/* About Us */
+
+.about-us-title, .contact-us-title {
+    margin-left: 33px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.about-us {
+    margin: 0px 50px;
+    text-align: justify;
+}
+
+.about-us h2 {
+    line-height: 25px;
+    margin-top: 30px;
+}
+
+.about-us-image {
+    float: left;
+    margin: 25px 25px 25px 0px;
+}
+
+.about-us-image img {
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+}
+
+
 
 /* Dashboard */
 
@@ -575,11 +611,21 @@ div#home-banner-top .carousel-control {
     color: #AAAAAA;
 }
 
+.publication-rating .rating-block .admin {
+    color: #858585;
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
 .publication-rating .items .no-ratings {
     font-size: 1.2em;
     color: #AAAAAA;
     text-align: center;
     margin: 20px;
+}
+
+.publication-rating .rating-block .admin .btn-group {
+    margin-left: 10px;
 }
 
 .publication-rating .pagination {
@@ -714,6 +760,14 @@ div#home-banner-top .carousel-control {
         float: none;
     }
 
+    .about-us-title, .contact-us-title {
+        margin-left: 0px;
+    }
+
+    .about-us {
+        margin: 10px;
+    }
+
 }
 
 /* Publications grid */
@@ -810,6 +864,11 @@ div#home-banner-top .carousel-control {
 
 .contactus-form label, .contact-info label {
     cursor: auto;
+}
+
+.contact-more-info {
+    padding: 15px;
+    text-align: center;
 }
 
 @media (max-width:380px) {
@@ -938,4 +997,7 @@ div#home-banner-top .carousel-control {
 }
 
 /* END - File Upload */
+
+
+
 

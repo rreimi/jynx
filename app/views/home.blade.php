@@ -1,6 +1,5 @@
 @extends('layout_home_no_sidebar')
 
-
 @section('slideshow')
 <div id="home-banner-top" class="home-slideshow carousel container slide">
 
@@ -195,6 +194,10 @@
     Imagecow.init();
 
     jQuery(document).ready(function(){
+        @if ($registro == 'show')
+            Mercatino.registerForm.show();
+        @endif
+
         jQuery('#home-banner-top.carousel').carousel({
             interval: 8000
         });
