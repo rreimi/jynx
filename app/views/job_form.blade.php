@@ -84,7 +84,7 @@
         <div class="control-group {{ $errors->has('area_ids') ? 'error':'' }}">
             <label class="control-label required-field" for="area_ids">{{ Lang::get('content.areas') }}</label>
             <div class="controls">
-                {{ Form::select('area_ids[]', $areas, $job->areas, ['id'=>'area_ids','multiple' => '', 'class' => 'chosen-select input filter-field required', 'data-placeholder' => Lang::get('content.areas')]) }}
+                {{ Form::select('area_ids[]', $areas, $job->area_ids, ['id'=>'area_ids','multiple' => '', 'class' => 'chosen-select input filter-field required', 'data-placeholder' => Lang::get('content.areas')]) }}
                 {{ $errors->first('area_ids', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -116,7 +116,7 @@
         <div class="control-group {{ $errors->has('career_ids') ? 'error':'' }}">
             <label class="control-label" for="career_ids">{{ Lang::get('content.careers') }}</label>
             <div class="controls">
-                {{ Form::select('career_ids[]', $careers, $job->careers, ['id'=>'career_ids','multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.careers')]) }}
+                {{ Form::select('career_ids[]', $careers, $job->career_ids, ['id'=>'career_ids','multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.careers')]) }}
                 {{ $errors->first('career_ids', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -183,7 +183,7 @@
         <div class="control-group {{ $errors->has('start_date') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.start_date') }}</label>
             <div class="controls">
-                {{ Form::text('start_date', $job->start_date, array('class' => 'datepicker from-date ','placeholder'=> Lang::get('content.start_date'))) }}
+                {{ Form::text('start_date', $job->start_date!=null?date(Lang::get('content.date_format_php'),strtotime($job->start_date)):'', array('class' => 'datepicker from-date ','placeholder'=> Lang::get('content.start_date'))) }}
                 {{ $errors->first('start_date', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -192,7 +192,7 @@
         <div class="control-group {{ $errors->has('close_date') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.close_date') }}</label>
             <div class="controls">
-                {{ Form::text('close_date', $job->close_date, array('class' => 'datepicker to-date ','placeholder'=> Lang::get('content.close_date'))) }}
+                {{ Form::text('close_date', $job->close_date!=null?date(Lang::get('content.date_format_php'),strtotime($job->close_date)):'', array('class' => 'datepicker to-date ','placeholder'=> Lang::get('content.close_date'))) }}
                 {{ $errors->first('close_date', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -212,7 +212,7 @@
 
             </div>
         </div>
-
+        {{ Form::hidden('id', $job->id) }}
         {{ Form::close() }}
     </div>
 @stop

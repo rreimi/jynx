@@ -126,6 +126,7 @@ return array(
     "contact" => "Contacto",
     "help" => "Ayuda",
     "jobs" => "Bolsa de Trabajo",
+    "edit_job" => "Editar oferta de trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
@@ -326,6 +327,8 @@ return array(
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',
     "edit_publication_success" => 'La publicación se ha guardado correctamente',
     "add_publication_image_success" => 'La imagen se ha cargado correctamente',
+    "add_publication_image_error" => 'Ha ocurrido un error cargando la imagen',
+    "add_publication_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de 450x450 pixeles',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
@@ -618,7 +621,16 @@ return array(
     "filter_areas"=>"Área/Sector de la empresa",
     "filter_select_areas"=>"Seleccione área o sector",
     "filter_job_date"=>"Fecha de publicación",
-    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo. ¡Sé el primero en publicar una!"
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo. ¡Sé el primero en publicar una!",
+    "not_jobs_user"=>"Todavía no hay ofertas en la bolsa de trabajo.",
+    "delete_job_invalid"=>"La oferta de trabajo no se pudo eliminar",
+    "delete_job_success"=>"Oferta de trabajo eliminada",
+    "delete_job_error"=>"La oferta de trabajo no se pudo eliminar",
+    "modal_job_delete_title"=>"Advertencia",
+    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
+    "contact_email_detail"=>"Envíe su currículo a",
+    "previous"=>"Regresar",
+    "more"=>"Mas información..."
 
 
 );

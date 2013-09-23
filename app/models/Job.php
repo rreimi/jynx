@@ -9,6 +9,8 @@ class Job extends Eloquent{
         'contact_email','start_date','close_date','status'
     ];
 
+    protected $softDelete = true;
+
     const TYPE_CONTRACTED='Contracted';
     const TYPE_TEMPORARY='Temporary';
     const TYPE_INTERNSHIP='Internship';
