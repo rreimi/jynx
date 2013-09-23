@@ -8,16 +8,12 @@ class UserController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth');
+        $this->beforeFilter('admin');
         $this->beforeFilter('referer:user', array('only' => array('getLista', 'getDetalle')));
         // TODO: al cambiar layout backend lo puedo obviar
     }
 
     public function getLista() {
-
-        // Si no es admin lo boto
-        if (!Auth::user()->isAdmin()){
-            return Redirect::to('/');
-        }
 
         $state = self::retrieveListState();
         $users = User::orderBy($state['sort'], $state['order']);

@@ -44,6 +44,9 @@ class HomeController extends BaseController {
         $data['mostvisited'] = PublicationVisit::mostVisited($this->sliderSize)->get();
         $data['recent'] = Publication::published()->recent($this->sliderSize)->get();
 
+        // Flag to show register popup in /registro url.
+        $data['registro'] = Input::get('registro');
+
         /* Get cookie of last visited by the user */
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
@@ -247,5 +250,9 @@ class HomeController extends BaseController {
     public function getLogout(){
         Auth::logout();
         return Redirect::to('login');
+    }
+
+    public function getAcercaDe(){
+        return View::make('about_us');
     }
 }

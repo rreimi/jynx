@@ -784,6 +784,47 @@ input.dial:focus{
     padding: 0;
 }
 
+.list-job .logo-job{
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
+    padding: 0;
+}
+
+.list-job .logo-job img{
+    width: 100%;
+}
+
+.list-job{
+    margin-top:10px;
+    margin-bottom: 20px;
+}
+
+.list-job .job-contact{
+    width: 130px;
+    text-align: center;
+}
+
+.list-job .values{
+    font-size: 14px;
+}
+
+.list-job .values .row .title-job{
+    color:#3385CB;
+}
+
+.list-job .values .row .description-job{
+    color:#9D9D9D;
+}
+
+.list-job .values .row{
+    margin-bottom: 17px;
+}
+
+.job-guest{
+    color:#CBA875;
+}
+
 /* Modal */
 
 .modal p {

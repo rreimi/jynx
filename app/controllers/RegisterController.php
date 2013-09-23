@@ -7,8 +7,12 @@
 class RegisterController extends BaseController{
 
     public function __construct(){
-        $this->beforeFilter('auth', array('except'=>array('postIndex','getFinalizar', 'getActivacion')));
+        $this->beforeFilter('auth', array('except'=>array('getIndex', 'postIndex','getFinalizar', 'getActivacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
+    }
+
+    public function getIndex(){
+        return Redirect::to('/?registro=show');
     }
 
     public function postIndex(){
@@ -51,8 +55,6 @@ class RegisterController extends BaseController{
             'contentEmail' => 'new_user_welcome',
             'userName' => $user->full_name,
             'activationLink' =>  UrlHelper::toWith('registro/activacion', array('key' => $user->activation_hash)),
-
-
         );
 
         $receiver = array(
@@ -79,9 +81,18 @@ class RegisterController extends BaseController{
     }
 
     public function getDatosAnunciante(){
+
+        // Reorder states to maintain the correct id
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
+
         return View::make('register_step2')->with(
             array(
-                "states" => State::lists('name','id'),
+                "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
                 "activation_flag" => (boolean) Session::get('activation_flag')
             )

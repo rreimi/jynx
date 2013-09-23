@@ -6,8 +6,10 @@
 
 class RatingController extends BaseController{
 
+    protected $fillable = array('title', 'comment', 'vote', 'status');
+
     public function __construct(){
-        $this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except'=>array('postDenunciasPublicacion')));
         $this->beforeFIlter('csrf-json', array('only' => array('postIndex')));
     }
 
@@ -28,9 +30,8 @@ class RatingController extends BaseController{
             $data->user_id = Auth::user()->id;
             $data->publication_id = intval(Input::get('rating_publication_id'));
 
-            $messages = [
-                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres',
-            ];
+            $messages = array(
+                'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres');
 
             $validator = Validator::make((array) $data, $rules, $messages);
 
@@ -77,7 +78,7 @@ class RatingController extends BaseController{
      * Retrieve reviews by publication_id
      * @param $publicationId = the publication id
      */
-    public function postDenunciasPublicacion($publicationId, $offset = 0) {
+    public function postDenunciasPublicacion($publicationId, $pageNumber = 1) {
 
         // Check valid publication
         $pub = Publication::find($publicationId);
@@ -86,7 +87,10 @@ class RatingController extends BaseController{
             return Response::json('error_rating_invalid_pub', 404);
         }
 
+        $pageSize = PublicationRating::$limitPagination;
         $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+
+        $offset = $pageSize * ($pageNumber-1);
 
         $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
 
@@ -95,10 +99,12 @@ class RatingController extends BaseController{
         $result = new stdClass;
         $result->totalRatings = $totalRatings;
         $result->ratings = $ratingsHtml;
-        $result->pageSize = PublicationRating::$limitPagination;
-//        if (sizeof($ratingsList) < PublicationRating::$limitPagination){
-//            $result->limit = true;
-//        }
+        $result->pageSize = $pageSize;
+        if ($pageNumber == 1){
+            $result->limit = 'top';
+        } elseif ($pageNumber >= ($totalRatings/$pageSize)){
+            $result->limit = 'bottom';
+        }
 
         return Response::json($result, 200);
 
@@ -110,18 +116,101 @@ class RatingController extends BaseController{
 
         foreach($ratings as $rating) {
             $html .= '<div class="rating-block">';
-
-                $html .= 'vote = ' . $rating->vote .'<br/>';
-                $html .= 'user = ' . $rating->user->full_name .'<br/>';
-                $html .= 'fecha = ' . $rating->created_at .'<br/>';
-                $html .= 'comentario = ' . $rating->comment .'<br/>';
-
+                $html .= '<div class="head">';
+                        $html .= RatingHelper::getRatingBar($rating->vote);
+                        $html .= '<div class="info">';
+                            $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                            $originalDate = $rating->created_at;
+                            $newDate = date("d-m-Y", strtotime($originalDate));
+                            $html .= '<span class="date">' . $newDate .'</span>';
+                            $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                        $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="description">';
+                    $html .= $rating->comment;
+                $html .= '</div>';
+                if (Auth::check() && Auth::user()->isAdmin()){
+                    $html .= '<div class="admin">';
+                        $html .= Lang::get('content.rating_status_admin_label') .":" ;
+                        $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
+                            if($rating->status){
+                                $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                            } else {
+                                $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                            }
+                            $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
+                        $html .= '</div>';
+                    $html .= '</div>';
+                }
             $html .= '</div>';
         }
 
-        $html .= '<div class="clearfix"></div>';
+        if (sizeof($ratings) == 0){
+            $html .= '<div class="no-ratings">';
+            $html .= Lang::get('content.rating_publication_no_items');
+            if (!Auth::check()){
+                $html .= Lang::get('content.rating_publication_first_rating', array('loginUrl' => URL::to('login')));
+            }
+            $html .= '</div>';
+        } else {
+            $html .= '<div class="pagination">
+                            <ul>
+                                <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
+                                <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
+                                <li><a class="current-page" nohref></a></li>
+                                <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
+                                <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
+                            </ul>
+                        </div>';
+        }
 
         return $html;
+    }
+
+    /**
+     * @ajax
+     * Change the status of ratings
+     * @param $publicationId = the publication id
+     */
+    public function postCambiarEstatus($ratingId, $status) {
+
+        // Check valid rating
+        $rating = PublicationRating::find($ratingId);
+
+        if (is_null($rating)){
+            return Response::json('error_rating_invalid', 404);
+        }
+
+        if (is_null($status)){
+            return Response::json('error_rating_invalid_status', 404);
+        }
+
+        $message = '';
+
+        // Change status
+        if ($status == 0){
+            $rating->status = false;
+            $message = Lang::get('content.rating_change_status_off');
+        } else {
+            $rating->status = true;
+            $message = Lang::get('content.rating_change_status_on');
+        }
+
+        $resultSave = $rating->save();
+
+        $result = new stdClass;
+
+        if ($resultSave){
+            $result->result = 'success';
+            $result->message = $message;
+        } else {
+            $result->result = 'error';
+        }
+
+        return Response::json($result, 200);
+
     }
 
 }

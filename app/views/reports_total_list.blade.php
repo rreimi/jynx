@@ -50,7 +50,6 @@
         <table class="table table-bordered table-condensed">
             <thead>
             <tr>
-                <th><a href="{{UrlHelper::fullUrltoogleSort('id')}}">{{ Lang::get('content.backend_report_id') }} <i class="{{UrlHelper::getSortIcon('id')}}"></i></th>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('full_name')}}">{{ Lang::get('content.backend_report_user') }} <i class="{{UrlHelper::getSortIcon('user.full_name')}}"></i></th>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('publication.title')}}">{{ Lang::get('content.backend_report_publication') }} <i class="{{UrlHelper::getSortIcon('publication.title')}}"></i></th>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('comment')}}">{{ Lang::get('content.backend_report_comment') }} <i class="{{UrlHelper::getSortIcon('comment')}}"></i></th>
@@ -63,7 +62,6 @@
                 @if (count($reports) > 0)
                 @foreach ($reports as $key => $rep)
                     <tr>
-                        <td>{{ $rep->id }}</td>
                         <td><a href="{{ URL::to('denuncia/lista/usuario/'. $rep->user->id) }}">{{ $rep->user->full_name }}</a></td>
                         <td><a href="{{ URL::to('denuncia/lista/publicacion/'. $rep->publication->id) }}">{{ $rep->publication->title }}</a></td>
                         <td>{{ $rep->comment }}</td>

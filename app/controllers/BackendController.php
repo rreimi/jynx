@@ -4,7 +4,13 @@ class BackendController extends BaseController {
 
     private $page_size = '6';
 
-	public function getIndex() {
+    public function __construct() {
+        $this->beforeFilter('auth');
+        $this->beforeFilter('admin');
+    }
+
+
+    public function getIndex() {
 
 
         $data['users'] = User::toApprove()->with('publisher')->paginate($this->page_size);

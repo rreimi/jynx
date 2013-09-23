@@ -40,6 +40,7 @@ return array(
     "state" => "Estado",
     "states" => "Estados",
     "location" => "Ubicación",
+    "contacts_more_info" => "Para obtener mayor información de contacto sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
 
     //Search
     "publications_search_placeholder" => "Buscar...",
@@ -94,6 +95,10 @@ return array(
     'backend_report_view_title' => 'Denuncia pendiente',
     'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
     'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
+    'valid_report' => 'Denuncia válida',
+    'invalid_report' => 'Denuncia inválida',
+    'suspend_publication' => 'Editar/Suspender publicación',
+    'suspend_user' => 'Editar/Suspender usuario',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
@@ -116,13 +121,14 @@ return array(
     //Menu
     "home" => "Inicio",
     "products_and_services" => "Productos y Servicios",
-    "about_us" => "Nosotros",
+    "about_us" => "Acerca de",
     "partners" => "Aliados",
     "contact" => "Contacto",
     "help" => "Ayuda",
     "jobs" => "Bolsa de Trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
+    "my_jobs" => "Mis ofertas laborales",
     "admin_dashboard" => "Admin Dashboard",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
@@ -277,7 +283,7 @@ return array(
     "publisher_phone1" => "Teléfono 1",
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
-    "select_state" => "Selecciona Estado",
+    "select_state" => "Seleccione Estado",
     "publisher_seller" => "Nombre vendedor / Nombre empresa",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
@@ -306,7 +312,7 @@ return array(
     "backend_phone" => "Teléfono",
 
     "backend_report_id" => "ID",
-    "backend_report_user" => "Usuario",
+    "backend_report_user" => "Nombre",
     "backend_report_publication" => "Publicación",
     "backend_report_comment" => "Comentario",
     "backend_report_date" => "Fecha",
@@ -390,6 +396,8 @@ return array(
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o mas Categorias',
     "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
+    "select_default"=>"Seleccione",
+
     "filter_role_placeholder" => 'Seleccione Rol',
     // Users
     "users" => 'Usuarios',
@@ -430,6 +438,15 @@ return array(
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
+    "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones.",
+    "rating_publication_first_rating" => " Para ser el primero en calificar puedes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
+    "rating_publication_retrieve_error" => "Ha ocurrido un error intentando recuperar calificaciones para la publicación.",
+    "rating_status_admin_label" => "Estatus de la calificación",
+    "rating_status_on_admin_label" => "Activa",
+    "rating_status_off_admin_label" => "Inactiva",
+    "rating_change_status_on" => "La califición ha sido activada satisfactoriamente",
+    "rating_change_status_off" => "La califición ha sido desactivada satisfactoriamente",
+    "rating_change_status_error" => "Ha ocurrido un error al intentar cambiar el estatus de esta calificación",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
@@ -504,6 +521,8 @@ return array(
     "ptoordaz_phones_line1" => "58-286-9227705",
     "ptoordaz_email" => "puertordaz@cavenit.com",
 
+    // Acerca de
+
 
     // Emails
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
@@ -555,7 +574,51 @@ return array(
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
     "reset_question"=>"Agrega tus datos para cambiar la contraseña",
     "reset_answer"=>"Tu contraseña fue cambiada exitosamente",
-    "reset_header"=>"Cambio de contraseña"
+    "reset_header"=>"Cambio de contraseña",
+
+    "job_type_contracted"=>"Contratado",
+    "job_type_internship"=>"Pasantía",
+    "job_type_temporary"=>"Temporal",
+    "job_type_independent"=>"Independiente",
+
+    "job_academic_level_secondary" => "Secundaria",
+    "job_academic_level_senior_technician" => "Técnico superior",
+    "job_academic_level_master_specialization" =>"Maestría Especialización",
+    "job_academic_level_phd"=>"Doctorado",
+
+    "male"=>"Masculino",
+
+    "female"=>"Femenino",
+
+    "indistinct"=>"Indistinto",
+
+    "new_job"=> "Nueva oferta",
+    "company_name"=>"Nombre de la empresa",
+    "job_title"=>"Nombre del cargo",
+    "vacancy"=>"Vacantes",
+    "job_type"=>"Tipo de cargo",
+    "temporary_months"=>"Duración",
+    "areas"=>"Áreas",
+    "area_sector"=>"Área o sector de la empresa",
+    "description"=>"Descripción del cargo",
+    "job_location"=>"Ubicación del cargo",
+    "requirements"=>"Requisitos",
+    "academic_level"=>"Nivel Académico",
+    "careers"=>"Carreras afines",
+    "experience_years"=>"Experiencia",
+    "age"=>"Edad",
+    "sex"=>"Sexo",
+    "languages"=>"Idiomas",
+    "salary"=>"Rango salarial",
+    "benefits"=>"Beneficios",
+    "start_date"=>"Fecha de publicación",
+    "close_date"=>"Fecha de cierre",
+    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes ingresar o registrarte",
+    "search_job_title"=>"Buscar ofertas",
+    "filter_areas"=>"Área/Sector de la empresa",
+    "filter_select_areas"=>"Seleccione área o sector",
+    "filter_job_date"=>"Fecha de publicación",
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!"
 
 
 );

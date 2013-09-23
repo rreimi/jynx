@@ -8,9 +8,16 @@ class PublicationRating extends Eloquent {
     public static $limitPagination = 5;
 
     public function scopeRatingPageByPublication($query, $publicationId, $offset = 0){
-        $query->where('publication_id', '=', $publicationId)
-            ->take(self::$limitPagination)
-            ->skip($offset);
+        $query->where('publication_id', '=', $publicationId);
+
+        // Add filter by status active when the user isn't an admin
+        if (!(Auth::check() && Auth::user()->isAdmin())){
+            $query->where('status', '=', true);
+        }
+
+        $query->orderBy('id', 'desc')
+              ->take(self::$limitPagination)
+              ->skip($offset);
     }
 
     public function publication(){

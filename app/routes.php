@@ -52,6 +52,8 @@ Route::controller('contactanos','ContactUsController');
 
 Route::controller('evaluacion', 'RatingController');
 
+Route::controller('bolsa-trabajo','JobController');
+
 Route::controller('/','HomeController');
 
 
