@@ -187,43 +187,43 @@ class JobController extends BaseController {
         $job->area_ids=Input::old('area_ids');
         $job->career_ids=Input::old('career_ids');
 
-        return View::make('job_form',[
+        return View::make('job_form',array(
             'companyName'=>Auth::user()->publisher->seller_name,
             'areas'=>Area::lists('name','id'),
             'careers'=>Career::lists('name','id'),
             'avatar'=>Auth::user()->publisher->avatar,
-            'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
-            'jobTypes'=>[
+            'states'=>array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'jobTypes'=>array(
                 ''=>Lang::get('content.select_default'),
                 Job::TYPE_CONTRACTED => Lang::get('content.job_type_contracted'),
                 Job::TYPE_INDEPENDENT => Lang::get('content.job_type_independent'),
                 Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
                 Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
-            ],
-            'vacancies'=>[''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10],
-            'academicLevels'=>[
+            ),
+            'vacancies'=>array(''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10),
+            'academicLevels'=>array(
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
-            ],
-            'sexes'=>[
+            ),
+            'sexes'=> array(
                 ''=>Lang::get('content.select_default'),
                 Job::SEX_MALE=>Lang::get('content.male'),
                 Job::SEX_FEMALE=>Lang::get('content.female'),
                 Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
-            ],
-            'statuses' =>[
+            ),
+            'statuses' => array(
                 ''=>Lang::get('content.select_default'),
                 Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
                 Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
                 Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
-            ],
+            ),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job
-        ]);
+        ));
     }
 
     public function getEditar($id) {
@@ -243,43 +243,43 @@ class JobController extends BaseController {
             $job->career_ids=explode(',',$job->career_ids);
         }
 
-        return View::make('job_form',[
+        return View::make('job_form',array(
             'companyName'=>Auth::user()->publisher->seller_name,
             'areas'=>Area::lists('name','id'),
             'careers'=>Career::lists('name','id'),
             'avatar'=>Auth::user()->publisher->avatar,
-            'states'=>[''=>Lang::get('content.select_state')]+State::lists('name','id'),
-            'jobTypes'=>[
+            'states'=>array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'jobTypes'=>array(
                 ''=>Lang::get('content.select_default'),
                 Job::TYPE_CONTRACTED => Lang::get('content.job_type_contracted'),
                 Job::TYPE_INDEPENDENT => Lang::get('content.job_type_independent'),
                 Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
                 Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
-            ],
-            'vacancies'=>[''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10],
-            'academicLevels'=>[
+            ),
+            'vacancies'=> array(''=>Lang::get('content.select_default'),1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10),
+            'academicLevels'=> array(
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
-            ],
-            'sexes'=>[
+            ),
+            'sexes'=> array(
                 ''=>Lang::get('content.select_default'),
                 Job::SEX_MALE=>Lang::get('content.male'),
                 Job::SEX_FEMALE=>Lang::get('content.female'),
                 Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
-            ],
-            'statuses' =>[
+            ),
+            'statuses' =>array(
                 ''=>Lang::get('content.select_default'),
                 Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
                 Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
                 Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
-            ],
+            ),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job
-        ]);
+        ));
 
     }
 
@@ -287,7 +287,7 @@ class JobController extends BaseController {
 
         //TODO agregar manejo para guardar la edicion
 
-        $jobData=[
+        $jobData=array(
             'id'=>Input::get('id'),
             'company_name'=>Input::get('company_name'),
             'state_id'=>Input::get('state_id'),
@@ -311,9 +311,9 @@ class JobController extends BaseController {
             'start_date'=>Input::get('start_date'),
             'close_date'=>Input::get('close_date'),
             'status'=>Input::get('status')
-        ];
+        );
 
-        $rules=[
+        $rules= array(
             'company_name'=>'required',
             'job_title'=>'required',
             'description'=>'required',
@@ -321,7 +321,7 @@ class JobController extends BaseController {
             'area_ids'=>'required',
             'contact_email'=>'required',
             'status'=>'required'
-        ];
+        );
 
         $validator=Validator::make($jobData,$rules);
 
