@@ -54,7 +54,7 @@ class RegisterController extends BaseController{
         $welcomeData = array(
             'contentEmail' => 'new_user_welcome',
             'userName' => $user->full_name,
-            'activationLink' => URL::to('registro/activacion?u=') . $user->id . '&key=' . $user->activation_hash,
+            'activationLink' =>  UrlHelper::toWith('registro/activacion', array('key' => $user->activation_hash)),
         );
 
         $receiver = array(
@@ -94,6 +94,7 @@ class RegisterController extends BaseController{
             array(
                 "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
+                "activation_flag" => (boolean) Session::get('activation_flag')
             )
         );
     }
@@ -189,41 +190,48 @@ class RegisterController extends BaseController{
     }
 
     public function getFinalizar(){
-        if(str_contains(URL::previous(),'registro/datos-contactos')){
-            Auth::user()->step=0;
-            Auth::user()->save();
-        }
-        $this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
+
+//        if (Session::get('activation_flag')){
+        Auth::user()->step=0;
+        Auth::user()->save();
+//        }
+
+        //Success message is show in modal when register
+        //$this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
         return Redirect::to('/');
     }
 
     public function getActivacion(){
 
-        // Validate data
-        if (!isset($_GET['key']) || empty($_GET['key']) ||
-            !isset($_GET['u']) || empty($_GET['u'])){
+        $key = Input::get('key');
+
+        // Validate data // verificar que ya estoy activo para no hacer el proceso //verificar que no sea un anunciante
+        if (!isset($key) || empty($key)){
             return Response::view('errors.missing', array(), 404);
         }
 
-        $key = $_GET['key'];
-        $userId = $_GET['u'];
-
         // Retrieve user
-        $user = User::where('activation_hash', $key)->find($userId);
+        $user = User::where('activation_hash', $key)->where('status', User::STATUS_INACTIVE)->get();
 
         if (!isset($user)){
             return Response::view('errors.missing', array(), 404);
         }
 
-        // Activate user
-        $user->status = User::STATUS_ACTIVE;
-        $user->save();
+        if ($user->status != User::STATUS_ACTIVE) {
+            // Activate user
+            $user->status = User::STATUS_ACTIVE;
+            $user->save();
+            Session::flash('activation_flag', true);
+        }
 
         // Authenticate user
         Auth::login($user);
 
-        return Redirect::to('registro/datos-anunciante');
-
+        if ($user->role == User::ROLE_BASIC) {
+            return Redirect::to('registro/datos-anunciante');
+        } else {
+            return Redirect::to('/');
+        }
     }
 
     private function registroPublicadorReglas(){

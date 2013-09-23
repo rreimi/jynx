@@ -613,11 +613,12 @@ return array(
     "benefits"=>"Beneficios",
     "start_date"=>"Fecha de publicación",
     "close_date"=>"Fecha de cierre",
-    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes ingresar o registrarte",
+    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
     "search_job_title"=>"Buscar ofertas",
     "filter_areas"=>"Área/Sector de la empresa",
     "filter_select_areas"=>"Seleccione área o sector",
     "filter_job_date"=>"Fecha de publicación",
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo. ¡Sé el primero en publicar una!"
     "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!",
     "not_jobs_user"=>"Todavía no hay ofertas en la bolsa de trabajo",
     "delete_job_invalid"=>"La oferta de trabajo no se pudo eliminar",

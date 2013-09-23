@@ -822,4 +822,15 @@ input.dial:focus{
 
 .job-guest{
     color:#CBA875;
+    margin-bottom: 10px;
+}
+
+/* Modal */
+
+.modal p {
+    font-size:1.3em;
+}
+
+.modal .text-center {
+    margin:2.5em 0;
 }
