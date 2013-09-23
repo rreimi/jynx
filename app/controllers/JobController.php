@@ -3,9 +3,11 @@
 class JobController extends BaseController {
 
     private $pageSize = '6';
+    private $prefix = 'job';
 
     public function __construct(){
-        $this->beforeFilter('auth',['only'=>['getDetalle','getLista']]);
+        $this->beforeFilter('auth',['only'=>['getLista']]);
+        $this->beforeFilter('referer:job', array('only' => array('getLista','getIndex')));
     }
 
     public function getIndex(){
@@ -104,7 +106,8 @@ class JobController extends BaseController {
 
         return Response::view('job',[
             'job'=>$job,
-            'companyPicture'=>$companyPicture
+            'companyPicture'=>$companyPicture,
+            'referer'=>Session::get($this->prefix . '_referer')
         ]);
     }
 
@@ -218,7 +221,7 @@ class JobController extends BaseController {
                 Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
             ],
-            'referer' => URL::previous(),
+            'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job
         ]);
     }
@@ -274,7 +277,7 @@ class JobController extends BaseController {
                 Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
             ],
-            'referer' =>  URL::previous(),
+            'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job
         ]);
 

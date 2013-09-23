@@ -183,7 +183,7 @@
         <div class="control-group {{ $errors->has('start_date') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.start_date') }}</label>
             <div class="controls">
-                {{ Form::text('start_date', $job->start_date, array('class' => 'datepicker from-date ','placeholder'=> Lang::get('content.start_date'))) }}
+                {{ Form::text('start_date', $job->start_date!=null?date(Lang::get('content.date_format_php'),strtotime($job->start_date)):'', array('class' => 'datepicker from-date ','placeholder'=> Lang::get('content.start_date'))) }}
                 {{ $errors->first('start_date', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -192,7 +192,7 @@
         <div class="control-group {{ $errors->has('close_date') ? 'error':'' }}">
             <label class="control-label" for="title">{{ Lang::get('content.close_date') }}</label>
             <div class="controls">
-                {{ Form::text('close_date', $job->close_date, array('class' => 'datepicker to-date ','placeholder'=> Lang::get('content.close_date'))) }}
+                {{ Form::text('close_date', $job->close_date!=null?date(Lang::get('content.date_format_php'),strtotime($job->close_date)):'', array('class' => 'datepicker to-date ','placeholder'=> Lang::get('content.close_date'))) }}
                 {{ $errors->first('close_date', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>

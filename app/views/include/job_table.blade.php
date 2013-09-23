@@ -18,11 +18,13 @@
         <div class="row-fluid list-job">
             <div class="span3">
                 <div class="logo-job img-polaroid">
-                    @if(!Auth::user())
-                        {{ HTML::image('img/logo_bolsa_trabajo.png')}}
-                    @else
-                        {{ HTML::image($job->publisher->avatar)}}
-                    @endif
+                    <a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}">
+                        @if(!Auth::user())
+                            {{ HTML::image('img/logo_bolsa_trabajo.png')}}
+                        @else
+                            {{ HTML::image($job->publisher->avatar)}}
+                        @endif
+                    </a>
                 </div>
                 @if(Auth::user())
                     <div class="job-contact"><a  href="mailto:{{ $job->contact_email }}" target="_blank">{{ $job->company_name }}</a></div>
@@ -45,6 +47,7 @@
                     <span class="title-job">{{ Lang::get('content.area_sector') }}: </span>
                     <span class="description-job">{{ $job->areas }}</span>
                 </div>
+                <a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}" class="job-guest">{{ Lang::get('content.more') }}</a>
             </div>
         </div>
         @endforeach
@@ -102,7 +105,7 @@
                 <td class="row-status">{{ Lang::get('content.status_publication_' . $job->status) }}</td>
 
                 <td nowrap class="row-options">
-                    <a rel="tooltip" target="_blank"  title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}">
+                    <a rel="tooltip"  title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}">
                         <i class="icon-search"></i>
                     </a>
                     <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn btn-mini" href="{{URL::to('bolsa-trabajo/editar/' . $job->id)}}">

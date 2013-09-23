@@ -126,6 +126,7 @@ return array(
     "contact" => "Contacto",
     "help" => "Ayuda",
     "jobs" => "Bolsa de Trabajo",
+    "edit_job" => "Editar oferta de trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
@@ -624,7 +625,10 @@ return array(
     "delete_job_success"=>"Oferta de trabajo eliminada",
     "delete_job_error"=>"La oferta de trabajo no se pudo eliminar",
     "modal_job_delete_title"=>"Advertencia",
-    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?"
+    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
+    "contact_email_detail"=>"Envíe su currículo a",
+    "previous"=>"Regresar",
+    "more"=>"Mas información..."
 
 
 );
