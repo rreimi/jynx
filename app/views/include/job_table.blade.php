@@ -3,7 +3,7 @@
 @endsection
 
 @section('content')
-<div class="row-fluid">
+<div class="row-fluid" xmlns="http://www.w3.org/1999/html">
     @if($all)
 
         @section('sub-title')
@@ -11,7 +11,7 @@
         @stop
 
         @if(!Auth::user())
-        <div class="job-guest">{{ Lang::get('content.job_guest') }}</div>
+        <div class="job-guest">{{ Lang::get('content.job_guest', array('loginUrl' => URL::to('login'))) }}</div>
         @endif
         @if (count($jobs) > 0)
         @foreach ($jobs as $key => $job)
