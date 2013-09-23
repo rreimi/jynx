@@ -117,7 +117,7 @@
     </div>
 </div>
 
-@if ($lastvisited)
+@if (count($lastvisited) > 3)
     <div class="last-visited-box">
         <h2 class="home-title">{{Lang::get('content.last_visited_items')}}</h2>
         <div class="container-fluid">

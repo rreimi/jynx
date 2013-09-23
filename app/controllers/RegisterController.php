@@ -64,7 +64,12 @@ class RegisterController extends BaseController{
 
         $subject = Lang::get('content.email_welcome_user_subject');
 
-        BaseController::sendAjaxMail('emails.layout_email', $welcomeData, $receiver, $subject);
+        //BaseController::sendAjaxMail('emails.layout_email', $welcomeData, $receiver, $subject);
+
+        Mail::queue('emails.layout_email', $welcomeData, function($message) use ($receiver, $subject){
+         $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+         $message->to($receiver['email'], $receiver['name'])->subject($subject);;
+        });
 
        //$this->sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
@@ -172,7 +177,10 @@ class RegisterController extends BaseController{
 
         $subject = Lang::get('content.email_new_adviser_request');
 
-        self::sendMultipleMail('emails.layout_email', $welcomeData, $receiver, $subject);
+        Mail::queue('emails.layout_email', $welcomeData, function($message) use ($receiver, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receiver['email'])->subject($subject);
+        });
 
         return Redirect::to('registro/datos-contactos');
 

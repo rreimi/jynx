@@ -228,6 +228,7 @@
 {{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 {{ HTML::script('js/dropzone.js') }}
 <script type="text/javascript">
+
     jQuery(document).ready(function(){
 
         /* All date filters */
@@ -316,21 +317,15 @@
         maxFilesize: 2,
         accept: function(file, done) {
 
-            /* Validar el archivo */
-            console.log(file);
-            if ((file.width < 250) || (file.height < 250)) {
-                alert("{{Lang::get('content.img_min_size_message')}}");
-            }
-
-            if (file.name == "html5.png") {
-                alert('Y');
-                //done("Naha, you don't.");
-
-                myDropzone.removeFile(file);
-            }
-            else {
+//            if (file.name == "html5.png") {
+//                alert('Y');
+//                //done("Naha, you don't.");
+//
+//                myDropzone.removeFile(file);
+//            }
+//            else {
                 done();
-            }
+//            }
         }
     });
 
@@ -358,7 +353,12 @@
 
 
     myDropzone.on("error", function(file, errorMessage) {
-        console.log(errorMessage);
+        if (errorMessage == 'invalid_size') {
+            Mercatino.showFlashMessage({message:"{{Lang::get('content.add_publication_image_error_size')}}", type: 'error'});
+        } else {
+            Mercatino.showFlashMessage({message:"{{Lang::get('content.add_publication_image_error')}}", type: 'error'});
+        }
+        this.removeFile(file);
     });
 
     myDropzone.on("removedfile", function(file) {
