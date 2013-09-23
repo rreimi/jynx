@@ -126,6 +126,7 @@ return array(
     "contact" => "Contacto",
     "help" => "Ayuda",
     "jobs" => "Bolsa de Trabajo",
+    "edit_job" => "Editar oferta de trabajo",
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
@@ -615,12 +616,21 @@ return array(
     "benefits"=>"Beneficios",
     "start_date"=>"Fecha de publicación",
     "close_date"=>"Fecha de cierre",
-    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes ingresar o registrarte",
+    "job_guest"=>"Para ver más información de las ofertas como el nombre, logo y correo de contacto de la empresa, debes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
     "search_job_title"=>"Buscar ofertas",
     "filter_areas"=>"Área/Sector de la empresa",
     "filter_select_areas"=>"Seleccione área o sector",
     "filter_job_date"=>"Fecha de publicación",
-    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!"
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo. ¡Sé el primero en publicar una!",
+    "not_jobs_user"=>"Todavía no hay ofertas en la bolsa de trabajo.",
+    "delete_job_invalid"=>"La oferta de trabajo no se pudo eliminar",
+    "delete_job_success"=>"Oferta de trabajo eliminada",
+    "delete_job_error"=>"La oferta de trabajo no se pudo eliminar",
+    "modal_job_delete_title"=>"Advertencia",
+    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
+    "contact_email_detail"=>"Envíe su currículo a",
+    "previous"=>"Regresar",
+    "more"=>"Mas información..."
 
 
 );
