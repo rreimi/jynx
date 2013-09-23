@@ -84,7 +84,7 @@
         <div class="control-group {{ $errors->has('area_ids') ? 'error':'' }}">
             <label class="control-label required-field" for="area_ids">{{ Lang::get('content.areas') }}</label>
             <div class="controls">
-                {{ Form::select('area_ids[]', $areas, $job->areas, ['id'=>'area_ids','multiple' => '', 'class' => 'chosen-select input filter-field required', 'data-placeholder' => Lang::get('content.areas')]) }}
+                {{ Form::select('area_ids[]', $areas, $job->area_ids, ['id'=>'area_ids','multiple' => '', 'class' => 'chosen-select input filter-field required', 'data-placeholder' => Lang::get('content.areas')]) }}
                 {{ $errors->first('area_ids', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -116,7 +116,7 @@
         <div class="control-group {{ $errors->has('career_ids') ? 'error':'' }}">
             <label class="control-label" for="career_ids">{{ Lang::get('content.careers') }}</label>
             <div class="controls">
-                {{ Form::select('career_ids[]', $careers, $job->careers, ['id'=>'career_ids','multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.careers')]) }}
+                {{ Form::select('career_ids[]', $careers, $job->career_ids, ['id'=>'career_ids','multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.careers')]) }}
                 {{ $errors->first('career_ids', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -212,7 +212,7 @@
 
             </div>
         </div>
-
+        {{ Form::hidden('id', $job->id) }}
         {{ Form::close() }}
     </div>
 @stop

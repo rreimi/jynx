@@ -618,7 +618,13 @@ return array(
     "filter_areas"=>"Área/Sector de la empresa",
     "filter_select_areas"=>"Seleccione área o sector",
     "filter_job_date"=>"Fecha de publicación",
-    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!"
+    "not_jobs"=>"Todavía no hay ofertas en la bolsa de trabajo, ¡se el primero en publicar una!",
+    "not_jobs_user"=>"Todavía no hay ofertas en la bolsa de trabajo",
+    "delete_job_invalid"=>"La oferta de trabajo no se pudo eliminar",
+    "delete_job_success"=>"Oferta de trabajo eliminada",
+    "delete_job_error"=>"La oferta de trabajo no se pudo eliminar",
+    "modal_job_delete_title"=>"Advertencia",
+    "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?"
 
 
 );

@@ -51,7 +51,11 @@
         @else
         <div class="row-fluid">
             <div class="span12">
-                {{ Lang::get('content.not_jobs') }}
+                @if(Auth::user()->isPublisher())
+                    {{ Lang::get('content.not_jobs') }}
+                @else
+                    {{ Lang::get('content.not_jobs_user') }}
+                @endif
             </div>
         </div>
         @endif

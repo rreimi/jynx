@@ -3,7 +3,9 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED VIEW jobs_view AS
     jobs.*,
     states.name AS state ,
     CONCAT_WS(' - ',states.name, jobs.city) AS location,
+    GROUP_CONCAT(DISTINCT areas.id) AS area_ids,
     GROUP_CONCAT(DISTINCT areas.name) AS areas,
+    GROUP_CONCAT(DISTINCT careers.id) AS career_ids,
     GROUP_CONCAT(DISTINCT careers.name) AS careers
   FROM jobs
     JOIN jobs_areas ON jobs.id=jobs_areas.job_id
