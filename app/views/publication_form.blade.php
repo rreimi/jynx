@@ -262,7 +262,7 @@
             jQuery('.datepicker.from-date').datepicker( "option", "maxDate", maxFromDate);
         });
 
-        jQuery('.datepicker.from-date').datepicker( "option", "minDate", '{{ $publication->from_date }}');
+        jQuery('.datepicker.from-date').datepicker( "option", "minDate", '{{ date("d-m-Y",strtotime($publication->from_date)) }}');
         jQuery('.datepicker.from-date').trigger('change');
 
         /* When subcat got checked parents also */
