@@ -2,20 +2,17 @@
 
 class BackendController extends BaseController {
 
-    private $page_size = '6';
-
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('admin');
     }
 
-
     public function getIndex() {
 
 
-        $data['users'] = User::toApprove()->with('publisher')->paginate($this->page_size);
+        $data['users'] = User::toApprove()->with('publisher')->get();
 
-        $data['reports'] = PublicationReport::pendingReports()->with('user')->with('publication')->paginate($this->page_size);;
+        $data['reports'] = PublicationReport::pendingReports()->with('user')->with('publication')->get();
 
         return View::make('backend', $data);
 	}
