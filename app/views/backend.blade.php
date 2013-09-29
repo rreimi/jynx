@@ -36,7 +36,6 @@
                 <button class="btn btn-success approve" type="button">{{ Lang::get('content.backend_user_approve') }}</button>
             </div>
 
-            {{ $users->links() }}
         {{ Form::close() }}
 
         <table class="table table-bordered table-condensed">

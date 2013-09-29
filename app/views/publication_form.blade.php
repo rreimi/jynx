@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
+        <div class="control-group {{ $errors->has('remember') ? 'error':'' }}">
             <div class="controls">
                 <label class="checkbox">
                     {{ Form::checkbox('remember', 1, ($publication->remember == 1), array('class' => 'chk-remember')) }} {{ Lang::get('content.remember_publication') }}
@@ -251,11 +251,19 @@
 
         /* Set dynamic date range */
         jQuery('.datepicker.from-date').bind("change", function(){
-            jQuery('.datepicker.to-date').datepicker( "option", "minDate", jQuery(this).val());
+            var minTo = jQuery(this).val();
+            jQuery('.datepicker.to-date').datepicker( "option", "minDate", minTo);
+            var maxToDate = jQuery(this).datepicker('getDate');
+            maxToDate.setDate(maxToDate.getDate() + 90);
+            jQuery('.datepicker.to-date').datepicker( "option", "maxDate", maxToDate);
         });
         jQuery('.datepicker.to-date').bind("change", function(){
-            jQuery('.datepicker.from-date').datepicker( "option", "maxDate", jQuery(this).val());
+            var maxFromDate = jQuery(this).val();
+            jQuery('.datepicker.from-date').datepicker( "option", "maxDate", maxFromDate);
         });
+
+        jQuery('.datepicker.from-date').datepicker( "option", "minDate", '{{ date("d-m-Y",strtotime($publication->from_date)) }}');
+        jQuery('.datepicker.from-date').trigger('change');
 
         /* When subcat got checked parents also */
         jQuery('.chk-sub-cat').bind('click', function() {

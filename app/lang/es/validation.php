@@ -65,6 +65,8 @@ return array(
     "unique" => "El campo :attribute ya ha sido tomado.",
     "url" => "El formato de :attribute es inválido.",
     "publication_category_required" => "Debe seleccionar al menos una categoría",
+    "publication_invalid_date_range" => "Rango inválido. La fecha Hasta debe ser posterior a la fecha Desde.",
+    "publication_limit_date_range" => "Rango inválido. El máximo permitido es de 3 meses.",
     "current_password_currentpassword" => "La contraseña indicada no coincide con la contraseña actual",
 	/*
 	|--------------------------------------------------------------------------
