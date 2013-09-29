@@ -431,14 +431,14 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
       addRemoveLinks: false,
       previewsContainer: null,
       dictDefaultMessage: "Arraste los archivos aquí o haga click para inspeccionar.",
-      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+      dictFallbackMessage: "Su navegador no soporta la funcionalidad de arrastrar y soltar archivos para cargar.",
       dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
       dictFileTooBig: "Este tamaño de archivo ({{filesize}}MB) no es permitido. Tamaño de archivo máximo permitido: {{maxFilesize}}MB.",
       dictInvalidFileType: "Este tipo de archivo no es permitido.",
-      dictResponseError: "Server responded with {{statusCode}} code.",
+      dictResponseError: "Respuesta del servidor con código {{statusCode}}.",
       dictCancelUpload: "Cancel upload",
-      dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
-      dictRemoveFile: "Remove file",
+      dictCancelUploadConfirmation: "¿Está seguro que desea cancelar la descarga?",
+      dictRemoveFile: "Eliminar archivo",
       accept: function(file, done) {
         return done();
       },
