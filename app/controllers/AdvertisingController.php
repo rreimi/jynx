@@ -257,6 +257,18 @@ class AdvertisingController extends BaseController {
         $destinationPath = 'uploads/adv/'.$id;
         $filename = $file->getClientOriginalName();
 
+        // Delete previous files
+        $previousFiles = scandir($destinationPath);
+        foreach ($previousFiles as $file){
+            $filePath = public_path() ."/". $destinationPath ."/". $file;
+            if ($file != '.' && $file != '..' && file_exists($filePath)){
+                $result = unlink($filePath);
+            }
+        }
+
+        // Make different name to image advertising with every change
+        $filename = date("Y_m_d_H_i_s-") .$filename;
+
         $advertising = Advertising::find($id);
 
         //TODO validar publicacion
