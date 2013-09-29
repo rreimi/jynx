@@ -59,6 +59,18 @@ class JobController extends BaseController {
             $jobs->where('state_id', '=', $state['filter_state']);
         }
 
+        if (!empty($state['filter_job_type'])){
+            $jobs->where('job_type', '=', $state['filter_job_type']);
+        }
+
+        if (!empty($state['filter_academic_level'])){
+            $jobs->where('academic_level', '=', $state['filter_academic_level']);
+        }
+
+        if (!empty($state['filter_sex'])){
+            $jobs->where('sex', '=', $state['filter_sex']);
+        }
+
         if (is_array($state['filter_areas'])) {
             $jobs
                 ->join('jobs_areas','jobs_view.id','=','jobs_areas.job_id')
@@ -86,7 +98,27 @@ class JobController extends BaseController {
             'state' => $state,
             'all'=>$all,
             'states'=> array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
-            'areas'=>Area::lists('name','id')
+            'areas'=>Area::lists('name','id'),
+            'jobTypes'=>array(
+                ''=>Lang::get('content.select_default'),
+                Job::TYPE_CONTRACTED => Lang::get('content.job_type_contracted'),
+                Job::TYPE_INDEPENDENT => Lang::get('content.job_type_independent'),
+                Job::TYPE_INTERNSHIP => Lang::get('content.job_type_internship'),
+                Job::TYPE_TEMPORARY => Lang::get('content.job_type_temporary'),
+            ),
+            'academicLevels'=>array(
+                ''=>Lang::get('content.select_default'),
+                Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
+                Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
+                Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
+                Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
+            ),
+            'sexes'=> array(
+                ''=>Lang::get('content.select_default'),
+                Job::SEX_MALE=>Lang::get('content.male'),
+                Job::SEX_FEMALE=>Lang::get('content.female'),
+                Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
+            ),
         ));
     }
 
@@ -142,6 +174,24 @@ class JobController extends BaseController {
 
         if ((isset($filterState)) || !(isset($state['filter_state']))) {
             $state['filter_state'] = (isset($filterState))? $filterState : '';
+        }
+
+        $jobType = (!is_null(Input::get('filter_job_type')) ? Input::get('filter_job_type') : null);
+
+        if ((isset($jobType)) || !(isset($state['filter_job_type']))) {
+            $state['filter_job_type'] = (isset($jobType))? $jobType : '';
+        }
+
+        $academicLevel = (!is_null(Input::get('filter_academic_level')) ? Input::get('filter_academic_level') : null);
+
+        if ((isset($academicLevel)) || !(isset($state['filter_academic_level']))) {
+            $state['filter_academic_level'] = (isset($academicLevel))? $academicLevel : '';
+        }
+
+        $sex = (!is_null(Input::get('filter_sex')) ? Input::get('filter_sex') : null);
+
+        if ((isset($sex)) || !(isset($state['filter_sex']))) {
+            $state['filter_sex'] = (isset($sex))? $sex : '';
         }
 
         $state['filter_areas'] = (isset($state['filter_areas']) ? $state['filter_areas'] : null);

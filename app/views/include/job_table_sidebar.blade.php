@@ -14,26 +14,46 @@
             <div class="control-group">
                 <label class="control-label text-left" for="filter_state">{{ Lang::get('content.location') }}: </label>
                 <div class="controls">
-                    {{ Form::select('filter_state', $states, $state['filter_state'], array('id' => 'filter-state' ,'class' => 'input filter-field')) }}
+                    {{ Form::select('filter_state', $states, $state['filter_state'], array('id' => 'filter_state' ,'class' => 'input filter-field')) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_job_type">{{ Lang::get('content.job_type') }}: </label>
+                <div class="controls">
+                    {{ Form::select('filter_job_type', $jobTypes, $state['filter_job_type'], array('id' => 'filter_job_type' ,'class' => 'input filter-field')) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_academic_level">{{ Lang::get('content.academic_level') }}: </label>
+                <div class="controls">
+                    {{ Form::select('filter_academic_level', $academicLevels, $state['filter_academic_level'], array('id' => 'filter_academic_level' ,'class' => 'input filter-field')) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_sex">{{ Lang::get('content.sex') }}: </label>
+                <div class="controls">
+                    {{ Form::select('filter_sex', $sexes, $state['filter_sex'], array('id' => 'filter_sex' ,'class' => 'input filter-field')) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_areas">{{ Lang::get('content.filter_areas') }}</label>
+                <div class="controls">
+                    {{ Form::select('filter_areas[]', $areas, $state['filter_areas'], array('id' => 'filter_areas', 'multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.filter_select_areas'))) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="filter_job_date">{{ Lang::get('content.filter_job_date') }}</label>
+                <div class="controls">
+                    {{ Form::text('from_job_date', $state['from_job_date'], array('id' => 'from-job-date','class' => 'datepicker from-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+                    {{ Form::text('to_job_date', $state['to_job_date'], array('id' => 'to-job-date','class' => 'datepicker to-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
                 </div>
             </div>
         </div>
-
-        <div class="control-group">
-            <label class="control-label text-left" for="filter_areas">{{ Lang::get('content.filter_areas') }}</label>
-            <div class="controls">
-                {{ Form::select('filter_areas[]', $areas, $state['filter_areas'], array('id' => 'filter-areas', 'multiple' => '', 'class' => 'chosen-select input filter-field', 'data-placeholder' => Lang::get('content.filter_select_areas'))) }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="filter_job_date">{{ Lang::get('content.filter_job_date') }}</label>
-            <div class="controls">
-                {{ Form::text('from_job_date', $state['from_job_date'], array('id' => 'from-job-date','class' => 'datepicker from-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-                {{ Form::text('to_job_date', $state['to_job_date'], array('id' => 'to-job-date','class' => 'datepicker to-job-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-            </div>
-        </div>
-
         @if ($state['active_filters'] > 0)
         <div class="control-group">
             <div class="controls">
