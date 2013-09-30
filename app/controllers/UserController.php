@@ -172,7 +172,7 @@ class UserController extends BaseController {
         //Set validation rules
         $rules = array(
             'full_name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email',
             'role' => 'required',
             'status' => 'required',
         );
@@ -210,6 +210,8 @@ class UserController extends BaseController {
         }
 
         $user->save();
+
+//        Queue::push('LogJob', array('operation' => $operation, 'data' => $user));
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_user_success'), 'success');
