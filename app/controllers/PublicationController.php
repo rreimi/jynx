@@ -333,8 +333,8 @@ class PublicationController extends BaseController {
         $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
-        $pub->from_date = date('d-m-Y',time());
-        $pub->to_date = date('d-m-Y',time());
+        $pub->from_date = date('d-m-Y',strtotime('+1 day'));
+        $pub->to_date = date('d-m-Y',strtotime('+1 day'));
 
         return View::make('publication_form',
             array('pub_statuses' => self::getPublicationStatuses(Lang::get('content.select')),
@@ -534,7 +534,7 @@ class PublicationController extends BaseController {
             'short_description' => 'required',
             'long_description' => 'required',
             'status' => 'required',
-            'from_date' => 'required|date_format:d-m-Y',
+            'from_date' => 'required|date_format:d-m-Y|publication_invalid_date_range:'. $pubData['to_date'] .'|publication_limit_date_range:'. $pubData['to_date'],
             'to_date' => 'required|date_format:d-m-Y',
             'latitude' => 'numeric|min:-90|max:90',
             'longitude' => 'numeric|min:-90|max:90',
@@ -545,7 +545,44 @@ class PublicationController extends BaseController {
             'category.required' => Lang::get('validation.publication_category_required'),
             //'from_date.date_format' => Lang::get('validation.publication_date_invalid'),
             //'to_date.date_format' => Lang::get('validation.publication_date_invalid'),
+            'from_date.publication_invalid_date_range' => Lang::get('validation.publication_invalid_date_range'),
+            'from_date.publication_limit_date_range' => Lang::get('validation.publication_limit_date_range'),
         );
+
+        Validator::extend('publication_invalid_date_range', function($attribute, $value, $parameters){
+
+            $fromTime = strtotime($value);
+            $toTime = strtotime($parameters[0]);
+
+            if ($toTime >= $fromTime) {
+                return true;
+            } else {
+                return false;
+            }
+
+        });
+
+        Validator::extend('publication_limit_date_range', function($attribute, $value, $parameters){
+
+            $fromTime = strtotime($value);
+            $toTime = strtotime($parameters[0]);
+            $diff = abs($toTime - $fromTime);
+            $diffDays = $diff/(60 * 60 * 24);
+//            $years = floor($diff / (365*60*60*24));
+//            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+//            $days = floor(($diff + $years * 365*60*60*24 + $months*30*60*60*24)/ (60*60*24));
+
+//            echo 'years: ' + $years;
+//            echo 'months: ' + $months;
+
+//            if ($toTime >= $fromTime && ($months < 3 || ($months == 3 && $days == 0))) {
+            if ($toTime >= $fromTime && $diffDays <= 90) {
+                return true;
+            } else {
+                return false;
+            }
+
+        });
 
         // Validate fields
         $v = Validator::make($pubData, $rules, $messages);
