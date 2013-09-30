@@ -18,7 +18,7 @@ Route::get('/clearcache', function(){
 });
 
 Route::get("/debug", function(){
-
+    Queue::push('LogJob', array('message' => 'hola'));
 });
 
 Route::controller('login','LoginController');
