@@ -995,6 +995,10 @@ div#home-banner-top .carousel-control {
     vertical-align: middle;
 }
 
+.pub-list-filters .nav-header, .user-list-filters .nav-header {
+    padding: 15px 0px;
+}
+
 /* END - File Upload */
 
 
