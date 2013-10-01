@@ -42,10 +42,17 @@ class ProfileController extends BaseController{
 
         }
 
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
+
         return View::make('profile',
             array(
                 'user'=>$user,
-                'states' => State::lists('name','id'),
+                'states' => $finalStates,
                 'categoriesSelected' => $categoriesSelected,
                 'avatar' => $avatarUrl
             )

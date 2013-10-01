@@ -100,7 +100,7 @@
             <div class="controls">
                 {{ Form::select(
                     'publisher_state',
-                    array_merge(array('' => Lang::get('content.select')),$states),
+                    $states,
                     $advertiser->state_id,
                     array('class'=>'required')
                 ) }}
