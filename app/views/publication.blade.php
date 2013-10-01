@@ -116,8 +116,10 @@
             <div class="title-block">
                 <div class="publication-buttons">
                     <div class="report-info">
-                        <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                        <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        @if (!(Auth::check() && Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
+                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                        @endif
                     </div>
                 </div>
                 <h2 class="title">{{Lang::get('content.ratings')}}</h2>
