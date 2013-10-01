@@ -360,7 +360,7 @@ class PublicationController extends BaseController {
     public function postImagenes($id) {
 
         $file = Input::file('file');
-        $destinationPath = 'uploads/pub/'.$id;
+        $destinationPath =  public_path() . '/uploads/pub/'.$id;
         $filename = $file->getClientOriginalName();
 
         $publication = Publication::find($id);
@@ -383,10 +383,30 @@ class PublicationController extends BaseController {
             $error = 'invalid_size';
         }
 
+        $baseName = str_random(15);
+
+        $finalFileName = $baseName . '.jpg';
+        $detailFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$detailSize['width'] . '.jpg';
+        $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
-            /* Move uploaded file to final destination */
-            $upload_success = $file->move($destinationPath, $filename);
+            ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
+            ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
+            $upload_success = $file->move($destinationPath, $finalFileName);
+
+              // Using intervention
+//            $data = file_get_contents($file);
+//
+//            $img = Image::make($data);
+//            $img->save( $destinationPath . '/' . $finalFileName, 90);
+//
+//            $detail = Image::make($data)->resize(BaseController::$detailSize['width'], null, true);
+//            $detail->save( $destinationPath . '/' . $detailFileName, 80);
+//
+//            $thumb = Image::make($data)->resize(BaseController::$thumbSize['width'], null, true);
+//            $thumb->save( $destinationPath . '/' . $thumbFileName, 80);
+//            End using intervention
+
         }
 
         //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
@@ -400,7 +420,7 @@ class PublicationController extends BaseController {
 //        $error = 'Error';
 
         if ($upload_success) {
-            $image = new PublicationImage(array('image_url' => $filename));
+            $image = new PublicationImage(array('image_url' => $finalFileName));
             $image = $publication->images()->save($image);
             return Response::json($image->id, 200);
         } else {
@@ -434,6 +454,30 @@ class PublicationController extends BaseController {
         if (file_exists($filepath)){
             //Remove img from disk (img by diferent sizes)
             $result = unlink($filepath);
+
+            if ($result === false){
+                return Response::json('error_removing_file', 400);
+            }
+        }
+
+        //remove thumb
+        $thumb = str_replace('.', '_' . BaseController::$thumbSize['width'] . '.', $filepath);
+
+        if (file_exists($thumb)){
+            //Remove img from disk (img by diferent sizes)
+            $result = unlink($thumb);
+
+            if ($result === false){
+                return Response::json('error_removing_file', 400);
+            }
+        }
+
+        //remove detail
+        $detail = str_replace('.', '_' . BaseController::$detailSize['width'] . '.', $filepath);
+
+        if (file_exists($detail)){
+            //Remove img from disk (img by diferent sizes)
+            $result = unlink($detail);
 
             if ($result === false){
                 return Response::json('error_removing_file', 400);

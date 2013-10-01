@@ -169,7 +169,12 @@
         });
 
         myDropzone.on("error", function(file, errorMessage) {
-            console.log(errorMessage);
+            if (errorMessage == 'invalid_size') {
+                Mercatino.showFlashMessage({message:"{{Lang::get('content.add_advertising_image_error_size', array('min_width' => $bannerTopHomeSize['width'], 'min_height' => $bannerTopHomeSize['height']))}}", type: 'error'});
+            } else {
+                Mercatino.showFlashMessage({message:"{{Lang::get('content.add_publication_image_error')}}", type: 'error'});
+            }
+            this.removeFile(file);
         });
 
         myDropzone.on("removedfile", function(file) {

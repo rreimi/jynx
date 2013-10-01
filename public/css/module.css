@@ -362,6 +362,7 @@ h2.home-title {
 
 .main-banner-img {
     width:100%;
+    height:390px;
 }
 
 div#home-banner-top ol.carousel-indicators {
@@ -993,6 +994,10 @@ div#home-banner-top .carousel-control {
     position: relative;
     overflow: hidden;
     vertical-align: middle;
+}
+
+.pub-list-filters .nav-header, .user-list-filters .nav-header {
+    padding: 15px 0px;
 }
 
 /* END - File Upload */

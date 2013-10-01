@@ -22,7 +22,7 @@ return array(
     "finalize"=>"Finalizar",
 
     //Dashboard
-    "mostvisited_items" => "Los más visitados",
+    "mostvisited_items" => "Los últimos más visitados",
     "recent_items" => "Los más recientes",
     "last_visited_items" => "Vistos recientemente",
 
@@ -130,7 +130,7 @@ return array(
     "my_profile" => "Mi Perfil",
     "my_publications" => "Mis publicaciones",
     "my_jobs" => "Mis ofertas laborales",
-    "admin_dashboard" => "Admin Dashboard",
+    "admin_dashboard" => "Administración",
     "postulation" => "Quiero publicar",
     "logout" => "Cerrar sesión",
     "forgot_password" => "¿Olvidaste tu contraseña?",
@@ -328,7 +328,8 @@ return array(
     "edit_publication_success" => 'La publicación se ha guardado correctamente',
     "add_publication_image_success" => 'La imagen se ha cargado correctamente',
     "add_publication_image_error" => 'Ha ocurrido un error cargando la imagen',
-    "add_publication_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de 450x450 pixeles',
+    "add_publication_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de :min_widthx:min_height pixeles',
+    "add_advertising_image_error_size" => 'La imagen a cargar debe tener un tamaño mínimo de :min_widthx:min_height pixeles',
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
@@ -344,7 +345,7 @@ return array(
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
 
-    "auth_menu_my_profile" => "Editar Perfil",
+    "auth_menu_my_profile" => "Editar perfil",
 
     "profile" => "Perfil de usuario",
     "profile_edit" => "Edita tu perfil",
@@ -397,8 +398,8 @@ return array(
     "filter_publication_status" => 'Estatus:',
     "filter_user_role" => "Rol:",
     "filter_status_placeholder" => 'Seleccione Estatus',
-    "filter_category_placeholder" => 'Seleccione una o mas Categorias',
-    "filter_publisher_placeholder" => 'Seleccione una o mas Anunciantes',
+    "filter_category_placeholder" => 'Seleccione una o más categorías',
+    "filter_publisher_placeholder" => 'Seleccione uno o más anunciantes',
     "select_default"=>"Seleccione",
 
     "filter_role_placeholder" => 'Seleccione Rol',
@@ -460,7 +461,7 @@ return array(
     // Labels
     "new_advertiser" => 'Nuevo anunciante',
     "edit_advertiser" => 'Editar anunciante',
-    "reset_search" => 'Nueva Busqueda',
+    "reset_search" => 'Nueva búsqueda',
 
     // Search
     "advertiser_search_placeholder" => "Buscar...",

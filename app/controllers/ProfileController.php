@@ -165,8 +165,9 @@ class ProfileController extends BaseController{
                 $fileName = $avatar->getClientOriginalName();
                 $fileExt = substr($fileName, strpos($fileName, '.')+1);
                 $fileFinalName = 'avatar-'. $user->id .'.'. $fileExt;
-
                 $destinationPath = 'uploads/profile/';
+
+                ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '_' . BaseController::$thumbSize['width'] . '.jpg',  BaseController::$thumbSize['width'],  BaseController::$thumbSize['height']);
 
                 try {
                     $avatar->move($destinationPath, $fileFinalName);
