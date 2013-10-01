@@ -8,6 +8,7 @@ class JobController extends BaseController {
     public function __construct(){
         $this->beforeFilter('auth',array('only'=> array('getLista')));
         $this->beforeFilter('referer:job', array('only' => array('getLista','getIndex')));
+        View::share('thumbSize', self::$thumbSize);
     }
 
     public function getIndex(){

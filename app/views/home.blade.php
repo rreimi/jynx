@@ -15,7 +15,8 @@
             @if ($adv->external_url != '')
                 <a href="{{ $adv->external_url }}" target="_blank">
             @endif
-                    <img class="main-banner-img"  src="{{ Image::path('/uploads/adv/' . $adv->id . '/' . $adv->image_url, 'resizeCrop', $bannerTopHomeSize['width'], $bannerTopHomeSize['height'])->responsive('max-width=940', 'resize', 724) }}" alt="{{ $adv->name }}"/>
+                    <img class="main-banner-img"  src="
+                    {{ UrlHelper::imageUrl('/uploads/adv/' . $adv->id . '/' . $adv->image_url, '_' . $bannerTopHomeSize['width']) }}" alt="{{ $adv->name }}"/>
             @if ($adv->external_url != '')
                 </a>
             @endif
@@ -50,7 +51,7 @@
                             <div class="pub-info-box">
                                 @if (isset($pub->publication->images[0]))
                                 <a href="{{ URL::to('publicacion/detalle/' . $pub->publication->id)}}">
-                                    <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->publication->id . '/' . $pub->publication->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height']) }}" alt="{{ $pub->publication->title }}"/>
+                                    <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->publication->id . '/' . $pub->publication->images[0]->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->publication->title }}"/>
                                 </a>
                                 @endif
                                 <div class="pub-info-desc">
@@ -92,7 +93,7 @@
                                 <div class="pub-info-box">
                                     @if (isset($pub->images[0]))
                                         <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                            <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                            <img class="pub-img-small"  src="{{ URL::to('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url)  }}" alt="{{ $pub->title }}"/>
                                         </a>
                                     @endif
                                     <div class="pub-info-desc">
@@ -138,7 +139,7 @@
                                     <div class="pub-info-box">
                                         @if (isset($pub->images[0]))
                                         <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                            <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                            <img class="pub-img-small"  src="{{ URL::to('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url) }}" alt="{{ $pub->title }}"/>
                                         </a>
                                         @endif
                                         <div class="pub-info-desc">

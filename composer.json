@@ -29,8 +29,6 @@
         "jasonlewis/basset": "dev-master",
         "natxet/CssMin": "dev-master",
         "juy/profiler": "dev-master",
-        "intervention/image": "dev-master",
-        "kevbaldwyn/image": "dev-master",
         "pda/pheanstalk": "dev-master"
     },
     "autoload": {

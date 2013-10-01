@@ -50,7 +50,7 @@
                 <div class="pub-info-box">
                     @if (isset($pub->images[0]))
                     <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                        <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                        <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
                     </a>
                     @endif
                     <div class="pub-info-desc">

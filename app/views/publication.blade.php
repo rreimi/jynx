@@ -19,7 +19,8 @@
                     @foreach ($publication->images as $key => $img)
                     <div class="item @if ($key == 0) active @endif">
                         <div class="pub-image-wrapper">
-                            <img class="pub-img-medium"  src="{{ Image::path('/uploads/pub/' . $publication->id . '/' . $img->image_url, 'resize', $detailSize['width'])  }}" alt="{{ $publication->title }}"/>
+                            <img class="pub-img-medium"  src="
+                            {{ UrlHelper::imageUrl('/uploads/pub/' . $publication->id . '/' . $img->image_url, '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
                         </div>
                     </div>
                     @endforeach
@@ -151,7 +152,7 @@
                                         <div class="pub-info-box">
                                             @if (isset($pub->images[0]))
                                             <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                                <img class="pub-img-small"  src="{{ Image::path('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, 'resize', $thumbSize['width'], $thumbSize['height'])  }}" alt="{{ $pub->title }}"/>
+                                                <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
                                             </a>
                                             @endif
                                             <div class="pub-info-desc">

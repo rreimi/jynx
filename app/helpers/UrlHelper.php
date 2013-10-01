@@ -45,6 +45,14 @@ class UrlHelper {
         return $url;
     }
 
+    public static function imageUrl($url, $suffix = '') {
+        if (!empty($suffix)){
+            $url = str_replace('.', $suffix . '.', $url);
+        }
+
+        return URL::to($url);
+    }
+
     public static function fullUrltoogleSort($field) {
         $url = self::fullExcept(array('order','sort'));
         $dir = (Input::get('order') == 'desc')? 'asc':'desc';
@@ -63,6 +71,8 @@ class UrlHelper {
             return $iconClass . '-' . $dir . ' sorting-arrow';
         }
     }
+
+
 
     /*
      * Method to strip tags globally.

@@ -4,7 +4,7 @@
 @parent
 <div class="row-fluid">
     <div class="logo-job img-polaroid pull-right">
-        {{ HTML::image($companyPicture,'',array('class'=>''))}}
+        {{ HTML::image(UrlHelper::imageUrl($companyPicture),'',array('class'=>''))}}
     </div>
 </div>
 @stop

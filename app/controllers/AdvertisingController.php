@@ -10,6 +10,8 @@ class AdvertisingController extends BaseController {
     public function __construct() {
         $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertising', array('only' => array('getLista')));
+
+        View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
     }
 
     public function getLista() {
@@ -115,7 +117,7 @@ class AdvertisingController extends BaseController {
         return View::make('advertising_form',
                     array('adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.select')),
                         'advertising' => $adv,
-                        'referer' => URL::previous(),
+                        'referer' => URL::previous()
                     ));
 
     }
@@ -254,35 +256,50 @@ class AdvertisingController extends BaseController {
     public function postImagenes($id) {
 
         $file = Input::file('file');
-        $destinationPath = 'uploads/adv/'.$id;
-        $filename = $file->getClientOriginalName();
+        $destinationPath = public_path() . '/uploads/adv/'.$id;
+        //$filename = $file->getClientOriginalName();
 
-        // Delete previous files
-        $previousFiles = scandir($destinationPath);
-        foreach ($previousFiles as $file){
-            $filePath = public_path() ."/". $destinationPath ."/". $file;
-            if ($file != '.' && $file != '..' && file_exists($filePath)){
-                $result = unlink($filePath);
-            }
+        $size = getimagesize($file);
+
+        $upload_success = false;
+        $error = '';
+
+        //Validate image size
+        if ($size[0] < BaseController::$bannerTopHomeSize['width'] ) {
+            $error = 'invalid_size';
         }
 
-        // Make different name to image advertising with every change
-        $filename = date("Y_m_d_H_i_s-") .$filename;
+        if ($size[1] < BaseController::$bannerTopHomeSize['height']) {
+            $error = 'invalid_size';
+        }
+
+        $baseName = str_random(15);
+
+        $finalFileName = $baseName . '.jpg';
+        $scaledFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$bannerTopHomeSize['width'] . '.jpg';
+
+        if (empty($error)){
+            // Delete previous files
+            $previousFiles = scandir($destinationPath);
+            foreach ($previousFiles as $pFile){
+                $filePath = $destinationPath ."/". $pFile;
+                if ($pFile != '.' && $pFile != '..' && file_exists($filePath)){
+                    unlink($filePath);
+                }
+            }
+
+            //Generate scaled version
+            ImageHelper::generateThumb($file->getPathName(), $scaledFileName,  BaseController::$bannerTopHomeSize['width'],  BaseController::$bannerTopHomeSize['height']);
+
+            //Save uploaded file
+            $upload_success = $file->move($destinationPath, $finalFileName);
+        }
 
         $advertising = Advertising::find($id);
-
-        //TODO validar publicacion
-        //TODO resize image
-        //TODO renombrar la imagen si existe
         //TODO posibilidad de agregar un alt
 
-        //$extension =$file->getClientOriginalExtension();
-        $upload_success = Input::file('file')->move($destinationPath, $filename);
-
-        $error = 'Error';
-
         if( $upload_success ) {
-            $advertising->image_url = $filename;
+            $advertising->image_url = $finalFileName;
             $advertising->save();
 
             return Response::json($id, 200);
@@ -297,7 +314,6 @@ class AdvertisingController extends BaseController {
      * Deleted image from publication
      *
      * @param $id         the publication id
-     * @param $imageId    the image id
      */
     public function deleteImagenes($id) {
 
@@ -310,6 +326,18 @@ class AdvertisingController extends BaseController {
 
         //Build image path
         $filepath = public_path() . '/uploads/adv/'  . $id . '/' . $adv->image_url; //../public
+
+        if (file_exists($filepath)){
+            //Remove img from disk (img by diferent sizes)
+            $result = unlink($filepath);
+
+            if ($result === false){
+                return Response::json('error_removing_file', 400);
+            }
+        }
+
+        //remove thumb
+        $filepath = str_replace('.', '_' . BaseController::$bannerTopHomeSize['width'] . '.', $filepath);
 
         if (file_exists($filepath)){
             //Remove img from disk (img by diferent sizes)
