@@ -45,8 +45,11 @@ class UrlHelper {
         return $url;
     }
 
-    public static function imageUrl($url, $suffix) {
-        $url = str_replace('.', $suffix . '.', $url);
+    public static function imageUrl($url, $suffix = '') {
+        if (!empty($suffix)){
+            $url = str_replace('.', $suffix . '.', $url);
+        }
+
         return URL::to($url);
     }
 
