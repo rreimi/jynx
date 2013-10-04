@@ -390,6 +390,8 @@ class PublicationController extends BaseController {
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
+
+            ImageHelper::generateThumb($file->getPathName(), $finalFileName, $size[0], $size[1]);
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
             $upload_success = $file->move($destinationPath, $finalFileName);
