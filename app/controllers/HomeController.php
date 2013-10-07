@@ -40,9 +40,20 @@ class HomeController extends BaseController {
         $activationFlag = Input::get('activacion');
         $data['activationFlag'] = (isset($activationFlag) && !empty($activationFlag)) ? $activationFlag : '' ;
 
-        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = HomePublicationView::mostVisited($this->sliderSize)->get();
-        $data['recent'] = HomePublicationView::recent($this->sliderSize)->get();
+        $data['activeadvertisings'] = Cache::rememberForever('currentAdvertising', function() {
+            return Advertising::activehomeadvertisings()->get();
+        });
+        //$data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
+
+        /* Cache de un día para los elementos mas visitados */
+        $data['mostvisited'] = Cache::remember('homeMostVisited', 1440, function() {
+            return HomePublicationView::mostVisited($this->sliderSize)->get();
+        });
+
+        /* Cache de productos mas recientes, se resetea cuando hay productos nuevos */
+        $data['recent'] = Cache::rememberForever('homeRecent', function() {
+            return HomePublicationView::recent($this->sliderSize)->get();
+        });
 
         // Flag to show register popup in /registro url.
         $data['registro'] = Input::get('registro');

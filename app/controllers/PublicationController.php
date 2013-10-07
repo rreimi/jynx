@@ -13,11 +13,23 @@ class PublicationController extends BaseController {
         if (!Auth::check()){
             $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));
         }
+
+        /* Los siguientes metodos reinician la cache */
+        $this->afterFilter(function()
+        {
+            $this->invalidatePublicationCache();
+        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
+
+        View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
+
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
         View::share('detailSize', self::$detailSize);
         View::share('thumbSize', self::$thumbSize);
+    }
 
+    private function invalidatePublicationCache() {
+        Cache::forget('homeRecent');
     }
 
 	public function getDetalle($id = null) {
@@ -91,6 +103,7 @@ class PublicationController extends BaseController {
         $data['publisher_email']=$publisher->email;
 
         $data['lastvisited'] = array();
+
         /* Get cookie of last visited by the user */
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
@@ -109,7 +122,6 @@ class PublicationController extends BaseController {
             }
 
             $data['lastvisited'] = $lastVisitedOrdered;
-
         }
 
 
@@ -690,6 +702,9 @@ class PublicationController extends BaseController {
 
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
+
+            //Volar la cache de los mas recientes
+            Cache::forget('homeRecent');
 
             //Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
             //Redirect to publication images

@@ -11,6 +11,11 @@ class AdvertisingController extends BaseController {
         $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertising', array('only' => array('getLista')));
 
+        $this->afterFilter(function()
+        {
+            $this->invalidateAdvertisingCache();
+        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes'));
+
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
     }
 
@@ -301,7 +306,6 @@ class AdvertisingController extends BaseController {
         if( $upload_success ) {
             $advertising->image_url = $finalFileName;
             $advertising->save();
-
             return Response::json($id, 200);
         } else {
             return Response::json($error, 400);
@@ -372,6 +376,11 @@ class AdvertisingController extends BaseController {
         }
 
         return $options;
+    }
+
+    private function invalidateAdvertisingCache() {
+        //Invalidate Cache
+        Cache::forget('currentAdvertising');
     }
 
 }
