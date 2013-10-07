@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 	public function getIndex() {
 
         //Load category list -> see constructor
-
+        $sliderSize = $this->sliderSize;
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
@@ -46,13 +46,13 @@ class HomeController extends BaseController {
         //$data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
 
         /* Cache de un día para los elementos mas visitados */
-        $data['mostvisited'] = Cache::remember('homeMostVisited', 1440, function() {
-            return HomePublicationView::mostVisited($this->sliderSize)->get();
+        $data['mostvisited'] = Cache::remember('homeMostVisited', 1440, function() use ($sliderSize) {
+            return HomePublicationView::mostVisited($sliderSize)->get();
         });
 
         /* Cache de productos mas recientes, se resetea cuando hay productos nuevos */
-        $data['recent'] = Cache::rememberForever('homeRecent', function() {
-            return HomePublicationView::recent($this->sliderSize)->get();
+        $data['recent'] = Cache::rememberForever('homeRecent', function() use ($sliderSize) {
+            return HomePublicationView::recent($sliderSize)->get();
         });
 
         // Flag to show register popup in /registro url.
