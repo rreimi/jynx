@@ -702,10 +702,6 @@ class PublicationController extends BaseController {
 
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
-
-            //Volar la cache de los mas recientes
-            Cache::forget('homeRecent');
-
             //Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
             //Redirect to publication images
             return Redirect::to('publicacion/editar/'.$pub->id . '#imagenes');

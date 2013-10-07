@@ -15,6 +15,8 @@
 Route::get('/clearcache', function(){
     Cache::forget('categoryTree');
     Cache::forget('servicesTree');
+    Cache::forget('currentAdvertising');
+    Cache::forget('homeRecent');
 });
 
 Route::get("/debug", function(){
