@@ -112,6 +112,11 @@ class BackendController extends BaseController {
                     $img->image_url = $baseName . '.jpg';
                     $img->save();
 
+                    if ($pub->publication_image_id == null) {
+                        $pub->publication_image_id = $img->id;
+                        $pub->save();
+                    }
+
                     //Borrar la imagen original
 
                     if (file_exists($originalFile)){

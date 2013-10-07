@@ -95,7 +95,7 @@ class PublicationController extends BaseController {
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){
-            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
+            $lastVisited = HomePublicationView::whereIn("id", $cookieArray)->get();
 
             $lastVisitedOrdered = array();
 
@@ -424,6 +424,12 @@ class PublicationController extends BaseController {
         if ($upload_success) {
             $image = new PublicationImage(array('image_url' => $finalFileName));
             $image = $publication->images()->save($image);
+
+            if ($publication->publication_image_id == null){
+                $publication->publication_image_id = $image->id;
+                $publication->save();
+            }
+
             return Response::json($image->id, 200);
         } else {
             return Response::json($error, 400);

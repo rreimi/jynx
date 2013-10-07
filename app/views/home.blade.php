@@ -44,21 +44,21 @@
                 @endif
                         <li class="span3 pub-thumb">
                             <div class="pub-rating-box">
-                                @if ($pub->publication->rating_avg != "")
-                                    {{ RatingHelper::getRatingBar($pub->publication->rating_avg) }}
+                                @if ($pub->rating_avg != "")
+                                    {{ RatingHelper::getRatingBar($pub->rating_avg) }}
                                 @endif
                             </div>
                             <div class="pub-info-box">
-                                @if (isset($pub->publication->images[0]))
-                                <a href="{{ URL::to('publicacion/detalle/' . $pub->publication->id)}}">
-                                    <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->publication->id . '/' . $pub->publication->images[0]->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->publication->title }}"/>
+                                @if (isset($pub->image_url))
+                                <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                    <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
                                 </a>
                                 @endif
                                 <div class="pub-info-desc">
-                                    <a href="{{ URL::to('publicacion/detalle/' . $pub->publication->id)}}">
-                                        <h2 class="pub-title">{{ $pub->publication->title }}</h2>
+                                    <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                        <h2 class="pub-title">{{ $pub->title }}</h2>
                                     </a>
-                                    <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publication->publisher->seller_name }}</span>
+                                    <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->seller_name }}</span>
                                 </div>
                             </div>
                         </li>
@@ -85,26 +85,24 @@
                     <ul class="row-fluid recent-items dashboard-item-list thumbnails">
                         @endif
                         <li class="span3 pub-thumb">
-                                <div class="pub-rating-box">
-                                    @if ($pub->rating_avg != "")
-                                        {{ RatingHelper::getRatingBar($pub->rating_avg) }}
-                                    @endif
+                            <div class="pub-rating-box">
+                                @if ($pub->rating_avg != "")
+                                {{ RatingHelper::getRatingBar($pub->rating_avg) }}
+                                @endif
+                            </div>
+                            <div class="pub-info-box">
+                                @if (isset($pub->image_url))
+                                <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                    <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
+                                </a>
+                                @endif
+                                <div class="pub-info-desc">
+                                    <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
+                                        <h2 class="pub-title">{{ $pub->title }}</h2>
+                                    </a>
+                                    <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->seller_name }}</span>
                                 </div>
-                                <div class="pub-info-box">
-                                    @if (isset($pub->images[0]))
-                                        <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                            <img class="pub-img-small"  src="{{ URL::to('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url)  }}" alt="{{ $pub->title }}"/>
-                                        </a>
-                                    @endif
-                                    <div class="pub-info-desc">
-                                        <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                            <h2 class="pub-title">{{ $pub->title }}</h2>
-                                        </a>
-                                        <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
-                                        <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </li>
                 @if (((($key+1)%4) == 0) || (($key+1) == count($recent)))
                     </ul>
@@ -133,21 +131,20 @@
                                 <li class="span3 pub-thumb">
                                     <div class="pub-rating-box">
                                         @if ($pub->rating_avg != "")
-                                            {{ RatingHelper::getRatingBar($pub->rating_avg) }}
+                                        {{ RatingHelper::getRatingBar($pub->rating_avg) }}
                                         @endif
                                     </div>
                                     <div class="pub-info-box">
-                                        @if (isset($pub->images[0]))
+                                        @if (isset($pub->image_url))
                                         <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                            <img class="pub-img-small"  src="{{ URL::to('/uploads/pub/' . $pub->id . '/' . $pub->images[0]->image_url) }}" alt="{{ $pub->title }}"/>
+                                            <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
                                         </a>
                                         @endif
                                         <div class="pub-info-desc">
                                             <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
                                                 <h2 class="pub-title">{{ $pub->title }}</h2>
                                             </a>
-                                            <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->publisher->seller_name }}</span>
-                                            <!--                <p class="pub-short-desc"> $pub->short_description </p>-->
+                                            <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->seller_name }}</span>
                                         </div>
                                     </div>
                                 </li>

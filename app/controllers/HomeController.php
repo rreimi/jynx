@@ -41,8 +41,8 @@ class HomeController extends BaseController {
         $data['activationFlag'] = (isset($activationFlag) && !empty($activationFlag)) ? $activationFlag : '' ;
 
         $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = PublicationVisit::mostVisited($this->sliderSize)->get();
-        $data['recent'] = Publication::published()->recent($this->sliderSize)->get();
+        $data['mostvisited'] = HomePublicationView::mostVisited($this->sliderSize)->get();
+        $data['recent'] = HomePublicationView::recent($this->sliderSize)->get();
 
         // Flag to show register popup in /registro url.
         $data['registro'] = Input::get('registro');
@@ -51,10 +51,8 @@ class HomeController extends BaseController {
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){
-            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
-
+            $lastVisited = HomePublicationView::whereIn("id", $cookieArray)->get();
             $lastVisitedOrdered = array();
-
             foreach ($cookieArray as $item){
                 foreach ($lastVisited as $key => $value){
                     if ($value->id == $item){
@@ -63,7 +61,6 @@ class HomeController extends BaseController {
                     }
                 }
             }
-
             $data['lastvisited'] = $lastVisitedOrdered;
 
         }
