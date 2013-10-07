@@ -13,7 +13,7 @@ class AdvertisingController extends BaseController {
 
         $this->afterFilter(function()
         {
-            $this->invalidateAdvertisingCache();
+            self::invalidateAdvertisingCache();
         }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes'));
 
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);

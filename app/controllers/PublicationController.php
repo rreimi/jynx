@@ -17,7 +17,7 @@ class PublicationController extends BaseController {
         /* Los siguientes metodos reinician la cache */
         $this->afterFilter(function()
         {
-            $this->invalidatePublicationCache();
+            self::invalidatePublicationCache();
         }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
 
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
