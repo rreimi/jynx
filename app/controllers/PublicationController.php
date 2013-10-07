@@ -15,10 +15,10 @@ class PublicationController extends BaseController {
         }
 
         /* Los siguientes metodos reinician la cache */
-        $this->afterFilter(function()
-        {
-            self::invalidatePublicationCache();
-        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
+//        $this->afterFilter(function()
+//        {
+//            $this->invalidatePublicationCache();
+//        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
 
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
 
@@ -442,6 +442,8 @@ class PublicationController extends BaseController {
                 $publication->save();
             }
 
+            $this->invalidatePublicationCache();
+
             return Response::json($image->id, 200);
         } else {
             return Response::json($error, 400);
@@ -510,6 +512,8 @@ class PublicationController extends BaseController {
         if ($affectedRows != true) {
             return Response::json('error_removing_db', 400);
         }
+
+        $this->invalidatePublicationCache();
 
         return Response::json('success', 200);
 
@@ -700,6 +704,8 @@ class PublicationController extends BaseController {
         $pub->categories()->sync($categories);
         $pub->contacts()->sync($contacts);
 
+        $this->invalidatePublicationCache();
+
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
             //Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
@@ -735,6 +741,8 @@ class PublicationController extends BaseController {
         }
 
         $result = $pub->delete();
+
+        $this->invalidatePublicationCache();
 
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_publication_success'), 'success');
@@ -820,6 +828,8 @@ class PublicationController extends BaseController {
         );
 
         $subject = Lang::get('content.email_cron_admin_notification_pub_change_status_date_subject');
+
+        $this->invalidatePublicationCache();
 
         self::sendMail('emails.layout_email', $data, $receiver, $subject);
 
