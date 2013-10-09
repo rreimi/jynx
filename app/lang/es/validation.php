@@ -140,6 +140,8 @@ return array(
         'subject' => 'Asunto',
         'contact_message' => 'Mensaje',
         'comment' => 'Comentario',
+        'login_email' => 'Correo Electrónico',
+        'login_password' => 'Password',
     ),
 
 );

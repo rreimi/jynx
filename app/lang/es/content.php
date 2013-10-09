@@ -338,7 +338,7 @@ return array(
     "select" => "Selecciona",
 
     "site_description"=> "Mercatino es el punto de encuentro para promocionar el intercambio comercial en la comunidad venezolano-italiana en la web y dar a conocer la fuerza económica que representa. Aquí los usuarios inscritos podrán visualizar los productos y servicios publicados por otros usuarios y empresas asociadas a la Cámara de Comercio Venezolano-Italiana (CAVENIT), con  el motivo final de reactivar la economía en la comunidad y hacer negocios con más confianza y seguridad.",
-    "site_welcome" => "Bienvenido a Mercatino",
+    "site_welcome" => "Bienvenido a TuMercato",
     "site_messages_title_error" => "Importante",
 
     //Help

@@ -71,7 +71,7 @@ class LoginController extends BaseController{
 
         }else{
 
-            $validator->errors()->add('login_email',Lang::get('content.login_error'));
+            $validator->errors()->add('login_process',Lang::get('content.login_error'));
 
             if (Request::ajax())
             {
@@ -204,7 +204,7 @@ class LoginController extends BaseController{
 
     public static function rules(){
         return array(
-            'login_email' => 'required|email|exists:users,email',
+            'login_email' => 'required|email',
             'login_password' => 'required'
         );
     }
