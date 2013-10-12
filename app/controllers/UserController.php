@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
     private $prefix = 'user';
-    private $page_size = '6';
+    private $page_size = '10';
     private $listSort = array('id', 'email', 'role', 'full_name', 'created_at', 'status');
 
     public function __construct() {

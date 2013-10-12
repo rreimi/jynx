@@ -3,7 +3,7 @@
 class AdvertiserController extends BaseController {
 
     private $prefix = 'advertiser';
-    private $page_size = '6';
+    private $page_size = '10';
     private $listSort = array('full_name', 'email', 'publisher.seller_name', 'publisher.rif_ci');
 
     public function __construct() {
