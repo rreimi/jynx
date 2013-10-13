@@ -13,11 +13,23 @@ class PublicationController extends BaseController {
         if (!Auth::check()){
             $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));
         }
+
+        /* Los siguientes metodos reinician la cache */
+//        $this->afterFilter(function()
+//        {
+//            $this->invalidatePublicationCache();
+//        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
+
+        View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
+
         View::share('categories', self::getCategories());
         View::share('services', self::getServices());
         View::share('detailSize', self::$detailSize);
         View::share('thumbSize', self::$thumbSize);
+    }
 
+    private function invalidatePublicationCache() {
+        Cache::forget('homeRecent');
     }
 
 	public function getDetalle($id = null) {
@@ -91,11 +103,12 @@ class PublicationController extends BaseController {
         $data['publisher_email']=$publisher->email;
 
         $data['lastvisited'] = array();
+
         /* Get cookie of last visited by the user */
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){
-            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
+            $lastVisited = HomePublicationView::whereIn("id", $cookieArray)->get();
 
             $lastVisitedOrdered = array();
 
@@ -109,7 +122,6 @@ class PublicationController extends BaseController {
             }
 
             $data['lastvisited'] = $lastVisitedOrdered;
-
         }
 
 
@@ -390,9 +402,11 @@ class PublicationController extends BaseController {
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
+            $upload_success = $file->move($destinationPath, $finalFileName);
+            ImageHelper::generateThumb($file->getPathName(), $finalFileName, $size[0], $size[1]);
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
-            $upload_success = $file->move($destinationPath, $finalFileName);
+
 
               // Using intervention
 //            $data = file_get_contents($file);
@@ -422,6 +436,14 @@ class PublicationController extends BaseController {
         if ($upload_success) {
             $image = new PublicationImage(array('image_url' => $finalFileName));
             $image = $publication->images()->save($image);
+
+            if ($publication->publication_image_id == null){
+                $publication->publication_image_id = $image->id;
+                $publication->save();
+            }
+
+            $this->invalidatePublicationCache();
+
             return Response::json($image->id, 200);
         } else {
             return Response::json($error, 400);
@@ -490,6 +512,8 @@ class PublicationController extends BaseController {
         if ($affectedRows != true) {
             return Response::json('error_removing_db', 400);
         }
+
+        $this->invalidatePublicationCache();
 
         return Response::json('success', 200);
 
@@ -680,9 +704,10 @@ class PublicationController extends BaseController {
         $pub->categories()->sync($categories);
         $pub->contacts()->sync($contacts);
 
+        $this->invalidatePublicationCache();
+
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
-
             //Session::flash('flash_global_message', Lang::get('content.add_publication_success'));
             //Redirect to publication images
             return Redirect::to('publicacion/editar/'.$pub->id . '#imagenes');
@@ -716,6 +741,8 @@ class PublicationController extends BaseController {
         }
 
         $result = $pub->delete();
+
+        $this->invalidatePublicationCache();
 
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_publication_success'), 'success');
@@ -801,6 +828,8 @@ class PublicationController extends BaseController {
         );
 
         $subject = Lang::get('content.email_cron_admin_notification_pub_change_status_date_subject');
+
+        $this->invalidatePublicationCache();
 
         self::sendMail('emails.layout_email', $data, $receiver, $subject);
 

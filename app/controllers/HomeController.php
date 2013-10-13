@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 	public function getIndex() {
 
         //Load category list -> see constructor
-
+        $sliderSize = $this->sliderSize;
         /* Cargar la publicidad del banner */
 
         /* Cargar la lista de productos con mayor número de visitas */
@@ -40,9 +40,20 @@ class HomeController extends BaseController {
         $activationFlag = Input::get('activacion');
         $data['activationFlag'] = (isset($activationFlag) && !empty($activationFlag)) ? $activationFlag : '' ;
 
-        $data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
-        $data['mostvisited'] = PublicationVisit::mostVisited($this->sliderSize)->get();
-        $data['recent'] = Publication::published()->recent($this->sliderSize)->get();
+        $data['activeadvertisings'] = Cache::rememberForever('currentAdvertising', function() {
+            return Advertising::activehomeadvertisings()->get();
+        });
+        //$data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
+
+        /* Cache de un día para los elementos mas visitados */
+        $data['mostvisited'] = Cache::remember('homeMostVisited', 1440, function() use ($sliderSize) {
+            return HomePublicationView::mostVisited($sliderSize)->get();
+        });
+
+        /* Cache de productos mas recientes, se resetea cuando hay productos nuevos */
+        $data['recent'] = Cache::rememberForever('homeRecent', function() use ($sliderSize) {
+            return HomePublicationView::recent($sliderSize)->get();
+        });
 
         // Flag to show register popup in /registro url.
         $data['registro'] = Input::get('registro');
@@ -51,10 +62,8 @@ class HomeController extends BaseController {
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){
-            $lastVisited = Publication::whereIn("id", $cookieArray)->get();
-
+            $lastVisited = HomePublicationView::whereIn("id", $cookieArray)->get();
             $lastVisitedOrdered = array();
-
             foreach ($cookieArray as $item){
                 foreach ($lastVisited as $key => $value){
                     if ($value->id == $item){
@@ -63,7 +72,6 @@ class HomeController extends BaseController {
                     }
                 }
             }
-
             $data['lastvisited'] = $lastVisitedOrdered;
 
         }

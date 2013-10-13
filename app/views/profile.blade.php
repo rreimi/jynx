@@ -105,7 +105,7 @@
                     <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_state') }}</label>
                     <div class="controls">
                         {{ Form::select('state',
-                            array_merge(array('' => Lang::get('content.select')), $states),
+                            $states,
                             $user->publisher->state_id,
                             array('class'=>'input-xlarge required'))
                         }}

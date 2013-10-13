@@ -11,6 +11,11 @@ class AdvertisingController extends BaseController {
         $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertising', array('only' => array('getLista')));
 
+//        $this->afterFilter(function()
+//        {
+//            self::invalidateAdvertisingCache(); $this->invalidateAdvertisingCache();
+//        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes'));
+
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
     }
 
@@ -160,6 +165,8 @@ class AdvertisingController extends BaseController {
 
         $result = $adv->delete();
 
+        $this->invalidateAdvertisingCache();
+
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_advertising_success'), 'success');
         } else {
@@ -235,6 +242,8 @@ class AdvertisingController extends BaseController {
 
         $adv->save();
 
+        $this->invalidateAdvertisingCache();
+
         // Redirect to diferent places based on new or existing advertising
         if ($isNew) {
 
@@ -302,6 +311,8 @@ class AdvertisingController extends BaseController {
             $advertising->image_url = $finalFileName;
             $advertising->save();
 
+            $this->invalidateAdvertisingCache();
+
             return Response::json($id, 200);
         } else {
             return Response::json($error, 400);
@@ -356,6 +367,8 @@ class AdvertisingController extends BaseController {
             return Response::json('error_removing_db', 400);
         }
 
+        $this->invalidateAdvertisingCache();
+
         return Response::json('success', 200);
 
     }
@@ -372,6 +385,11 @@ class AdvertisingController extends BaseController {
         }
 
         return $options;
+    }
+
+    private function invalidateAdvertisingCache() {
+        //Invalidate Cache
+        Cache::forget('currentAdvertising');
     }
 
 }

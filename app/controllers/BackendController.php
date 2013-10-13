@@ -71,5 +71,61 @@ class BackendController extends BaseController {
         return Redirect::to('dashboard');
     }
 
+    public function getBatch() {
+        $publications = Publication::with('images')->get();
+        $basePath = public_path() . '/uploads/pub/';
 
+        foreach ($publications as $pub) {
+            if (count($pub->images) > 0) {
+                //Publication has images, lets do it baby
+                foreach ($pub->images as $img) {
+
+                    //Abrir la imagen original, Generar el base name y el destination path y definir la ruta completa al archivo original
+                    $baseName = str_random(15); //nuevo nombre para el archivo
+                    $destinationPath = $basePath . $pub->id . '/';
+                    $originalFile = $destinationPath . $img->image_url;
+
+                    if (!file_exists($originalFile)){
+                        echo 'deleted';
+                        var_dump($img);
+                        $img->delete();
+                        continue;
+                    }
+
+                    //Generar thumbs
+                    $size = getimagesize($originalFile);
+
+                    $fullSizeFileName = $destinationPath . $baseName . '.jpg';
+                    $detailFileName = $destinationPath . $baseName . '_' . BaseController::$detailSize['width'] . '.jpg';
+                    $thumbFileName = $destinationPath . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
+
+                    //Copiar el archivo viejo al nuevo
+                    ImageHelper::generateThumb($originalFile, $fullSizeFileName, $size[0], $size[1]);
+
+                    //Generar detail
+                    ImageHelper::generateThumb($originalFile, $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
+
+                    //Generar thumb
+                    ImageHelper::generateThumb($originalFile, $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
+
+                    //Actualizar publication images
+                    $img->image_url = $baseName . '.jpg';
+                    $img->save();
+
+                    if ($pub->publication_image_id == null) {
+                        $pub->publication_image_id = $img->id;
+                        $pub->save();
+                    }
+
+                    //Borrar la imagen original
+
+                    if (file_exists($originalFile)){
+                        unlink($originalFile);
+                    }
+
+                    echo 'Generated file: '  . $img->image_url . '<br/>';
+                }
+            }
+        }
+    }
 }

@@ -287,6 +287,7 @@ class AdvertiserController extends BaseController {
         $resultU = $user->delete();
 
         if ($resultA && $resultU){
+            //Set result
             self::addFlashMessage(null, Lang::get('content.delete_advertiser_success'), 'success');
         } else {
             self::addFlashMessage(null, Lang::get('content.delete_advertiser_error'), 'error');
