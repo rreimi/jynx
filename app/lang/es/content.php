@@ -256,6 +256,7 @@ return array(
     "register_password" => "Contraseña",
     "register_password_confirmation" => "Confirmar contraseña",
     "register_signup" => "Regístrate",
+    "creating_account" => "Procesando...",
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
