@@ -695,6 +695,10 @@ class PublicationController extends BaseController {
         $pub->from_date = date('Y-m-d',strtotime($pubData['from_date']));
         $pub->to_date = date('Y-m-d',strtotime($pubData['to_date']));
 
+        if ($pub->remember == null){
+            $pub->remember = 0;
+        }
+
         $pub->save();
 
         // Save publication categories
