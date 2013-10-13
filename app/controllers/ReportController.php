@@ -54,21 +54,9 @@ class ReportController extends BaseController {
                 'sellerName' => $user->publisher->seller_name
             );
 
-            $adminUsers = User::adminEmailList()->get();
-
-            $adminEmails = array();
-
-            foreach ($adminUsers as $adminU){
-                $adminEmails[] = $adminU->email;
-            }
-
-            $receiver = array(
-                'email' => $adminEmails,
-            );
-
             $subject = Lang::get('content.email_admin_notification_new_report');
 
-            self::sendMultipleMail('emails.layout_email', $data, $receiver, $subject);
+            self::sendMailAdmins('emails.layout_email', $data, $subject);
 
             return Response::json(null, 200);
         } else {
