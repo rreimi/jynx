@@ -146,7 +146,7 @@ return array(
     "phones_line2" => "58-212-2642845 / 2643742",
     "fax_label" => "Fax:",
     "fax_line1" => "58-212-2647213",
-    "cavenit_email" => "informatica@cavenit.com",
+    "tumercato_email" => "info@tumercato.com",
     "facebook" => "CAVENIT",
     "twitter" => "@cavenit",
     "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
@@ -491,6 +491,7 @@ return array(
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
 
     "contactus_caracas" => "Caracas",
+    "caracas_email" => "informatica@cavenit.com",
     "caracas_address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
     "caracas_address_line2" => "Nivel Mezzanina, 1060, Caracas",
     "contactus_acarigua" => "Acarigua",
