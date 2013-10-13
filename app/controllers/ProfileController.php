@@ -161,16 +161,15 @@ class ProfileController extends BaseController{
 
             // Save avatar (if is received)
             if(Input::hasFile('avatar')){
-                $avatar = Input::file('avatar');
-                $fileName = $avatar->getClientOriginalName();
-                $fileExt = substr($fileName, strpos($fileName, '.')+1);
-                $fileFinalName = 'avatar-'. $user->id .'.'. $fileExt;
-                $destinationPath = 'uploads/profile/';
-
-                ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '_' . BaseController::$thumbSize['width'] . '.jpg',  BaseController::$thumbSize['width'],  BaseController::$thumbSize['height']);
 
                 try {
-                    $avatar->move($destinationPath, $fileFinalName);
+                    $avatar = Input::file('avatar');
+                    $size = getimagesize($avatar);
+                    $fileFinalName = 'avatar-'. $user->id .'.jpg';
+                    $destinationPath = 'uploads/profile/';
+
+                    ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '.jpg',  $size[0],  $size[1]);
+                    ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '_' . BaseController::$thumbSize['width'] . '.jpg',  BaseController::$thumbSize['width'],  BaseController::$thumbSize['height']);
 
                     $publisher->avatar = $destinationPath . $fileFinalName;
                     $publisher->save();
