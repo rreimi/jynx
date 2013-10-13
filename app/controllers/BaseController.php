@@ -88,10 +88,25 @@ class BaseController extends Controller {
 
     protected function sendMultipleMail($template, $data, $receivers, $subject){
 
-       Mail::send($template, $data, function($message) use ($receivers, $subject){
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers['email'])->subject($subject);
-       });
+        });
+    }
+
+    protected function sendMailAdmins($template, $data, $subject){
+
+        $receivers = self::getEmailAdmins();
+
+        Mail::send($template, $data, function($message) use ($receivers, $subject){
+            $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+            $message->to($receivers);
+            $ccoAdminEmails = Config::get('emails/addresses.cco_admin');
+            if ($ccoAdminEmails != null){
+                $message->bcc(explode(',', $ccoAdminEmails));
+            }
+            $message->subject($subject);
+        });
     }
 
     public static function sendAjaxMail($template, $data, $receivers, $subject){
@@ -100,6 +115,18 @@ class BaseController extends Controller {
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers['email'], $receivers['name'])->subject($subject);
         });
+    }
+
+    protected function getEmailAdmins(){
+        $adminUsers = User::adminEmailList()->get();
+
+        $adminEmails = array();
+
+        foreach ($adminUsers as $adminU){
+            $adminEmails[] = $adminU->email;
+        }
+
+        return $adminEmails;
     }
 
 }

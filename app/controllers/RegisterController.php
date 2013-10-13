@@ -163,23 +163,19 @@ class RegisterController extends BaseController{
             'advertiserData' => $advertiserData,
         );
 
-        $adminUsers = User::adminEmailList()->get();
 
-        $adminEmails = array();
-
-        foreach ($adminUsers as $adminU){
-            $adminEmails[] = $adminU->email;
-        }
-
-        $receiver = array(
-            'email' => $adminEmails,
-        );
+        $adminEmails = self::getEmailAdmins();
 
         $subject = Lang::get('content.email_new_adviser_request');
 
-        Mail::queue('emails.layout_email', $welcomeData, function($message) use ($receiver, $subject){
+        Mail::queue('emails.layout_email', $welcomeData, function($message) use ($adminEmails, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
-            $message->to($receiver['email'])->subject($subject);
+            $message->to($adminEmails);
+            $ccoAdminEmails = Config::get('emails/addresses.cco_admin');
+            if ($ccoAdminEmails != null){
+                $message->bcc(explode(',', $ccoAdminEmails));
+            }
+            $message->subject($subject);
         });
 
         return Redirect::to('registro/datos-contactos');
