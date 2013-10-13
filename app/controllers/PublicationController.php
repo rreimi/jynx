@@ -345,7 +345,7 @@ class PublicationController extends BaseController {
         $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
-        $pub->from_date = date('d-m-Y',strtotime('+1 day'));
+        $pub->from_date = date('d-m-Y',time());
         $pub->to_date = date('d-m-Y',strtotime('+1 day'));
 
         return View::make('publication_form',
@@ -398,15 +398,15 @@ class PublicationController extends BaseController {
         $baseName = str_random(15);
 
         $finalFileName = $baseName . '.jpg';
+        $originalFileName = $destinationPath . '/' . $baseName . '.jpg';
         $detailFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$detailSize['width'] . '.jpg';
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
-            $upload_success = $file->move($destinationPath, $finalFileName);
-            ImageHelper::generateThumb($file->getPathName(), $finalFileName, $size[0], $size[1]);
+            ImageHelper::generateThumb($file->getPathName(), $originalFileName, $size[0], $size[1]);
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
-
+            $upload_success = true;
 
               // Using intervention
 //            $data = file_get_contents($file);
