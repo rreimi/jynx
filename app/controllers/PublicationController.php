@@ -402,11 +402,11 @@ class PublicationController extends BaseController {
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
-
+            $upload_success = $file->move($destinationPath, $finalFileName);
             ImageHelper::generateThumb($file->getPathName(), $finalFileName, $size[0], $size[1]);
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
-            $upload_success = $file->move($destinationPath, $finalFileName);
+
 
               // Using intervention
 //            $data = file_get_contents($file);

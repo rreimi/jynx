@@ -77,9 +77,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {{Lang::get('content.phones_line2')}}
             </div>
-            <a href="mailto:{{Lang::get('content.cavenit_email')}}">
+            <a href="mailto:{{Lang::get('content.caracas_email')}}">
                 <div class="contact-row mail contact-text">
-                    {{Lang::get('content.cavenit_email')}}
+                    {{Lang::get('content.caracas_email')}}
                 </div>
             </a>
 

@@ -60,9 +60,9 @@
                     {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
                 </div>
                 <br/>
-                <a href="mailto:{{Lang::get('content.cavenit_email')}}">
+                <a href="mailto:{{Lang::get('content.tumercato_email')}}">
                     <div class="contact-row mail contact-text">
-                        {{Lang::get('content.cavenit_email')}}
+                        {{Lang::get('content.tumercato_email')}}
                     </div>
                 </a>
                 <br/>
