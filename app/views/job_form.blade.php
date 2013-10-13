@@ -132,7 +132,7 @@
         <div class="control-group {{ $errors->has('age') ? 'error':'' }}">
             <label class="control-label" for="age">{{ Lang::get('content.age') }}</label>
             <div class="controls">
-                {{ Form::text('age', $job->age, arra('id'=>'age','class' => 'input-small ','placeholder'=> Lang::get('content.age'))) }}
+                {{ Form::text('age', $job->age, array('id'=>'age','class' => 'input-small ','placeholder'=> Lang::get('content.age'))) }}
                 {{ $errors->first('age', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
