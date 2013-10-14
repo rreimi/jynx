@@ -80,13 +80,8 @@ class PublicationController extends BaseController {
 
         // END - Create cookie for last visited
 
-        /* Increment visits counter */
-        $data['publication']->increment('visits_number');
+        Queue::later(60, 'VisitsJob', array('publication_id' => $id));
 
-        // INIT - Create log of publication
-        $pubVisit = new PublicationVisit();
-        $pubVisit->publication_id = $id;
-        $pubVisit->save();
         // END - Create log of publication
 
 //        var_dump(DB::getQueryLog());
@@ -398,7 +393,7 @@ class PublicationController extends BaseController {
         $baseName = str_random(15);
 
         $finalFileName = $baseName . '.jpg';
-        $originalFileName = $destinationPath . '/' . $baseName . '.jpg';
+        $originalFileName = $destinationPath . '/' . $finalFileName;
         $detailFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$detailSize['width'] . '.jpg';
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 

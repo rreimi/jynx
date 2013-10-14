@@ -285,6 +285,7 @@ class AdvertisingController extends BaseController {
         $baseName = str_random(15);
 
         $finalFileName = $baseName . '.jpg';
+        $originalFileName = $destinationPath . '/' . $finalFileName;
         $scaledFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$bannerTopHomeSize['width'] . '.jpg';
 
         if (empty($error)){
@@ -297,11 +298,14 @@ class AdvertisingController extends BaseController {
                 }
             }
 
+            //Generate original optimized version
+            ImageHelper::generateThumb($file->getPathName(), $originalFileName, $size[0], $size[1]);
+
             //Generate scaled version
             ImageHelper::generateThumb($file->getPathName(), $scaledFileName,  BaseController::$bannerTopHomeSize['width'],  BaseController::$bannerTopHomeSize['height']);
 
             //Save uploaded file
-            $upload_success = $file->move($destinationPath, $finalFileName);
+            $upload_success = true;
         }
 
         $advertising = Advertising::find($id);
