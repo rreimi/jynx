@@ -250,7 +250,7 @@ return array(
     "login_signin" => "Ingresar",
     "login_error" => "Verifica tu usuario y contraseña ",
     "login_header" => "Ingresa si estás registrado",
-
+    "starting_session" => "Iniciando sesión en TuMercato...",
     "register_email" => "Correo electrónico",
     "register_full_name" => "Nombre persona / Razón social",
     "register_password" => "Contraseña",
