@@ -589,7 +589,8 @@ return array(
 
     "job_academic_level_secondary" => "Secundaria",
     "job_academic_level_senior_technician" => "Técnico superior",
-    "job_academic_level_master_specialization" =>"Maestría Especialización",
+    "job_academic_level_university" =>"Universitario",
+    "job_academic_level_master_specialization" =>"Maestría / Especialización",
     "job_academic_level_phd"=>"Doctorado",
 
     "male"=>"Masculino",
@@ -633,7 +634,7 @@ return array(
     "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
     "contact_email_detail"=>"Envíe su currículo a",
     "previous"=>"Regresar",
-    "more"=>"Mas información..."
+    "more"=>"Mas información"
 
 
 );

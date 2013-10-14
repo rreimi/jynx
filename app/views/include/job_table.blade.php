@@ -16,7 +16,7 @@
         @if (count($jobs) > 0)
         @foreach ($jobs as $key => $job)
         <div class="row-fluid list-job">
-            <div class="span3">
+            <div class="span3 job-company">
                 <div class="logo-job img-polaroid">
                     <a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}">
                         @if(!Auth::user())
@@ -47,7 +47,9 @@
                     <span class="title-job">{{ Lang::get('content.area_sector') }}: </span>
                     <span class="description-job">{{ $job->areas }}</span>
                 </div>
-                <a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}" class="job-guest">{{ Lang::get('content.more') }}</a>
+                <div class="row">
+                    <a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}" class="job-more-info">{{ Lang::get('content.more') }}</a>
+                </div>
             </div>
         </div>
         @endforeach

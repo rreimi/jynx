@@ -24,8 +24,8 @@
 
         @if(!empty($avatar))
         <div class="control-group">
-            <div class="controls">
-                <img src="{{ URL::to($avatar) }}" class="img-polaroid" style="width: 300px;"/>
+            <div class="controls logo-job img-polaroid">
+                <img src="{{ URL::to($avatar) }}"/>
             </div>
         </div>
         @endif
