@@ -1,0 +1,1 @@
+ALTER TABLE `jobs` CHANGE `academic_level` `academic_level` ENUM( 'Secondary', 'Senior Technician', 'University', 'Master / Specialization', 'PhD' );

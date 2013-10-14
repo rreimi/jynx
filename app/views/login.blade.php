@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="title">{{ Lang::get('content.site_welcome') }}</h1>
+<h1 class="title login-title">{{ Lang::get('content.site_welcome') }}</h1>
 
 {{ Form::open(array('url' => 'login','class'=>'big-form login-form', 'id' => 'login-full-form')) }}
 <h4 class='header'>{{ Lang::get('content.login_header') }}</h4>
@@ -32,11 +32,11 @@
             {{ Form::checkbox('login_remember',true) }} {{ Lang::get('content.login_remember') }}
         </label>
         <div class="login-controls text-right">
-                {{ Form::submit(Lang::get('content.login_signin'),array('class' => 'btn btn-success')) }}
+                {{ Form::submit(Lang::get('content.login_signin'),array('class' => 'btn btn-primary')) }}
         </div>
     </div>
     <div class="span6">
-        <a nohref onclick="Mercatino.registerForm.show();">Banner para invitar a registrarse aquí</a>
+        <a class="register-banner" nohref onclick="Mercatino.registerForm.show();"><img src="img/banner_registro.jpg"/></a>
     </div>
 
 </fieldset>
