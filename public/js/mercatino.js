@@ -286,67 +286,14 @@ Mercatino.reminderForm = {
     }
 }
 
-Mercatino.registerForm = {
-    show: function(title, content, url){
-        //jQuery('#modal-confirm .modal-header h3').html(title);
-        //jQuery('#modal-confirm .modal-body p').html(content);
-        //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
-        jQuery('#register-form')[0].reset();
-        jQuery('#modal-register').modal('show');
-    },
-    hide: function(){
-        jQuery('#modal-register').modal('hide');
-    },
-    send: function(){
-        if (!jQuery('#register-form').valid()){
-            return false;
-        }
-
-        var formData = jQuery('#register-form').serializeObject();
-        var url = jQuery('#register-form').attr('action');
-
-        jQuery.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            success: function(result) {
-                //var data = result.responseJSON;
-                window.location.href = result.redirect_url;
-            },
-            error: function(result) {
-                var data = result.responseJSON;
-                if (data.status_code == 'validation') {
-                    for (var i = 0; i < data.errors.length; i++){
-                        Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
-                    }
-                    return false;
-                };
-
-                if (data.status_code == 'invalid_token') {
-                    window.location.href = "/";
-                };
-            }
-        });
-    },
-    init: function () {
-        jQuery('#register-form').validateBootstrap({
-            placement:'bottom',
-            rules: {
-                register_password: "required",
-                register_password_confirmation: {
-                    equalTo: "#register_password"
-                }
-            }
-        });
-    }
-};
 
 Mercatino.loginForm = {
     init: function(title, content, url){
-        //jQuery('#modal-confirm .modal-header h3').html(title);
-        //jQuery('#modal-confirm .modal-body p').html(content);
-        //jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+
+        jQuery('#login-form').validateBootstrap({
+            placement:'bottom'
+        });
+
         jQuery('#login-form')[0].reset();
 
         jQuery('#login-form input').bind('keydown', function(event){
@@ -354,11 +301,19 @@ Mercatino.loginForm = {
                 Mercatino.loginForm.send();
             };
         })
+
+
     },
     hide: function(){
         jQuery('#modal-register').modal('hide');
     },
     send: function(){
+
+        if (!jQuery('#login-form').valid()){
+            return false;
+        }
+
+        this.loadingState();
 
         var formData = jQuery('#login-form').serializeObject();
         var url = jQuery('#login-form').attr('action');
@@ -368,6 +323,7 @@ Mercatino.loginForm = {
             type: 'POST',
             data: formData,
             dataType: 'json',
+            context: this, //chance this in closures to passed object
             success: function(result) {
                 if (result.redirect_url == '') {
                     window.location.reload();
@@ -376,6 +332,7 @@ Mercatino.loginForm = {
                 }
             },
             error: function(result) {
+                this.defaultState(); //Rob: this make reference to context object, defined on ajax call
                 var data = result.responseJSON;
                 if (data.status_code == 'validation') {
                     for (var i = 0; i < data.errors.length; i++){
@@ -389,6 +346,14 @@ Mercatino.loginForm = {
                 };
             }
         });
+    },
+    defaultState: function() {
+        jQuery('#header_login_form').show();
+        jQuery('#header_login_preload').hide();
+    },
+    loadingState: function() {
+        jQuery('#header_login_form').hide();
+        jQuery('#header_login_preload').show();
     }
 };
 
