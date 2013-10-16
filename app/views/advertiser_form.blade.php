@@ -119,7 +119,7 @@
         <div class="control-group {{ $errors->has('publisher_phone1') ? 'error':'' }}">
             <label class="control-label required-field" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
+                {{ Form::text('publisher_phone1', $advertiser->phone1, array('class' => 'input-xlarge required phone-number-format', 'placeholder'=> Lang::get('content.publisher_phone1'))) }}
                 <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                 {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
@@ -128,7 +128,7 @@
         <div class="control-group {{ $errors->has('publisher_phone2') ? 'error':'' }}">
             <label class="control-label" for="publisher_phone2">{{ Lang::get('content.publisher_phone2') }}</label>
             <div class="controls">
-                {{ Form::text('publisher_phone2', $advertiser->phone2, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_phone2'))) }}
+                {{ Form::text('publisher_phone2', $advertiser->phone2, array('class' => 'input-xlarge phone-number-format', 'placeholder'=> Lang::get('content.publisher_phone2'))) }}
                 <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                 {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
@@ -251,6 +251,9 @@
         publisherIdType.val("{{ $advertiser->letter_rif_ci }}");
 
         jQuery('.advertiser-form').validateBootstrap();
+
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
     });
 </script>
 @stop

@@ -67,7 +67,7 @@
             <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                 <label class="control-label required-field" for="phone1">{{ Lang::get('content.phone1') }}</label>
                 <div class="controls">
-                    {{ Form::text('phone1', $advertising->phone1, array('class' => 'required', 'placeholder'=> Lang::get('content.phone1'))) }}
+                    {{ Form::text('phone1', $advertising->phone1, array('class' => 'required phone-number-format', 'placeholder'=> Lang::get('content.phone1'))) }}
                     <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                     {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -76,7 +76,7 @@
             <div class="control-group {{ $errors->has('phone2') ? 'error':'' }}">
                 <label class="control-label" for="phone2">{{ Lang::get('content.phone2') }}</label>
                 <div class="controls">
-                    {{ Form::text('phone2', $advertising->phone2, array('placeholder'=> Lang::get('content.phone2'))) }}
+                    {{ Form::text('phone2', $advertising->phone2, array('class' => 'phone-number-format', 'placeholder'=> Lang::get('content.phone2'))) }}
                     <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                     {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -202,6 +202,9 @@
     jQuery(document).ready(function(){
         jQuery('.numeric-only').numericField();
         jQuery('.advertising-form').validateBootstrap();
+
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
     });
 </script>
 
