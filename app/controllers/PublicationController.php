@@ -80,13 +80,8 @@ class PublicationController extends BaseController {
 
         // END - Create cookie for last visited
 
-        /* Increment visits counter */
-        $data['publication']->increment('visits_number');
+        Queue::later(60, 'VisitsJob', array('publication_id' => $id));
 
-        // INIT - Create log of publication
-        $pubVisit = new PublicationVisit();
-        $pubVisit->publication_id = $id;
-        $pubVisit->save();
         // END - Create log of publication
 
 //        var_dump(DB::getQueryLog());
@@ -345,7 +340,7 @@ class PublicationController extends BaseController {
         $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
-        $pub->from_date = date('d-m-Y',strtotime('+1 day'));
+        $pub->from_date = date('d-m-Y',time());
         $pub->to_date = date('d-m-Y',strtotime('+1 day'));
 
         return View::make('publication_form',
@@ -373,13 +368,12 @@ class PublicationController extends BaseController {
 
         $file = Input::file('file');
         $destinationPath =  public_path() . '/uploads/pub/'.$id;
-        $filename = $file->getClientOriginalName();
+
+        if (!is_dir($destinationPath)){
+            mkdir($destinationPath);
+        }
 
         $publication = Publication::find($id);
-
-        //TODO validar publicacion
-        //TODO renombrar la imagen si existe
-        //TODO posibilidad de agregar un alt
         $size = getimagesize($file);
 
         $upload_success = false;
@@ -398,40 +392,16 @@ class PublicationController extends BaseController {
         $baseName = str_random(15);
 
         $finalFileName = $baseName . '.jpg';
+        $originalFileName = $destinationPath . '/' . $finalFileName;
         $detailFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$detailSize['width'] . '.jpg';
         $thumbFileName = $destinationPath . '/' . $baseName . '_' . BaseController::$thumbSize['width'] . '.jpg';
 
         if (empty($error)){
-            $upload_success = $file->move($destinationPath, $finalFileName);
-            ImageHelper::generateThumb($file->getPathName(), $finalFileName, $size[0], $size[1]);
+            ImageHelper::generateThumb($file->getPathName(), $originalFileName, $size[0], $size[1]);
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
-
-
-              // Using intervention
-//            $data = file_get_contents($file);
-//
-//            $img = Image::make($data);
-//            $img->save( $destinationPath . '/' . $finalFileName, 90);
-//
-//            $detail = Image::make($data)->resize(BaseController::$detailSize['width'], null, true);
-//            $detail->save( $destinationPath . '/' . $detailFileName, 80);
-//
-//            $thumb = Image::make($data)->resize(BaseController::$thumbSize['width'], null, true);
-//            $thumb->save( $destinationPath . '/' . $thumbFileName, 80);
-//            End using intervention
-
+            $upload_success = true;
         }
-
-        //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
-        /* Set full path for create resized versions */
-        //$fullImagePath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
-
-        /* Create resized versions for lists and detail */
-        //Image::make($fullImagePath)->resize(self::$thumbSize['width'], self::$thumbSize['height'])->save(str_replace(".", self::getThumbSizeSuffix() . ".", $fullImagePath));
-        //Image::make($fullImagePath)->resize(self::$detailSizeSize['width'], self::$detailSizeSize['height'])->save(str_replace(".", self::getDetailSizeSuffix() . ".", $fullImagePath));
-
-//        $error = 'Error';
 
         if ($upload_success) {
             $image = new PublicationImage(array('image_url' => $finalFileName));

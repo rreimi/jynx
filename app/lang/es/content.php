@@ -250,12 +250,13 @@ return array(
     "login_signin" => "Ingresar",
     "login_error" => "Verifica tu usuario y contraseña ",
     "login_header" => "Ingresa si estás registrado",
-
+    "starting_session" => "Iniciando sesión en TuMercato...",
     "register_email" => "Correo electrónico",
     "register_full_name" => "Nombre persona / Razón social",
     "register_password" => "Contraseña",
     "register_password_confirmation" => "Confirmar contraseña",
     "register_signup" => "Regístrate",
+    "creating_account" => "Procesando...",
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
@@ -588,7 +589,8 @@ return array(
 
     "job_academic_level_secondary" => "Secundaria",
     "job_academic_level_senior_technician" => "Técnico superior",
-    "job_academic_level_master_specialization" =>"Maestría Especialización",
+    "job_academic_level_university" =>"Universitario",
+    "job_academic_level_master_specialization" =>"Maestría / Especialización",
     "job_academic_level_phd"=>"Doctorado",
 
     "male"=>"Masculino",
@@ -632,7 +634,7 @@ return array(
     "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
     "contact_email_detail"=>"Envíe su currículo a",
     "previous"=>"Regresar",
-    "more"=>"Mas información..."
+    "more"=>"Mas información"
 
 
 );

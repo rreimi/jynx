@@ -17,6 +17,7 @@ class Job extends Eloquent{
 
     const ACADEMIC_LEVEL_SECONDARY='Secondary';
     const ACADEMIC_LEVEL_SENIOR_TECHNICIAN='Senior_Technician';
+    const ACADEMIC_LEVEL_UNIVERSITY='University';
     const ACADEMIC_LEVEL_MASTER_SPECIALIZATION='Master_Specialization';
     const ACADEMIC_LEVEL_PHD='PhD';
 

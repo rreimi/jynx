@@ -111,6 +111,7 @@ class JobController extends BaseController {
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
+                Job::ACADEMIC_LEVEL_UNIVERSITY => Lang::get('content.job_academic_level_university'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
             ),
@@ -256,6 +257,7 @@ class JobController extends BaseController {
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
+                Job::ACADEMIC_LEVEL_UNIVERSITY => Lang::get('content.job_academic_level_university'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
             ),
@@ -312,6 +314,7 @@ class JobController extends BaseController {
                 ''=>Lang::get('content.select_default'),
                 Job::ACADEMIC_LEVEL_SECONDARY => Lang::get('content.job_academic_level_secondary'),
                 Job::ACADEMIC_LEVEL_SENIOR_TECHNICIAN => Lang::get('content.job_academic_level_senior_technician'),
+                Job::ACADEMIC_LEVEL_UNIVERSITY => Lang::get('content.job_academic_level_university'),
                 Job::ACADEMIC_LEVEL_MASTER_SPECIALIZATION => Lang::get('content.job_academic_level_master_specialization'),
                 Job::ACADEMIC_LEVEL_PHD => Lang::get('content.job_academic_level_phd')
             ),
