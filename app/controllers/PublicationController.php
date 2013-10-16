@@ -673,11 +673,16 @@ class PublicationController extends BaseController {
 
         //Save publication
         $isNew = true;
+        $method = '';
+        $operation = '';
+        $previousData = null;
 
         if (empty($pubData['id'])){
             $pub = new Publication($pubData);
             //detect user id
             $pub->publisher_id = Auth::user()->publisher->id;
+            $method = 'add';
+            $operation = 'Add_publication';
 
         } else {
             $isNew = false;
@@ -689,7 +694,10 @@ class PublicationController extends BaseController {
                 PublicationVisit::where('publication_id', $pubData['id'])->delete();
             }
 
+            $previousData = $pub->getOriginal();
             $pub->fill($pubData);
+            $method = 'edit';
+            $operation = 'Edit_publication';
         }
 
         $pub->from_date = date('Y-m-d',strtotime($pubData['from_date']));
@@ -707,6 +715,12 @@ class PublicationController extends BaseController {
 
         $pub->categories()->sync($categories);
         $pub->contacts()->sync($contacts);
+
+        if (Auth::user()->isAdmin()){
+            // TODO: Activate
+//            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
+//                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+        }
 
         $this->invalidatePublicationCache();
 
@@ -745,6 +759,12 @@ class PublicationController extends BaseController {
         }
 
         $result = $pub->delete();
+
+        // TODO: Activate
+        if (Auth::user()->isAdmin()){
+//            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
+//                'userAdminId' => Auth::user()->id));
+        }
 
         $this->invalidatePublicationCache();
 
