@@ -29,7 +29,8 @@
         "jasonlewis/basset": "dev-master",
         "natxet/CssMin": "dev-master",
         "juy/profiler": "dev-master",
-        "pda/pheanstalk": "dev-master"
+        "pda/pheanstalk": "dev-master",
+        "iron-io/iron_mq": "1.4.6"
     },
     "autoload": {
         "classmap": [
