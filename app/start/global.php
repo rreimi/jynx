@@ -23,7 +23,8 @@ ClassLoader::addDirectories(array(
 ClassLoader::addDirectories(array(
     app_path().'/filters',
     app_path().'/helpers',
-    app_path().'/jobs',
+    // TODO: Activate
+    //app_path().'/logJobs',
 ));
 
 /*

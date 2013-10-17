@@ -199,19 +199,29 @@ class UserController extends BaseController {
 
         //Save user
         $isNew = true;
+        $method = '';
+        $operation = '';
+        $previousData = null;
 
         if (empty($userData['id'])){
             $user = new User($userData);
             $user->password = Hash::make('123456');
+            $method = 'add';
+            $operation = 'Add_admin';
         } else {
             $isNew = false;
             $user = User::find($userData['id']);
+            $previousData = $user->getOriginal();
             $user->fill($userData);
+            $method = 'edit';
+            $operation = 'Edit_user';
         }
 
         $user->save();
 
-//        Queue::push('LogJob', array('operation' => $operation, 'data' => $user));
+        // TODO: Activate
+//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user),
+//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_user_success'), 'success');
@@ -239,6 +249,10 @@ class UserController extends BaseController {
         }
 
         $result = $user->delete();
+
+        // TODO: Activate
+//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_user', 'entities' => array($user),
+//            'userAdminId' => Auth::user()->id));
 
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');

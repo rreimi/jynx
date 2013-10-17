@@ -124,7 +124,7 @@
                 <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                     <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                     <div class="controls">
-                        {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_phone1'))) }}
+                        {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required phone-number-format','placeholder'=> Lang::get('content.profile_phone1'))) }}
                         <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                         {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
@@ -133,7 +133,7 @@
                 <div class="control-group {{ $errors->has('phone2') ? 'error':'' }}">
                     <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone2') }}</label>
                     <div class="controls">
-                        {{ Form::text('phone2', $user->publisher->phone2, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_phone2'))) }}
+                        {{ Form::text('phone2', $user->publisher->phone2, array('class' => 'input-xlarge phone-number-format','placeholder'=> Lang::get('content.profile_phone2'))) }}
                         <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
                         {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
@@ -371,6 +371,9 @@
                 jQuery('.fileupload').addClass('fileupload-exists');
                 jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
             }
+
+            // Phone mask
+            jQuery('.phone-number-format').mask("9999-9999999");
 
         });
 

@@ -65,12 +65,12 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_phone1')? 'error':'' }}">
-                                {{ Form::text('publisher_phone1',null,array('placeholder' => Lang::get('content.publisher_phone1'),'class' => 'input-block-level required')) }}
+                                {{ Form::text('publisher_phone1',null,array('placeholder' => Lang::get('content.publisher_phone1'),'class' => 'input-block-level required phone-number-format')) }}
                             </div>
                         </div>
                         <div class="span6">
                             <div class="control-group {{ $errors->has('publisher_phone2')? 'error':'' }}">
-                                {{ Form::text('publisher_phone2',null,array('placeholder' => Lang::get('content.publisher_phone2'),'class' => 'input-block-level')) }}
+                                {{ Form::text('publisher_phone2',null,array('placeholder' => Lang::get('content.publisher_phone2'),'class' => 'input-block-level phone-number-format')) }}
                             </div>
                         </div>
                     </div>
@@ -171,6 +171,8 @@
 
             jQuery('.big-form').validateBootstrap({placement:'bottom'});
 
+            // Phone mask
+            jQuery('.phone-number-format').mask("9999-9999999");
         });
     </script>
 @stop
