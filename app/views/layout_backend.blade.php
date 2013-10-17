@@ -55,6 +55,7 @@
     {{ HTML::script('js/verge/verge.min.js') }}
     {{ HTML::script('js/footer.js') }}
     {{ HTML::script('js/messages_es.js') }}
+    {{ HTML::script('js/jquery.maskedinput.min.js') }}
     @show
 
     @if (!is_null(Session::get('flash_global_message')))

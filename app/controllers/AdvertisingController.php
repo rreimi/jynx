@@ -165,6 +165,10 @@ class AdvertisingController extends BaseController {
 
         $result = $adv->delete();
 
+        // TODO: Activate
+//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_advertising', 'entities' => array($adv),
+//            'userAdminId' => Auth::user()->id));
+
         $this->invalidateAdvertisingCache();
 
         if ($result){
@@ -228,19 +232,29 @@ class AdvertisingController extends BaseController {
         }
 
         //Save publicidad
-
         $isNew = true;
+        $method = '';
+        $operation = '';
+        $previousData = null;
 
         if (empty($advData['id'])){
             $adv = new Advertising($advData);
-
+            $method = 'add';
+            $operation = 'Add_advertising';
         } else {
             $isNew = false;
             $adv = Advertising::find($advData['id']);
+            $previousData = $adv->getOriginal();
             $adv->fill($advData);
+            $method = 'edit';
+            $operation = 'Edit_advertising';
         }
 
         $adv->save();
+
+        // TODO: Activate
+//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($adv),
+//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
 
         $this->invalidateAdvertisingCache();
 

@@ -221,6 +221,11 @@ class AdvertiserController extends BaseController {
                 ->withInput();
         }
 
+        $method = '';
+        $operation = '';
+        $previousDataUser = null;
+        $previousDataAdvertiser = null;
+
         // Save advertiser
         if (empty($advertiserData['id'])){
             $user = new User($advertiserData);
@@ -228,10 +233,17 @@ class AdvertiserController extends BaseController {
             $user->role=User::ROLE_PUBLISHER;
             $user->step=1;
 
+            $method = 'add';
+            $operation = 'Add_publisher';
+
             $advertiser = new Publisher();
         } else {
             $advertiser = Publisher::find($advertiserData['id']);
+            $previousDataAdvertiser = $advertiser->getOriginal();
             $user = User::find($advertiser->user_id);
+            $previousDataUser = $user->getOriginal();
+            $method = 'edit';
+            $operation = 'Edit_publisher';
         }
 
         $user->fill($advertiserData);
@@ -255,6 +267,10 @@ class AdvertiserController extends BaseController {
 
             $advertiser->categories()->sync($categories);
         });
+
+        // TODO: ACTIVATE
+//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user, $advertiser),
+//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousDataUser, $previousDataAdvertiser)));
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_advertiser_success'), 'success');
@@ -285,6 +301,10 @@ class AdvertiserController extends BaseController {
 
         $resultA = $advertiser->delete();
         $resultU = $user->delete();
+
+        // TODO: Activate
+//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publisher', 'entities' => array($user, $advertiser),
+//            'userAdminId' => Auth::user()->id));
 
         if ($resultA && $resultU){
             //Set result

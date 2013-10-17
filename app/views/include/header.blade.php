@@ -40,11 +40,19 @@
                             </ul>
                         </div>
                     @else
-                    {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right', 'id' => 'login-form')) }}
-                        {{ Form::text('login_email', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'input-medium')) }}
-                        <input type="password" class="input-medium" name="login_password" placeholder="{{Lang::get('content.login_password')}}">
-                        <button type="button" onclick="Mercatino.loginForm.send();" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
-                    {{ Form::close() }}
+
+
+                        {{ Form::open(array('method' => 'post', 'action' => 'LoginController@postIndex', 'class' => 'form-inline pull-right', 'id' => 'login-form')) }}
+                            <div id="header_login_preload" class="hide buttons-preload">
+                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///zMzM87OzmdnZzMzM4GBgZqamqenpyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+                                {{Lang::get('content.starting_session')}}
+                            </div>
+                            <div id="header_login_form">
+                                {{ Form::text('login_email', '', array('placeholder' => Lang::get('content.login_email'), 'class' => 'required email input-medium')) }}
+                                <input type="password" class="input-medium required" name="login_password" placeholder="{{Lang::get('content.login_password')}}"/>
+                                <button type="button" onclick="Mercatino.loginForm.send();" class="btn btn-primary btn-small">{{ Lang::get('content.login_signin') }}</button>
+                            </div>
+                        {{ Form::close() }}
                     @endif
                     <div class="guest-options clear-both">
                         @if(Auth::check())

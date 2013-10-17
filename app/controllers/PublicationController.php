@@ -368,13 +368,12 @@ class PublicationController extends BaseController {
 
         $file = Input::file('file');
         $destinationPath =  public_path() . '/uploads/pub/'.$id;
-        $filename = $file->getClientOriginalName();
+
+        if (!is_dir($destinationPath)){
+            mkdir($destinationPath);
+        }
 
         $publication = Publication::find($id);
-
-        //TODO validar publicacion
-        //TODO renombrar la imagen si existe
-        //TODO posibilidad de agregar un alt
         $size = getimagesize($file);
 
         $upload_success = false;
@@ -402,31 +401,7 @@ class PublicationController extends BaseController {
             ImageHelper::generateThumb($file->getPathName(), $detailFileName,  BaseController::$detailSize['width'],  BaseController::$detailSize['height']);
             ImageHelper::generateThumb($file->getPathName(), $thumbFileName, BaseController::$thumbSize['width'], BaseController::$thumbSize['height']);
             $upload_success = true;
-
-              // Using intervention
-//            $data = file_get_contents($file);
-//
-//            $img = Image::make($data);
-//            $img->save( $destinationPath . '/' . $finalFileName, 90);
-//
-//            $detail = Image::make($data)->resize(BaseController::$detailSize['width'], null, true);
-//            $detail->save( $destinationPath . '/' . $detailFileName, 80);
-//
-//            $thumb = Image::make($data)->resize(BaseController::$thumbSize['width'], null, true);
-//            $thumb->save( $destinationPath . '/' . $thumbFileName, 80);
-//            End using intervention
-
         }
-
-        //Deprecated, Image library from kevbaldwyn is used for resize image with responsive support
-        /* Set full path for create resized versions */
-        //$fullImagePath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
-
-        /* Create resized versions for lists and detail */
-        //Image::make($fullImagePath)->resize(self::$thumbSize['width'], self::$thumbSize['height'])->save(str_replace(".", self::getThumbSizeSuffix() . ".", $fullImagePath));
-        //Image::make($fullImagePath)->resize(self::$detailSizeSize['width'], self::$detailSizeSize['height'])->save(str_replace(".", self::getDetailSizeSuffix() . ".", $fullImagePath));
-
-//        $error = 'Error';
 
         if ($upload_success) {
             $image = new PublicationImage(array('image_url' => $finalFileName));
@@ -668,11 +643,16 @@ class PublicationController extends BaseController {
 
         //Save publication
         $isNew = true;
+        $method = '';
+        $operation = '';
+        $previousData = null;
 
         if (empty($pubData['id'])){
             $pub = new Publication($pubData);
             //detect user id
             $pub->publisher_id = Auth::user()->publisher->id;
+            $method = 'add';
+            $operation = 'Add_publication';
 
         } else {
             $isNew = false;
@@ -684,7 +664,10 @@ class PublicationController extends BaseController {
                 PublicationVisit::where('publication_id', $pubData['id'])->delete();
             }
 
+            $previousData = $pub->getOriginal();
             $pub->fill($pubData);
+            $method = 'edit';
+            $operation = 'Edit_publication';
         }
 
         $pub->from_date = date('Y-m-d',strtotime($pubData['from_date']));
@@ -702,6 +685,12 @@ class PublicationController extends BaseController {
 
         $pub->categories()->sync($categories);
         $pub->contacts()->sync($contacts);
+
+        if (Auth::user()->isAdmin()){
+            // TODO: Activate
+//            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
+//                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+        }
 
         $this->invalidatePublicationCache();
 
@@ -740,6 +729,12 @@ class PublicationController extends BaseController {
         }
 
         $result = $pub->delete();
+
+        // TODO: Activate
+        if (Auth::user()->isAdmin()){
+//            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
+//                'userAdminId' => Auth::user()->id));
+        }
 
         $this->invalidatePublicationCache();
 
