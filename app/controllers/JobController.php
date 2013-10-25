@@ -239,6 +239,9 @@ class JobController extends BaseController {
         $job->area_ids=Input::old('area_ids');
         $job->career_ids=Input::old('career_ids');
 
+        $job->contact_email=Auth::user()->email;
+        $job->state_id=Auth::user()->publisher->state_id;
+
         return View::make('job_form',array(
             'companyName'=>Auth::user()->publisher->seller_name,
             'areas'=>Area::lists('name','id'),
@@ -275,7 +278,8 @@ class JobController extends BaseController {
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
             ),
             'referer' => Session::get($this->prefix . '_referer'),
-            'job'=>$job
+            'job'=>$job,
+
         ));
     }
 
