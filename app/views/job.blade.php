@@ -116,7 +116,7 @@
             @if($job->contact_email)
                 <div class="field">
                     <span class="title-job">{{ Lang::get('content.contact_email_detail') }}: </span>
-                    <span class="description-job">{{ $job->contact_email }}</span>
+                    <span class="description-job"><a href="mailto:{{ $job->contact_email }}"> {{ $job->contact_email }} </a></span>
                 </div>
             @endif
         @endif
