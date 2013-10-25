@@ -85,8 +85,7 @@ class RegisterController extends BaseController{
 
     }
 
-    public function getDatosAnunciante(){
-
+    protected function prepareAdvertisers($hideModal){
         // Reorder states to maintain the correct id
         $states = State::lists('name','id');
         $finalStates = array('' => Lang::get('content.select_state'));
@@ -99,9 +98,18 @@ class RegisterController extends BaseController{
             array(
                 "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
-                "activation_flag" => (boolean) Session::get('activation_flag')
+                "activation_flag" => (boolean) Session::get('activation_flag'),
+                "hide_modal" => $hideModal
             )
         );
+    }
+
+    public function getDatosAnunciante(){
+        return $this->prepareAdvertisers(false);
+    }
+
+    public function getAnunciante(){
+        return $this->prepareAdvertisers(true);
     }
 
     public  function postStep2(){
@@ -109,7 +117,8 @@ class RegisterController extends BaseController{
         $validator = Validator::make(Input::all(),self::registroPublicadorReglas());
 
         if($validator->fails()){
-            return Redirect::to('registro/datos-anunciante')->withErrors($validator)->withInput(Input::all());
+
+            return Redirect::to('registro/anunciante')->withErrors($validator)->withInput();
         }
 
         $publisher = new Publisher();
@@ -162,7 +171,6 @@ class RegisterController extends BaseController{
             'contentEmail' => 'admin_notification_new_adviser',
             'advertiserData' => $advertiserData,
         );
-
 
         $adminEmails = self::getEmailAdmins();
 

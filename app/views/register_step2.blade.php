@@ -143,11 +143,13 @@
                 }
             });
 
+            @if(!$hide_modal)
             jQuery('#startDialog').modal('show').css({
                 width: '76%',
                 left:'12%',
                 'margin-left':'0'
             });
+            @endif
 
             var publisherType=jQuery('.publisher_type');
             var publisherIdType=jQuery('.publisher_id_type');
