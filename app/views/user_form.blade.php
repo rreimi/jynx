@@ -47,6 +47,31 @@
             </div>
         </div>
 
+        @if($user->id)
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-password" type="button" data-toggle="collapse" data-target=".collapse-password">{{Lang::get('content.restore_password')}}</button>
+                </div>
+            </div>
+            <div class="collapse collapse-password out">
+                <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
+                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.password') }}</label>
+                    <div class="controls">
+                        {{ Form::password('password', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.password'))) }}
+                        {{ $errors->first('password', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
+
+                <div class="control-group {{ $errors->has('password_confirmation') ? 'error':'' }}">
+                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.password_confirmation') }}</label>
+                    <div class="controls">
+                        {{ Form::password('password_confirmation', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.password_confirmation'))) }}
+                        {{ $errors->first('password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="control-group">
             <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
         </div>
@@ -72,6 +97,28 @@
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('.user-form').validateBootstrap();
-    });
+
+        jQuery('.btn-password').click(function() {
+            if (!jQuery('.collapse-password').hasClass('in')){
+                jQuery("input:password").removeAttr('disabled');
+                jQuery('.btn-password').button('toggle');
+                jQuery("input:password").addClass('required');
+            } else {
+                jQuery('.btn-password').button('toggle');
+                jQuery("input:password").val('');
+                jQuery("input:password").attr('disabled', 'disabled');
+                jQuery("input:password").removeClass('required');
+            }
+        });
+
+        var passwordError = {{ $errors->has('password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
+            if (passwordError){
+                jQuery("input:password").val('');
+                jQuery('.btn-password').click();
+            } else {
+                jQuery("input:password").val('');
+                jQuery("input:password").attr('disabled', 'disabled');
+            }
+        });
 </script>
 @stop

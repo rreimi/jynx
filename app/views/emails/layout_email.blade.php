@@ -28,6 +28,8 @@
                 @include('emails.general_notification')
             @elseif ($contentEmail == 'contactUs')
                 @include('emails.contactUs')
+            @elseif ($contentEmail == "restore_user_password")
+                @include('emails.restore_user_password')
             @endif
 
             Atentamente,<br/>

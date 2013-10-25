@@ -169,15 +169,26 @@ class UserController extends BaseController {
             'status' => Input::get('status'),
         );
 
+        $isNew=empty($userData['id']);
+
         //Set validation rules
         $rules = array(
             'full_name' => 'required',
-            'email' => 'required|email|unique:users,email',
             'role' => 'required',
             'status' => 'required',
+            'email' => $isNew?'required|email|unique:users,email':'unique:users,email,'.$userData['id']
         );
 
+
         $messages = array();
+
+        if (Input::get('password') != null || Input::get('password_confirmation') != null){
+            $userData['password'] = Input::get('password');
+            $userData['password_confirmation'] = Input::get('password_confirmation');
+
+            $rules['password'] = 'required|confirmed';
+            $rules['password_confirmation'] = 'required';
+        }
 
         // Validate fields
         $v = Validator::make($userData, $rules, $messages);
@@ -197,27 +208,53 @@ class UserController extends BaseController {
                 ->withInput();
         }
 
-        //Save user
-        $isNew = true;
         $method = '';
         $operation = '';
         $previousData = null;
+        $passwordChanged = false;
 
-        if (empty($userData['id'])){
+        if ($isNew){
             $user = new User($userData);
             $user->password = Hash::make('123456');
             $method = 'add';
             $operation = 'Add_admin';
+
         } else {
-            $isNew = false;
             $user = User::find($userData['id']);
             $previousData = $user->getOriginal();
             $user->fill($userData);
             $method = 'edit';
             $operation = 'Edit_user';
+
+            // Si se cambio el password entonces guardarlo
+            if (Input::get('password') != null && Input::get('password') != "" &&
+                Input::get('password_confirmation') != null && Input::get('password_confirmation') != ""){
+                $user->password = Hash::make($userData['password']);
+                $passwordChanged = true;
+            }
+
         }
 
         $user->save();
+
+
+        if($passwordChanged){
+            $receiver = array(
+                'email' => $userData['email'],
+                'name' => $userData['full_name'],
+            );
+
+            $data = array(
+                'contentEmail' => 'restore_user_password',
+                'userName' => $userData['full_name'],
+                'userPassword' => $userData['password']
+            );
+
+            $subject = Lang::get('content.email_restore_user_password');
+
+            self::sendMail('emails.layout_email', $data, $receiver, $subject);
+
+        }
 
         // TODO: Activate
 //        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user),
