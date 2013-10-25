@@ -381,7 +381,12 @@ class JobController extends BaseController {
             'status'=>'required'
         );
 
-        $validator=Validator::make($jobData,$rules);
+        $messages = array(
+            'area_ids.required' => Lang::get('content.jobs_areas_required')
+        );
+
+        $validator=Validator::make($jobData,$rules,$messages);
+
 
         if($validator->fails()){
             $action = 'crear';
@@ -390,10 +395,13 @@ class JobController extends BaseController {
                 $action = 'editar/' . $jobData['id'];
             }
 
+            $inputs=Input::all();
+            $inputs['area_ids']=isset($inputs['area_ids'])?(array)$inputs['area_ids']:array();
+            $inputs['career_ids']=isset($inputs['area_ids'])?(array)$inputs['career_ids']:array();
 
             return Redirect::to('bolsa-trabajo/'.$action)
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($inputs);
         }
 
         DB::transaction(function() use($jobData){

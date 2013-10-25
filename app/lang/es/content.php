@@ -641,5 +641,6 @@ return array(
     "previous"=>"Regresar",
     "more"=>"Mas información",
 
-    "inactive_user" => "Por favor, verifica tu correo y activa tu usuario."
+    "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
+    "jobs_areas_required" => "El campo áreas es requerido."
 );
