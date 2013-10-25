@@ -639,7 +639,7 @@ return array(
     "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
     "contact_email_detail"=>"Envíe su currículo a",
     "previous"=>"Regresar",
-    "more"=>"Mas información"
+    "more"=>"Mas información",
 
-
+    "inactive_user" => "Por favor, verifica tu correo y activa tu usuario."
 );

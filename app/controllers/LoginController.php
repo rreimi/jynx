@@ -16,7 +16,16 @@ class LoginController extends BaseController{
 
     public function postIndex(){
 
-        $validator = Validator::make(Input::all(), LoginController::rules());
+        $rules = array(
+            'login_email' => 'required|email|exists:users,email,status,Active',
+            'login_password' => 'required'
+        );
+
+        $messages= array(
+            'login_email.exists' => Lang::get('content.inactive_user')
+        );
+
+        $validator = Validator::make(Input::all(),$rules,$messages);
 
         if($validator->fails()){
 
@@ -54,7 +63,9 @@ class LoginController extends BaseController{
                     $result->redirect_url = URL::to('/dashboard');
                 }
                 return Response::json($result, 200);
+
             } else {
+
                 if(Auth::user()->isAdmin()){
                     return Redirect::to('dashboard');
                 } else {
@@ -66,6 +77,7 @@ class LoginController extends BaseController{
                         return Redirect::to('/');
                     }
                 }
+
             }
 
 
@@ -200,13 +212,6 @@ class LoginController extends BaseController{
             return Redirect::route("/");
         }
 
-    }
-
-    public static function rules(){
-        return array(
-            'login_email' => 'required|email',
-            'login_password' => 'required'
-        );
     }
 
     public static function remindRules(){

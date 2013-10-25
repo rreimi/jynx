@@ -339,11 +339,15 @@ Mercatino.loginForm = {
                         Mercatino.showFlashMessage({title:'', message: data.errors[i], type:'error'});
                     }
                     return false;
-                };
+                }
 
                 if (data.status_code == 'invalid_token') {
                     window.location.href = "/";
-                };
+                }
+
+                if(data.status_code == 'inactive'){
+                    Mercatino.showFlashMessage({title:'',message:data.values.message, type:'error'});
+                }
             }
         });
     },
