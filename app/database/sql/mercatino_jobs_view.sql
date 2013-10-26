@@ -2,11 +2,11 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED VIEW jobs_view AS
   SELECT
     jobs.*,
     states.name AS state ,
-    CONCAT_WS(' - ',states.name, jobs.city) AS location,
-    GROUP_CONCAT(DISTINCT areas.id) AS area_ids,
-    GROUP_CONCAT(DISTINCT areas.name) AS areas,
-    GROUP_CONCAT(DISTINCT careers.id) AS career_ids,
-    GROUP_CONCAT(DISTINCT careers.name) AS careers
+    IF(TRIM(COALESCE(jobs.city,'')) = '',states.name,CONCAT_WS(' - ',states.name, jobs.city)) AS location,
+    GROUP_CONCAT(DISTINCT areas.id SEPARATOR ', ') AS area_ids,
+    GROUP_CONCAT(DISTINCT areas.name SEPARATOR ', ') AS areas,
+    GROUP_CONCAT(DISTINCT careers.id SEPARATOR ', ') AS career_ids,
+    GROUP_CONCAT(DISTINCT careers.name SEPARATOR ', ') AS careers
   FROM jobs
     JOIN jobs_areas ON jobs.id=jobs_areas.job_id
     JOIN areas ON jobs_areas.area_id=areas.id
