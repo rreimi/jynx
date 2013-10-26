@@ -386,12 +386,7 @@ class JobController extends BaseController {
             'age'=>'numeric'
         );
 
-        $messages = array(
-            'area_ids.required' => Lang::get('content.jobs_areas_required')
-        );
-
-        $validator=Validator::make($jobData,$rules,$messages);
-
+        $validator=Validator::make($jobData,$rules);
 
         if($validator->fails()){
             $action = 'crear';
