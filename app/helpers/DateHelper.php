@@ -15,14 +15,22 @@ class DateHelper {
     }
 
     public static function getMonth($id){
-        if($id>=1 && $id<=12){
-            return Lang::choice('content.month',$id,array('number'=>$id));
+
+    }
+
+    public static function getExperienceYears(){
+        $years = array();
+        for($i=1;$i<=6;$i++){
+            $years[$i]=Lang::choice('content.year_experience',$i,array('number'=>$i==6?$i-1:$i));
+        }
+        return $years;
+    }
+
+    public static function getExperienceYear($id){
+        if($id>=1 && $id<=6){
+            return Lang::choice('content.year_experience',$id,array('number'=>$id==6?$id-1:$id));
         }else{
             return null;
         }
-    }
-
-    public static function getYears(){
-
     }
 }

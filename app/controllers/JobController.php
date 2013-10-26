@@ -279,7 +279,8 @@ class JobController extends BaseController {
             ),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job,
-            'temporaryMonths'=>DateHelper::getMonths()
+            'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths(),
+            'experienceYears'=>array(''=>Lang::get('content.select_default'))+DateHelper::getExperienceYears()
 
         ));
     }
@@ -338,7 +339,8 @@ class JobController extends BaseController {
             ),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job,
-            'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths()
+            'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths(),
+            'experienceYears'=>array(''=>Lang::get('content.select_default'))+DateHelper::getExperienceYears()
         ));
 
     }
@@ -399,7 +401,7 @@ class JobController extends BaseController {
 
             $inputs=Input::all();
             $inputs['area_ids']=isset($inputs['area_ids'])?(array)$inputs['area_ids']:array();
-            $inputs['career_ids']=isset($inputs['area_ids'])?(array)$inputs['career_ids']:array();
+            $inputs['career_ids']=isset($inputs['career_ids'])?(array)$inputs['career_ids']:array();
 
             return Redirect::to('bolsa-trabajo/'.$action)
                 ->withErrors($validator)

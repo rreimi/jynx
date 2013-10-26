@@ -643,6 +643,7 @@ return array(
 
     "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
     "jobs_areas_required" => "El campo áreas es requerido.",
-    "year" => ":number año|:number años|[6] > :number años",
-    "month" => ":number mes|:number meses"
+    "year_experience" => " :number año|[2,5] :number años| >:number años",
+    "month" => ":number mes|:number meses",
+    "year" => " :number año|:number años"
 );

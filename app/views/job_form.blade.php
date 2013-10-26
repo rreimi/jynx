@@ -124,7 +124,7 @@
         <div class="control-group {{ $errors->has('experience_years') ? 'error':'' }}">
             <label class="control-label" for="experience_years">{{ Lang::get('content.experience_years') }}</label>
             <div class="controls">
-                {{ Form::text('experience_years', $job->experience_years, array('id'=>'experience_years','class' => 'input-xlarge ','placeholder'=> Lang::get('content.experience_years'))) }}
+                {{ Form::select('experience_years', $experienceYears, $job->experience_years, array('id'=>'experience_years','class' => 'input-medium')) }}
                 {{ $errors->first('experience_years', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
