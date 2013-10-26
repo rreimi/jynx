@@ -85,7 +85,7 @@
         @if($job->age)
             <div class="field">
                 <span class="title-job">{{ Lang::get('content.age') }}: </span>
-                <span class="description-job">{{ $job->age }}</span>
+                <span class="description-job">{{ DateHelper::getYear($job->age) }}</span>
             </div>
         @endif
         @if($job->sex)

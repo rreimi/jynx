@@ -382,7 +382,8 @@ class JobController extends BaseController {
             'state_id'=>'required',
             'area_ids'=>'required',
             'contact_email'=>'required',
-            'status'=>'required'
+            'status'=>'required',
+            'age'=>'numeric'
         );
 
         $messages = array(

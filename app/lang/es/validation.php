@@ -142,6 +142,7 @@ return array(
         'comment' => 'Comentario',
         'login_email' => 'Correo Electrónico',
         'login_password' => 'Password',
+        'age' => 'Edad'
     ),
 
 );

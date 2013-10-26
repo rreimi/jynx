@@ -15,7 +15,15 @@ class DateHelper {
     }
 
     public static function getMonth($id){
+        if($id>=1 && $id<=12){
+            return Lang::choice('content.month',$id,array('number'=>$id));
+        }else{
+            return null;
+        }
+    }
 
+    public static function getYear($id){
+        return Lang::choice('content.year',$id,array('number'=>$id));
     }
 
     public static function getExperienceYears(){
