@@ -51,7 +51,7 @@
         @if($job->temporary_months)
             <div class="field">
                 <span class="title-job">{{ Lang::get('content.temporary_months') }}: </span>
-                <span class="description-job">{{ $job->temporary_months }}</span>
+                <span class="description-job">{{ DateHelper::getMonth($job->temporary_months) }}</span>
             </div>
         @endif
             <div class="field">

@@ -73,10 +73,10 @@
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('temporary_months') ? 'error':'' }}">
+        <div class="control-group {{ $errors->has('temporary_months') ? 'error':'' }} hide temporary_months_box">
             <label class="control-label" for="temporary_months">{{ Lang::get('content.temporary_months') }}</label>
             <div class="controls">
-                {{ Form::text('temporary_months', $job->temporary_months, array('id'=>'temporary_months','class' => 'input-small ','placeholder'=> Lang::get('content.temporary_months'))) }}
+                {{ Form::select('temporary_months', $temporaryMonths, $job->temporary_months, array('id'=>'temporary_months','class' => 'input-medium')) }}
                 {{ $errors->first('temporary_months', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -231,6 +231,21 @@
             dateFormat: "dd-mm-yy",
             changeMonth: true,
             changeYear: true
+        });
+
+        var $jobType=jQuery('#job_type');
+
+        if($jobType.val()=='Temporary'){
+            jQuery('.temporary_months_box').removeClass('hide');
+        }
+
+        $jobType.on('change',function(){
+            if(jQuery(this).val()=='Temporary'){
+                jQuery('.temporary_months_box').removeClass('hide');
+            }else{
+                jQuery('.temporary_months_box').addClass('hide');
+                jQuery('#temporary_months').val('');
+            }
         });
 
         var fromDate=jQuery('.datepicker.from-date');

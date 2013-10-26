@@ -279,6 +279,7 @@ class JobController extends BaseController {
             ),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job,
+            'temporaryMonths'=>DateHelper::getMonths()
 
         ));
     }
@@ -336,7 +337,8 @@ class JobController extends BaseController {
                 Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
             ),
             'referer' => Session::get($this->prefix . '_referer'),
-            'job'=>$job
+            'job'=>$job,
+            'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths()
         ));
 
     }

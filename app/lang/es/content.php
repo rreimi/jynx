@@ -642,5 +642,7 @@ return array(
     "more"=>"Mas información",
 
     "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
-    "jobs_areas_required" => "El campo áreas es requerido."
+    "jobs_areas_required" => "El campo áreas es requerido.",
+    "year" => ":number año|:number años|[6] > :number años",
+    "month" => ":number mes|:number meses"
 );
