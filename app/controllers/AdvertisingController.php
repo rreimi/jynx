@@ -117,7 +117,6 @@ class AdvertisingController extends BaseController {
     public function getCrear() {
 
         $adv = new Advertising();
-        $adv->external_url = 'http://';
 
         return View::make('advertising_form',
                     array('adv_statuses' => self::getAdvertisingStatuses(Lang::get('content.select')),

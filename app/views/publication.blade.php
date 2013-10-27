@@ -75,12 +75,15 @@
                 <h2><span class="title-arrow">></span>{{Lang::get('content.sell_by_full')}}</h2>
                 <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
                 @if (Auth::check())
-                    <p class="pub-email">{{Lang::get('content.user_email')}}:  {{ $publisher_email }}</p>
+                    <p class="pub-email">{{Lang::get('content.user_email')}}:  <a href="mailto:{{ $publisher_email }}">{{ $publisher_email }}</a></p>
                     <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
                         @if ($publication->publisher->phone2)
                         / {{ $publication->publisher->phone2 }}
                         @endif</p>
                     <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->city . ', ' . $publication->publisher->state->name }}</p>
+                    @if ($publication->publisher->web)
+                        <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}">{{ $publication->publisher->web }}</a></p>
+                    @endif
                 @endif
             </div><!--/.publisher-info-->
 

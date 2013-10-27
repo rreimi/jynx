@@ -113,12 +113,14 @@ class ProfileController extends BaseController{
             $profileData['phone1'] = Input::get('phone1');
             $profileData['phone2'] = Input::get('phone2');
             $profileData['avatar'] = Input::file('avatar');
+            $profileData['web'] = Input::get('web');
 
             $profileRules['state'] = 'required';
             $profileRules['city'] = 'required';
             $profileRules['phone1'] = array('required', 'regex:'. $this->phoneNumberRegex);
             $profileRules['phone2'] = array('regex:'. $this->phoneNumberRegex);
             $profileRules['avatar'] = 'image';
+            $profileRules['web'] = 'url';
         }
 
         $messages = array(
@@ -153,6 +155,7 @@ class ProfileController extends BaseController{
             $publisher = $user->publisher;
             $publisher->state_id = $profileData['state'];
             $publisher->city = $profileData['city'];
+            $publisher->web = $profileData['web'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
             $publisherCats = (is_array(Input::get('publisher_categories'))) ? Input::get('publisher_categories') : array();

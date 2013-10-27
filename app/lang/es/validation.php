@@ -145,7 +145,8 @@ return array(
         'age' => 'Edad',
         'area_ids' => 'Áreas',
         'reset_password' => 'Contraseña',
-        'reset_password_confirmation' => 'Confirme la contraseña'
+        'reset_password_confirmation' => 'Confirme la contraseña',
+        'web' => 'Página web'
     ),
 
 );

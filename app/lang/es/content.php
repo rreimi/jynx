@@ -645,5 +645,6 @@ return array(
     "jobs_areas_required" => "El campo áreas es requerido.",
     "year_experience" => " :number año|[2,5] :number años| >:number años",
     "month" => ":number mes|:number meses",
-    "year" => " :number año|:number años"
+    "year" => " :number año|:number años",
+    "web_page" => "Página web"
 );
