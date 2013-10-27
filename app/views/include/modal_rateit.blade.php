@@ -64,6 +64,8 @@
                     Mercatino.rateitForm.hide();
                     Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
                     jQuery('#rating-form').get(0).reset();
+                    Mercatino.ratings.currentPage = 0;
+                    Mercatino.ratings.nextPage();
                 },
                 error: function(result) {
                     var data = result.responseJSON;
