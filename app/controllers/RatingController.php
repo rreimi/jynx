@@ -188,17 +188,24 @@ class RatingController extends BaseController{
         }
 
         $message = '';
+        $operation = '';
 
         // Change status
         if ($status == 0){
             $rating->status = false;
             $message = Lang::get('content.rating_change_status_off');
+            $operation = 'Inactive_rating';
         } else {
             $rating->status = true;
             $message = Lang::get('content.rating_change_status_on');
+            $operation = 'Active_rating';
         }
 
         $resultSave = $rating->save();
+
+        // Log when is changed the state of a rating by an admin
+        Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rating),
+            'userAdminId' => Auth::user()->id));
 
         $result = new stdClass;
 

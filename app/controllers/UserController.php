@@ -256,9 +256,9 @@ class UserController extends BaseController {
 
         }
 
-        // TODO: Activate
-//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user),
-//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+        // Log when is created or edited an user by an admin
+        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user),
+            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_user_success'), 'success');
@@ -287,9 +287,9 @@ class UserController extends BaseController {
 
         $result = $user->delete();
 
-        // TODO: Activate
-//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_user', 'entities' => array($user),
-//            'userAdminId' => Auth::user()->id));
+        // Log when is deleted an user by an admin
+        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_user', 'entities' => array($user),
+            'userAdminId' => Auth::user()->id));
 
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');

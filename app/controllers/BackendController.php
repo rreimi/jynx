@@ -57,6 +57,10 @@ class BackendController extends BaseController {
 
                     self::sendMail('emails.layout_email', $data, $receiver, $subject);
 
+                    // Log when is approved a publisher by an admin
+                    Queue::push('LoggerJob@log', array('method' => null, 'operation' => 'Approve_publisher', 'entities' => array($au),
+                        'userAdminId' => Auth::user()->id));
+
                 } else {
 
                     $data['contentEmail'] = 'disapproved_user_notification';
@@ -64,6 +68,10 @@ class BackendController extends BaseController {
                     $subject = Lang::get('content.email_disapproved_user_notification');
 
                     self::sendMail('emails.layout_email', $data, $receiver, $subject);
+
+                    // Log when is disapproved a publisher by an admin
+                    Queue::push('LoggerJob@log', array('method' => null, 'operation' => 'Disapprove_publisher', 'entities' => array($au),
+                        'userAdminId' => Auth::user()->id));
 
                 }
             }

@@ -57,8 +57,20 @@ class LoggerJob {
                 case 'Publication':
                     $logJob->to_publication_id = $entity->id;
                     break;
+                case 'PublicationImage':
+                    $logJob->to_publication_id = $entity->publication_id;
+                    $logJob->to_publication_image_id = $entity->id;
+                    break;
+                case 'PublicationReport':
+                    $logJob->to_publication_id = $entity->publication_id;
+                    $logJob->to_report_id = $entity->id;
+                    break;
                 case 'Advertising':
                     $logJob->to_advertising_id = $entity->id;
+                    break;
+                case 'PublicationRating':
+                    $logJob->to_publication_id = $entity->publication_id;
+                    $logJob->to_rating_id = $entity->id;
                     break;
             }
         }

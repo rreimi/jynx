@@ -412,6 +412,12 @@ class PublicationController extends BaseController {
                 $publication->save();
             }
 
+            if (Auth::user()->isAdmin()){
+                // Log when is uploaded an image to publication by an admin
+                Queue::push('LoggerJob@log', array('method' => 'add', 'operation' => 'Add_publication_image', 'entities' => array($image),
+                    'userAdminId' => Auth::user()->id));
+            }
+
             $this->invalidatePublicationCache();
 
             return Response::json($image->id, 200);
@@ -474,6 +480,12 @@ class PublicationController extends BaseController {
             if ($result === false){
                 return Response::json('error_removing_file', 400);
             }
+        }
+
+        if (Auth::user()->isAdmin()){
+            // Log when is deleted an image from publication by an admin
+            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication_image', 'entities' => array($pubImg),
+                'userAdminId' => Auth::user()->id));
         }
 
         //Remove img from db
@@ -687,9 +699,9 @@ class PublicationController extends BaseController {
         $pub->contacts()->sync($contacts);
 
         if (Auth::user()->isAdmin()){
-            // TODO: Activate
-//            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
-//                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+            // Log when is created or edited a publication by an admin
+            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
+                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
         }
 
         $this->invalidatePublicationCache();
@@ -730,10 +742,10 @@ class PublicationController extends BaseController {
 
         $result = $pub->delete();
 
-        // TODO: Activate
+        // Log when is deleted a publication by an admin
         if (Auth::user()->isAdmin()){
-//            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
-//                'userAdminId' => Auth::user()->id));
+            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
+                'userAdminId' => Auth::user()->id));
         }
 
         $this->invalidatePublicationCache();
