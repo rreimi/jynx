@@ -143,7 +143,9 @@ return array(
         'login_email' => 'Correo Electrónico',
         'login_password' => 'Password',
         'age' => 'Edad',
-        'area_ids' => 'Áreas'
+        'area_ids' => 'Áreas',
+        'reset_password' => 'Contraseña',
+        'reset_password_confirmation' => 'Confirme la contraseña'
     ),
 
 );

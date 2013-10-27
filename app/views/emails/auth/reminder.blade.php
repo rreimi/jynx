@@ -14,7 +14,7 @@
         <div class="span9">
             Estimado usuario,<br/>
             <br/>
-            Para recuperar su contraseña haga clic <a href="{{ URL::to('/restaurar/#'.$token) }}">aquí</a>.<br/>
+            Para recuperar su contraseña haga clic <a href="{{ URL::to('/') }}#{{ $user->email }}/token/{{ $token }}">aquí</a>.<br/>
             <br/>
             Atentamente,<br/>
             El equipo de TuMercato.com<br/>

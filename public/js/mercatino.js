@@ -144,9 +144,10 @@ Mercatino.modalConfirm = {
 };
 
 Mercatino.resetForm={
-    show:function(token){
+    show:function(token,email){
         jQuery('#modalReset').modal('show');
-
+        jQuery('.email').html(email);
+        jQuery('#resetEmail').val(email);
         jQuery('#resetValidation').val(token);
         jQuery('.reset-send').button('reset');
         jQuery('#resetForm').get(0).reset();

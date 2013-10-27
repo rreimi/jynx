@@ -7,10 +7,11 @@
             <div class="reset-question">
                 <p>{{ Lang::get('content.reset_question') }}</p>
                 {{ Form::open(array('url' => 'login/restaurar','class'=>'big-form', 'id' => 'resetForm','method'=>'post')) }}
-                {{ Form::email('reset_email',null,array('placeholder' => Lang::get('content.email'),'class' => 'input-block-level required')) }}
+                <h2 class="email"> </h2>
                 {{ Form::password('reset_password',array('placeholder' => Lang::get('content.password'),'class' => 'input-block-level required')) }}
                 {{ Form::password('reset_password_confirmation',array('placeholder' => Lang::get('content.password_confirmation'),'class' => 'input-block-level required')) }}
-                {{ Form::hidden('reset_token',URL::to('login/olvido-validar'),array('id'=>'resetValidation')) }}
+                {{ Form::hidden('reset_email','',array('id'=>'resetEmail')) }}
+                {{ Form::hidden('reset_token','',array('id'=>'resetValidation')) }}
                 {{ Form::close() }}
             </div>
             <div class="reset-answer">

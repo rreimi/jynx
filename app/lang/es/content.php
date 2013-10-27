@@ -583,7 +583,7 @@ return array(
     "reminder_email_subject" => "Recuperación de contraseña para TuMercato.com",
 
     "reset_token_invalid"=>"El token es invalido, para cambiar la contraseña has click en ¿Olvidaste tu contraseña?",
-    "reset_question"=>"Agrega tus datos para cambiar la contraseña",
+    "reset_question"=>"Escriba su contraseña nueva",
     "reset_answer"=>"Tu contraseña fue cambiada exitosamente",
     "reset_header"=>"Cambio de contraseña",
 

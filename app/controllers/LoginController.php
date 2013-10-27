@@ -223,8 +223,8 @@ class LoginController extends BaseController{
     public static function resetRules(){
         return array(
             "reset_email" => "required|email|exists:users,email",
-            "reset_password" => "required",
-            "reset_password_confirmation" => "same:reset_password",
+            "reset_password" => "required|confirmed",
+            "reset_password_confirmation" => "required",
         );
     }
 

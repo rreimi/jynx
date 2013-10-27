@@ -26,8 +26,10 @@
 
         if(hash){
             if(hash.indexOf('token')!=-1){
-                var token=hash.replace('token/','');
-                Mercatino.resetForm.show(token);
+                var elements=hash.split('/token/');
+                var email=elements[0];
+                var token=elements[1];
+                Mercatino.resetForm.show(token,email);
             }
         }
 
