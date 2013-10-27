@@ -160,27 +160,55 @@
                 <div class="control-group">
                     <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
                 </div>
+            @endif
 
+            @if(Auth::user()->isPublisher())
                 <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
+                <h5>{{Lang::get('content.categories_title')}}</h5>
                 <div class="control-group">
                     @foreach ($categories as $key => $category)
-                        @if ($key % 4 == 0)
-                            <div class="row-fluid">
-                        @endif
+                    @if ($key % 4 == 0)
+                        <div class="row-fluid">
+                    @endif
 
                         <label class="span3 checkbox checkbox-category">
                             {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
                             {{ $category->name }}
                         </label>
 
-                        @if ((($key+1)%4) == 0 || (($key+1) == count($categories)))
+                    @if((count($categories)%4)==0)
+                        @if ((($key+1) % 4) == 0)
                             </div>
                         @endif
+                    @elseif(count($categories)==$key+1)
+                        </div>
+                    @endif
                     @endforeach
                 </div>
-            @endif
+                <h5>{{Lang::get('content.services_title')}}</h5>
+                <div class="control-group">
+                    @foreach ($services as $key => $service)
+                    @if ($key % 4 == 0)
+                        <div class="row-fluid">
+                    @endif
 
-            @if(Auth::user()->isPublisher())
+                        <label class="span3 checkbox checkbox-category">
+                            {{ Form::checkbox('publisher_services[]',$service->id,in_array($service->id,$servicesSelected)) }}
+                            {{ $service->name }}
+                        </label>
+
+
+                    @if((count($services)%4)==0)
+                        @if ((($key+1) % 4) == 0)
+                            </div>
+                        @endif
+                    @elseif(count($services)==$key+1)
+                        </div>
+                    @endif
+                    @endforeach
+                </div>
+
+
                 <h2 id="contactos">{{Lang::get('content.profile_edit_contacts')}}
                     <a class="btn btn-info btn-small modal-contact" data-target="#addContact" data-remote="{{URL::to('contacto/agregar') }}">
                         {{Lang::get('content.contact_add_contact')}}
@@ -283,6 +311,7 @@
         </div>
 
     </div>
+
 @stop
 
 @section('scripts')

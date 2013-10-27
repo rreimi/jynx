@@ -9,7 +9,7 @@ class ProfileController extends BaseController{
     public function __construct(){
         $this->beforeFilter('auth');
         View::share('categories', self::getCategories());
-        View::share('services', self::getCategories());
+        View::share('services', self::getServices());
         View::share('custom_title', Lang::get('content.profile'));
         $customOptions = array(
             Lang::get('content.profile_edit_basic')=>'#basico'
@@ -30,9 +30,20 @@ class ProfileController extends BaseController{
         $avatarUrl = null;
 
         $categoriesSelected=array();
+        $servicesSelected=array();
         if($user->isPublisher()){
-            foreach($user->publisher->categories AS $category){
-                array_push($categoriesSelected,$category->id);
+
+            $categories=$user->publisher->categories;
+
+            if($categories){
+                foreach($categories AS $category){
+                    if($category->type=='Product'){
+                        array_push($categoriesSelected,$category->id);
+                    }
+                    if($category->type=='Service'){
+                        array_push($servicesSelected,$category->id);
+                    }
+                }
             }
 
             // Retornar ruta del avatar
@@ -54,6 +65,7 @@ class ProfileController extends BaseController{
                 'user'=>$user,
                 'states' => $finalStates,
                 'categoriesSelected' => $categoriesSelected,
+                'servicesSelected' => $servicesSelected,
                 'avatar' => $avatarUrl
             )
         );
@@ -156,6 +168,7 @@ class ProfileController extends BaseController{
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
             $publisherCats = (is_array(Input::get('publisher_categories'))) ? Input::get('publisher_categories') : array();
+            $publisherCats = array_merge($publisherCats,(is_array(Input::get('publisher_services'))) ? Input::get('publisher_services') : array());
             $publisher->categories()->sync($publisherCats);
             $publisher->save();
 

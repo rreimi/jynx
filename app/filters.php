@@ -40,7 +40,7 @@ Route::filter('auth', function()
     }else{
         switch (Auth::user()->step){
             case 2:
-                if(!(Auth::user()->isBasic()) && !str_contains(URL::current(),'registro/datos-anunciante')){
+                if(!(Auth::user()->isBasic()) && ( !str_contains(URL::current(),'registro/datos-anunciante') || !str_contains(URL::current(),'registro/anunciante'))){
                     return Redirect::to('registro/datos-anunciante');
                 };
                 break;
@@ -54,7 +54,7 @@ Route::filter('auth', function()
                 return Redirect::to('login');
                 break;
             case 0:
-                if(str_contains(URL::current(),'registro/datos-contactos') || str_contains(URL::current(),'registro/datos-anunciante')){
+                if(str_contains(URL::current(),'registro/datos-contactos') || str_contains(URL::current(),'registro/datos-anunciante') || str_contains(URL::current(),'registro/anunciante')){
                     return Redirect::to(URL::previous());
                 }
                 break;
