@@ -108,20 +108,12 @@ class ProfileController extends BaseController{
 
         // Si el perfil es de un publisher entonces incluir sus campos y validaciones
         if (Auth::user()->isPublisher()){
-            $profileData['seller_name'] = Input::get('seller_name');
-            $profileData['publisher_type'] = Input::get('publisher_type');
-            $profileData['letter_rif_ci'] = Input::get('letter_rif_ci');
-            $profileData['rif_ci'] = Input::get('rif_ci');
             $profileData['state'] = Input::get('state');
             $profileData['city'] = Input::get('city');
             $profileData['phone1'] = Input::get('phone1');
             $profileData['phone2'] = Input::get('phone2');
             $profileData['avatar'] = Input::file('avatar');
 
-            $profileRules['seller_name'] = 'required';
-            $profileRules['publisher_type'] = 'required';
-            $profileRules['letter_rif_ci'] = 'required';
-            $profileRules['rif_ci'] = 'required | integer';
             $profileRules['state'] = 'required';
             $profileRules['city'] = 'required';
             $profileRules['phone1'] = array('required', 'regex:'. $this->phoneNumberRegex);
@@ -159,10 +151,6 @@ class ProfileController extends BaseController{
 
         if (Auth::user()->isPublisher()){
             $publisher = $user->publisher;
-            $publisher->seller_name = $profileData['seller_name'];
-            $publisher->publisher_type = $profileData['publisher_type'];
-            $publisher->letter_rif_ci = $profileData['letter_rif_ci'];
-            $publisher->rif_ci = $profileData['rif_ci'];
             $publisher->state_id = $profileData['state'];
             $publisher->city = $profileData['city'];
             $publisher->phone1 = $profileData['phone1'];

@@ -13,7 +13,7 @@
             <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
                 <label class="control-label required-field" for="title">{{ Lang::get('content.profile_email') }}</label>
                 <div class="controls">
-                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_email'), 'readonly' => 'readonly')) }}
+                    {{ Form::text('email', $user->email, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_email'), 'disabled' => 'disabled')) }}
                     {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 <div class="control-group {{ $errors->has('seller_name') ? 'error':'' }}">
                     <label class="control-label required-field" for="title">{{ Lang::get('content.profile_seller_name') }}</label>
                     <div class="controls">
-                        {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_seller_name'))) }}
+                        {{ Form::text('seller_name', $user->publisher->seller_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.profile_seller_name'), 'disabled' => 'disabled')) }}
                         {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                 'Business' => Lang::get('content.publisher_type_business')
                             ),
                             $user->publisher->publisher_type,
-                            array('class'=>'input-xlarge publisher_type required')
+                            array('class'=>'input-xlarge publisher_type required', 'disabled' => 'disabled')
                         ) }}
                         {{ $errors->first('publisher_type', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
@@ -93,9 +93,9 @@
                         {{ Form::select('letter_rif_ci',
                             array('' => Lang::get('content.select')),
                             $user->publisher->letter_rif_ci,
-                            array('class'=>'input-small publisher_id_type required')
+                            array('class'=>'input-small publisher_id_type required', 'disabled' => 'disabled')
                         ) }}
-                        {{ Form::text('rif_ci', $user->publisher->rif_ci, array('class' => 'input-medium required','placeholder'=> Lang::get('content.profile_id'))) }}
+                        {{ Form::text('rif_ci', $user->publisher->rif_ci, array('class' => 'input-medium required','placeholder'=> Lang::get('content.profile_id'), 'disabled' => 'disabled')) }}
 
                         {{ $errors->first('rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
                     </div>
@@ -160,9 +160,7 @@
                 <div class="control-group">
                     <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
                 </div>
-            @endif
 
-            @if(Auth::user()->isPublisher())
                 <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
                 <h5>{{Lang::get('content.categories_title')}}</h5>
                 <div class="control-group">
@@ -364,30 +362,18 @@
             }
 
             @if(Auth::user()->isPublisher())
-            var publisherType=jQuery('.publisher_type');
-            var publisherIdType=jQuery('.publisher_id_type');
+                var publisherType=jQuery('.publisher_type');
+                var publisherIdType=jQuery('.publisher_id_type');
 
-            publisherType.on('change',function(){
-                jQuery('option:not(.default)', '.publisher_id_type').remove();
-                if(this.value=='Person'){
+                if(publisherType.val()=='Person'){
                     publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-                } else if(this.value=='Business'){
+                } else if(publisherType.val()=='Business'){
                     publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
                 } else {
                     publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
                 }
-            });
 
-            if(publisherType.val()=='Person'){
-                publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-            } else if(publisherType.val()=='Business'){
-                publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-            } else {
-                publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
-            }
-
-            publisherType.trigger('change');
-            publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+                publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
             @endif
 
             jQuery('.perfil-form').validateBootstrap();
