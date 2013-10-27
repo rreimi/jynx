@@ -618,6 +618,10 @@ div#home-banner-top .carousel-control {
     margin-top: 10px;
 }
 
+.publication-rating .items {
+    padding-bottom: 15px;
+}
+
 .publication-rating .items .no-ratings {
     font-size: 1.2em;
     color: #AAAAAA;
@@ -631,6 +635,7 @@ div#home-banner-top .carousel-control {
 
 .publication-rating .pagination {
     text-align: center;
+    margin: 20px 0 0 0;
 }
 
 .publication-rating .pagination .limit {
