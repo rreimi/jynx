@@ -26,8 +26,11 @@
                     @endforeach
                 </div>
 
-                <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
-                <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                @if (count($publication->images) > 1)
+                    <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
+                    <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                @endif
+
             </div>
             @if (!is_null($publication->latitude) && !is_null($publication->longitude))
                 <div class="google-map">
