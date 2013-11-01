@@ -37,8 +37,7 @@ class ContactUsController extends BaseController {
         $rules = array(
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => array('required', 'regex:'. $this->phoneNumberRegex),
-            'subject' => 'required',
+            'phone' => array('regex:'. $this->phoneNumberRegex),
             'contact_message' => 'required',
         );
 
@@ -50,7 +49,7 @@ class ContactUsController extends BaseController {
             // redirect back to the form with
             // errors, input and our currently
             // logged in user
-            return Redirect::to('contactUs')
+            return Redirect::to('contactanos')
                 ->withErrors($v)
                 ->withInput();
         }

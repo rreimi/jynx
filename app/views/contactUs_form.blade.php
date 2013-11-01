@@ -26,18 +26,18 @@
     </div>
 
     <div class="control-group {{ $errors->has('phone') ? 'error':'' }}">
-        <label class="control-label required-field" for="phone">{{ Lang::get('content.contactus_phone') }}</label>
+        <label class="control-label" for="phone">{{ Lang::get('content.contactus_phone') }}</label>
         <div class="controls">
-            {{ Form::text('phone', $contactUs->phone, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.contactus_phone'))) }}
+            {{ Form::text('phone', $contactUs->phone, array('class' => 'input-xlarge phone-number-format', 'placeholder'=> Lang::get('content.contactus_phone'))) }}
             <br/><label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
             {{ $errors->first('phone', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>
 
     <div class="control-group {{ $errors->has('subject') ? 'error':'' }}">
-        <label class="control-label required-field" for="subject">{{ Lang::get('content.contactus_subject') }}</label>
+        <label class="control-label" for="subject">{{ Lang::get('content.contactus_subject') }}</label>
         <div class="controls">
-            {{ Form::text('subject', $contactUs->subject, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.contactus_subject'))) }}
+            {{ Form::text('subject', $contactUs->subject, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.contactus_subject'))) }}
             {{ $errors->first('subject', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>
@@ -186,6 +186,9 @@
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('.contactus-form').validateBootstrap();
+
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
     });
 </script>
 @stop
