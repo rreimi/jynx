@@ -13,7 +13,7 @@
 <div class="row-fluid">
     <div class="span6">
         <div class="control-group {{ $errors->has('phone')? 'error':'' }}">
-            {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone'),'class' => 'input-block-level required')) }}
+            {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone'),'class' => 'input-block-level required phone-number-format')) }}
         </div>
     </div>
     <div class="span6">
@@ -26,3 +26,10 @@
 <div class="control-group {{ $errors->has('address')? 'error':'' }}">
     {{ Form::text('contact_address',null,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level required')) }}
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
+    });
+</script>
