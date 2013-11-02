@@ -10,6 +10,9 @@
 @stop
 
 @section('sub-title')
+<div class="job-media">
+    @include('include.add_this')
+</div>
 <h1>{{ Lang::get('content.jobs') }} <a href="{{ $referer }}" class="btn btn-small">{{Lang::get('content.previous')}}</a></h1>
 @stop
 
