@@ -412,6 +412,16 @@ div#home-banner-top .carousel-control {
     margin-bottom: 1em;
 }
 
+.dropzone .dz-preview:hover .dz-details img,
+.dropzone-previews .dz-preview:hover .dz-details img {
+    display: block;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename,
+.dropzone-previews .dz-preview .dz-details .dz-filename {
+    display: none;
+}
+
 .navbar .nav > li > a {
     /*padding: 16px 20px;*/
 }
