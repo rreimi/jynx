@@ -52,7 +52,8 @@
             <a href="{{ URL::previous() }}" class="btn btn-mini">{{Lang::get('content.previous')}}</a>
 
             @if (!is_null(Auth::user()))
-            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+            <a href="{{ URL::to('publicacion/lista') }}" class="btn btn-mini btn-success">{{Lang::get('content.back_to_publications')}}</a>
             <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
             @endif

@@ -63,7 +63,7 @@
             @endif
             <!--                        <td>{{ $pub->categories_name }}</td>-->
             <td nowrap class="row-options">
-                <a rel="tooltip" target="_blank"  title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('publicacion/detalle/' . $pub->id)}}">
+                <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn btn-mini" href="{{URL::to('publicacion/detalle/' . $pub->id)}}">
                     <i class="icon-search"></i>
                 </a>
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn btn-mini" href="{{URL::to('publicacion/editar/' . $pub->id)}}">
