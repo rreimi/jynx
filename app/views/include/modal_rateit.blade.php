@@ -24,7 +24,7 @@
         {{ Form::close() }}
     </div>
     <div class='modal-footer'>
-        <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>
+        <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary">{{Lang::get('content.rate_it')}}</a>
         <a nohref onclick="javascript:Mercatino.rateitForm.hide()" class="btn secondary">{{Lang::get('content.cancel')}}</a>
     </div>
 </div>
