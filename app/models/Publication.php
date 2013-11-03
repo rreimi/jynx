@@ -40,6 +40,24 @@ class Publication extends Eloquent {
         return $query;
     }
 
+    /**
+     * Get the average for publication.
+     * @param $query
+     * @param $pubId
+     */
+    public function scopeCalculateRatingAvg($query, $pubId){
+        $publication = Publication::find($pubId);
+
+        if($publication){
+            // Get average for the current publication
+            $average = PublicationRating::where('publication_id', $pubId)->avg('vote');
+
+            // Set average in the publication
+            $publication->rating_avg = $average;
+            $publication->save();
+        }
+    }
+
     public function categories() {
         return $this->belongsToMany('Category', 'publications_categories');
     }

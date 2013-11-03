@@ -45,7 +45,13 @@
             <td class="row-seller_name">{{ $pub->seller_name }}</td>
             @endif
             <td class="row-visits_number">{{ $pub->visits_number }}</td>
-            <td class="row-rating_avg">{{ $pub->rating_avg }}</td>
+            <td class="row-rating_avg">
+                @if($pub->rating_avg == null)
+                    {{ Lang::get('content.no_rating_avg') }}
+                @else
+                    {{ $pub->rating_avg }}
+                @endif
+            </td>
             @if ($user->isAdmin())
             <td class="row-reports">
                 @if ($pub->reports > 0)

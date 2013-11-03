@@ -61,6 +61,9 @@ class RatingController extends BaseController{
                 return Response::json($result, 400);
             }
 
+            // Calculate rating average for the publication related to this rating
+            Queue::later(60, 'PublicationRatingAvg', $data->publication_id);
+
             $result->status = "success";
             $result->status_code = "rating_success";
             $result->message = Lang::get('content.rating_send_success');

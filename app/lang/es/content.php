@@ -81,6 +81,7 @@ return array(
     "latitude" => 'Latitud',
     "longitude" => 'Longitud',
     "ratings" => "Calificaciones",
+    "no_rating_avg" => "No ha sido puntuado.",
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
