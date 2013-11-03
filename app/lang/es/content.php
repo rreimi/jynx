@@ -72,6 +72,8 @@ return array(
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
+    "publication_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "advertising_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
     "options" => "Opciones",
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
