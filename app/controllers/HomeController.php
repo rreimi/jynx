@@ -120,7 +120,7 @@ class HomeController extends BaseController {
         }
 
         //$data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->with('images')->orderBy('created_at', 'desc')->paginate($this->page_size);
 
         /* Calculate filters */
         $availableFilters = array();
