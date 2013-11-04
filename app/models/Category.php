@@ -29,7 +29,7 @@ class Category extends Eloquent {
     }
 
     public function subcategories() {
-        return $this->hasMany('Category', 'category_id');
+        return $this->hasMany('Category', 'category_id')->orderBy('name', 'asc');
     }
 
     public function publications() {
@@ -44,11 +44,11 @@ class Category extends Eloquent {
         $categories = Category::get();
 
         $level = array();
-        $level[0] = Category::parents()->where('type', $type)->lists('id');
+        $level[0] = Category::parents()->where('type', $type)->orderBy('name', 'asc')->lists('id');
 
         $currentLvl = 0;
         while (count($level[$currentLvl]) > 0) {
-            $values = Category::whereIn('category_id', $level[$currentLvl])->lists('id');
+            $values = Category::whereIn('category_id', $level[$currentLvl])->orderBy('name', 'asc')->lists('id');
 
             if ($values == null){
                 break;

@@ -72,6 +72,8 @@ return array(
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
+    "publication_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "advertising_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
     "options" => "Opciones",
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
@@ -640,6 +642,7 @@ return array(
     "modal_job_delete_content"=>"¿Realmente deséa eliminar la oferta de trabajo?",
     "contact_email_detail"=>"Envíe su currículo a",
     "previous"=>"Regresar",
+    "back_to_publications"=>"Ir a mis publicaciones",
     "more"=>"Mas información",
 
     "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
