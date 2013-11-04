@@ -867,3 +867,19 @@ a:hover.job-more-info {
     margin-left: 60px;
     margin-top: -35px;
 }
+
+.masterTooltip {
+    position: relative;
+}
+
+.tooltip {
+    display:block;
+    border:1px solid #333;
+    background-color:#161616;
+    border-radius:5px;
+    padding:30px;
+    color:#00ff00;
+    z-index:9999;
+    width:500px;
+    height: 500px;
+}
