@@ -72,8 +72,8 @@ return array(
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
-    "publication_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
-    "advertising_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes de <b>mínimo (:min_width)x(:min_height)px</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "publication_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes preferiblemente <b>cuadradas</b> de <b>mínimo (:min_width)x(:min_height)px</b> y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "advertising_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes preferiblemente <b>cuadradas</b> de <b>mínimo (:min_width)x(:min_height)px</b> y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
     "options" => "Opciones",
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
@@ -312,6 +312,10 @@ return array(
 
     "contact_delete_success" => "El contacto se ha eliminado correctamente",
     "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",
+
+    "publisher_success_title" => "¡Su solicitud ha sido enviada de manera exitosa!",
+    "publisher_success_message" => "Recibirá notificación de su aprobación en menos de 24 horas.",
+    "publisher_success_accept" => "Aceptar",
 
     "backend_email" => "Correo electrónico",
     "backend_full_name" => "Nombre persona / Razón social",

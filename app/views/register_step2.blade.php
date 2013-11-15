@@ -96,7 +96,7 @@
                 </fieldset>
 
                 <div class="register-controls text-right">
-                    <a class="btn btn-large btn-info" href="{{ URL::to('/') }}">{{ Lang::get('content.register_finalize') }}</a>
+                    <a class="btn btn-large btn-info" href="{{ URL::to('/') }}">{{ Lang::get('content.cancel') }}</a>
                     {{ Form::submit(Lang::get('content.publisher_create'),array('class' => 'btn btn-large btn-warning')) }}
                 </div>
 
