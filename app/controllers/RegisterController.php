@@ -210,7 +210,7 @@ class RegisterController extends BaseController{
 
         //Success message is show in modal when register
         //$this->addFlashMessage(Lang::get('content.register_title_success'),Lang::get('content.register_description_success'));
-        return Redirect::to('/');
+        return View::make('register_step4');
     }
 
     public function getActivacion(){

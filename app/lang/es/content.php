@@ -313,6 +313,10 @@ return array(
     "contact_delete_success" => "El contacto se ha eliminado correctamente",
     "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",
 
+    "publisher_success_title" => "¡Su solicitud ha sido enviada de manera exitosa!",
+    "publisher_success_message" => "Recibirá notificación de su aprobación en menos de 24 horas.",
+    "publisher_success_accept" => "Aceptar",
+
     "backend_email" => "Correo electrónico",
     "backend_full_name" => "Nombre persona / Razón social",
     "backend_seller" => "Nombre vendedor / Nombre empresa",
