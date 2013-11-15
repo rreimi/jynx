@@ -503,6 +503,14 @@ div#home-banner-top .carousel-control {
     display: none;
 }
 
+.register-success .text {
+    font-size: 14px;
+}
+
+.register-success a {
+    margin: 1em 22.5em;
+}
+
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;
