@@ -9,6 +9,7 @@
         <span class="divider-vertical">{{Lang::get('content.rate_instructions')}}</span>
         <div class="rating-form rating-c">
             <select id="rating-sel" name="rating-select">
+                <option value="" selected="selected"></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -17,9 +18,9 @@
             </select>
         </div>
         <div class="divider-vertical">{{Lang::get('content.rate_title')}}</div>
-        <input type="text" id="report_title_txt" name="title" class="required" max-length="80" />
+        <input type="text" id="report_title_txt" name="title" max-length="80" />
         <div class="divider-vertical">{{Lang::get('content.rate_comment_instructions')}}</div>
-        <textarea id="report_comment_txt" class="input-block-level" required name="report_comment" rows="8"></textarea>
+        <textarea id="report_comment_txt" class="input-block-level" name="report_comment" rows="8"></textarea>
         <input type="hidden" id="rating_publication_id" name="rating_publication_id" />
         {{ Form::close() }}
     </div>
@@ -85,7 +86,6 @@
 
         },
         init: function(){
-            jQuery('#rating-form').validateBootstrap({placement:'top'});
             jQuery('#rating-form #rating-sel').barrating({showValues:true, showSelectedRating:false});
         }
     };

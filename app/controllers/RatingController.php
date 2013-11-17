@@ -18,9 +18,9 @@ class RatingController extends BaseController{
         if (Request::ajax()) {
 
             $rules = array('vote' => 'required',
-                'comment' => 'required|max:300',
+                'comment' => 'max:300',
                 'user_id' => 'required',
-                'title' => 'required|max:80',
+                'title' => 'max:80',
                 'publication_id' => 'required');
 
             $data = new stdClass;
@@ -32,6 +32,7 @@ class RatingController extends BaseController{
 
             $messages = array(
                 'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres');
+
 
             $validator = Validator::make((array) $data, $rules, $messages);
 
@@ -46,6 +47,15 @@ class RatingController extends BaseController{
                 foreach ($validator->messages()->getMessages() as $msg) {
                     $result->errors[] =$msg[0];
                 }
+
+                return Response::json($result, 400);
+            }
+
+            // Validar que se haya enviado o la calificacion o el comentario
+            if ($data->vote == 0 && $data->title == '' && $data->comment == ''){
+                $result->status = "error";
+                $result->status_code = "validation";
+                $result->errors = array(Lang::get('content.rating_publication_empty_error'));
 
                 return Response::json($result, 400);
             }

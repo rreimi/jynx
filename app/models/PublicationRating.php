@@ -13,12 +13,15 @@ class PublicationRating extends Eloquent {
 
         // Add filter by status active when the user isn't an admin
         if (!(Auth::check() && Auth::user()->isAdmin())){
-            $query->where('status', '=', true);
+            $query->where('status', '=', true)
+                    ->where(function($query) {
+                        $query->orWhere('title', '!=', '')
+                        ->orWhere('comment', '!=', '');
+                    });
         }
 
         $query->orderBy('id', 'desc')
               ->take($qty);
-//              ->skip($offset);
     }
 
     public function publication(){

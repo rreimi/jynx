@@ -50,7 +50,7 @@ class Publication extends Eloquent {
 
         if($publication){
             // Get average for the current publication
-            $average = PublicationRating::where('publication_id', $pubId)->avg('vote');
+            $average = PublicationRating::where('publication_id', $pubId)->where('vote', '>', 0)->avg('vote');
 
             // Set average in the publication
             $publication->rating_avg = $average;

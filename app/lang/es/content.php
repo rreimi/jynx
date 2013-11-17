@@ -458,6 +458,7 @@ return array(
     "delete_user_success" => "El usuario se ha eliminado correctamente",
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
+    "rating_publication_empty_error" => "Debe indicar una puntuación o un comentario para que la calificación sea válida.",
     "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones.",
     "rating_publication_first_rating" => " Para ser el primero en calificar puedes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
     "rating_publication_retrieve_error" => "Ha ocurrido un error intentando recuperar calificaciones para la publicación.",
