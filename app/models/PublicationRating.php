@@ -2,6 +2,7 @@
 
 class PublicationRating extends Eloquent {
 
+    protected $softDelete = true;
     public $timestamps = true;
     protected $table = 'publications_ratings';
     protected $fillable = array('user_id', 'publication_id', 'comment', 'vote', 'title');

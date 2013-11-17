@@ -1,0 +1,1 @@
+ALTER TABLE  `publications_ratings` ADD  `deleted_at` DATETIME NULL DEFAULT NULL AFTER  `updated_at`

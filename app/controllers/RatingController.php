@@ -119,6 +119,27 @@ class RatingController extends BaseController{
 
     }
 
+    /**
+     * @ajax
+     * Delete rating when current user is owner of rating
+     * @param $ratingId
+     */
+    public function postDelete($ratingId) {
+
+        // Check valid rating and belongs to the current user
+        $rating = PublicationRating::find($ratingId);
+
+        if (is_null($rating) || Auth::user()->id != $rating->user_id){
+            return Response::json('error_invalid_rating', 404);
+        }
+
+        // It's valid, then delete it
+        $rating->delete();
+
+        return Response::json(null, 200);
+
+    }
+
     private function getRatingBlock($ratings, $totalRatings, $qty){
 
         $html = '';
@@ -146,19 +167,28 @@ class RatingController extends BaseController{
                 $html .= '<div class="description">';
                 $html .= $rating->comment;
                 $html .= '</div>';
-                if (Auth::check() && Auth::user()->isAdmin()){
-                    $html .= '<div class="admin">';
-                    $html .= Lang::get('content.rating_status_admin_label') .":" ;
-                    $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
-                    if($rating->status){
-                        $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
-                    } else {
-                        $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                if (Auth::check()){
+                    $html .= '<div class="actions">';
+                    if (Auth::user()->isAdmin()){
+                        $html .= Lang::get('content.rating_status_admin_label');
+                        $html .= '<div class="btn-group group-admin" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
+                        if($rating->status){
+                            $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                            <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                        } else {
+                            $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                            <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                        }
+                        $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
+                        $html .= '</div>';
                     }
-                    $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
-                    $html .= '</div>';
+                    // If current user is owner of rating
+                    if (Auth::user()->id == $rating->user_id){
+                        $html .= Lang::get('content.rating_owner_label');
+                        $html .= '<div class="btn-group group-owner">';
+                        $html .= '<button type="button" data-id="'. $rating->id .'" class="btn btn-small">'. Lang::get('content.rating_owner_delete_label') .'</button>';
+                        $html .= '</div>';
+                    }
                     $html .= '</div>';
                 }
                 $html .= '</div>';
