@@ -81,7 +81,7 @@ class RatingController extends BaseController{
      * Retrieve reviews by publication_id
      * @param $publicationId = the publication id
      */
-    public function postDenunciasPublicacion($publicationId, $pageNumber = 1) {
+    public function postDenunciasPublicacion($publicationId, $pageNumber = 0) {
 
         // Check valid publication
         $pub = Publication::find($publicationId);
@@ -100,9 +100,10 @@ class RatingController extends BaseController{
 
         $offset = $pageSize * ($pageNumber-1);
 
-        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
+        $qty = $pageNumber*PublicationRating::$limitPagination;
+        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $qty)->get();
 
-        $ratingsHtml = $this->getRatingBlock($ratingsList, $totalRatings);
+        $ratingsHtml = $this->getRatingBlock($ratingsList, $totalRatings, $qty);
 
         $result = new stdClass;
         $result->totalRatings = $totalRatings;
@@ -118,7 +119,7 @@ class RatingController extends BaseController{
 
     }
 
-    private function getRatingBlock($ratings, $totalRatings){
+    private function getRatingBlock($ratings, $totalRatings, $qty){
 
         $html = '';
 
@@ -163,16 +164,14 @@ class RatingController extends BaseController{
                 $html .= '</div>';
             }
 
-            if($totalRatings > PublicationRating::$limitPagination){
-                $html .= '<div class="pagination">
-                                <ul>
-                                    <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
-                                    <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
-                                    <li><a class="current-page" nohref></a></li>
-                                    <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
-                                    <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
-                                </ul>
-                            </div>';
+            if($totalRatings > $qty){
+                $html .= '
+                        <div class="get-more">
+                            <div id="get_more_preload" class="hide buttons-preload">
+                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///zMzM87OzmdnZzMzM4GBgZqamqenpyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+                            </div>
+                            <button type="button" onclick="javascript:Mercatino.ratings.loadingState();Mercatino.ratings.nextPage();" class="btn btn-primary btn-small get-more-button">'. Lang::get('content.rating_get_more') .'</button>
+                        </div>';
             }
         }
 

@@ -467,6 +467,7 @@ return array(
     "rating_change_status_on" => "La califición ha sido activada satisfactoriamente",
     "rating_change_status_off" => "La califición ha sido desactivada satisfactoriamente",
     "rating_change_status_error" => "Ha ocurrido un error al intentar cambiar el estatus de esta calificación",
+    "rating_get_more" => "Ver más",
 
     // Advertiser
     "advertisers" => 'Anunciantes',
