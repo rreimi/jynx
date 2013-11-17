@@ -352,6 +352,8 @@ return array(
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
 
+    "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal.",
+
     "auth_menu_my_profile" => "Editar perfil",
 
     "profile" => "Perfil de usuario",
