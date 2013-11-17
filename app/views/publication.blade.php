@@ -26,8 +26,11 @@
                     @endforeach
                 </div>
 
-                <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
-                <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                @if (count($publication->images) > 1)
+                    <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
+                    <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                @endif
+
             </div>
             @if (!is_null($publication->latitude) && !is_null($publication->longitude))
                 <div class="google-map">
@@ -39,18 +42,22 @@
         </div><!-- pub-images-box -->
         <!-- End Carousel -->
 
-        <h1>{{ $publication->title }}
-        </h1><div class="triangle"></div>
+        <h1>{{ $publication->title }}</h1>
+        <div class="triangle"></div>
 
         <div class="publication-info">
 
             @include('include.add_this')
 
+            <a href="{{ URL::previous() }}" class="btn btn-mini">{{Lang::get('content.previous')}}</a>
+
             @if (!is_null(Auth::user()))
-            @if (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id))
+            @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+            <a href="{{ URL::to('publicacion/lista') }}" class="btn btn-mini btn-success">{{Lang::get('content.back_to_publications')}}</a>
             <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
             @endif
+
             <div>{{ $publication->short_description }}</div>
 
             <div><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>

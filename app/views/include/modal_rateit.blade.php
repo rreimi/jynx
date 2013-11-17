@@ -24,7 +24,7 @@
         {{ Form::close() }}
     </div>
     <div class='modal-footer'>
-        <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary btn-small">{{Lang::get('content.rate_it')}}</a>
+        <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary">{{Lang::get('content.rate_it')}}</a>
         <a nohref onclick="javascript:Mercatino.rateitForm.hide()" class="btn secondary">{{Lang::get('content.cancel')}}</a>
     </div>
 </div>
@@ -64,6 +64,8 @@
                     Mercatino.rateitForm.hide();
                     Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
                     jQuery('#rating-form').get(0).reset();
+                    Mercatino.ratings.currentPage = 0;
+                    Mercatino.ratings.nextPage();
                 },
                 error: function(result) {
                     var data = result.responseJSON;

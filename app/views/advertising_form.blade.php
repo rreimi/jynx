@@ -92,7 +92,7 @@
             @if (!is_null($advertising->id))
             <div class="row-fluid">
                 <h2 id="imagenes">{{Lang::get('content.advertising_images')}}</h2>
-
+                <div class="alert-warning alert">{{Lang::get('content.advertising_images_advice', array('min_width' => $bannerTopHomeSize['width'], 'min_height' => $bannerTopHomeSize['height']))}}</div>
                 <div id="dropzone" class="dropzone">
 
                 </div>
@@ -127,6 +127,7 @@
             url: "{{URL::to('publicidad/imagenes/' . $id)}}",
             addRemoveLinks: true,
             dictRemoveFile: "{{Lang::get('content.remove_image')}}",
+            dictDefaultMessage: "{{Lang::get('content.add_images_msg')}}",
             acceptedFiles: '.jpeg,.jpg,.png,.gif',
             maxFilesize: 2,
             createImageThumbnails: false,

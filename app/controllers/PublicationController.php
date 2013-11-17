@@ -407,9 +407,16 @@ class PublicationController extends BaseController {
             $image = new PublicationImage(array('image_url' => $finalFileName));
             $image = $publication->images()->save($image);
 
+            //Si no hay imagen principal se establece
             if ($publication->publication_image_id == null){
                 $publication->publication_image_id = $image->id;
                 $publication->save();
+            }
+
+            if (Auth::user()->isAdmin()){
+                // Log when is uploaded an image to publication by an admin
+                Queue::push('LoggerJob@log', array('method' => 'add', 'operation' => 'Add_publication_image', 'entities' => array($image),
+                    'userAdminId' => Auth::user()->id));
             }
 
             $this->invalidatePublicationCache();
@@ -431,7 +438,7 @@ class PublicationController extends BaseController {
      */
     public function deleteImagenes($id, $imageId) {
 
-        //Provee publication ownership
+        //TODO: Prove publication ownership
 
         //Check valid publicationImage
         $pubImg = PublicationImage::where('publication_id', $id)->where('id', $imageId)->first();
@@ -476,8 +483,34 @@ class PublicationController extends BaseController {
             }
         }
 
+        if (Auth::user()->isAdmin()){
+            // Log when is deleted an image from publication by an admin
+            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication_image', 'entities' => array($pubImg),
+                'userAdminId' => Auth::user()->id));
+        }
+
+        //Si es la imagen principal, desasociar y asociar la siguiente
+
+        $publication = Publication::find($id);
+
+        if ($publication->publication_image_id === $pubImg->id) {
+            $publication->publication_image_id = null;
+            $publication->save();
+        }
+
         //Remove img from db
         $affectedRows = $pubImg->delete();
+
+        //Set new main image if necessary
+        if ($publication->publication_image_id == null) {
+            $newMainImage = PublicationImage::where('publication_id', $id)->first();
+            //if another main is found, set as new image
+            if ($newMainImage != null) {
+                $publication->publication_image_id = $newMainImage->id;
+                $publication->save();
+            }
+        }
+
 
         if ($affectedRows != true) {
             return Response::json('error_removing_db', 400);
@@ -687,9 +720,9 @@ class PublicationController extends BaseController {
         $pub->contacts()->sync($contacts);
 
         if (Auth::user()->isAdmin()){
-            // TODO: Activate
-//            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
-//                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+            // Log when is created or edited a publication by an admin
+            Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($pub),
+                'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
         }
 
         $this->invalidatePublicationCache();
@@ -730,10 +763,10 @@ class PublicationController extends BaseController {
 
         $result = $pub->delete();
 
-        // TODO: Activate
+        // Log when is deleted a publication by an admin
         if (Auth::user()->isAdmin()){
-//            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
-//                'userAdminId' => Auth::user()->id));
+            Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
+                'userAdminId' => Auth::user()->id));
         }
 
         $this->invalidatePublicationCache();

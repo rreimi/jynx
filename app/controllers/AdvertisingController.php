@@ -164,9 +164,9 @@ class AdvertisingController extends BaseController {
 
         $result = $adv->delete();
 
-        // TODO: Activate
-//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_advertising', 'entities' => array($adv),
-//            'userAdminId' => Auth::user()->id));
+        // Log when is deleted and advertising by an admin
+        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_advertising', 'entities' => array($adv),
+            'userAdminId' => Auth::user()->id));
 
         $this->invalidateAdvertisingCache();
 
@@ -251,9 +251,9 @@ class AdvertisingController extends BaseController {
 
         $adv->save();
 
-        // TODO: Activate
-//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($adv),
-//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
+        // Log when is created or edited an advertising by an admin
+        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($adv),
+            'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
 
         $this->invalidateAdvertisingCache();
 
@@ -328,6 +328,10 @@ class AdvertisingController extends BaseController {
             $advertising->image_url = $finalFileName;
             $advertising->save();
 
+            // Log when is uploaded an image to an advertising by an admin
+            Queue::push('LoggerJob@log', array('method' => 'add', 'operation' => 'Add_advertising_image', 'entities' => array($advertising),
+                'userAdminId' => Auth::user()->id));
+
             $this->invalidateAdvertisingCache();
 
             return Response::json($id, 200);
@@ -375,6 +379,10 @@ class AdvertisingController extends BaseController {
                 return Response::json('error_removing_file', 400);
             }
         }
+
+        // Log when is deleted an image from an advertising by an admin
+        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_advertising_image', 'entities' => array($adv),
+            'userAdminId' => Auth::user()->id));
 
         //Remove img from db
         $adv->image_url = null;

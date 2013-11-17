@@ -30,5 +30,8 @@
 </div>
 
 <script type="text/javascript">
-    jQuery('.phone-number-format').mask("9999-9999999");
+    jQuery(document).ready(function(){
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
+    });
 </script>

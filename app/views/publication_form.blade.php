@@ -198,6 +198,7 @@
         <div class="row-fluid imagenes-section-box">
             <a name="imagenes"></a>
             <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
+            <div class="alert-warning alert">{{Lang::get('content.publication_images_advice', array('min_width' => $detailSize['width'], 'min_height' => $detailSize['height']))}}</div>
             <div class="form-message-box alert alert-error">
 
             </div>

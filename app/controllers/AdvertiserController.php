@@ -268,9 +268,9 @@ class AdvertiserController extends BaseController {
             $advertiser->categories()->sync($categories);
         });
 
-        // TODO: ACTIVATE
-//        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user, $advertiser),
-//            'userAdminId' => Auth::user()->id, 'previousData' => array($previousDataUser, $previousDataAdvertiser)));
+        // Log when is created or edited an advertiser by an admin
+        Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user, $advertiser),
+            'userAdminId' => Auth::user()->id, 'previousData' => array($previousDataUser, $previousDataAdvertiser)));
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_advertiser_success'), 'success');
@@ -302,9 +302,9 @@ class AdvertiserController extends BaseController {
         $resultA = $advertiser->delete();
         $resultU = $user->delete();
 
-        // TODO: Activate
-//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publisher', 'entities' => array($user, $advertiser),
-//            'userAdminId' => Auth::user()->id));
+        // Log when is deleted an advertiser by an admin
+        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publisher', 'entities' => array($user, $advertiser),
+            'userAdminId' => Auth::user()->id));
 
         if ($resultA && $resultU){
             //Set result

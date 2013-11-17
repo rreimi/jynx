@@ -76,7 +76,7 @@ h2.home-title {
 }
 
 .pub-info-box img {
-    margin:10px auto;
+    margin:0 auto;
     display: block;
 }
 
@@ -86,6 +86,14 @@ h2.home-title {
     bottom: 0;
     width: 94%;
     padding: 0 3% 2% 3%;
+}
+
+.pub-info-desc .pub-seller {
+    white-space: nowrap;      /* keep the text on one line */
+    overflow: hidden;         /* prevent the text from being shown outside the border */
+    text-overflow: ellipsis;  /* Add ... points to end of text */
+    -o-text-overflow: ellipsis;
+    display: block;           /* The tree above dont work if this is not set */
 }
 
 .pub-thumb {
@@ -412,6 +420,16 @@ div#home-banner-top .carousel-control {
     margin-bottom: 1em;
 }
 
+.dropzone .dz-preview:hover .dz-details img,
+.dropzone-previews .dz-preview:hover .dz-details img {
+    display: block;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename,
+.dropzone-previews .dz-preview .dz-details .dz-filename {
+    display: none;
+}
+
 .navbar .nav > li > a {
     /*padding: 16px 20px;*/
 }
@@ -483,6 +501,14 @@ div#home-banner-top .carousel-control {
 
 .register-form-conditions {
     display: none;
+}
+
+.register-success .text {
+    font-size: 14px;
+}
+
+.register-success a {
+    margin: 1em 22.5em;
 }
 
 /* Modal report */
@@ -618,6 +644,10 @@ div#home-banner-top .carousel-control {
     margin-top: 10px;
 }
 
+.publication-rating .items {
+    padding-bottom: 15px;
+}
+
 .publication-rating .items .no-ratings {
     font-size: 1.2em;
     color: #AAAAAA;
@@ -631,6 +661,7 @@ div#home-banner-top .carousel-control {
 
 .publication-rating .pagination {
     text-align: center;
+    margin: 20px 0 0 0;
 }
 
 .publication-rating .pagination .limit {
@@ -1006,6 +1037,45 @@ div#home-banner-top .carousel-control {
 
 /* END - File Upload */
 
+/* INIT - Job */
 
+.job-media {
+    float: right;
+    margin: 15px 0;
+}
+
+/* END - Job */
+
+/*
+.register-form-conditions ol {
+    counter-reset: item;
+}
+.register-form-conditions ol li {
+    display: block;
+    position: relative;
+}
+.register-form-conditions ol li:before {
+    content: counters(item, ".")".";
+    counter-increment: item;
+    position: absolute;
+    margin-right: 100%;
+    right: 10px;
+}
+*/
+
+.register-form-conditions li.main {
+    counter-increment: ordem;
+}
+.register-form-conditions .internal {
+    counter-reset: internal;
+}
+.register-form-conditions .internal li {
+    list-style-type: none;
+    margin-left: -22px;
+}
+.register-form-conditions .internal li:before {
+    counter-increment: internal;
+    content: counter(ordem) "." counter(internal) " ";
+}
 
 

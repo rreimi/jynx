@@ -109,13 +109,21 @@ class ReportController extends BaseController {
             return Response::json('not_exist', 400);
         }
 
+        $operation = '';
+
         if ($repData['action'] == 'valid-report'){
             $rep->status = PublicationReport::STATUS_CORRECT;
+            $operation = 'Valid_report';
         } elseif ($repData['action'] == 'invalid-report'){
             $rep->status = PublicationReport::STATUS_INCORRECT;
+            $operation = 'Invalid_report';
         }
 
         $rep->save();
+
+        // Log when is changed a report by an admin
+        Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rep),
+            'userAdminId' => Auth::user()->id));
 
         self::addFlashMessage(null, Lang::get('content.report_message_change_success'), 'success');
 

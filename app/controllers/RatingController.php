@@ -61,6 +61,9 @@ class RatingController extends BaseController{
                 return Response::json($result, 400);
             }
 
+            // Calculate rating average for the publication related to this rating
+            Queue::later(60, 'PublicationRatingAvg', $data->publication_id);
+
             $result->status = "success";
             $result->status_code = "rating_success";
             $result->message = Lang::get('content.rating_send_success');
@@ -88,13 +91,18 @@ class RatingController extends BaseController{
         }
 
         $pageSize = PublicationRating::$limitPagination;
-        $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+        $totalRatings = 0;
+        if (Auth::check() && Auth::user()->isAdmin()){
+            $totalRatings = PublicationRating::where('publication_id', $publicationId)->count();
+        } else {
+            $totalRatings = PublicationRating::where('publication_id', $publicationId)->where('status', 1)->count();
+        }
 
         $offset = $pageSize * ($pageNumber-1);
 
         $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
 
-        $ratingsHtml = $this->getRatingBlock($ratingsList);
+        $ratingsHtml = $this->getRatingBlock($ratingsList, $totalRatings);
 
         $result = new stdClass;
         $result->totalRatings = $totalRatings;
@@ -110,44 +118,11 @@ class RatingController extends BaseController{
 
     }
 
-    private function getRatingBlock($ratings){
+    private function getRatingBlock($ratings, $totalRatings){
 
         $html = '';
 
-        foreach($ratings as $rating) {
-            $html .= '<div class="rating-block">';
-                $html .= '<div class="head">';
-                        $html .= RatingHelper::getRatingBar($rating->vote);
-                        $html .= '<div class="info">';
-                            $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
-                            $originalDate = $rating->created_at;
-                            $newDate = date("d-m-Y", strtotime($originalDate));
-                            $html .= '<span class="date">' . $newDate .'</span>';
-                            $html .= '<span class="title-rating">' . $rating->title .'</span>';
-                        $html .= '</div>';
-                $html .= '</div>';
-                $html .= '<div class="description">';
-                    $html .= $rating->comment;
-                $html .= '</div>';
-                if (Auth::check() && Auth::user()->isAdmin()){
-                    $html .= '<div class="admin">';
-                        $html .= Lang::get('content.rating_status_admin_label') .":" ;
-                        $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
-                            if($rating->status){
-                                $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
-                            } else {
-                                $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
-                            }
-                            $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                }
-            $html .= '</div>';
-        }
-
-        if (sizeof($ratings) == 0){
+        if ($totalRatings == 0){
             $html .= '<div class="no-ratings">';
             $html .= Lang::get('content.rating_publication_no_items');
             if (!Auth::check()){
@@ -155,15 +130,50 @@ class RatingController extends BaseController{
             }
             $html .= '</div>';
         } else {
-            $html .= '<div class="pagination">
-                            <ul>
-                                <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
-                                <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
-                                <li><a class="current-page" nohref></a></li>
-                                <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
-                                <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
-                            </ul>
-                        </div>';
+            foreach($ratings as $rating) {
+                $html .= '<div class="rating-block">';
+                $html .= '<div class="head">';
+                $html .= RatingHelper::getRatingBar($rating->vote);
+                $html .= '<div class="info">';
+                $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                $originalDate = $rating->created_at;
+                $newDate = date("d-m-Y", strtotime($originalDate));
+                $html .= '<span class="date">' . $newDate .'</span>';
+                $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="description">';
+                $html .= $rating->comment;
+                $html .= '</div>';
+                if (Auth::check() && Auth::user()->isAdmin()){
+                    $html .= '<div class="admin">';
+                    $html .= Lang::get('content.rating_status_admin_label') .":" ;
+                    $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
+                    if($rating->status){
+                        $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                    } else {
+                        $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                    }
+                    $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
+                    $html .= '</div>';
+                    $html .= '</div>';
+                }
+                $html .= '</div>';
+            }
+
+            if($totalRatings > PublicationRating::$limitPagination){
+                $html .= '<div class="pagination">
+                                <ul>
+                                    <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
+                                    <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
+                                    <li><a class="current-page" nohref></a></li>
+                                    <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
+                                    <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
+                                </ul>
+                            </div>';
+            }
         }
 
         return $html;
@@ -188,17 +198,24 @@ class RatingController extends BaseController{
         }
 
         $message = '';
+        $operation = '';
 
         // Change status
         if ($status == 0){
             $rating->status = false;
             $message = Lang::get('content.rating_change_status_off');
+            $operation = 'Inactive_rating';
         } else {
             $rating->status = true;
             $message = Lang::get('content.rating_change_status_on');
+            $operation = 'Active_rating';
         }
 
         $resultSave = $rating->save();
+
+        // Log when is changed the state of a rating by an admin
+        Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rating),
+            'userAdminId' => Auth::user()->id));
 
         $result = new stdClass;
 

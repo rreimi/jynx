@@ -169,7 +169,7 @@
                     <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
                 </div>
 
-                <h2 id="sectores">{{Lang::get('content.profile_edit_sectors')}}</h2>
+                <h2 id="sectores" class="required-field">{{Lang::get('content.profile_edit_sectors')}}</h2>
                 <h5>{{Lang::get('content.categories_title')}}</h5>
                 <div class="control-group">
                     @foreach ($categories as $key => $category)

@@ -5,7 +5,7 @@
 </head>
 <body>
 <div>
-    <img src="http://dev.jynx.com/img/logo.png">
+    {{ HTML::image('img/logo.png')}}
 </div>
 <br/>
 <br/>
