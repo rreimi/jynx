@@ -1038,6 +1038,36 @@ div#home-banner-top .carousel-control {
 
 /* END - Job */
 
+/*
+.register-form-conditions ol {
+    counter-reset: item;
+}
+.register-form-conditions ol li {
+    display: block;
+    position: relative;
+}
+.register-form-conditions ol li:before {
+    content: counters(item, ".")".";
+    counter-increment: item;
+    position: absolute;
+    margin-right: 100%;
+    right: 10px;
+}
+*/
 
+.register-form-conditions li.main {
+    counter-increment: ordem;
+}
+.register-form-conditions .internal {
+    counter-reset: internal;
+}
+.register-form-conditions .internal li {
+    list-style-type: none;
+    margin-left: -22px;
+}
+.register-form-conditions .internal li:before {
+    counter-increment: internal;
+    content: counter(ordem) "." counter(internal) " ";
+}
 
 

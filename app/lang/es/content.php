@@ -266,7 +266,7 @@ return array(
     "register_header" => "Regístrate si eres un nuevo usuario o empresa",
     "register_error" => "Debes llenar todos los campos",
     "register_finalize" => "Omitir",
-    "register_conditions" => "Acepto <a nohref onclick='javascript:showConditions();'>términos y condiciones de servicio</a>",
+    "register_conditions" => "Acepto <a class='manito' nohref onclick='javascript:showConditions();'>términos y condiciones de servicio</a>",
     "register_dialog_description" => "",
     "register_dialog_continue" => "Sí quiero",
     "register_dialog_cancel" => "No por los momentos, quiero navegar",
