@@ -3,7 +3,7 @@
 class ReportController extends BaseController {
 
     private $prefix = 'report';
-    private $page_size = '6';
+    private $page_size = '10';
     private $listSort = array('id', 'comment', 'date', 'status');
 
     /**

@@ -2,7 +2,7 @@
 
 class JobController extends BaseController {
 
-    private $pageSize = '6';
+    private $pageSize = '10';
     private $prefix = 'job';
 
     public function __construct(){
