@@ -724,6 +724,10 @@ nav-filters-container {
     vertical-align: middle;
 }
 
+.table .table-cell-controls.table-cell-controls-one{
+    width: 39px;
+}
+
 .well {
     background-color: #FFF;
     border: none;

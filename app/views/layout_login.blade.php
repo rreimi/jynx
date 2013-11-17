@@ -30,6 +30,10 @@
         @show
     </footer>
 
+    @section('modal-confirm')
+    @include('include.modal_confirm')
+    @show
+
 @section('scripts')
 @include('include.scripts')
 <script type="text/javascript">

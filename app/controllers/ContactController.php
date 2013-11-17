@@ -57,17 +57,18 @@ class ContactController extends BaseController {
             'distributor' => Input::get('distributor'),
             'email' => Input::get('email'),
             'phone' => Input::get('phone'),
+            'other_phone' => Input::get('other_phone'),
             'city' => Input::get('city'),
             'address' => Input::get('address'),
         );
 
         //Set validation rules
         $contactRules = array(
-            'full_name' => 'required',
+            //'full_name' => 'required',
             'email' => 'required | email',
             'phone' => 'required',
-            'city' => 'required',
-            'address' => 'required',
+            //'city' => 'required',
+            //'address' => 'required',
         );
 
         // Validate fields
@@ -87,6 +88,7 @@ class ContactController extends BaseController {
         $contact->distributor = $contactData['distributor'];
         $contact->email = $contactData['email'];
         $contact->phone = $contactData['phone'];
+        $contact->other_phone= $contactData['other_phone'];
         $contact->city = $contactData['city'];
         $contact->address = $contactData['address'];
         $contact->save();
@@ -114,6 +116,7 @@ class ContactController extends BaseController {
             'contact_distributor' => Input::get('contact_distributor'),
             'contact_email' => Input::get('contact_email'),
             'contact_phone' => Input::get('contact_phone'),
+            'contact_other_phone' => Input::get('contact_other_phone'),
             'contact_city' => Input::get('contact_city'),
             'contact_address' => Input::get('contact_address'),
         );
@@ -133,6 +136,7 @@ class ContactController extends BaseController {
         $contact->address=Input::get('contact_address');
         $contact->phone=Input::get('contact_phone');
         $contact->city=Input::get('contact_city');
+        $contact->other_phone=Input::get('contact_other_phone');
 
         $contact->save();
 
@@ -144,10 +148,10 @@ class ContactController extends BaseController {
     private function ContactoReglas(){
 
         return array(
-            'contact_full_name' => 'required',
+            //'contact_full_name' => 'required',
             'contact_email' => 'required | email',
-            'contact_address' => 'required',
-            'contact_city' => 'required',
+            //'contact_address' => 'required',
+            //'contact_city' => 'required',
             'contact_phone' => 'required',
         );
     }
