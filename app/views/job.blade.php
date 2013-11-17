@@ -4,7 +4,11 @@
 @parent
 <div class="row-fluid">
     <div class="logo-job img-polaroid pull-right">
-        {{ HTML::image(UrlHelper::imageUrl($companyPicture),'',array('class'=>''))}}
+        @if(!Auth::user())
+        {{ HTML::image('img/logo_bolsa_trabajo.png')}}
+        @else
+        {{ HTML::image(UrlHelper::imageUrl($companyPicture, '_' . $thumbSize['width']))}}
+        @endif
     </div>
 </div>
 @stop
