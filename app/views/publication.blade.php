@@ -237,6 +237,7 @@
     Mercatino.ratings = {
         retrieveUrl: '{{ URL::to("evaluacion/denuncias-publicacion/" . $publication->id) }}',
         changeStatusUrl: '{{ URL::to("evaluacion/cambiar-estatus/") }}',
+        deleteUrl: '{{ URL::to("evaluacion/delete/") }}',
         currentPage:  0,
         lastAction: 'next',
 
@@ -257,10 +258,6 @@
                 dataType: 'json',
                 success: function(result) {
                     jQuery('.publication-rating .items').html(result.ratings);
-
-
-                    console.log(result.limit);
-                    Mercatino.ratings.assignPages(result.limit);
                     Mercatino.ratings.prepare();
 
                 },
@@ -270,44 +267,21 @@
             });
         },
 
-        assignPages: function(limit){
-
-            var currentPage = this.currentPage;
-            var previousPage = this.currentPage - 1;
-            var nextPage = this.currentPage + 1;
-
-            if (limit == 'top'){
-                jQuery('.publication-rating .pagination .top-page').addClass('limit');
-            } else if (limit == 'bottom'){
-                jQuery('.publication-rating .pagination .bottom-page').addClass('limit');
-            }
-
-            jQuery('.publication-rating .pagination .previous-page').html(previousPage);
-            jQuery('.publication-rating .pagination .current-page').html(currentPage);
-            jQuery('.publication-rating .pagination .next-page').html(nextPage);
-
-        },
-
         prepare: function(){
             // Iterate each btn-group of ratings
-            jQuery(".rating-block .admin .btn-group").each(function(){
-                //console.log(jQuery(this).attr('data-toggle-name'));
-
-                // Iterate each button by group
+            jQuery(".rating-block .actions .btn-group.group-admin").each(function(){
+                // Iterate each admin button by group
                 jQuery('button', jQuery(this)).each(function(){
                     // Add click event to each button of the current group
                     jQuery(this).click(function() {
-                        console.log('click');
                         var parentGroup = jQuery(this).parent();
                         var previousValue = jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val();
                         var currentValue = jQuery(this).prop('value');
                         // Don't do anything when is clicked the same value
                         if (previousValue == currentValue){
-                            console.log('equals');
                             return;
                         }
 
-                        console.log('after');
                         // If changed save the current value
                         jQuery('input[type=hidden][name=rating_hidden_'+parentGroup.attr('data-toggle-id')+']').val(currentValue);
 
@@ -315,20 +289,25 @@
                         Mercatino.ratings.changeStatus(parentGroup.attr('data-toggle-id'), currentValue);
                     });
                 });
+            });
 
+            jQuery(".rating-block .actions .btn-group.group-owner").each(function(){
+                // Iterate each owner button by group
+                jQuery('button', jQuery(this)).each(function(){
+                    // Add click event to each button of the current group
+                    jQuery(this).click(function() {
+                        Mercatino.ratings.delete(jQuery(this).attr('data-id'));
+                    });
+                });
             });
         },
 
         changeStatus: function(ratingId, status){
-
-            console.log('RatingId = ' + ratingId + ', Status = ' + status);
-
             jQuery.ajax({
                 url: this.changeStatusUrl + '/' + ratingId + '/' + status,
                 type: 'POST',
                 dataType: 'json',
                 success: function(result) {
-                    console.log(result.result);
                     if (result.result == 'success'){
                         Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
                     } else {
@@ -339,7 +318,32 @@
                     Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_change_status_error')}}", type:'error'});
                 }
             });
+        },
 
+        delete: function(ratingId){
+            jQuery.ajax({
+                url: this.deleteUrl + '/' + ratingId,
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    Mercatino.showFlashMessage({title:'', message: "{{Lang::get('content.rating_delete_success')}}", type:'success'});
+                    Mercatino.ratings.currentPage -= 1;
+                    Mercatino.ratings.nextPage();
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.rating_delete_error')}}", type:'error'});
+                }
+            });
+        },
+
+        defaultState: function() {
+            jQuery('#get_more_preload').hide();
+            jQuery('.get-more-button').show();
+        },
+
+        loadingState: function() {
+            jQuery('.get-more-button').hide();
+            jQuery('#get_more_preload').show();
         }
     }
 

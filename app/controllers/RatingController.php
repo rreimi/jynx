@@ -18,9 +18,9 @@ class RatingController extends BaseController{
         if (Request::ajax()) {
 
             $rules = array('vote' => 'required',
-                'comment' => 'required|max:300',
+                'comment' => 'max:300',
                 'user_id' => 'required',
-                'title' => 'required|max:80',
+                'title' => 'max:80',
                 'publication_id' => 'required');
 
             $data = new stdClass;
@@ -32,6 +32,7 @@ class RatingController extends BaseController{
 
             $messages = array(
                 'comment.max' => 'Los comentarios deben tener una logitud máxima de 300 caracteres');
+
 
             $validator = Validator::make((array) $data, $rules, $messages);
 
@@ -46,6 +47,15 @@ class RatingController extends BaseController{
                 foreach ($validator->messages()->getMessages() as $msg) {
                     $result->errors[] =$msg[0];
                 }
+
+                return Response::json($result, 400);
+            }
+
+            // Validar que se haya enviado o la calificacion o el comentario
+            if ($data->vote == 0 && $data->title == '' && $data->comment == ''){
+                $result->status = "error";
+                $result->status_code = "validation";
+                $result->errors = array(Lang::get('content.rating_publication_empty_error'));
 
                 return Response::json($result, 400);
             }
@@ -81,7 +91,7 @@ class RatingController extends BaseController{
      * Retrieve reviews by publication_id
      * @param $publicationId = the publication id
      */
-    public function postDenunciasPublicacion($publicationId, $pageNumber = 1) {
+    public function postDenunciasPublicacion($publicationId, $pageNumber = 0) {
 
         // Check valid publication
         $pub = Publication::find($publicationId);
@@ -100,9 +110,10 @@ class RatingController extends BaseController{
 
         $offset = $pageSize * ($pageNumber-1);
 
-        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $offset)->get();
+        $qty = $pageNumber*PublicationRating::$limitPagination;
+        $ratingsList = PublicationRating::with('user')->ratingPageByPublication($publicationId, $qty)->get();
 
-        $ratingsHtml = $this->getRatingBlock($ratingsList, $totalRatings);
+        $ratingsHtml = $this->getRatingBlock($ratingsList, $totalRatings, $qty);
 
         $result = new stdClass;
         $result->totalRatings = $totalRatings;
@@ -118,7 +129,28 @@ class RatingController extends BaseController{
 
     }
 
-    private function getRatingBlock($ratings, $totalRatings){
+    /**
+     * @ajax
+     * Delete rating when current user is owner of rating
+     * @param $ratingId
+     */
+    public function postDelete($ratingId) {
+
+        // Check valid rating and belongs to the current user
+        $rating = PublicationRating::find($ratingId);
+
+        if (is_null($rating) || Auth::user()->id != $rating->user_id){
+            return Response::json('error_invalid_rating', 404);
+        }
+
+        // It's valid, then delete it
+        $rating->delete();
+
+        return Response::json(null, 200);
+
+    }
+
+    private function getRatingBlock($ratings, $totalRatings, $qty){
 
         $html = '';
 
@@ -145,34 +177,41 @@ class RatingController extends BaseController{
                 $html .= '<div class="description">';
                 $html .= $rating->comment;
                 $html .= '</div>';
-                if (Auth::check() && Auth::user()->isAdmin()){
-                    $html .= '<div class="admin">';
-                    $html .= Lang::get('content.rating_status_admin_label') .":" ;
-                    $html .= '<div class="btn-group" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
-                    if($rating->status){
-                        $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
-                    } else {
-                        $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
-                                        <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                if (Auth::check()){
+                    $html .= '<div class="actions">';
+                    if (Auth::user()->isAdmin()){
+                        $html .= Lang::get('content.rating_status_admin_label');
+                        $html .= '<div class="btn-group group-admin" data-toggle-id="'. $rating->id .'" data-toggle="buttons-radio" >';
+                        if($rating->status){
+                            $html .= '<button type="button" value="1" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                            <button type="button" value="0" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                        } else {
+                            $html .= '<button type="button" value="1" class="btn btn-small" data-toggle="button">'. Lang::get('content.rating_status_on_admin_label') .'</button>
+                                            <button type="button" value="0" class="btn btn-small active" data-toggle="button">'. Lang::get('content.rating_status_off_admin_label') .'</button>';
+                        }
+                        $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
+                        $html .= '</div>';
                     }
-                    $html .= '<input type="hidden" name="rating_hidden_'. $rating->id .'" value="'. $rating->status .'" />';
-                    $html .= '</div>';
+                    // If current user is owner of rating
+                    if (Auth::user()->id == $rating->user_id){
+                        $html .= Lang::get('content.rating_owner_label');
+                        $html .= '<div class="btn-group group-owner">';
+                        $html .= '<button type="button" data-id="'. $rating->id .'" class="btn btn-small">'. Lang::get('content.rating_owner_delete_label') .'</button>';
+                        $html .= '</div>';
+                    }
                     $html .= '</div>';
                 }
                 $html .= '</div>';
             }
 
-            if($totalRatings > PublicationRating::$limitPagination){
-                $html .= '<div class="pagination">
-                                <ul>
-                                    <li class="top-page"><a href="javascript:Mercatino.ratings.previousPage()"><<</a></li>
-                                    <li class="top-page"><a class="previous-page" href="javascript:Mercatino.ratings.previousPage()"></a></li>
-                                    <li><a class="current-page" nohref></a></li>
-                                    <li class="bottom-page"><a class="next-page" href="javascript:Mercatino.ratings.nextPage()"></a></li>
-                                    <li class="bottom-page"><a href="javascript:Mercatino.ratings.nextPage()">>></a></li>
-                                </ul>
-                            </div>';
+            if($totalRatings > $qty){
+                $html .= '
+                        <div class="get-more">
+                            <div id="get_more_preload" class="hide buttons-preload">
+                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///zMzM87OzmdnZzMzM4GBgZqamqenpyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+                            </div>
+                            <button type="button" onclick="javascript:Mercatino.ratings.loadingState();Mercatino.ratings.nextPage();" class="btn btn-primary btn-small get-more-button">'. Lang::get('content.rating_get_more') .'</button>
+                        </div>';
             }
         }
 

@@ -3,7 +3,7 @@
 class PublicationController extends BaseController {
 
     private $prefix = 'publication';
-    private $page_size = '6';
+    private $page_size = '10';
     private $listSort = array('id', 'title', 'from_date', 'to_date', 'visits_number', 'created_at', 'status', 'rating_avg', 'seller_name');
     private $pub_img_dir = 'uploads';
 

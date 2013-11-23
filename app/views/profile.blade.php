@@ -240,7 +240,12 @@
                         <tr>
                             <td>{{ $contact->full_name }}</td>
                             <td>{{ $contact->email }}</td>
-                            <td>{{ $contact->phone }}</td>
+                            <td>
+                                {{ $contact->phone }}
+                                @if($contact->other_phone)
+                                    , {{ $contact->other_phone }}
+                                @endif
+                            </td>
                             <td>{{ $contact->city }}</td>
                             <td class="table-cell-controls">
                                 <div class="btn-group">

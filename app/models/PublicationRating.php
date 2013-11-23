@@ -2,22 +2,26 @@
 
 class PublicationRating extends Eloquent {
 
+    protected $softDelete = true;
     public $timestamps = true;
     protected $table = 'publications_ratings';
     protected $fillable = array('user_id', 'publication_id', 'comment', 'vote', 'title');
     public static $limitPagination = 5;
 
-    public function scopeRatingPageByPublication($query, $publicationId, $offset = 0){
+    public function scopeRatingPageByPublication($query, $publicationId, $qty = 1){
         $query->where('publication_id', '=', $publicationId);
 
         // Add filter by status active when the user isn't an admin
         if (!(Auth::check() && Auth::user()->isAdmin())){
-            $query->where('status', '=', true);
+            $query->where('status', '=', true)
+                    ->where(function($query) {
+                        $query->orWhere('title', '!=', '')
+                        ->orWhere('comment', '!=', '');
+                    });
         }
 
         $query->orderBy('id', 'desc')
-              ->take(self::$limitPagination)
-              ->skip($offset);
+              ->take($qty);
     }
 
     public function publication(){

@@ -113,7 +113,7 @@
             @endif
 
             <ul class="float-left categories-form-list">
-                <li><h2>{{Lang::get('content.categories_title')}}</h2></li>
+                <li><h2>{{Lang::get('content.categories_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
             @foreach ($categories as $cat)
                 <li>
                     @if (count($cat->subcategories) > 0)
@@ -145,7 +145,7 @@
             </ul>
 
             <ul class="float-left">
-                <li><h2>{{Lang::get('content.services_title')}}</h2></li>
+                <li><h2>{{Lang::get('content.services_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
                 @foreach ($services as $cat)
                 <li>
                     @if (count($cat->subcategories) > 0)

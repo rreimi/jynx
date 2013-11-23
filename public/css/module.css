@@ -638,7 +638,7 @@ div#home-banner-top .carousel-control {
     color: #AAAAAA;
 }
 
-.publication-rating .rating-block .admin {
+.publication-rating .rating-block .actions {
     color: #858585;
     font-size: 1.1em;
     margin-top: 10px;
@@ -655,17 +655,21 @@ div#home-banner-top .carousel-control {
     margin: 20px;
 }
 
-.publication-rating .rating-block .admin .btn-group {
+.publication-rating .rating-block .actions .btn-group {
     margin-left: 10px;
 }
 
-.publication-rating .pagination {
+.publication-rating .items .get-more {
+    margin-top: 15px;
     text-align: center;
-    margin: 20px 0 0 0;
 }
 
 .publication-rating .pagination .limit {
     display: none;
+}
+
+.publication-rating .group-admin {
+    margin-right: 20px;
 }
 
 /* Main menu */

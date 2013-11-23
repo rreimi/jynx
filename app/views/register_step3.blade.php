@@ -10,7 +10,7 @@
                 <div class="row-fluid">
                     <div class="span4">
                         <div class="control-group {{ $errors->has('contact_full_name')? 'error':'' }}">
-                            {{ Form::text('contact_full_name',null,array('placeholder' => Lang::get('content.contact_full_name'),'class' => 'input-block-level required')) }}
+                            {{ Form::text('contact_full_name',null,array('placeholder' => Lang::get('content.contact_full_name'),'class' => 'input-block-level')) }}
                         </div>
 
                         <div class="control-group {{ $errors->has('contact_distributor')? 'error':'' }}">
@@ -23,17 +23,20 @@
                         <div class="row-fluid">
                             <div class="span6">
                                 <div class="control-group {{ $errors->has('contact_phone')? 'error':'' }}">
-                                    {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone'),'class' => 'input-block-level required phone-number-format','data-placement'=>'bottom')) }}
+                                    {{ Form::text('contact_phone',null,array('placeholder' => Lang::get('content.contact_phone1'),'class' => 'phone-number-format input-block-level required','data-placement'=>'bottom')) }}
                                 </div>
                             </div>
                             <div class="span6">
-                                <div class="control-group {{ $errors->has('contact_city')? 'error':'' }}">
-                                    {{ Form::text('contact_city',null,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level required')) }}
+                                <div class="control-group {{ $errors->has('contact_other_phone')? 'error':'' }}">
+                                    {{ Form::text('contact_other_phone',null,array('placeholder' => Lang::get('content.contact_phone2'),'class' => 'phone-number-format input-block-level')) }}
                                 </div>
                             </div>
                         </div>
+                        <div class="control-group {{ $errors->has('contact_city')? 'error':'' }}">
+                            {{ Form::text('contact_city',null,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level')) }}
+                        </div>
                         <div class="control-group {{ $errors->has('contact_address')? 'error':'' }}">
-                            {{ Form::text('contact_address',null,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level required')) }}
+                            {{ Form::text('contact_address',null,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level')) }}
                         </div>
                         <div class="register-controls text-right">
                             {{ Form::submit(Lang::get('content.contact_add'),array('class' => 'btn btn-large btn-info')) }}
@@ -45,7 +48,7 @@
                                 <tr>
                                     <th>{{ Lang::get('content.contact_full_name') }}</th>
                                     <th>{{ Lang::get('content.contact_email') }}</th>
-                                    <th>{{ Lang::get('content.contact_phone') }}</th>
+                                    <th>{{ Lang::get('content.contact_phones') }}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -59,8 +62,19 @@
                                     <tr>
                                         <td>{{ $contact->full_name }}</td>
                                         <td>{{ $contact->email }}</td>
-                                        <td>{{ $contact->phone }}</td>
-                                        <td><i class="xicon-remove"></i></td>
+                                        <td>
+                                            {{ $contact->phone }}
+                                            @if($contact->other_phone)
+                                            , {{ $contact->other_phone }}
+                                            @endif
+                                        </td>
+                                        <td class="table-cell-controls table-cell-controls-one">
+                                            <div class="btn-group">
+                                                <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -87,9 +101,16 @@
 
         jQuery('.big-form').validateBootstrap();
 
-        // Phone mask
-        jQuery('.phone-number-format').mask("9999-9999999");
+        jQuery(document).on('click','.delete-contact',function(){
+            console.log('aca');
+            Mercatino.modalConfirm.show(
+                '{{ Lang::get('content.profile_delete_contact_title') }}',
+                '{{ Lang::get('content.profile_delete_contact_content') }}',
+                '{{ URL::to('contacto/eliminar/') }}'+'/'+jQuery(this).data('id')
+            );
+        });
 
+        jQuery('.phone-number-format').mask("9999-9999999");
     });
 </script>
 @stop
