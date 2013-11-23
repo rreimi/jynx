@@ -53,6 +53,10 @@
                 return false;
             }
 
+            // Set value to rating
+            var vote = jQuery(".bar-rating .current.selected").attr('data-rating-value');
+            jQuery('#rating-sel').val(vote);
+
             var formData = jQuery('#rating-form').serializeObject();
             var url = jQuery('#rating-form').attr('action');
 

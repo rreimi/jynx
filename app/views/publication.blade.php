@@ -258,7 +258,6 @@
                 dataType: 'json',
                 success: function(result) {
                     jQuery('.publication-rating .items').html(result.ratings);
-                    console.log('calling retrieve');
                     Mercatino.ratings.prepare();
 
                 },
@@ -322,7 +321,6 @@
         },
 
         delete: function(ratingId){
-            console.log('delete: ' + ratingId);
             jQuery.ajax({
                 url: this.deleteUrl + '/' + ratingId,
                 type: 'POST',
