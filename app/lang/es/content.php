@@ -486,7 +486,7 @@ return array(
     "modal_advertiser_delete_content" => "¿Está seguro que deseas eliminar este anunciante?",
 
     // General
-    "required_label" => "Requerido",
+    "required_label" => "Campo Obligatorio",
     "phone_format_label" => "Formato: 0XXX-YYYYYYY",
     "external_url_label" => "Debe comenzar con http://",
     "order_label" => "Valor numérico más alto tiene mayor prioridad",
