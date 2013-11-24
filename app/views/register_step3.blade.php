@@ -4,7 +4,7 @@
         <div class="row-fluid">
             <div class="span1"></div>
             <div class="span10">
-                {{ Form::open(array('url' => 'contacto','class'=>'big-form')) }}
+                {{ Form::open(array('url' => 'contacto','class'=>'big-form contact-form')) }}
                 <div class="pull-right">{{ Auth::user()->full_name }}</div>
                 <h3 class='header'>{{ Lang::get('content.contacts_header') }}</h3>
                 <div class="row-fluid">
@@ -31,6 +31,13 @@
                                     {{ Form::text('contact_other_phone',null,array('placeholder' => Lang::get('content.contact_phone2'),'class' => 'phone-number-format input-block-level')) }}
                                 </div>
                             </div>
+                        </div>
+                        <div class="control-group {{ $errors->has('contact_state')? 'error':'' }}">
+                            {{ Form::select('contact_state',
+                            $states,
+                            Input::old('contact_state'),
+                            array('class'=>'input-block-level states'))
+                            }}
                         </div>
                         <div class="control-group {{ $errors->has('contact_city')? 'error':'' }}">
                             {{ Form::text('contact_city',null,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level')) }}
@@ -102,7 +109,6 @@
         jQuery('.big-form').validateBootstrap();
 
         jQuery(document).on('click','.delete-contact',function(){
-            console.log('aca');
             Mercatino.modalConfirm.show(
                 '{{ Lang::get('content.profile_delete_contact_title') }}',
                 '{{ Lang::get('content.profile_delete_contact_content') }}',
@@ -111,6 +117,17 @@
         });
 
         jQuery('.phone-number-format').mask("9999-9999999");
+
+        jQuery(".contact-form .states option[value!='']").addClass('state-option');
+
+        jQuery(".contact-form .states").change(function(){
+            if (jQuery(this).val() == ''){
+                jQuery(this).addClass('states');
+            } else {
+                jQuery(this).removeClass('states');
+            }
+        });
+
     });
 </script>
 @stop

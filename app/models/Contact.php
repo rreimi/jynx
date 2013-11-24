@@ -15,4 +15,8 @@ class Contact extends Eloquent {
         return $this->hasMany('Contact');
     }
 
+    public function state() {
+        return $this->belongsTo('State');
+    }
+
 }

@@ -24,6 +24,12 @@
     {{ $contact->other_phone }}
 </p>
 @endif
+@if($contact->state_id)
+<h2>{{ Lang::get('content.contact_state') }}</h2>
+<p>
+    {{ $contact->state->name }}
+</p>
+@endif
 @if($contact->city)
 <h2>{{ Lang::get('content.contact_city') }}</h2>
 <p>

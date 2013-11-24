@@ -192,11 +192,18 @@ class RegisterController extends BaseController{
 
     public function getDatosContactos(){
 
-        $contacts=Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
+        $contacts = Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
 
         return View::make('register_step3',
             array(
-                'contacts'=>$contacts
+                'contacts'=>$contacts,
+                "states" => $finalStates,
             )
         );
     }

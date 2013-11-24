@@ -1,0 +1,1 @@
+ALTER TABLE  `contacts` ADD  `state_id` INT( 11 ) NOT NULL AFTER  `publisher_id`

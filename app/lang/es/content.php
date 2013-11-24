@@ -308,6 +308,7 @@ return array(
     "contact_phone2" => "Teléfono 2",
     "contact_phones" => "Teléfonos",
     "contact_address" => "Dirección",
+    "contact_state" => "Estado",
     "contact_city" => "Ciudad",
     "contact_email" => "Correo electrónico",
     "contact_not_found" => "No has agregado contactos",
