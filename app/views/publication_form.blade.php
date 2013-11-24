@@ -28,25 +28,25 @@
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('short_description') ? 'error':'' }}">
-            <label class="control-label required-field" for="short_description">{{ Lang::get('content.short_description') }}</label>
-            <div class="controls">
-                {{ Form::text('short_description', $publication->short_description, array('class' => 'input-xxlarge required key-field', 'placeholder'=> Lang::get('content.short_description'))) }}
-                {{ $errors->first('short_description', '<div class="field-error alert alert-error">:message</div>') }}
-                @if (isset($publication->id))
-                    <div class="text-warning alert-block key-field-section key-field-short_description">
-                        {{ Form::hidden('initial_short_description', $publication->short_description, array('disabled'=> 'disabled')) }}
-                        {{ Lang::get('content.edit_publication_redo_key_field',
-                        array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'short_description\');" class="manito">', 'a_close' => '</a>')) }}
-                    </div>
-                @endif
-            </div>
-        </div>
+<!--        <div class="control-group  $errors->has('short_description') ? 'error':'' ">-->
+<!--            <label class="control-label required-field" for="short_description"> Lang::get('content.short_description') </label>-->
+<!--            <div class="controls">-->
+<!--                 Form::text('short_description', $publication->short_description, array('class' => 'input-xxlarge required key-field', 'placeholder'=> Lang::get('content.short_description'))) -->
+<!--                 $errors->first('short_description', '<div class="field-error alert alert-error">:message</div>') -->
+<!--                if (isset($publication->id))-->
+<!--                    <div class="text-warning alert-block key-field-section key-field-short_description">-->
+<!--                        Form::hidden('initial_short_description', $publication->short_description, array('disabled'=> 'disabled'))-->
+<!--                        Lang::get('content.edit_publication_redo_key_field',-->
+<!--                        array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'short_description\');" class="manito">', 'a_close' => '</a>'))-->
+<!--                    </div>-->
+<!--                endif-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="control-group {{ $errors->has('long_description') ? 'error':'' }}">
-            <label class="control-label required-field" for="long_description">{{ Lang::get('content.long_description') }}</label>
+            <label class="control-label required-field" for="long_description">{{ Lang::get('content.descripcion') }}</label>
             <div class="controls">
-                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.long_description'))) }}
+                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.descripcion'))) }}
                 {{ $errors->first('long_description', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
