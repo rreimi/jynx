@@ -134,77 +134,31 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
-        </div>
-
         <!-- Categories -->
         <div class="control-group categories-form">
-            <h5>{{ Lang::get('content.publisher_categories') }}</h5>
+            <h2 id="sectores" class="required-field">{{Lang::get('content.profile_edit_sectors')}}</h2>
             @if ($errors->has('categories'))
             <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
             @endif
 
             <ul class="float-left categories-form-list">
-                <li><h2>{{Lang::get('content.categories_title')}}</h2></li>
-                @foreach ($categories as $cat)
+                <li><h5>{{Lang::get('content.product_title')}}</h5></li>
+                @foreach ($products as $cat)
                 <li>
-                    @if (count($cat->subcategories) > 0)
-                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
-                    @endif
                     <label class="checkbox checkbox-category-form">
                         {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $advertiser_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
                     </label>
-                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $advertiser_categories)) in @endif">
-                        @foreach ($cat->subcategories as $subcat)
-                        <li>
-                            <label class="checkbox">
-                                {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $advertiser_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                            </label>
-                            <ul>
-                                @foreach ($subcat->subcategories as $thirdcat)
-                                <li>
-                                    <label class="checkbox">
-                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $advertiser_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
-                                    </label>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        @endforeach
-                    </ul>
                 </li>
                 @endforeach
             </ul>
 
             <ul class="float-left">
-                <li><h2>{{Lang::get('content.services_title')}}</h2></li>
+                <li><h5>{{Lang::get('content.services_title')}}</h5></li>
                 @foreach ($services as $cat)
                 <li>
-                    @if (count($cat->subcategories) > 0)
-                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
-                    @endif
                     <label class="checkbox checkbox-category-form">
                         {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $advertiser_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
                     </label>
-                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $advertiser_categories)) in @endif">
-                        @foreach ($cat->subcategories as $subcat)
-                        <li>
-                            <label class="checkbox">
-                                {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $advertiser_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                            </label>
-                            <ul>
-                                @foreach ($subcat->subcategories as $thirdcat)
-                                <li>
-                                    <label class="checkbox">
-                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $advertiser_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
-                                    </label>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        @endforeach
-                    </ul>
                 </li>
                 @endforeach
             </ul>
@@ -212,6 +166,10 @@
 
         {{ Form::hidden('id', $advertiser->id) }}
         {{ Form::hidden('referer', $referer) }}
+
+        <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
+        </div>
 
         <div class="control-group">
             <div class="controls">

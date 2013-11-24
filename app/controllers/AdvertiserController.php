@@ -11,6 +11,7 @@ class AdvertiserController extends BaseController {
         $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertiser', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
+        View::share('products', self::getProducts());
         View::share('services', self::getServices());
     }
 

@@ -115,7 +115,7 @@
 
         <div class="clear-both"></div>
         @if (!Auth::check())
-        <div class="contact-more-info text-warning">
+        <div class="contact-more-info">
             {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
         </div>
         @endif

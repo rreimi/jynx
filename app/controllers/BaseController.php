@@ -49,6 +49,15 @@ class BaseController extends Controller {
 //        return $categories;
     }
 
+    public static function getProducts() {
+        $value = Cache::rememberForever('productsTree', function()
+        {
+            return Category::getCategoryTree('Product');
+        });
+
+        return $value;
+    }
+
     public static function getServices() {
         $value = Cache::rememberForever('servicesTree', function()
         {

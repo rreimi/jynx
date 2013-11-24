@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="row-fluid">
+    <div class="row-fluid publication-form">
         {{ Form::open(array('url' => 'publicacion/guardar', 'method' => 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data')) }}
         @if (!isset($publication->id))
         <h1>{{Lang::get('content.new_publication')}}</h1>
@@ -59,6 +59,9 @@
             </div>
         </div>
 
+        <hr>
+        <div class="text-warning alert-block">{{ Lang::get('content.help_publication_dates') }}</div>
+
         <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
             <label class="control-label required-field" for="from_date">{{ Lang::get('content.from_date') }}</label>
             <div class="controls">
@@ -85,7 +88,7 @@
 
         <hr>
         <div class="control-group {{ $errors->has('latitude') ? 'error':'' }}">
-            <div class="text-warning alert-block">Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación</div>
+            <div class="text-warning alert-block">{{ Lang::get('content.help_publication_map') }}</div>
             <label class="control-label" for="latitude">{{ Lang::get('content.latitude') }}</label>
             <div class="controls">
                 {{ Form::text('latitude', $publication->latitude, array('class' => 'input-xlarge', 'min' => '-90', 'max' => '90', 'placeholder'=> Lang::get('content.latitude'))) }}
@@ -102,18 +105,16 @@
         </div>
         <hr>
 
-        <div class="control-group">
-            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
-        </div>
-
         <!-- Categories -->
         <div class="control-group categories-form">
+            <h2 class="required-field">{{Lang::get('content.categories_title')}}</h2>
+
             @if ($errors->has('categories'))
             <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
             @endif
 
             <ul class="float-left categories-form-list">
-                <li><h2>{{Lang::get('content.categories_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
+                <li><h5 class="publication-categories">{{Lang::get('content.product_title')}}</h5><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
             @foreach ($categories as $cat)
                 <li>
                     @if (count($cat->subcategories) > 0)
@@ -145,7 +146,7 @@
             </ul>
 
             <ul class="float-left">
-                <li><h2>{{Lang::get('content.services_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
+                <li><h5 class="publication-categories">{{Lang::get('content.services_title')}}</h5><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
                 @foreach ($services as $cat)
                 <li>
                     @if (count($cat->subcategories) > 0)
@@ -209,6 +210,10 @@
         {{ Form::hidden('id', $publication->id) }}
         {{ Form::hidden('publisher_id', $publication->publisher_id) }}
         {{ Form::hidden('referer', $referer) }}
+
+        <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
+        </div>
 
         <div class="control-group">
             <div class="controls">

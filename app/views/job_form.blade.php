@@ -206,6 +206,10 @@
         </div>
 
         <div class="control-group">
+            <label class="control-label required-label">{{ Lang::get('content.required_label') }}</label>
+        </div>
+
+        <div class="control-group">
             <div class="controls">
                 <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
                 <button class="btn btn-medium btn-success" type="submit">{{Lang::get('content.save')}}</button>

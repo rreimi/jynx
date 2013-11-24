@@ -40,7 +40,7 @@ return array(
     "state" => "Estado",
     "states" => "Estados",
     "location" => "Ubicación",
-    "contacts_more_info" => "Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor lo invitamos a <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarse</a>.",
+    "contacts_more_info" => "<b>Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor te invitamos a </b><a href=':loginUrl' class='btn btn-primary btn'>Ingresar</a><b> o </b><a nohref onclick='Mercatino.registerForm.show()' class='btn btn-primary btn'>Registrarte</a>",
 
     //Search
     "publications_search_placeholder" => "Buscar...",
@@ -72,8 +72,8 @@ return array(
     "publication_categories" => "Categorías para esta publicación",
     "publication_contacts" => "Contactos para esta publicación",
     "publication_images" => "Imágenes para esta publicación",
-    "publication_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes preferiblemente <b>cuadradas</b> de <b>mínimo (:min_width)x(:min_height)px</b> y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
-    "advertising_images_advice" => "Para garantizar la calidad de sus imágenes, asegúrese de subir imágenes preferiblemente <b>cuadradas</b> de <b>mínimo (:min_width)x(:min_height)px</b> y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "publication_images_advice" => "Para garantizar la calidad de las imágenes, asegúrate de subir imágenes preferiblemente <b>cuadradas</b> de <b>mínimo :min_width x  :min_height px</b> y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
+    "advertising_images_advice" => "Para garantizar la calidad de slas imágenes, asegúrate de subir imágenes de <b>mínimo :min_width x :min_height px</b> (o mayores con esas proporciones) y que no excedan <b>2MB</b>. El sistema reconoce <b>formatos gif, jpeg y png</b>.",
     "options" => "Opciones",
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
@@ -170,7 +170,7 @@ return array(
     "see_publication" => 'Ver publicación',
     "see_my_publications" => "Ir a mis publicaciones",
     "remove_image" => "Eliminar imagen",
-    "add_images_msg" => "Arrastra las imágenes o haz clic para cargarlas",
+    "add_images_msg" => "Arrastra las imágenes o haz click para cargarlas",
     "exit" => "Salir",
 
     // Backend Menu
@@ -358,8 +358,9 @@ return array(
     //Help
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
-
-    "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal.",
+    "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses. Puedes renovar tu publicación todas las veces que desees",
+    "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
+    "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
 
     "auth_menu_my_profile" => "Editar perfil",
 
@@ -460,7 +461,6 @@ return array(
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
     "rating_publication_empty_error" => "Debe indicar una puntuación o un comentario para que la calificación sea válida.",
     "rating_publication_no_items" => "Esta publicación aún no tiene calificaciones.",
-    "rating_publication_first_rating" => " Para ser el primero en calificar puedes <a href=':loginUrl'>ingresar</a> o <a class='manito' nohref onclick='Mercatino.registerForm.show()'>registrarte</a>.",
     "rating_publication_retrieve_error" => "Ha ocurrido un error intentando recuperar calificaciones para la publicación.",
     "rating_status_admin_label" => "Estatus de la calificación:",
     "rating_owner_label" => "Eliminar calificación:",
@@ -576,7 +576,7 @@ return array(
     'home_post_activation_dialog_go_home' => 'Ir a la página de inicio',
 
     "stats_users_basic" => "Básico",
-    "stats_description_users_basic" => "Cántidad de usuarios Básicos",
+    "stats_description_users_basic" => "Cantidad de usuarios Básicos",
     "stats_users_publisher" => "Anunciantes",
     "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Aspirando",

@@ -2,6 +2,7 @@ h1 {
     color:#3385CB;
     font-size:2.6em;
     font-weight: normal;
+    margin: 25px 0px;
 }
 
 h2 {
@@ -320,6 +321,11 @@ h2.home-title {
 
 }
 
+.publication-form hr {
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
 /*.pub-table.admin .row-title {*/
     /*width: 31%;*/
 /*}*/
@@ -524,8 +530,9 @@ div#home-banner-top .carousel-control {
     content: " *";
 }
 
-.required-label {
+.control-label.required-label {
     font-size: 12px;
+    text-align: left;
 }
 
 .required-label:before {
@@ -670,6 +677,14 @@ div#home-banner-top .carousel-control {
 
 .publication-rating .group-admin {
     margin-right: 20px;
+}
+
+.publication-categories {
+    margin-top: 0px;
+}
+
+#sectores {
+    margin-bottom: 0px;
 }
 
 /* Main menu */
