@@ -132,6 +132,7 @@ class RegisterController extends BaseController{
         $publisher->rif_ci=Input::get('publisher_id');
         $publisher->state_id=Input::get('publisher_state');
         $publisher->city=Input::get('publisher_city');
+        $publisher->address=Input::get('publisher_address');
         $publisher->phone1=Input::get('publisher_phone1');
         $publisher->phone2=Input::get('publisher_phone2');
         $publisher->media=Input::get('publisher_media');
@@ -162,6 +163,7 @@ class RegisterController extends BaseController{
         $state = State::find(Input::get('publisher_state'));
         $advertiserData->state_id = $state->name;
         $advertiserData->city=Input::get('publisher_city');
+        $advertiserData->address=Input::get('publisher_address');
         $advertiserData->phone1=Input::get('publisher_phone1');
         $advertiserData->phone2=Input::get('publisher_phone2');
         $advertiserData->media=Input::get('publisher_media');
@@ -192,11 +194,18 @@ class RegisterController extends BaseController{
 
     public function getDatosContactos(){
 
-        $contacts=Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
+        $contacts = Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
 
         return View::make('register_step3',
             array(
-                'contacts'=>$contacts
+                'contacts'=>$contacts,
+                "states" => $finalStates,
             )
         );
     }

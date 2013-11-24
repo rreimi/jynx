@@ -13,15 +13,30 @@ class ContactController extends BaseController {
     }
 
     public function getEditar($id){
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
+
         return View::make('include.contact_edit',
             array(
-                'contact'=>Contact::find($id)
+                'contact'=>Contact::find($id),
+                'states' => $finalStates,
             )
         );
     }
 
     public function getAgregar(){
-        return View::make('include.contact_add');
+        $states = State::lists('name','id');
+        $finalStates = array('' => Lang::get('content.select_state'));
+
+        foreach($states as $key => $value){
+            $finalStates[$key] = $value;
+        }
+
+        return View::make('include.contact_add', array('states' => $finalStates));
     }
 
     public function getEliminar($id) {
@@ -58,6 +73,7 @@ class ContactController extends BaseController {
             'email' => Input::get('email'),
             'phone' => Input::get('phone'),
             'other_phone' => Input::get('other_phone'),
+            'state' => Input::get('state'),
             'city' => Input::get('city'),
             'address' => Input::get('address'),
         );
@@ -89,6 +105,7 @@ class ContactController extends BaseController {
         $contact->email = $contactData['email'];
         $contact->phone = $contactData['phone'];
         $contact->other_phone= $contactData['other_phone'];
+        $contact->state_id = $contactData['state'];
         $contact->city = $contactData['city'];
         $contact->address = $contactData['address'];
         $contact->save();
@@ -98,9 +115,11 @@ class ContactController extends BaseController {
     }
 
     public function getDetalle($id){
+        $contact = Contact::find($id);
+
         return View::make('include.contact_view',
             array(
-                'contact'=>Contact::find($id)
+                'contact'=> $contact
             )
         );
     }
@@ -117,6 +136,7 @@ class ContactController extends BaseController {
             'contact_email' => Input::get('contact_email'),
             'contact_phone' => Input::get('contact_phone'),
             'contact_other_phone' => Input::get('contact_other_phone'),
+            'contact_state' => Input::get('contact_state'),
             'contact_city' => Input::get('contact_city'),
             'contact_address' => Input::get('contact_address'),
         );
@@ -135,6 +155,7 @@ class ContactController extends BaseController {
         $contact->distributor=Input::get('contact_distributor');
         $contact->address=Input::get('contact_address');
         $contact->phone=Input::get('contact_phone');
+        $contact->state_id=Input::get('contact_state');
         $contact->city=Input::get('contact_city');
         $contact->other_phone=Input::get('contact_other_phone');
 
@@ -151,6 +172,7 @@ class ContactController extends BaseController {
             //'contact_full_name' => 'required',
             'contact_email' => 'required | email',
             //'contact_address' => 'required',
+            //'contact_state' => 'required',
             //'contact_city' => 'required',
             'contact_phone' => 'required',
         );

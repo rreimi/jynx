@@ -6,7 +6,7 @@ class Publication extends Eloquent {
 
     protected $fillable = array('title', 'short_description',
         'long_description', 'status', 'from_date',
-        'to_date', 'publisher_id', 'remember', 'latitude', 'longitude');
+        'to_date', 'publisher_id', 'remember', 'latitude', 'longitude', 'show_pub_as_contact');
 
     public function scopeMostvisited($query, $pageSize){
         $query->orderBy('visits_number', 'desc')->with('publisher', 'images')->take($pageSize);
@@ -101,7 +101,7 @@ class Publication extends Eloquent {
 //            ->leftjoin('publications_categories', 'publications.id', '=', 'publications_categories.publication_id')
 //            ->whereIn('publications_categories.category_id', $cats)
             ->orWhere('title', 'like', "%$q%")
-            ->orWhere('short_description', 'like', "%$q%")
+            //->orWhere('short_description', 'like', "%$q%")
             ->orWhere('long_description', 'like', "%$q%")
             ->orWhere(function($query) use ($q) {
                     $publishers = Publisher::where('seller_name', 'like', "%$q%")->lists('id');

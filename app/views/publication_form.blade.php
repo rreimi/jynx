@@ -28,25 +28,25 @@
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('short_description') ? 'error':'' }}">
-            <label class="control-label required-field" for="short_description">{{ Lang::get('content.short_description') }}</label>
-            <div class="controls">
-                {{ Form::text('short_description', $publication->short_description, array('class' => 'input-xxlarge required key-field', 'placeholder'=> Lang::get('content.short_description'))) }}
-                {{ $errors->first('short_description', '<div class="field-error alert alert-error">:message</div>') }}
-                @if (isset($publication->id))
-                    <div class="text-warning alert-block key-field-section key-field-short_description">
-                        {{ Form::hidden('initial_short_description', $publication->short_description, array('disabled'=> 'disabled')) }}
-                        {{ Lang::get('content.edit_publication_redo_key_field',
-                        array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'short_description\');" class="manito">', 'a_close' => '</a>')) }}
-                    </div>
-                @endif
-            </div>
-        </div>
+<!--        <div class="control-group  $errors->has('short_description') ? 'error':'' ">-->
+<!--            <label class="control-label required-field" for="short_description"> Lang::get('content.short_description') </label>-->
+<!--            <div class="controls">-->
+<!--                 Form::text('short_description', $publication->short_description, array('class' => 'input-xxlarge required key-field', 'placeholder'=> Lang::get('content.short_description'))) -->
+<!--                 $errors->first('short_description', '<div class="field-error alert alert-error">:message</div>') -->
+<!--                if (isset($publication->id))-->
+<!--                    <div class="text-warning alert-block key-field-section key-field-short_description">-->
+<!--                        Form::hidden('initial_short_description', $publication->short_description, array('disabled'=> 'disabled'))-->
+<!--                        Lang::get('content.edit_publication_redo_key_field',-->
+<!--                        array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'short_description\');" class="manito">', 'a_close' => '</a>'))-->
+<!--                    </div>-->
+<!--                endif-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="control-group {{ $errors->has('long_description') ? 'error':'' }}">
-            <label class="control-label required-field" for="long_description">{{ Lang::get('content.long_description') }}</label>
+            <label class="control-label required-field" for="long_description">{{ Lang::get('content.descripcion') }}</label>
             <div class="controls">
-                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.long_description'))) }}
+                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.descripcion'))) }}
                 {{ $errors->first('long_description', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
@@ -186,25 +186,31 @@
             <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
             @endif
 
+            @if (!is_null($publication->id))
+                <label class="checkbox">
+                    {{ Form::checkbox('show_pub_as_contact', 1, ($publication->show_pub_as_contact == 1), array('class' => 'chk-show-pub-as-contact')) }}
+                    {{ $publication->publisher->seller_name . ', ' . $publication->publisher->state->name . ', ' . $publication->publisher->city . ', ' . $publication->publisher->address . ', ' . $publication->publisher->phone1 }}
+                </label>
+            @endif
             @foreach ($contacts as $contact)
-            <label class="checkbox">
-                {{ $contact->full_name . ', ' .  $contact->city . ', ' .  $contact->address  . ', ' .  $contact->phone }}
-                {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
-            </label>
+                <label class="checkbox">
+                    {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }}
+                    {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
+                </label>
             @endforeach
 
         </div>
 
         @if (!is_null($publication->id))
-        <div class="row-fluid imagenes-section-box">
-            <a name="imagenes"></a>
-            <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
-            <div class="alert-warning alert">{{Lang::get('content.publication_images_advice', array('min_width' => $detailSize['width'], 'min_height' => $detailSize['height']))}}</div>
-            <div class="form-message-box alert alert-error">
+            <div class="row-fluid imagenes-section-box">
+                <a name="imagenes"></a>
+                <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
+                <div class="alert-warning alert">{{Lang::get('content.publication_images_advice', array('min_width' => $detailSize['width'], 'min_height' => $detailSize['height']))}}</div>
+                <div class="form-message-box alert alert-error">
 
+                </div>
+                <div id="dropzone" class="dropzone"></div>
             </div>
-            <div id="dropzone" class="dropzone"></div>
-        </div>
         @endif
 
         {{ Form::hidden('id', $publication->id) }}
@@ -219,9 +225,9 @@
             <div class="controls">
                 <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
                 @if (isset($publication->id))
-                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
+                    <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
                 @else
-                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
+                    <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
                 @endif
             </div>
         </div>

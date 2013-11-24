@@ -39,7 +39,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
+        $data['publication'] = Publication::with('images', 'publisher', 'contacts')->find($id);
 
         //TODO Validar que la publicacion exista
 
@@ -584,7 +584,7 @@ class PublicationController extends BaseController {
         $pubData = array(
             'id' => Input::get('id'),
             'title' => Input::get('title'),
-            'short_description' => Input::get('short_description'),
+//            'short_description' => Input::get('short_description'),
             'long_description' => Input::get('long_description'),
             'status' => Input::get('status'),
             'from_date' => Input::get('from_date'),
@@ -595,6 +595,7 @@ class PublicationController extends BaseController {
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
             'categories' => Input::get('categories'),
+            'show_pub_as_contact' => Input::get('show_pub_as_contact'),
             'contacts' => Input::get('contacts'),
             'remember' => Input::get('remember'),
         );
@@ -602,7 +603,7 @@ class PublicationController extends BaseController {
         //Set validation rules
         $rules = array(
             'title' => 'required',
-            'short_description' => 'required',
+//            'short_description' => 'required',
             'long_description' => 'required',
             'status' => 'required',
             'from_date' => 'required|date_format:d-m-Y|publication_invalid_date_range:'. $pubData['to_date'] .'|publication_limit_date_range:'. $pubData['to_date'],
@@ -692,7 +693,7 @@ class PublicationController extends BaseController {
             $pub = Publication::find($pubData['id']);
 
             // Si cambiaron los campos Titulo o Descripcion Corta, entonces se reinicia contador de publicaciones
-            if (($pub->title != $pubData['title']) || ($pub->short_description != $pubData['short_description'])){
+            if (($pub->title != $pubData['title'])){// || ($pub->short_description != $pubData['short_description'])){
                 $pub->visits_number = 0;
                 PublicationVisit::where('publication_id', $pubData['id'])->delete();
             }
@@ -708,6 +709,10 @@ class PublicationController extends BaseController {
 
         if ($pub->remember == null){
             $pub->remember = 0;
+        }
+
+        if ($pub->show_pub_as_contact == null){
+            $pub->show_pub_as_contact = 0;
         }
 
         $pub->save();

@@ -21,8 +21,21 @@
         </div>
     </div>
 </div>
-<div class="control-group {{ $errors->has('city')? 'error':'' }}">
-    {{ Form::text('city',$contact->city,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level')) }}
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group {{ $errors->has('state')? 'error':'' }}">
+            {{ Form::select('state',
+            $states,
+            $contact->state_id,
+            array('class'=>'input-block-level states'))
+            }}
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group {{ $errors->has('city')? 'error':'' }}">
+            {{ Form::text('city',$contact->city,array('placeholder' => Lang::get('content.contact_city'),'class' => 'input-block-level')) }}
+        </div>
+    </div>
 </div>
 <div class="control-group {{ $errors->has('address')? 'error':'' }}">
     {{ Form::text('address',$contact->address,array('placeholder' => Lang::get('content.contact_address'),'class' => 'input-block-level')) }}

@@ -170,8 +170,8 @@ h2.home-title {
     color: #444444;
 }
 
-.publication-info div {
-    margin-top: 20px;
+.publication-info .publication-data {
+    margin-top: 15px;
 }
 
 .publication-info .social-section {
@@ -221,7 +221,7 @@ h2.home-title {
 }
 
 .pub-location {
-    background: url('../img/pub_direccion.png') 0 center no-repeat;
+    background: url('../img/pub_direccion.png') 0 top no-repeat;
     padding-left: 40px;
 }
 
@@ -244,10 +244,16 @@ h2.home-title {
 }
 
 .publication-info .contact {
-    float: left;
-    width: 315px;
+    clear: both;
+    margin-bottom: 10px;
     padding-right: 15px;
-    margin-top: 0;
+}
+
+.publication-info .contact .block {
+    border-bottom: 1px solid #DDDDDD;
+    display: table-cell;
+    margin-bottom: 10px;
+    width: 320px;
 }
 
 .publication-buttons {
@@ -593,7 +599,6 @@ div#home-banner-top .carousel-control {
     margin-bottom: 35px;
     overflow: hidden;
     width: 100%;
-    margin-top: 30px;
 }
 
 .publication-rating .title {
@@ -607,7 +612,7 @@ div#home-banner-top .carousel-control {
 .publication-rating .rating-block {
     margin: 0 35px;
     padding: 20px 0;
-    border-bottom: 1px solid #AAAAAA;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .publication-rating .rating-block .current-rating {
@@ -1097,4 +1102,10 @@ div#home-banner-top .carousel-control {
     content: counter(ordem) "." counter(internal) " ";
 }
 
+.contact-form .states {
+    color: #AAAAAA;
+}
 
+.contact-form .state-option {
+    color: #555555;
+}

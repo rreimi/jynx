@@ -110,6 +110,7 @@ class ProfileController extends BaseController{
         if (Auth::user()->isPublisher()){
             $profileData['state'] = Input::get('state');
             $profileData['city'] = Input::get('city');
+            $profileData['address'] = Input::get('address');
             $profileData['phone1'] = Input::get('phone1');
             $profileData['phone2'] = Input::get('phone2');
             $profileData['avatar'] = Input::file('avatar');
@@ -155,6 +156,7 @@ class ProfileController extends BaseController{
             $publisher = $user->publisher;
             $publisher->state_id = $profileData['state'];
             $publisher->city = $profileData['city'];
+            $publisher->address = $profileData['address'];
             $publisher->web = $profileData['web'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];

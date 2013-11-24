@@ -88,7 +88,7 @@ class PublicationView extends Eloquent {
             $query->Where(function($query) use ($token)
             {
                 $query->orWhere('title', 'like', "%$token%")
-                    ->orWhere('short_description', 'like', "%$token%")
+                    //->orWhere('short_description', 'like', "%$token%")
                     ->orWhere('long_description', 'like', "%$token%")
                     ->orWhere('seller_name', 'like', "%$token%")
                     ->orWhere('category_name', 'like', "%$token%")
