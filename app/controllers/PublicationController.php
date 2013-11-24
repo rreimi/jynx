@@ -711,6 +711,10 @@ class PublicationController extends BaseController {
             $pub->remember = 0;
         }
 
+        if ($pub->show_pub_as_contact == null){
+            $pub->show_pub_as_contact = 0;
+        }
+
         $pub->save();
 
         // Save publication categories
