@@ -39,7 +39,7 @@ class PublicationController extends BaseController {
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'publisher.contacts')->find($id);
+        $data['publication'] = Publication::with('images', 'publisher', 'contacts')->find($id);
 
         //TODO Validar que la publicacion exista
 
@@ -595,6 +595,7 @@ class PublicationController extends BaseController {
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
             'categories' => Input::get('categories'),
+            'show_pub_as_contact' => Input::get('show_pub_as_contact'),
             'contacts' => Input::get('contacts'),
             'remember' => Input::get('remember'),
         );

@@ -81,29 +81,34 @@
             @if (count($publication->contacts) > 0)
             <div>
                 <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
-<!--                    // If condicion-->
-                <div class="contact">
-                    <div class="block">
-                        <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
-                        @if (Auth::check())
-                        <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $publisher_email }}</p>
-                        @endif
-                    </div>
-                    @if (Auth::check())
-                    <div class="block">
-                        <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
-                            @if ($publication->publisher->phone2)
-                            / {{ $publication->publisher->phone2 }}
+
+                @if ($publication->show_pub_as_contact)
+                    <div class="contact">
+                        <div class="block">
+                            <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
+                            @if (Auth::check())
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $publisher_email }}</p>
                             @endif
-                        </p>
-                        <p class="pub-location">{{Lang::get('content.location')}}:  {{ $publication->publisher->state->name . ', ' . $publication->publisher->city }}</p>
-                        @if ($publication->publisher->web)
-                        <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}">{{ $publication->publisher->web }}</a></p>
+                        </div>
+                        @if (Auth::check())
+                        <div class="block">
+                            <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
+                                @if ($publication->publisher->phone2)
+                                / {{ $publication->publisher->phone2 }}
+                                @endif
+                            </p>
+                            <p class="pub-location">{{Lang::get('content.location')}}:
+                                {{ $publication->publisher->state->name . ', ' . $publication->publisher->city }}
+                                @if ($publication->publisher->address) , {{ $publication->publisher->address }} @endif
+                            </p>
+                            @if ($publication->publisher->web)
+                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}">{{ $publication->publisher->web }}</a></p>
+                            @endif
+                        </div>
                         @endif
+                        </div>
                     </div>
-                    @endif
-                    </div>
-                </div>
+                @endif
 
                 @foreach ($publication->contacts as $contact)
                     <div class="contact">
@@ -123,7 +128,7 @@
                                 @endif
                             </p>
                             <p class="pub-location">{{Lang::get('content.location')}}:
-                                @if ($contact->state_id) {{ $contact->state_id }}, @endif
+                                @if ($contact->state_id) {{ $contact->state->name }}, @endif
                                 @if ($contact->city) {{ $contact->city }}, @endif
                                 @if ($contact->address) {{ $contact->address }} @endif
                             </p>

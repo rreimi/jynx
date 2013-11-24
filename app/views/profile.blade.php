@@ -129,6 +129,14 @@
                     </div>
                 </div>
 
+                <div class="control-group {{ $errors->has('address') ? 'error':'' }}">
+                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_address') }}</label>
+                    <div class="controls">
+                        {{ Form::text('address', $user->publisher->address, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_address'))) }}
+                        {{ $errors->first('address', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
+
                 <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
                     <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
                     <div class="controls">
@@ -173,22 +181,22 @@
                 <h5>{{Lang::get('content.categories_title')}}</h5>
                 <div class="control-group">
                     @foreach ($categories as $key => $category)
-                    @if ($key % 4 == 0)
-                        <div class="row-fluid">
-                    @endif
+                        @if ($key % 4 == 0)
+                            <div class="row-fluid">
+                        @endif
 
-                        <label class="span3 checkbox checkbox-category">
-                            {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
-                            {{ $category->name }}
-                        </label>
+                            <label class="span3 checkbox checkbox-category">
+                                {{ Form::checkbox('publisher_categories[]',$category->id,in_array($category->id,$categoriesSelected)) }}
+                                {{ $category->name }}
+                            </label>
 
-                    @if((count($categories)%4)==0)
-                        @if ((($key+1) % 4) == 0)
+                        @if((count($categories)%4)==0)
+                            @if ((($key+1) % 4) == 0)
+                                </div>
+                            @endif
+                        @elseif(count($categories)==$key+1)
                             </div>
                         @endif
-                    @elseif(count($categories)==$key+1)
-                        </div>
-                    @endif
                     @endforeach
                 </div>
                 <h5>{{Lang::get('content.services_title')}}</h5>

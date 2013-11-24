@@ -42,7 +42,6 @@
                     <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
                         {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
                     </div>
-
                     <div class="control-group {{ $errors->has('publisher_media')? 'error':'' }}">
                         {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level required')) }}
                     </div>
@@ -61,6 +60,9 @@
                                 {{ Form::text('publisher_city',null,array('placeholder' => Lang::get('content.publisher_city'),'class' => 'input-block-level required')) }}
                             </div>
                         </div>
+                    </div>
+                    <div class="control-group {{ $errors->has('publisher_address')? 'error':'' }}">
+                        {{ Form::text('publisher_address',null,array('placeholder' => Lang::get('content.publisher_address'),'class' => 'input-block-level')) }}
                     </div>
                     <div class="row-fluid">
                         <div class="span6">

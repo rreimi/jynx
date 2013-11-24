@@ -114,66 +114,66 @@
 
             <ul class="float-left categories-form-list">
                 <li><h2>{{Lang::get('content.categories_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
-            @foreach ($categories as $cat)
-                <li>
-                    @if (count($cat->subcategories) > 0)
-                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
-                    @endif
-                    <label class="checkbox checkbox-category-form">
-                        {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
-                    </label>
-                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
-                        @foreach ($cat->subcategories as $subcat)
-                        <li>
-                            <label class="checkbox">
-                               {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                            </label>
-                            <ul>
-                               @foreach ($subcat->subcategories as $thirdcat)
-                                <li>
-                                    <label class="checkbox">
-                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
-                                    </label>
-                                </li>
-                               @endforeach
-                            </ul>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endforeach
+                @foreach ($categories as $cat)
+                    <li>
+                        @if (count($cat->subcategories) > 0)
+                        <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
+                        @endif
+                        <label class="checkbox checkbox-category-form">
+                            {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                        </label>
+                        <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
+                            @foreach ($cat->subcategories as $subcat)
+                            <li>
+                                <label class="checkbox">
+                                   {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
+                                </label>
+                                <ul>
+                                   @foreach ($subcat->subcategories as $thirdcat)
+                                    <li>
+                                        <label class="checkbox">
+                                            {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                        </label>
+                                    </li>
+                                   @endforeach
+                                </ul>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
             </ul>
 
             <ul class="float-left">
                 <li><h2>{{Lang::get('content.services_title')}}</h2><span class="text-warning alert-block">{{ Lang::get('content.help_publication_categories') }}</span></li>
                 @foreach ($services as $cat)
-                <li>
-                    @if (count($cat->subcategories) > 0)
-                    <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
-                    @endif
-                    <label class="checkbox checkbox-category-form">
-                        {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
-                    </label>
-                    <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
-                        @foreach ($cat->subcategories as $subcat)
-                        <li>
-                            <label class="checkbox">
-                                {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
-                            </label>
-                            <ul>
-                                @foreach ($subcat->subcategories as $thirdcat)
+                    <li>
+                        @if (count($cat->subcategories) > 0)
+                            <span class="float-left cursor-pointer collpase-subcategories" data-toggle="collapse" data-target="#subcategories_for_{{ $cat->id }}">+</span>
+                        @endif
+                        <label class="checkbox checkbox-category-form">
+                            {{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, (array) $publication_categories), array('class' => 'chk-cat')) }} {{ $cat->name }}
+                        </label>
+                        <ul id="subcategories_for_{{ $cat->id }}" class="subcategories-list collapse @if ( in_array($cat->id, (array) $publication_categories)) in @endif">
+                            @foreach ($cat->subcategories as $subcat)
                                 <li>
                                     <label class="checkbox">
-                                        {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                        {{ Form::checkbox('categories[]', $subcat->id, in_array($subcat->id, (array) $publication_categories), array('class' => 'chk-sub-cat', 'data-parent-id' => $cat->id)) }} {{ $subcat->name }}
                                     </label>
+                                    <ul>
+                                        @foreach ($subcat->subcategories as $thirdcat)
+                                        <li>
+                                            <label class="checkbox">
+                                                {{ Form::checkbox('categories[]', $thirdcat->id, in_array($thirdcat->id, (array) $publication_categories), array('class' => 'chk-third-cat', 'data-parent-id' => $subcat->id)) }} {{ $thirdcat->name }}
+                                            </label>
+                                        </li>
+                                        @endforeach
+                                    </ul>
                                 </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endforeach
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
             </ul>
         </div>
 
@@ -182,28 +182,34 @@
             <h2>{{Lang::get('content.publication_contacts')}}</h2>
 
             @if ($errors->has('contacts'))
-            <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
+                <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
             @endif
 
+            @if (!is_null($publication->id))
+                <label class="checkbox">
+                    {{ Form::checkbox('show_pub_as_contact', 1, ($publication->show_pub_as_contact == 1), array('class' => 'chk-show-pub-as-contact')) }}
+                    {{ $publication->publisher->seller_name . ', ' . $publication->publisher->state->name . ', ' . $publication->publisher->city . ', ' . $publication->publisher->address . ', ' . $publication->publisher->phone1 }}
+                </label>
+            @endif
             @foreach ($contacts as $contact)
-            <label class="checkbox">
-                {{ $contact->full_name . ', ' .  $contact->city . ', ' .  $contact->address  . ', ' .  $contact->phone }}
-                {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
-            </label>
+                <label class="checkbox">
+                    {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }}
+                    {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
+                </label>
             @endforeach
 
         </div>
 
         @if (!is_null($publication->id))
-        <div class="row-fluid imagenes-section-box">
-            <a name="imagenes"></a>
-            <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
-            <div class="alert-warning alert">{{Lang::get('content.publication_images_advice', array('min_width' => $detailSize['width'], 'min_height' => $detailSize['height']))}}</div>
-            <div class="form-message-box alert alert-error">
+            <div class="row-fluid imagenes-section-box">
+                <a name="imagenes"></a>
+                <h2 id="imagenes-section-title">{{Lang::get('content.publication_images')}}</h2>
+                <div class="alert-warning alert">{{Lang::get('content.publication_images_advice', array('min_width' => $detailSize['width'], 'min_height' => $detailSize['height']))}}</div>
+                <div class="form-message-box alert alert-error">
 
+                </div>
+                <div id="dropzone" class="dropzone"></div>
             </div>
-            <div id="dropzone" class="dropzone"></div>
-        </div>
         @endif
 
         {{ Form::hidden('id', $publication->id) }}
@@ -214,9 +220,9 @@
             <div class="controls">
                 <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.cancel')}}</a>
                 @if (isset($publication->id))
-                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
+                    <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.save')}}</button>
                 @else
-                <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
+                    <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.continue')}}</button>
                 @endif
             </div>
         </div>
