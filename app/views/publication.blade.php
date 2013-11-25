@@ -85,9 +85,9 @@
                 @if ($publication->show_pub_as_contact)
                     <div class="contact">
                         <div class="block">
-                            <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
+                            <p class="pub-name"><b>{{ $publication->publisher->seller_name }}</b></p>
                             @if (Auth::check())
-                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $publisher_email }}</p>
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $publisher_email }}">{{ $publisher_email }}</a></p>
                             @endif
                         </div>
                         @if (Auth::check())
@@ -114,10 +114,10 @@
                     <div class="contact">
                         <div class="block">
                             <p class="pub-name">{{ $contact->full_name }}
-                                @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
+                                <b>@if (isset($contact->distributor)) - {{ $contact->distributor }} @endif</b>
                             <p/>
                             @if (Auth::check())
-                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
                             @endif
                         </div>
                         @if (Auth::check())
@@ -146,6 +146,7 @@
             {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
         </div>
         @endif
+        <br/>
 
         <!-- Ratings -->
         <div class="publication-rating">

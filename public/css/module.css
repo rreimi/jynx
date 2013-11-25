@@ -332,6 +332,16 @@ h2.home-title {
     margin-top: 30px;
 }
 
+.publication-form .change-title-alert {
+    color: #B94A48;
+    font-weight: bold;
+}
+
+.publication-form .change-title-alert a {
+    color: #B94A48;
+    text-decoration: underline;
+}
+
 /*.pub-table.admin .row-title {*/
     /*width: 31%;*/
 /*}*/
@@ -352,7 +362,7 @@ h2.home-title {
     margin-bottom: 20px;
 }
 
-.about-us {
+.about-us, .help {
     margin: 0px 50px;
     text-align: justify;
 }
@@ -372,6 +382,10 @@ h2.home-title {
     border: 1px solid #CCCCCC;
 }
 
+.about-us .rif {
+    text-align: center;
+    font-size: 9px;
+}
 
 
 /* Dashboard */
@@ -877,6 +891,10 @@ div#home-banner-top .carousel-control {
     float: left;
     margin-top: 55px;
     font-size: 0.9em;
+}
+
+.contact-info h5 {
+    margin-left: 45px;
 }
 
 .contact-info .contact-row.contact-text {

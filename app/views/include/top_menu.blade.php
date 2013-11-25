@@ -51,9 +51,9 @@
                     <li><a href="{{URL::to('/contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
                     @if(Auth::check())
-                        <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
+                    <!-- <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>-->
 
-                        @if(Auth::user()->isPublisher())
+                    @if(Auth::user()->isPublisher())
 <!--                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>-->
                         @endif
 

@@ -19,7 +19,7 @@
                 {{ Form::text('title', $publication->title, array('class' => 'input-xlarge required key-field','placeholder'=> Lang::get('content.title'))) }}
                 {{ $errors->first('title', '<div class="field-error alert alert-error">:message</div>') }}
                 @if (isset($publication->id))
-                    <div class="text-warning alert-block key-field-section key-field-title">
+                    <div class="change-title-alert alert-block key-field-section key-field-title">
                         {{ Form::hidden('initial_title', $publication->title, array('disabled'=> 'disabled')) }}
                         {{ Lang::get('content.edit_publication_redo_key_field',
                             array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'title\');" class="manito">', 'a_close' => '</a>')) }}

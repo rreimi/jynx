@@ -86,7 +86,7 @@
                 {{Lang::get('content.about_us')}}
             </div>
         </a>
-        <a href="#">
+        <a href="{{URL::to('ayuda')}}">
             <div class="footer-title footer-block help-footer">
                 {{Lang::get('content.help')}}
             </div>

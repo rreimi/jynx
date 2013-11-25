@@ -153,7 +153,7 @@ return array(
     "tumercato_email" => "info@tumercato.com",
     "facebook" => "CAVENIT",
     "twitter" => "@cavenit",
-    "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
+    "copyright" => "&copy; Copyright 2013 CAVENIT (RIF J-00066510-9) - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
     "androb" => "ANDROB",
 
     //Options
@@ -349,7 +349,7 @@ return array(
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
-    'edit_publication_redo_key_field' => 'Este cambio implica reiniciar el contador de la publicación. Para deshacer haga click :a_open aquí. :a_close',
+    'edit_publication_redo_key_field' => 'Este cambio implica reiniciar el contador de la publicación. Para deshacer haz click :a_open aquí. :a_close',
 
     "select" => "Selecciona",
 
@@ -514,7 +514,7 @@ return array(
     "contactus_message" => "Mensaje",
     "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
-
+    "contactus_cavenit" => "Sedes de CAVENIT",
     "contactus_caracas" => "Caracas",
     "caracas_email" => "informatica@cavenit.com",
     "caracas_address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",
