@@ -230,6 +230,11 @@ h2.home-title {
     padding-left: 40px;
 }
 
+.pub-web {
+    background: url('../img/pub_web.png') 0 top no-repeat;
+    padding-left: 40px;
+}
+
 .pub-list-btn-group {
     margin-bottom: 1em;
 }
