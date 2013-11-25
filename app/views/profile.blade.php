@@ -147,6 +147,7 @@
         <label class="control-label" for="long_description">{{ Lang::get('content.web_page') }}</label>
         <div class="controls">
             {{ Form::text('web', $user->publisher->web, array('class' => 'input-xlarge url','placeholder'=> Lang::get('content.web_page'))) }}
+            <label class="external-url-label">{{ Lang::get('content.external_url_label') }}</label>
             {{ $errors->first('web', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>

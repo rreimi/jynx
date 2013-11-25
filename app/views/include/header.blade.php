@@ -89,9 +89,9 @@
                             <!--                    @endif-->
 
                             <li class="category-menu-link">
-                                <a class="" href="{{URL::to('')}}">
+                                <div class="products-services-menu">
                                     {{Lang::get('content.products_and_services')}}
-                                </a>
+                                </div>
                                 @include('include.category_tree')
                             </li>
 

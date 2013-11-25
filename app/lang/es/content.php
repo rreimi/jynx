@@ -369,7 +369,7 @@ return array(
     "profile" => "Perfil de usuario",
     "profile_edit" => "Edita tu perfil",
     "profile_edit_basic" => "Datos Básicos",
-    "profile_edit_publisher" => "Datos de Publicador",
+    "profile_edit_publisher" => "Datos de Anunciante",
     "profile_edit_sectors" => "Sectores de Negocio",
     "profile_edit_contacts" => "Contactos",
     "profile_email" => "Correo electrónico",

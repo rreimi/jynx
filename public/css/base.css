@@ -44,6 +44,17 @@ body {
     width:720px;
 }
 
+.products-services-menu {
+    padding: 2px 30px 13px 0;
+    text-transform: uppercase;
+    color: #777777;
+}
+
+.products-services-menu:hover {
+    color: #3385CB;
+    cursor: default;
+}
+
 .navbar-inner .container {
     padding-top: 6px;
 }

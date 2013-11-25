@@ -78,7 +78,7 @@
                 </ul>
             </div>
 
-            @if (count($publication->contacts) > 0)
+            @if (count($publication->contacts) > 0 || $publication->show_pub_as_contact)
             <div>
                 <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
 
@@ -102,7 +102,7 @@
                                 @if ($publication->publisher->address) , {{ $publication->publisher->address }} @endif
                             </p>
                             @if ($publication->publisher->web)
-                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}">{{ $publication->publisher->web }}</a></p>
+                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}" target="_blank">{{ $publication->publisher->web }}</a></p>
                             @endif
                         </div>
                         @endif
@@ -127,11 +127,13 @@
                                 / {{ $contact->other_phone }}
                                 @endif
                             </p>
+                            @if ($contact->state_id || $contact->city || $contact->address)
                             <p class="pub-location">{{Lang::get('content.location')}}:
                                 @if ($contact->state_id) {{ $contact->state->name }}, @endif
                                 @if ($contact->city) {{ $contact->city }}, @endif
                                 @if ($contact->address) {{ $contact->address }} @endif
                             </p>
+                            @endif
                         </div>
                         @endif
                     </div>
