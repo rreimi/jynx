@@ -12,7 +12,7 @@
                     {{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => 'form-inline top-menu-search')) }}
                     <div class="input-append">
                         {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'input-block-level')) }}
-                        <button class="btn btn-warning" type="submit"><i class="icon-search icon-white"></i></button>
+                        <button class="btn btn-warning search" type="submit"><i class="icon-search icon-white"></i></button>
                     </div>
                     {{ Form::close() }}
                 </div>

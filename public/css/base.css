@@ -23,6 +23,10 @@ body {
 
 }
 
+.btn.search {
+    height: 30px;
+}
+
 .header-form {
     /*height: 59px;*/
     width:720px;
