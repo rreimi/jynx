@@ -813,7 +813,7 @@ input.dial:focus{
 }
 
 .title-job{
-    color:#3385CB;
+    color:#555;
 }
 
 .description-job{
@@ -830,7 +830,7 @@ input.dial:focus{
 }
 
 .job-detail .field{
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 20px;
 }
 
