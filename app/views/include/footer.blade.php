@@ -81,14 +81,15 @@
         </div>
     </div>
     <div class="footer-block footer-static-blocks">
-        <a href="{{URL::to('acerca-de')}}">
-            <div class="footer-title footer-block us-footer">
-                {{Lang::get('content.about_us')}}
-            </div>
-        </a>
+
         <a href="{{URL::to('ayuda')}}">
             <div class="footer-title footer-block help-footer">
                 {{Lang::get('content.help')}}
+            </div>
+        </a>
+        <a href="{{URL::to('acerca-de')}}">
+            <div class="footer-title footer-block us-footer">
+                {{Lang::get('content.about_us')}}
             </div>
         </a>
         <a href="{{URL::to('bolsa-trabajo')}}">
