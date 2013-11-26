@@ -360,7 +360,7 @@ return array(
     //Help
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
-    "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses. Puedes renovar tu publicación todas las veces que desees",
+    "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses (90 días continuos). Puedes renovar tu publicación todas las veces que desees",
     "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
     "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
 
