@@ -192,12 +192,13 @@
                 Mis datos de anunciante como contacto
             </label>
 
-
+            @if ($contacts->count() > 0)
+                <br/>
+                <b>Otros contactos</b>
+            @endif
 
             @foreach ($contacts as $contact)
 
-            <br/>
-            <b>Otros contactos</b>
                 <label class="checkbox">
                     {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }}
                     {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
