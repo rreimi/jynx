@@ -293,6 +293,7 @@ return array(
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "select_state" => "Seleccione Estado",
+    "publisher_address" => "Dirección",
     "publisher_seller" => "Nombre vendedor / Nombre empresa",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
