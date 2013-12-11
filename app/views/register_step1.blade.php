@@ -83,7 +83,7 @@
     <br/>
     <br/>
     <li><b>Asignación de Cuentas y contraseñas</b></li>
-    Los Usuarios Registrados y Usuarios Anunciantes accederán a su Cuenta personal ("Cuenta") mediante el ingreso de su correo electrónico y una contraseña personal elegida ("Contraseña"). El Usuario se obliga a mantener la confidencialidad de su Contraseña. Toda Cuenta es de carácter personal, única e intransferible, y queda prohibida la inscripción de más de una cuenta bajo una misma dirección de correo electrónico, en cuyo caso, El Sitio podrá cancelar, suspender o inhabilitar una de las cuentas..
+    Los Usuarios Registrados y Usuarios Anunciantes accederán a su Cuenta personal ("Cuenta") mediante el ingreso de su nombre, correo electrónico y una contraseña personal elegida ("Contraseña"). El Usuario se obliga a mantener la confidencialidad de su Contraseña. Toda Cuenta es de carácter personal, única e intransferible, y queda prohibida la inscripción de más de una cuenta bajo una misma dirección de correo electrónico, en cuyo caso, El Sitio podrá cancelar, suspender o inhabilitar una de las cuentas..
     <br/>
     <br/>
     <li><b>Uso y custodia de Cuentas y contraseñas</b></li>
@@ -92,7 +92,7 @@
     </ol>
     <br/>
     <li class="main"><b>De los contenidos. Descripción de los Productos y Servicios</b></li>
-    El Usuario se compromete a utilizar El Sitio y Los Servicios de conformidad con la ley, estas Condiciones Generales, las Políticas de Privacidad aplicables, así como con la moral, el orden público y buenas costumbres generalmente aceptadas en Venezuela.
+    El Usuario se compromete a utilizar El Sitio y Los Servicios de conformidad con la ley, estas Condiciones Generales, así como con la moral, el orden público y buenas costumbres generalmente aceptadas en Venezuela.
     <br/>
     El Usuario se obliga a abstenerse de utilizar El Sitio y Los Servicios con fines ilícitos, contrarios a lo establecido en las leyes de la República y éstas Condiciones Generales, que puedan resultar lesivos de los derechos e intereses de terceros, o que de cualquier forma puedan dañar, inutilizar, sobrecargar o deteriorar El Sitio y Los Servicios o impedir la normal utilización o disfrute del Sitio y de Los Servicios por parte de los Usuarios.
     <br/>
@@ -137,7 +137,7 @@
     <br/>
     <li class="main"><b>Privacidad de la Información, Seguridad y Confidencialidad de datos personales</b></li>
     Para utilizar los Servicios ofrecidos por El Sitio, Los Usuarios deberán facilitar determinados datos de carácter personal. Su información personal se procesa y almacena en servidores o medios magnéticos que mantienen altos estándares de seguridad y protección tanto física como tecnológica.
-    El sitio no venderá, alquilará ni negociará con otras empresas la información personal de Los Usuarios salvo en las formas y casos establecidas en las Políticas de Privacidad publicadas en El Sitio. El Sitio hará sus mejores esfuerzos para mantener la confidencialidad y seguridad de los Datos Personales de sus Usuarios.
+    TuMercato trata su Información Personal con la mayor confidencialidad. El sitio no venderá, alquilará ni negociará con otras empresas la información personal de Los Usuarios. Puede suceder que en virtud de órdenes judiciales, o de regulaciones legales, nos veamos compelidos a revelar información a las autoridades o terceras partes bajo ciertas circunstancias, o bien en casos que terceras partes puedan interceptar o acceder a cierta información o transmisiones de datos en cuyo caso TuMercato no responderá por la información que sea revelada.  El Sitio hará sus mejores esfuerzos para mantener la confidencialidad y seguridad de los Datos Personales de sus Usuarios.
     <br/>
     <br/>
     <li class="main"><b>Obligaciones de los Usuarios Anunciantes</b></li>
@@ -172,7 +172,7 @@
     <li><b>Continuidad de uso del sistema</b></li>
     En virtud que la plataforma prevista por El Sitio se basa en sistemas de software, hardware e Internet, cuya operatividad no depende de éste, por lo que no se puede garantizar el acceso y uso continuado o ininterrumpido de El Sitio.
     <br/>
-    TUMERCATO no garantiza la disponibilidad y continuidad del funcionamiento del Sitio y de los Servicios. No todos los Servicios y Contenidos en general se encuentran disponibles para todas las áreas geográficas. Cuando ello sea razonablemente posible, TUMERCATO advertirá previamente las interrupciones en el funcionamiento del Sitio y de los Servicios. Se aclara que el sistema puede eventualmente no estar disponible debido a casos fortuitos o de fuerza mayor, así como dificultades técnicas o fallas de Internet, o por cualquier otra circunstancia ajena a El Sitio; en tales casos se procurará restablecerlo con la mayor celeridad posible sin que por ello pueda imputársele algún tipo de responsabilidad.
+    TUMERCATO no garantiza la disponibilidad y continuidad del funcionamiento del Sitio y de los Servicios. No todos los Servicios y Contenidos en general se encuentran disponibles para todas las áreas geográficas. Cuando ello sea razonablemente posible, TUMERCATO advertirá previamente las interrupciones en el funcionamiento del Sitio y de los Servicios. Se aclara que el sistema puede eventualmente no estar disponible debido a casos fortuitos o de fuerza mayor, así como dificultades técnicas o fallas de Internet, o por cualquier otra circunstancia ajena a El Sitio; en tales casos se procurará restablecerlo con la mayor celeridad  posible sin que por ello pueda imputársele algún tipo de responsabilidad.
     <br/>
     <br/>
     <li><b>Utilidad y falibilidad del sitio</b></li>
