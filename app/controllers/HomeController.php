@@ -207,14 +207,14 @@ class HomeController extends BaseController {
 
         /* Find publications */
         //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
+        $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->paginate($this->page_size);
 
 
         /* Calculate filters */
         $availableFilters = array();
 
         if (!isset($activeFilters['category'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(*) as total, category_id as item_id, category_name as label'))->groupBy('category_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, category_id as item_id, category_name as label'))->groupBy('category_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -248,6 +248,8 @@ class HomeController extends BaseController {
                 $availableFilters['seller'][] = $item;
             }
         }
+
+        //var_dump(DB::getQueryLog()); ;
 
         $data['availableFilters'] = $availableFilters;
         $data['activeFilters'] = $activeFilters;
