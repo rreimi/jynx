@@ -78,16 +78,16 @@
                 </ul>
             </div>
 
-            @if (count($publication->contacts) > 0)
+            @if (count($publication->contacts) > 0 || $publication->show_pub_as_contact)
             <div>
                 <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
 
                 @if ($publication->show_pub_as_contact)
                     <div class="contact">
                         <div class="block">
-                            <p class="pub-name">{{ $publication->publisher->seller_name }}</p>
+                            <p class="pub-name"><b>{{ $publication->publisher->seller_name }}</b></p>
                             @if (Auth::check())
-                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $publisher_email }}</p>
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $publisher_email }}">{{ $publisher_email }}</a></p>
                             @endif
                         </div>
                         @if (Auth::check())
@@ -102,7 +102,7 @@
                                 @if ($publication->publisher->address) , {{ $publication->publisher->address }} @endif
                             </p>
                             @if ($publication->publisher->web)
-                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}">{{ $publication->publisher->web }}</a></p>
+                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}" target="_blank">{{ $publication->publisher->web }}</a></p>
                             @endif
                         </div>
                         @endif
@@ -114,10 +114,10 @@
                     <div class="contact">
                         <div class="block">
                             <p class="pub-name">{{ $contact->full_name }}
-                                @if (isset($contact->distributor)) - {{ $contact->distributor }} @endif
+                                <b>@if (isset($contact->distributor)) - {{ $contact->distributor }} @endif</b>
                             <p/>
                             @if (Auth::check())
-                                <p class="pub-email">{{Lang::get('content.user_email')}}: {{ $contact->email }}</p>
+                                <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
                             @endif
                         </div>
                         @if (Auth::check())
@@ -127,11 +127,13 @@
                                 / {{ $contact->other_phone }}
                                 @endif
                             </p>
+                            @if ($contact->state_id || $contact->city || $contact->address)
                             <p class="pub-location">{{Lang::get('content.location')}}:
                                 @if ($contact->state_id) {{ $contact->state->name }}, @endif
                                 @if ($contact->city) {{ $contact->city }}, @endif
                                 @if ($contact->address) {{ $contact->address }} @endif
                             </p>
+                            @endif
                         </div>
                         @endif
                     </div>
@@ -146,6 +148,7 @@
             {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}
         </div>
         @endif
+        <br/>
 
         <!-- Ratings -->
         <div class="publication-rating">

@@ -12,7 +12,7 @@
                     {{ Form::open(array('method' => 'get', 'action' => 'HomeController@getSearch', 'class' => 'form-inline top-menu-search')) }}
                     <div class="input-append">
                         {{ Form::text('q', '', array('placeholder' => Lang::get('content.publications_search_placeholder'), 'class' => 'input-block-level')) }}
-                        <button class="btn btn-warning" type="submit"><i class="icon-search icon-white"></i></button>
+                        <button class="btn btn-warning search" type="submit"><i class="icon-search icon-white"></i></button>
                     </div>
                     {{ Form::close() }}
                 </div>
@@ -89,26 +89,24 @@
                             <!--                    @endif-->
 
                             <li class="category-menu-link">
-                                <a class="" href="{{URL::to('')}}">
+                                <div class="products-services-menu">
                                     {{Lang::get('content.products_and_services')}}
-                                </a>
+                                </div>
                                 @include('include.category_tree')
                             </li>
 
-                            <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
+                            <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.jobs')}}</a></li>
 
                             <li><a href="{{URL::to('acerca-de')}}">{{Lang::get('content.about_us')}}</a></li>
 
-                            <li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a></li>
+                            <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
-                            <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.jobs')}}</a></li>
-                            @if(Auth::check())
 
-                            @if(Auth::user()->isPublisher())
-                            <!--                            <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>-->
-                            @endif
 
-                            @endif
+                            <!--<li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a>-->
+
+
+
                         </ul>
                     </div>
                 </div>

@@ -23,6 +23,10 @@ body {
 
 }
 
+.btn.search {
+    height: 30px;
+}
+
 .header-form {
     /*height: 59px;*/
     width:720px;
@@ -42,6 +46,17 @@ body {
 .header-menu-container {
     margin-bottom: 0;
     width:720px;
+}
+
+.products-services-menu {
+    padding: 2px 30px 13px 0;
+    text-transform: uppercase;
+    color: #777777;
+}
+
+.products-services-menu:hover {
+    color: #3385CB;
+    cursor: default;
 }
 
 .navbar-inner .container {
@@ -238,15 +253,15 @@ footer .contact-row.contact-text {
 }
 
 .us-footer {
-    width: 24%;
+    width: 33%;
 }
 
 .help-footer {
-    width: 29%;
+    width: 24%;
 }
 
 .jobs-footer {
-    width: 47%;
+    width: 43%;
 }
 
 .dynamic-footer-blocks {
@@ -813,7 +828,7 @@ input.dial:focus{
 }
 
 .title-job{
-    color:#3385CB;
+    color:#555;
 }
 
 .description-job{
@@ -830,7 +845,7 @@ input.dial:focus{
 }
 
 .job-detail .field{
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 20px;
 }
 

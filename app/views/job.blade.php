@@ -7,7 +7,11 @@
         @if(!Auth::user())
         {{ HTML::image('img/logo_bolsa_trabajo.png')}}
         @else
-        {{ HTML::image(UrlHelper::imageUrl($companyPicture, '_' . $thumbSize['width']))}}
+            @if(!is_null($companyPicture))
+                {{ HTML::image(UrlHelper::imageUrl($companyPicture, '_' . $thumbSize['width']))}}
+            @else
+                {{ HTML::image('img/logo_bolsa_trabajo.png')}}
+            @endif
         @endif
     </div>
 </div>

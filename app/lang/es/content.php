@@ -153,7 +153,7 @@ return array(
     "tumercato_email" => "info@tumercato.com",
     "facebook" => "CAVENIT",
     "twitter" => "@cavenit",
-    "copyright" => "&copy; Copyright 2013 CAVENIT - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
+    "copyright" => "&copy; Copyright 2013 CAVENIT (RIF J-00066510-9) - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
     "androb" => "ANDROB",
 
     //Options
@@ -293,6 +293,7 @@ return array(
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "select_state" => "Seleccione Estado",
+    "publisher_address" => "Dirección",
     "publisher_seller" => "Nombre vendedor / Nombre empresa",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
@@ -349,7 +350,7 @@ return array(
     "delete_publication_image_success" => 'La imagen se ha eliminado correctamente',
     "delete_publication_image_error" => 'Ha ocurrido un error eliminando la imagen',
     "edit_publication_change_key_field" => 'Si se modifica este campo el contador de visitas de la publicación será reiniciado.',
-    'edit_publication_redo_key_field' => 'Este cambio implica reiniciar el contador de la publicación. Para deshacer haga click :a_open aquí. :a_close',
+    'edit_publication_redo_key_field' => 'Este cambio implica reiniciar el contador de la publicación. Para deshacer haz click :a_open aquí. :a_close',
 
     "select" => "Selecciona",
 
@@ -360,7 +361,7 @@ return array(
     //Help
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
-    "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses. Puedes renovar tu publicación todas las veces que desees",
+    "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses (90 días continuos). Puedes renovar tu publicación todas las veces que desees",
     "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
     "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
 
@@ -369,7 +370,7 @@ return array(
     "profile" => "Perfil de usuario",
     "profile_edit" => "Edita tu perfil",
     "profile_edit_basic" => "Datos Básicos",
-    "profile_edit_publisher" => "Datos de Publicador",
+    "profile_edit_publisher" => "Datos de Anunciante",
     "profile_edit_sectors" => "Sectores de Negocio",
     "profile_edit_contacts" => "Contactos",
     "profile_email" => "Correo electrónico",
@@ -408,7 +409,7 @@ return array(
     //filters
     "filter_active" => 'Filtros Activos',
     "filter_available" => 'Filtros Disponibles',
-    "filter_seller_title" => 'Vendedor',
+    "filter_seller_title" => 'Anunciante',
     "filter_state_title" => 'Ubicación',
     "filter_category_title" => 'Categoría',
     "filter_publication_start_date" => 'Fecha de inicio:',
@@ -514,7 +515,7 @@ return array(
     "contactus_message" => "Mensaje",
     "contactus_success" => "Su mensaje ha sido enviado satisfactoriamente",
     "contactus_email_new_message_subject" => "Nuevo mensaje desde el formulario de contacto",
-
+    "contactus_cavenit" => "Sedes de CAVENIT",
     "contactus_caracas" => "Caracas",
     "caracas_email" => "informatica@cavenit.com",
     "caracas_address_line1" => "Av. San Juan Bosco, Edif. Centro Altamira,",

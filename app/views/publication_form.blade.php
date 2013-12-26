@@ -19,7 +19,7 @@
                 {{ Form::text('title', $publication->title, array('class' => 'input-xlarge required key-field','placeholder'=> Lang::get('content.title'))) }}
                 {{ $errors->first('title', '<div class="field-error alert alert-error">:message</div>') }}
                 @if (isset($publication->id))
-                    <div class="text-warning alert-block key-field-section key-field-title">
+                    <div class="change-title-alert alert-block key-field-section key-field-title">
                         {{ Form::hidden('initial_title', $publication->title, array('disabled'=> 'disabled')) }}
                         {{ Lang::get('content.edit_publication_redo_key_field',
                             array('a_open' => '<a nohref onclick="javascript:resetKeyField(\'title\');" class="manito">', 'a_close' => '</a>')) }}
@@ -186,13 +186,19 @@
             <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
             @endif
 
-            @if (!is_null($publication->id))
-                <label class="checkbox">
-                    {{ Form::checkbox('show_pub_as_contact', 1, ($publication->show_pub_as_contact == 1), array('class' => 'chk-show-pub-as-contact')) }}
-                    {{ $publication->publisher->seller_name . ', ' . $publication->publisher->state->name . ', ' . $publication->publisher->city . ', ' . $publication->publisher->address . ', ' . $publication->publisher->phone1 }}
-                </label>
+
+            <label class="checkbox">
+                {{ Form::checkbox('show_pub_as_contact', 1, ($publication->show_pub_as_contact == 1), array('class' => 'chk-show-pub-as-contact')) }}
+                Mis datos de anunciante como contacto
+            </label>
+
+            @if ($contacts->count() > 0)
+                <br/>
+                <b>Otros contactos</b>
             @endif
+
             @foreach ($contacts as $contact)
+
                 <label class="checkbox">
                     {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }}
                     {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}

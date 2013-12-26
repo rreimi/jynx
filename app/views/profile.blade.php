@@ -109,14 +109,6 @@
         </div>
     </div>
 
-    <div class="control-group {{ $errors->has('web') ? 'error':'' }}">
-        <label class="control-label" for="long_description">{{ Lang::get('content.web_page') }}</label>
-        <div class="controls">
-            {{ Form::text('web', $user->publisher->web, array('class' => 'input-xlarge url','placeholder'=> Lang::get('content.web_page'))) }}
-            {{ $errors->first('web', '<div class="field-error alert alert-error">:message</div>') }}
-        </div>
-    </div>
-
     <div class="control-group {{ $errors->has('city') ? 'error':'' }}">
         <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_city') }}</label>
         <div class="controls">
@@ -148,6 +140,15 @@
             {{ Form::text('phone2', $user->publisher->phone2, array('class' => 'input-xlarge phone-number-format','placeholder'=> Lang::get('content.profile_phone2'))) }}
             <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
             {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
+        </div>
+    </div>
+
+    <div class="control-group {{ $errors->has('web') ? 'error':'' }}">
+        <label class="control-label" for="long_description">{{ Lang::get('content.web_page') }}</label>
+        <div class="controls">
+            {{ Form::text('web', $user->publisher->web, array('class' => 'input-xlarge url','placeholder'=> Lang::get('content.web_page'))) }}
+            <label class="external-url-label">{{ Lang::get('content.external_url_label') }}</label>
+            {{ $errors->first('web', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>
 

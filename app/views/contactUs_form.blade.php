@@ -65,67 +65,7 @@
 
 
     <div class="contact-info">
-        <div class="contact-column">
-            <label>{{Lang::get('content.contactus_caracas')}}</label>
-            <div class="contact-row address contact-text">
-                {{Lang::get('content.caracas_address_line1')}}<br/>
-                {{Lang::get('content.caracas_address_line2')}}
-            </div>
-            <div class="contact-row phone contact-text">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{Lang::get('content.phones_line2')}}
-            </div>
-            <a href="mailto:{{Lang::get('content.caracas_email')}}">
-                <div class="contact-row mail contact-text">
-                    {{Lang::get('content.caracas_email')}}
-                </div>
-            </a>
-
-            <label>{{Lang::get('content.contactus_maracaibo')}}</label>
-            <div class="contact-row address contact-text">
-                {{Lang::get('content.maracaibo_address_line1')}}<br/>
-                {{Lang::get('content.maracaibo_address_line2')}}
-            </div>
-            <div class="contact-row phone contact-text line1">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.maracaibo_phones_line1')}}<br/>
-            </div>
-            <a href="mailto:{{Lang::get('content.maracaibo_email')}}">
-                <div class="contact-row mail contact-text">
-                    {{Lang::get('content.maracaibo_email')}}
-                </div>
-            </a>
-
-            <label>{{Lang::get('content.contactus_maracay')}}</label>
-            <div class="contact-row address contact-text">
-                {{Lang::get('content.maracay_address_line1')}}<br/>
-                {{Lang::get('content.maracay_address_line2')}}
-            </div>
-            <div class="contact-row phone contact-text line1">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.maracay_phones_line1')}}<br/>
-            </div>
-            <a href="mailto:{{Lang::get('content.maracay_email')}}">
-                <div class="contact-row mail contact-text">
-                    {{Lang::get('content.maracay_email')}}
-                </div>
-            </a>
-
-            <label>{{Lang::get('content.contactus_valencia')}}</label>
-            <div class="contact-row address contact-text">
-                {{Lang::get('content.valencia_address_line1')}}<br/>
-                {{Lang::get('content.valencia_address_line2')}}
-            </div>
-            <div class="contact-row phone contact-text line1">
-                {{Lang::get('content.phones_label')}} {{Lang::get('content.valencia_phones_line1')}}<br/>
-            </div>
-            <a href="mailto:{{Lang::get('content.valencia_email')}}">
-                <div class="contact-row mail contact-text">
-                    {{Lang::get('content.valencia_email')}}
-                </div>
-            </a>
-        </div>
-
+        <h5>{{Lang::get('content.contactus_cavenit')}}</h5>
         <div class="contact-column">
             <label>{{Lang::get('content.contactus_acarigua')}}</label>
             <div class="contact-row address contact-text">
@@ -158,6 +98,54 @@
                 </div>
             </a>
 
+            <label>{{Lang::get('content.contactus_caracas')}}</label>
+            <div class="contact-row address contact-text">
+                {{Lang::get('content.caracas_address_line1')}}<br/>
+                {{Lang::get('content.caracas_address_line2')}}
+            </div>
+            <div class="contact-row phone contact-text">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {{Lang::get('content.phones_line2')}}
+            </div>
+            <a href="mailto:{{Lang::get('content.caracas_email')}}">
+                <div class="contact-row mail contact-text">
+                    {{Lang::get('content.caracas_email')}}
+                </div>
+            </a>
+
+            <label>{{Lang::get('content.contactus_maracaibo')}}</label>
+            <div class="contact-row address contact-text">
+                {{Lang::get('content.maracaibo_address_line1')}}<br/>
+                {{Lang::get('content.maracaibo_address_line2')}}
+            </div>
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.maracaibo_phones_line1')}}<br/>
+            </div>
+            <a href="mailto:{{Lang::get('content.maracaibo_email')}}">
+                <div class="contact-row mail contact-text">
+                    {{Lang::get('content.maracaibo_email')}}
+                </div>
+            </a>
+        </div>
+
+        <div class="contact-column">
+
+            <label>{{Lang::get('content.contactus_maracay')}}</label>
+            <div class="contact-row address contact-text">
+                {{Lang::get('content.maracay_address_line1')}}<br/>
+                {{Lang::get('content.maracay_address_line2')}}
+            </div>
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.maracay_phones_line1')}}<br/>
+            </div>
+            <a href="mailto:{{Lang::get('content.maracay_email')}}">
+                <div class="contact-row mail contact-text">
+                    {{Lang::get('content.maracay_email')}}
+                </div>
+            </a>
+
             <label>{{Lang::get('content.contactus_ptoordaz')}}</label>
             <div class="contact-row address contact-text line1">
                 {{Lang::get('content.ptoordaz_address_line1')}}<br/>
@@ -169,6 +157,20 @@
             <a href="mailto:{{Lang::get('content.ptoordaz_email')}}">
                 <div class="contact-row mail contact-text">
                     {{Lang::get('content.ptoordaz_email')}}
+                </div>
+            </a>
+
+            <label>{{Lang::get('content.contactus_valencia')}}</label>
+            <div class="contact-row address contact-text">
+                {{Lang::get('content.valencia_address_line1')}}<br/>
+                {{Lang::get('content.valencia_address_line2')}}
+            </div>
+            <div class="contact-row phone contact-text line1">
+                {{Lang::get('content.phones_label')}} {{Lang::get('content.valencia_phones_line1')}}<br/>
+            </div>
+            <a href="mailto:{{Lang::get('content.valencia_email')}}">
+                <div class="contact-row mail contact-text">
+                    {{Lang::get('content.valencia_email')}}
                 </div>
             </a>
 

@@ -230,6 +230,11 @@ h2.home-title {
     padding-left: 40px;
 }
 
+.pub-web {
+    background: url('../img/pub_web.png') 0 top no-repeat;
+    padding-left: 40px;
+}
+
 .pub-list-btn-group {
     margin-bottom: 1em;
 }
@@ -250,9 +255,9 @@ h2.home-title {
 }
 
 .publication-info .contact .block {
-    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
     display: table-cell;
-    margin-bottom: 10px;
+    padding-top: 15px;
     width: 320px;
 }
 
@@ -332,6 +337,16 @@ h2.home-title {
     margin-top: 30px;
 }
 
+.publication-form .change-title-alert {
+    color: #B94A48;
+    font-weight: bold;
+}
+
+.publication-form .change-title-alert a {
+    color: #B94A48;
+    text-decoration: underline;
+}
+
 /*.pub-table.admin .row-title {*/
     /*width: 31%;*/
 /*}*/
@@ -352,7 +367,7 @@ h2.home-title {
     margin-bottom: 20px;
 }
 
-.about-us {
+.about-us, .help {
     margin: 0px 50px;
     text-align: justify;
 }
@@ -372,6 +387,10 @@ h2.home-title {
     border: 1px solid #CCCCCC;
 }
 
+.about-us .rif {
+    text-align: center;
+    font-size: 9px;
+}
 
 
 /* Dashboard */
@@ -602,7 +621,6 @@ div#home-banner-top .carousel-control {
 }
 
 .publication-rating .title {
-    border-bottom: 1px solid #DDDDDD;
     color: #858585;
     margin: 15px 35px 0;
     font-size: 1.3em;
@@ -612,7 +630,7 @@ div#home-banner-top .carousel-control {
 .publication-rating .rating-block {
     margin: 0 35px;
     padding: 20px 0;
-    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
 }
 
 .publication-rating .rating-block .current-rating {
@@ -664,7 +682,9 @@ div#home-banner-top .carousel-control {
     font-size: 1.2em;
     color: #AAAAAA;
     text-align: center;
-    margin: 20px;
+    margin: 3px;
+    padding-top: 15px;
+    border-top: 1px solid #DDDDDD;
 }
 
 .publication-rating .rating-block .actions .btn-group {
@@ -696,7 +716,7 @@ div#home-banner-top .carousel-control {
 
 .main-menu{
     width: 800px;
-    height: 375px;
+    height: 425px;
     position: absolute;
     left: 0;
     top: 35px;
@@ -877,6 +897,10 @@ div#home-banner-top .carousel-control {
     float: left;
     margin-top: 55px;
     font-size: 0.9em;
+}
+
+.contact-info h5 {
+    margin-left: 45px;
 }
 
 .contact-info .contact-row.contact-text {

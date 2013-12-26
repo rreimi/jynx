@@ -265,4 +265,8 @@ class HomeController extends BaseController {
     public function getAcercaDe(){
         return View::make('about_us');
     }
+
+    public function getAyuda(){
+        return View::make('help');
+    }
 }

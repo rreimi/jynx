@@ -5,4 +5,4 @@ LEFT JOIN publishers AS u ON p.publisher_id = u.id
 LEFT JOIN publications_images AS i ON p.publication_image_id = i.id
 LEFT JOIN publications_visits AS v ON p.id = v.publication_id
 WHERE p.status="Published" AND p.from_date<=now() AND p.to_date>=now()
-GROUP BY p.id;
+GROUP BY v.publication_id;

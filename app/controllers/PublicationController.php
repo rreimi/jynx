@@ -341,7 +341,7 @@ class PublicationController extends BaseController {
 
         $pub = new Publication();
         $pub->from_date = date('d-m-Y',time());
-        $pub->to_date = date('d-m-Y',strtotime('+1 day'));
+        $pub->to_date = date('d-m-Y',strtotime('+90 day'));
 
         return View::make('publication_form',
             array('pub_statuses' => self::getPublicationStatuses(Lang::get('content.select')),
