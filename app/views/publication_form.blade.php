@@ -339,7 +339,7 @@
         addRemoveLinks: true,
         dictRemoveFile: "{{Lang::get('content.remove_image')}}",
         dictDefaultMessage: "{{Lang::get('content.add_images_msg')}}",
-        acceptedFiles: '.jpeg,.jpg,.png,.gif',
+        acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         maxFilesize: 2,
         accept: function(file, done) {
 
@@ -358,7 +358,7 @@
     /** Add current images to dropzone */
 
     (function(){
-        @foreach ($publication->images as $img)
+        // @foreach ($publication->images as $img)
         var mockFile = { name: "{{ $img->image_url }}", size: 0, server_id : {{ $img->id }} };
 
         // Call the default addedfile event handler
@@ -367,7 +367,7 @@
         // And optionally show the thumbnail of the file:
         myDropzone.options. thumbnail.call(myDropzone, mockFile, "{{URL::to('uploads/pub/' . $publication->id . '/' . $img->image_url )}}");
         // Create the mock file:
-    @endforeach
+    // @endforeach
     }());
 
 
