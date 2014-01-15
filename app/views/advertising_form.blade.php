@@ -128,7 +128,7 @@
             addRemoveLinks: true,
             dictRemoveFile: "{{Lang::get('content.remove_image')}}",
             dictDefaultMessage: "{{Lang::get('content.add_images_msg')}}",
-            acceptedFiles: '.jpeg,.jpg,.png,.gif',
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
             maxFilesize: 2,
             createImageThumbnails: false,
             accept: function(file, done) {

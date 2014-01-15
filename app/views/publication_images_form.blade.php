@@ -25,7 +25,6 @@
 @parent
 {{ HTML::script('js/dropzone.js') }}
 <script type="text/javascript">
-
     Dropzone.autoDiscover = false;
 
     var myDropzone = new Dropzone("div#dropzone", {

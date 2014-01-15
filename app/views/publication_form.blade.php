@@ -246,7 +246,7 @@
 {{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 {{ HTML::script('js/dropzone.js') }}
 <script type="text/javascript">
-
+    // Publication form //
     jQuery(document).ready(function(){
 
         /* All date filters */
@@ -339,7 +339,7 @@
         addRemoveLinks: true,
         dictRemoveFile: "{{Lang::get('content.remove_image')}}",
         dictDefaultMessage: "{{Lang::get('content.add_images_msg')}}",
-        acceptedFiles: '.jpeg,.jpg,.png,.gif',
+        acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         maxFilesize: 2,
         accept: function(file, done) {
 
@@ -367,7 +367,7 @@
         // And optionally show the thumbnail of the file:
         myDropzone.options. thumbnail.call(myDropzone, mockFile, "{{URL::to('uploads/pub/' . $publication->id . '/' . $img->image_url )}}");
         // Create the mock file:
-    @endforeach
+        @endforeach
     }());
 
 
