@@ -508,6 +508,7 @@ return array(
 
     // Contactanos form
     "contactus" => "Contacto",
+    "contactus_msg" => "Envía un mensaje a CAVENIT",
     "contactus_name" => "Nombre completo",
     "contactus_email" => "Correo",
     "contactus_phone" => "Teléfono",
