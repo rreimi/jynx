@@ -361,10 +361,23 @@ h2.home-title {
 
 /* About Us */
 
-.about-us-title, .contact-us-title {
+.about-us-title {
     margin-left: 33px;
     margin-top: 25px;
     margin-bottom: 20px;
+}
+
+.contact-us-title {
+    margin-left: 33px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.contact-us-subtitle {
+    color: #333333;
+    font-size: 14px;
+    margin-bottom: 25px;
+    margin-left: 34px;
 }
 
 .about-us, .help {

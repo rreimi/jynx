@@ -8,6 +8,7 @@
 
     {{ Form::open(array('url' => 'contactanos', 'method' => 'post', 'class' => 'form-horizontal contactus-form')) }}
     <h1 class="contact-us-title">{{Lang::get('content.contactus')}}</h1>
+    <div class="contact-us-subtitle">{{Lang::get('content.contactus_msg')}}</div>
 
     <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
         <label class="control-label required-field" for="name">{{ Lang::get('content.contactus_name') }}</label>
