@@ -54,38 +54,40 @@
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
             <div class="controls">
-                {{ Form::select('status', $pub_statuses, $publication->status, array('class' => 'required')) }}
+                {{ Form::select('status', $pub_statuses, $publication->status, array('class' => 'required status')) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
-        <hr>
+        <div class="dates-section">
+            <hr>
 
-        <div class="text-warning alert-block">{{ Lang::get('content.help_publication_choose_dates') }}</div>
-        <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
-            <label class="control-label required-field" for="from_date">{{ Lang::get('content.from_date') }}</label>
-            <div class="controls">
-                {{ Form::text('from_date', date("d-m-Y",strtotime($publication->from_date)), array('class' => 'datepicker from-date required', 'placeholder' => Lang::get('content.date_format'))) }}
-                {{ $errors->first('from_date', '<div class="field-error alert alert-error">:message</div>') }}
+            <div class="text-warning alert-block">{{ Lang::get('content.help_publication_choose_dates') }}</div>
+            <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
+                <label class="control-label required-field" for="from_date">{{ Lang::get('content.from_date') }}</label>
+                <div class="controls">
+                    {{ Form::text('from_date', date("d-m-Y",strtotime($publication->from_date)), array('class' => 'datepicker from-date required', 'placeholder' => Lang::get('content.date_format'))) }}
+                    {{ $errors->first('from_date', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
             </div>
-        </div>
 
-        <div class="control-group ">
-            <label class="control-label required-field" for="to_date">{{ Lang::get('content.to_date') }}</label>
-            <div class="controls">
-                {{ Form::text('to_date', date("d-m-Y",strtotime($publication->to_date)), array('class' => 'datepicker to-date required', 'placeholder' => Lang::get('content.date_format'))) }}
-                {{ $errors->first('to_date', '<div class="field-error alert alert-error">:message</div>') }}
+            <div class="control-group ">
+                <label class="control-label required-field" for="to_date">{{ Lang::get('content.to_date') }}</label>
+                <div class="controls">
+                    {{ Form::text('to_date', date("d-m-Y",strtotime($publication->to_date)), array('class' => 'datepicker to-date required', 'placeholder' => Lang::get('content.date_format'))) }}
+                    {{ $errors->first('to_date', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
             </div>
-        </div>
 
-        <div class="control-group {{ $errors->has('remember') ? 'error':'' }}">
-            <div class="controls">
-                <label class="checkbox">
-                    {{ Form::checkbox('remember', 1, ($publication->remember == 1), array('class' => 'chk-remember')) }} {{ Lang::get('content.remember_publication') }}
-                </label>
+            <div class="control-group {{ $errors->has('remember') ? 'error':'' }}">
+                <div class="controls">
+                    <label class="checkbox">
+                        {{ Form::checkbox('remember', 1, ($publication->remember == 1), array('class' => 'chk-remember')) }} {{ Lang::get('content.remember_publication') }}
+                    </label>
+                </div>
             </div>
+            <div>{{ Lang::get('content.help_publication_dates') }}</div>
         </div>
-        <div>{{ Lang::get('content.help_publication_dates') }}</div>
 
         <hr>
         <div class="control-group {{ $errors->has('latitude') ? 'error':'' }}">
@@ -327,6 +329,15 @@
 
         @endif
 
+        jQuery('.status').bind("change", function(){
+            if (jQuery('select.status').val() == 'Published'){
+                jQuery('.dates-section').show();
+            } else {
+                jQuery('.dates-section').hide();
+            }
+        });
+
+        jQuery('.status').trigger('change');
 
     });
 

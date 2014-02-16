@@ -347,6 +347,10 @@ h2.home-title {
     text-decoration: underline;
 }
 
+.publication-form .dates-section {
+    display: none;
+}
+
 /*.pub-table.admin .row-title {*/
     /*width: 31%;*/
 /*}*/
