@@ -22,7 +22,7 @@
                         @if(!Auth::user())
                             {{ HTML::image('img/logo_bolsa_trabajo.png')}}
                         @else
-                            @if(!is_null($job->publisher->avatar))
+                            @if(!is_null($job->publisher))
                             {{ HTML::image(UrlHelper::imageUrl($job->publisher->avatar, '_' . $thumbSize['width']))}}
                             @else
                             {{ HTML::image('img/logo_bolsa_trabajo.png')}}
