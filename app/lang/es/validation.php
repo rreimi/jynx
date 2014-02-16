@@ -118,7 +118,7 @@ return array(
         'order' => 'Orden de presentación',
         'password' => 'Contraseña',
         'password_confirmation' => 'Confirma Contraseña',
-        'seller_name' => 'Nombre vendedor / Nombre empresa',
+        'seller_name' => 'Anunciante',
         'publisher_type' => ' Tipo de Persona',
         'letter_rif_ci' => 'Letra Cédula / Rif',
         'rif_ci' => 'Cédula / Rif',
@@ -130,7 +130,7 @@ return array(
 
         'publisher_id_type' => 'Tipo de documento',
         'publisher_id' => 'Cédula / Rif',
-        'publisher_seller' => 'Nombre vendedor / Nombre empresa',
+        'publisher_seller' => 'Anunciante',
         'publisher_state' => 'Estado',
         'publisher_city' => 'Ciudad',
         'publisher_phone1' => 'Teléfono 1',

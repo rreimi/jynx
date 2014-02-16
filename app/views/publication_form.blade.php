@@ -60,8 +60,8 @@
         </div>
 
         <hr>
-        <div class="text-warning alert-block">{{ Lang::get('content.help_publication_dates') }}</div>
 
+        <div class="text-warning alert-block">{{ Lang::get('content.help_publication_choose_dates') }}</div>
         <div class="control-group {{ $errors->has('from_date') ? 'error':'' }}">
             <label class="control-label required-field" for="from_date">{{ Lang::get('content.from_date') }}</label>
             <div class="controls">
@@ -85,6 +85,7 @@
                 </label>
             </div>
         </div>
+        <div>{{ Lang::get('content.help_publication_dates') }}</div>
 
         <hr>
         <div class="control-group {{ $errors->has('latitude') ? 'error':'' }}">

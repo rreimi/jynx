@@ -190,7 +190,7 @@ return array(
     "backend_users_section_title" => "Aprobaciones pendientes",
     "backend_reports_section_title" => "Denuncias pendientes",
     "backend_user_approve" => "Aprobar",
-    "backend_user_not_approve" => "Desaprobar",
+    "backend_user_not_approve" => "Negar",
 
     // Backend reports total
     "backend_reports_total" => "Denuncias",
@@ -294,7 +294,7 @@ return array(
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
     "select_state" => "Seleccione Estado",
     "publisher_address" => "Dirección",
-    "publisher_seller" => "Nombre vendedor / Nombre empresa",
+    "publisher_seller" => "Anunciante",
     "publisher_create" => "Siguiente",
     "publisher_error" => "Ingresa todos los datos por favor",
     "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
@@ -324,8 +324,8 @@ return array(
     "publisher_success_accept" => "Aceptar",
 
     "backend_email" => "Correo electrónico",
-    "backend_full_name" => "Nombre persona / Razón social",
-    "backend_seller" => "Nombre vendedor / Nombre empresa",
+    "backend_full_name" => "Nombre",
+    "backend_seller" => "Anunciante",
     "backend_id" => "Cédula / Rif",
     "backend_phone" => "Teléfono",
 
@@ -361,6 +361,7 @@ return array(
     //Help
     "help_publication_images_title" => "Imágenes de mi publicación",
     "help_publication_images" => "La publicación se ha creado y ahora puedes agregar las imágenes de tu nueva publicación. <br/><br/>Para agregar una imagen, simplemente arrástrala a la caja señalada o haz clic en dicha caja.",
+    "help_publication_choose_dates" => "Elige la fecha de inicio y finalización de tu publicación",
     "help_publication_dates" => "Las publicaciones permanecerán vigentes por un máximo de 3 meses (90 días continuos). Puedes renovar tu publicación todas las veces que desees",
     "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
     "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
@@ -379,7 +380,7 @@ return array(
     "profile_current_password" => "Contraseña actual",
     "profile_password" => "Contraseña",
     "profile_password_confirmation" => "Confirma Contraseña",
-    "profile_seller_name" => "Nombre vendedor / Nombre empresa",
+    "profile_seller_name" => "Anunciante",
     "profile_publisher_type" => "Tipo de Persona",
     "profile_id" => "Cédula / Rif",
     "profile_state" => "Estado",
