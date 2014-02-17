@@ -604,7 +604,7 @@ class PublicationController extends BaseController {
         $rules = array(
             'title' => 'required',
 //            'short_description' => 'required',
-            'long_description' => 'required',
+            'long_description' => 'required|max:500',
             'status' => 'required',
             'from_date' => 'required|date_format:d-m-Y|publication_invalid_date_range:'. $pubData['to_date'] .'|publication_limit_date_range:'. $pubData['to_date'],
             'to_date' => 'required|date_format:d-m-Y',

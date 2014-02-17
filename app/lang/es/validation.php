@@ -106,14 +106,14 @@ return array(
     'attributes' => array(
         'title' => 'Título',
         'short_description' => 'Descripción corta',
-        'long_description' => 'Descripción extendida',
+        'long_description' => 'Descripción',
         'from_date' => 'Desde',
         'to_date' => 'Hasta',
         'categories_name' => 'Categorías',
         'status' => 'Estatus',
 
         'email' => 'Correo',
-        'full_name' => 'Nombre persona / Razón social',
+        'full_name' => 'Nombre',
         'external_url' => 'Url externa',
         'order' => 'Orden de presentación',
         'password' => 'Contraseña',

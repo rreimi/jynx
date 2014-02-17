@@ -11,7 +11,8 @@
         @if (!isset($publication->id))
         <h1>{{Lang::get('content.new_publication')}}</h1>
         @else
-        <h1>{{Lang::get('content.edit_publication')}}: {{ $publication->title }}</h1>
+        <h1 class="publication-title">{{Lang::get('content.edit_publication')}}: {{ $publication->title }}</h1>
+        <div class="publication-date">{{ Lang::get('content.created_at') }} {{ date(Lang::get('content.date_format_php'),strtotime($publication->created_at)) }}</div>
         @endif
         <div class="control-group {{ $errors->has('title') ? 'error':'' }}">
             <label class="control-label required-field" for="title">{{ Lang::get('content.title') }}</label>
@@ -46,9 +47,10 @@
         <div class="control-group {{ $errors->has('long_description') ? 'error':'' }}">
             <label class="control-label required-field" for="long_description">{{ Lang::get('content.descripcion') }}</label>
             <div class="controls">
-                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.descripcion'))) }}
+                {{ Form::textarea('long_description', $publication->long_description, array('class' => 'input-xxlarge required', 'maxlength' => '499', 'placeholder'=> Lang::get('content.descripcion'))) }}
                 {{ $errors->first('long_description', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
+            <div class="text-warning alert-block alert-description">{{ Lang::get('content.help_publication_description') }}</div>
         </div>
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">

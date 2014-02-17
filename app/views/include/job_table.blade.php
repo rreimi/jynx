@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 @if(Auth::user())
-                    <div class="job-contact"><a  href="mailto:{{ $job->contact_email }}" target="_blank">{{ $job->company_name }}</a></div>
+                    <div class="job-contact"><a href="{{URL::to('bolsa-trabajo/detalle/' . $job->id)}}">{{ $job->company_name }}</a></div>
                 @endif
             </div>
             <div class="span9 values">

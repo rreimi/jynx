@@ -1146,3 +1146,17 @@ div#home-banner-top .carousel-control {
 .contact-form .state-option {
     color: #555555;
 }
+
+.alert-description {
+    padding-bottom: 14px;
+    padding-left: 180px;
+    padding-top: 10px;
+}
+
+.publication-title {
+    margin-bottom: 10px;
+}
+
+.publication-date {
+    margin-bottom: 25px;
+}

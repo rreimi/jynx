@@ -13,4 +13,3 @@ var fixHeights = function(){
     jQuery(window).load(function () {
     	fixHeights();
     });
-
