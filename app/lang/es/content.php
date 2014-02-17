@@ -559,6 +559,7 @@ return array(
 
     // Emails
     'email_restore_user_password' => 'Contraseña Restablecida',
+    'email_publisher_new_comment' => '¡Han dejado un comentario en tu publicación!',
     'email_user_suspended' => 'Usuario Suspendido',
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
     'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
