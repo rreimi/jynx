@@ -102,6 +102,11 @@ return array(
     'invalid_report' => 'Denuncia inválida',
     'suspend_publication' => 'Editar/Suspender publicación',
     'suspend_user' => 'Editar/Suspender usuario',
+    'report_view_user_name' => 'Nombre del denunciante',
+    'report_view_publication_name' => 'Nombre de la publicación',
+    'report_view_publisher_name' => 'Nombre del anunciante',
+    'report_view_report_date' => 'Fecha de la denuncia',
+    'report_view_report_comment' => 'Motivo de la denuncia',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
