@@ -305,6 +305,7 @@ return array(
     "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
+    "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",

@@ -58,6 +58,15 @@ class Publication extends Eloquent {
         }
     }
 
+    /**
+     * Suspend all publications by userId
+     * @param: User id
+     * @return mixed
+     */
+    public function scopeSuspendPublicationsByUserId($query, $pubId){
+        Publication::where('publisher_id', $pubId)->update(array('status'=>'Suspended'));
+    }
+
     public function categories() {
         return $this->belongsToMany('Category', 'publications_categories');
     }
