@@ -4,6 +4,11 @@ class Publication extends Eloquent {
 
     protected $softDelete = true;
 
+    const STATUS_DRAFT = "Draft";
+    const STATUS_PUBLISHED = "Published";
+    const STATUS_ON_HOLD = "On_Hold";
+    const STATUS_SUSPENDED = "Suspended";
+
     protected $fillable = array('title', 'short_description',
         'long_description', 'status', 'from_date',
         'to_date', 'publisher_id', 'remember', 'latitude', 'longitude', 'show_pub_as_contact');

@@ -330,7 +330,7 @@
         @endif
 
         jQuery('.status').bind("change", function(){
-            if (jQuery('select.status').val() == 'Published'){
+            if (jQuery('select.status').val() == '{{ Publication::STATUS_PUBLISHED }}'){
                 jQuery('.dates-section').show();
             } else {
                 jQuery('.dates-section').hide();
