@@ -150,8 +150,8 @@ class UserController extends BaseController {
         $user = User::find($id);
 
         return View::make('user_form',
-            array('user_statuses' => self::getUserStatuses(),
-                'user_roles' => self::getUserRoles(),
+            array('user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
+                'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
                 'user' => $user,
                 'referer' => $referer,
             )
