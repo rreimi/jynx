@@ -55,6 +55,7 @@
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('role')}}">{{Lang::get('content.user_role')}} <i class="{{UrlHelper::getSortIcon('role')}}"></i></a></th>
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('status')}}">{{Lang::get('content.user_status')}} <i class="{{UrlHelper::getSortIcon('status')}}"></i></a></th>
             <th><a href="{{UrlHelper::fullUrltoogleSort('created_at')}}">{{Lang::get('content.created_at')}} <i class="{{UrlHelper::getSortIcon('created_at')}}"></i></a></th>
+            <th><a href="{{UrlHelper::fullUrltoogleSort('reports')}}">{{Lang::get('content.reports_made')}} <i class="{{UrlHelper::getSortIcon('reports')}}"></i></a></th>
             <th class="options">-</th>
         </tr>
         </thead>
@@ -68,6 +69,7 @@
             <td>{{ Lang::get('content.user_role_'. $user->role) }}</td>
             <td>{{ Lang::get('content.status_'. $user->status) }}</td>
             <td>{{ $user->created_at }}</td>
+            <td>{{ $user->reports }}</td>
             <td>
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('usuario/editar/' . $user->id)}}">
                     <i class="icon-pencil"></i>

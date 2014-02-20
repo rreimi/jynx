@@ -94,6 +94,7 @@ return array(
 
     // Reports
     'reports' =>  'Denuncias',
+    'reports_made' => 'Denuncias hechas',
     'report_title' => 'Denuncia',
     'backend_report_view_title' => 'Denuncia pendiente',
     'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
