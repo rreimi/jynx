@@ -592,6 +592,7 @@ return array(
 
     "stats_users_basic" => "Básico",
     "stats_description_users_basic" => "Cantidad de usuarios Básicos",
+    "stats_users_total" => "Cantidad total de usuarios: ",
     "stats_users_publisher" => "Anunciantes",
     "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Aspirando",

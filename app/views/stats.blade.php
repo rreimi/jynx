@@ -4,7 +4,7 @@
     <div class="row-fluid stats">
         <div class="display-stats hide">
             <div class="page-header">
-                <h2><small>Cántidad total de usuarios: </small>{{ $users }}</h2>
+                <h2><small>{{ Lang::get('content.stats_users_total') }}</small>{{ $users }}</h2>
             </div>
 
             <ul class="thumbnails stats-row">
