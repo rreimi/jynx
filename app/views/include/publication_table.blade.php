@@ -25,6 +25,7 @@
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('rating_avg')}}">{{Lang::get('content.rating_avg')}} <i class="{{UrlHelper::getSortIcon('rating_avg')}}"></i></a></th>
             @if ($user->isAdmin())
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('reports')}}">{{Lang::get('content.reports')}} <i class="{{UrlHelper::getSortIcon('reports')}}"></i></a></th>
+            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('ratings')}}">{{Lang::get('content.comments')}} <i class="{{UrlHelper::getSortIcon('ratings')}}"></i></a></th>
             @endif
             <!--                        <th>{{Lang::get('content.category_name')}}</th>-->
             <th class="options"></th>
@@ -59,6 +60,9 @@
                 @else
                     {{ $pub->reports }}
                 @endif
+            </td>
+            <td class="row-ratings">
+                {{ $pub->ratings }}
             </td>
             @endif
             <!--                        <td>{{ $pub->categories_name }}</td>-->

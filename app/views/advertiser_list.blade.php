@@ -45,6 +45,7 @@
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('email')}}">{{Lang::get('content.advertiser_email')}} <i class="{{UrlHelper::getSortIcon('email')}}"></i></a></th>
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('seller_name')}}">{{Lang::get('content.publisher_seller')}} <i class="{{UrlHelper::getSortIcon('seller_name')}}"></i></a></th>
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('rif_ci')}}">{{Lang::get('content.publisher_id')}} <i class="{{UrlHelper::getSortIcon('rif_ci')}}"></i></a></th>
+            <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('state')}}">{{Lang::get('content.publisher_state')}} <i class="{{UrlHelper::getSortIcon('state')}}"></i></a></th>
             <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('status')}}">{{Lang::get('content.user_status')}} <i class="{{UrlHelper::getSortIcon('status')}}"></i></a></th>
 <!--            <th><a href="UrlHelper::fullUrltoogleSort('created_at')">Lang::get('content.created_at')</a></th>-->
             <th class="options">-</th>
@@ -58,6 +59,7 @@
             <td>{{ $advertiser->email }}</td>
             <td>{{ $advertiser->publisher->seller_name }}</td>
             <td>{{ $advertiser->publisher->letter_rif_ci }}-{{ $advertiser->publisher->rif_ci }}</td>
+            <td>{{ $advertiser->publisher->state->name }}</td>
             <td>{{ Lang::get('content.status_'. $advertiser->status) }}</td>
 <!--            <td> $advertiser->created_at </td>-->
             <td>
