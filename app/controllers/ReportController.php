@@ -66,6 +66,7 @@ class ReportController extends BaseController {
 
     public function getDetalle($id){
         $response = PublicationReport::with('user', 'publication')->find($id);
+        $response->date = date("d-m-Y ", strtotime($response->date));
 
         return View::make('include.report_view',
             array(

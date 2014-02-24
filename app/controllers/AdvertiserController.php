@@ -27,9 +27,16 @@ class AdvertiserController extends BaseController {
             {
                 $query->orWhere('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('full_name', 'LIKE', '%' . $q . '%')
-                    ->orWhere('publisher.seller_name', 'LIKE', '%' . $q . '%')
+                    //->orWhere('publisher.seller_name', 'LIKE', '%' . $q . '%')
                 ;
             });
+
+            //$advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
+
+//            $advertisers->orWhereHas('publisher', function($query) use ($q)
+//            {
+//                $query->where('seller_name', 'like', '%' . $q . '%');
+//            });
         }
 
         $status = $state['filter_status'];
@@ -226,6 +233,7 @@ class AdvertiserController extends BaseController {
         $operation = '';
         $previousDataUser = null;
         $previousDataAdvertiser = null;
+        $suspendedUser = false;
 
         // Save advertiser
         if (empty($advertiserData['id'])){
@@ -245,6 +253,11 @@ class AdvertiserController extends BaseController {
             $previousDataUser = $user->getOriginal();
             $method = 'edit';
             $operation = 'Edit_publisher';
+
+            if ($advertiserData['status'] != $previousDataUser['status'] &&
+                        $advertiserData['status'] == User::STATUS_SUSPENDED){
+                $suspendedUser = true;
+            }
         }
 
         $user->fill($advertiserData);
@@ -272,6 +285,11 @@ class AdvertiserController extends BaseController {
         // Log when is created or edited an advertiser by an admin
         Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user, $advertiser),
             'userAdminId' => Auth::user()->id, 'previousData' => array($previousDataUser, $previousDataAdvertiser)));
+
+        // Si es suspendido el publisher se suspenden también todas sus publicaciones
+        if ($suspendedUser){
+            Publication::suspendPublicationsByUserId($user->publisher->id);
+        }
 
         // Redirect to diferent places based on new or existing user
         self::addFlashMessage(null, Lang::get('content.save_advertiser_success'), 'success');

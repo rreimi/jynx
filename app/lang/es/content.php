@@ -94,6 +94,8 @@ return array(
 
     // Reports
     'reports' =>  'Denuncias',
+    'comments' => 'Comentarios',
+    'reports_made' => 'Denuncias hechas',
     'report_title' => 'Denuncia',
     'backend_report_view_title' => 'Denuncia pendiente',
     'backend_report_by_user' => 'Denuncias hechas por el usuario :u',
@@ -102,6 +104,11 @@ return array(
     'invalid_report' => 'Denuncia inválida',
     'suspend_publication' => 'Editar/Suspender publicación',
     'suspend_user' => 'Editar/Suspender usuario',
+    'report_view_user_name' => 'Nombre del denunciante',
+    'report_view_publication_name' => 'Nombre de la publicación',
+    'report_view_publisher_name' => 'Nombre del anunciante',
+    'report_view_report_date' => 'Fecha de la denuncia',
+    'report_view_report_comment' => 'Motivo de la denuncia',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
@@ -300,6 +307,7 @@ return array(
     "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
+    "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
@@ -560,7 +568,8 @@ return array(
 
     // Emails
     'email_restore_user_password' => 'Contraseña Restablecida',
-
+    'email_publisher_new_comment' => '¡Han dejado un comentario en tu publicación!',
+    'email_user_suspended' => 'Usuario Suspendido',
     'email_welcome_user_subject' => '¡Bienvenido a TuMercato.com!',
     'email_new_adviser_request' => 'TuMercato tiene una nueva solicitud para ser anunciante',
     'email_approved_user_notification' => 'Su solicitud de anunciante ha sido aprobada por TuMercato.com',
@@ -584,6 +593,7 @@ return array(
 
     "stats_users_basic" => "Usuarios básicos",
     "stats_description_users_basic" => "Cantidad de usuarios básicos",
+    "stats_users_total" => "Cantidad total de usuarios: ",
     "stats_users_publisher" => "Anunciantes",
     "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Anunciantes en trámite",

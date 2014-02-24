@@ -347,6 +347,10 @@ h2.home-title {
     text-decoration: underline;
 }
 
+.publication-form .dates-section {
+    display: none;
+}
+
 /*.pub-table.admin .row-title {*/
     /*width: 31%;*/
 /*}*/
@@ -1159,4 +1163,7 @@ div#home-banner-top .carousel-control {
 
 .publication-date {
     margin-bottom: 25px;
+}
+.advertiser-form .advertiser-status-warning {
+    display: none;
 }

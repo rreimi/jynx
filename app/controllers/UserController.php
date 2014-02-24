@@ -16,7 +16,9 @@ class UserController extends BaseController {
     public function getLista() {
 
         $state = self::retrieveListState();
-        $users = User::orderBy($state['sort'], $state['order']);
+
+        $users = User::select(DB::raw('users.*, count(publications_reports.id) as reports'))
+            ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -33,28 +35,32 @@ class UserController extends BaseController {
         $status = $state['filter_status'];
 
         if (!empty($status)){
-            $users->where('status', '=', $status);
+            $users->where('users.status', '=', $status);
         }
 
         $rol = $state['filter_role'];
 
         if (!empty($rol)){
-            $users->where('role', '=', $rol);
+            $users->where('users.role', '=', $rol);
         }
 
         // Don't show publishers users
         $users->where('role', '!=', User::ROLE_PUBLISHER);
 
-        $users->groupBy('id');
+        // Join with reports made by users
+        $users->leftJoin('publications_reports','users.id','=','publications_reports.user_id');
+
+        $users->groupBy('users.id');
         $users = $users->paginate($this->page_size);
 
         return View::make('user_list', array(
-            'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
-            'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
-            'users' => $users,
-            'state' => $state,
+                'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
+                'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
+                'users' => $users,
+                'state' => $state,
             ) //end array
         );
+
     }
 
     public function postLista() {
@@ -150,8 +156,8 @@ class UserController extends BaseController {
         $user = User::find($id);
 
         return View::make('user_form',
-            array('user_statuses' => self::getUserStatuses(),
-                'user_roles' => self::getUserRoles(),
+            array('user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
+                'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
                 'user' => $user,
                 'referer' => $referer,
             )
@@ -212,6 +218,7 @@ class UserController extends BaseController {
         $operation = '';
         $previousData = null;
         $passwordChanged = false;
+        $suspendedUser = false;
 
         if ($isNew){
             $user = new User($userData);
@@ -222,6 +229,12 @@ class UserController extends BaseController {
         } else {
             $user = User::find($userData['id']);
             $previousData = $user->getOriginal();
+
+            // Si se Suspendio el usuario en esta oportunidad, se le notifica por correo
+            if ($previousData['status'] != $userData['status'] && $userData['status'] == 'Suspended'){
+                $suspendedUser = true;
+            }
+
             $user->fill($userData);
             $method = 'edit';
             $operation = 'Edit_user';
@@ -236,7 +249,6 @@ class UserController extends BaseController {
         }
 
         $user->save();
-
 
         if($passwordChanged){
             $receiver = array(
@@ -254,6 +266,22 @@ class UserController extends BaseController {
 
             self::sendMail('emails.layout_email', $data, $receiver, $subject);
 
+        }
+
+        if ($suspendedUser){
+            $receiver = array(
+                'email' => $userData['email'],
+                'name' => $userData['full_name'],
+            );
+
+            $data = array(
+                'contentEmail' => 'user_suspended',
+                'userName' => $userData['full_name'],
+            );
+
+            $subject = Lang::get('content.email_user_suspended');
+
+            self::sendMail('emails.layout_email', $data, $receiver, $subject);
         }
 
         // Log when is created or edited an user by an admin
@@ -304,9 +332,9 @@ class UserController extends BaseController {
     private static function getUserStatuses($blankCaption = '') {
 
         $options = array (
-            'Active' => Lang::get('content.status_Active'),
-            'Inactive' => Lang::get('content.status_Inactive'),
-            'Suspended' => Lang::get('content.status_Suspended'),
+            User::STATUS_ACTIVE => Lang::get('content.status_Active'),
+            User::STATUS_INACTIVE => Lang::get('content.status_Inactive'),
+            User::STATUS_SUSPENDED => Lang::get('content.status_Suspended'),
         );
 
         if (!empty($blankCaption)){
@@ -320,7 +348,7 @@ class UserController extends BaseController {
 
         $options = array (
             User::ROLE_BASIC => Lang::get('content.role_Basic'),
-//            'Publisher' => Lang::get('content.role_Publisher'),
+//            User::ROLE_PUBLISHER => Lang::get('content.role_Publisher'),
             User::ROLE_ADMIN => Lang::get('content.role_Admin'),
         );
 

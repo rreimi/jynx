@@ -7,21 +7,21 @@ class StatsController extends BaseController {
     }
 
     public function getIndex(){
-        $data['users']=User::count();
+        $data['users'] = User::count();
 
-        $data['users_basic']=User::roleBasic()->count();
+        $data['users_basic'] = User::roleBasic()->count();
 
-        $data['users_publisher']=User::rolePublisher()->count();
+        $data['users_publisher'] = User::rolePublisher()->count();
 
-        $data['users_to_approve']=User::toApprove()->count();
+        $data['users_to_approve'] = User::toApprove()->count();
 
-        $data['reports']=PublicationReport::pendingReports()->count();
+        $data['reports'] = PublicationReport::pendingReports()->count();
 
-        $data['reports_pending']=count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
+        $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
 
-        $data['publications']=Publication::count();
+        $data['publications'] = PublicationView::count();
 
-        $elements=DB::table('categories')
+        $elements = DB::table('categories')
             ->join('publications_categories','categories.id','=','publications_categories.category_id')
             ->join('publications','publications_categories.publication_id','=','publications.id')
             ->select('categories.id','categories.name','categories.type',DB::raw('count(publications.id) as publications'))

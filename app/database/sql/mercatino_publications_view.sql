@@ -10,7 +10,8 @@ SELECT p. * ,
       i.image_url,
       GROUP_CONCAT( DISTINCT (t.full_name )) AS contacts,
       t.id AS contact_id,
-      COUNT(DISTINCT (r.id)) AS reports
+      COUNT(DISTINCT (r.id)) AS reports,
+      COUNT(DISTINCT (a.id)) AS ratings
 
 FROM publications AS p
 LEFT JOIN publications_categories AS cp ON p.id = cp.publication_id
@@ -20,4 +21,5 @@ LEFT JOIN states AS s ON s.id = u.state_id
 LEFT JOIN contacts AS t ON t.publisher_id = u.id
 LEFT JOIN publications_reports AS r ON r.publication_id = p.id
 LEFT JOIN publications_images AS i ON p.publication_image_id = i.id
+LEFT JOIN publications_ratings AS a ON a.publication_id = p.id
 GROUP BY p.id, c.id

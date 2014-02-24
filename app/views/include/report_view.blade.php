@@ -1,16 +1,21 @@
-<h2>{{ Lang::get('content.report_title') }}</h2>
 <p>
-    <b>{{ Lang::get('content.backend_report_comment') }}:</b> {{ $report->comment }}
+    <b>{{ Lang::get('content.report_view_user_name') }}:</b> {{ $report->user->full_name }}
 </p>
 
-<h2>{{ Lang::get('content.backend_report_user') }}</h2>
 <p>
-    <b>{{ Lang::get('content.backend_report_user') }}:</b> {{ $report->user->full_name }}
+    <b>{{ Lang::get('content.report_view_publication_name') }}:</b> {{ $report->publication->title }}
 </p>
 
-<h2>{{ Lang::get('content.backend_report_publication') }}</h2>
 <p>
-    <b>{{ Lang::get('content.title') }}:</b> {{ $report->publication->title }}
+    <b>{{ Lang::get('content.report_view_publisher_name') }}:</b> {{ $report->publication->publisher->seller_name }}
+</p>
+
+<p>
+    <b>{{ Lang::get('content.report_view_report_date') }}:</b> {{ $report->date }}
+</p>
+
+<p>
+    <b>{{ Lang::get('content.report_view_report_comment') }}:</b> {{ $report->comment }}
 </p>
 
 <br/>
@@ -19,12 +24,6 @@
     <div>
         <a nohref class="btn btn-warning btn-small btn-report" data-id="valid-report">{{ Lang::get('content.valid_report') }}</a>
         <a nohref class="btn btn-warning btn-small btn-report" data-id="invalid-report">{{ Lang::get('content.invalid_report') }}</a>
-    </div>
-
-    <br/>
-    <div>
-        <a href="{{ URL::to('publicacion/editar/'. $report->publication->id) }}" class="btn btn-info btn-small" target="_blank">{{ Lang::get('content.suspend_publication') }}</a>
-        <a href="{{ URL::to('usuario/editar/'. $report->user->id) }}" class="btn btn-info btn-small" target="_blank">{{ Lang::get('content.suspend_user') }}</a>
     </div>
 </div>
 

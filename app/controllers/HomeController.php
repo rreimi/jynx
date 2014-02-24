@@ -40,18 +40,17 @@ class HomeController extends BaseController {
         $activationFlag = Input::get('activacion');
         $data['activationFlag'] = (isset($activationFlag) && !empty($activationFlag)) ? $activationFlag : '' ;
 
-        $data['activeadvertisings'] = Cache::rememberForever('currentAdvertising', function() {
+        $data['activeadvertisings'] = Cache::remember(CacheHelper::$ADVERTISING_CURRENT, 86400, function() {
             return Advertising::activehomeadvertisings()->get();
         });
-        //$data['activeadvertisings'] = Advertising::activehomeadvertisings()->get();
 
         /* Cache de un día para los elementos mas visitados */
-        $data['mostvisited'] = Cache::remember('homeMostVisited', 1440, function() use ($sliderSize) {
+        $data['mostvisited'] = Cache::remember(CacheHelper::$PUBLICATIONS_MOST_VISITED, 1800, function() use ($sliderSize) {
             return HomePublicationView::mostVisited($sliderSize)->get();
         });
 
         /* Cache de productos mas recientes, se resetea cuando hay productos nuevos */
-        $data['recent'] = Cache::rememberForever('homeRecent', function() use ($sliderSize) {
+        $data['recent'] = Cache::remember(CacheHelper::$PUBLICATIONS_MOST_RECENT, 1800, function() use ($sliderSize) {
             return HomePublicationView::recent($sliderSize)->get();
         });
 
@@ -86,7 +85,7 @@ class HomeController extends BaseController {
     public function getCat($slug = '') {
 
         /* Load category by slug */
-        $data['category'] = Category::where('slug', '=', $slug)->with('publications','parent')->first();
+        $data['category'] = Category::where('slug', '=', $slug)->first();
 
         if ($data['category'] == null) {
             return Response::view('errors.missing', array(), 404);
@@ -120,7 +119,7 @@ class HomeController extends BaseController {
         }
 
         //$data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->with('images')->orderBy('created_at', 'desc')->paginate($this->page_size);
+        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->orderBy('created_at', 'desc')->paginate($this->page_size);
 
         /* Calculate filters */
         $availableFilters = array();
@@ -207,7 +206,7 @@ class HomeController extends BaseController {
 
         /* Find publications */
         //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->paginate($this->page_size);
+        $data['publications'] = PublicationView::getSearch($q, 'updated_at', 'desc')->groupBy('id')->published()->filter($activeFilters)->paginate($this->page_size);
 
 
         /* Calculate filters */

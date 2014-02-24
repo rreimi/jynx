@@ -42,9 +42,10 @@
                     'status',
                     array_merge(array('' => Lang::get('content.select')), $advertiser_statuses),
                     $user->status,
-                    array('class'=>'required')
+                    array('class'=>'required status')
                 ) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
+                <div class="text-warning alert-block advertiser-status-warning">{{ Lang::get('content.publisher_status_warning') }}</div>
             </div>
         </div>
 
@@ -212,6 +213,14 @@
 
         // Phone mask
         jQuery('.phone-number-format').mask("9999-9999999");
+
+        jQuery('.status').bind("change", function(){
+            if (jQuery('select.status').val() == '{{ PUblisher::STATUS_SUSPENDED }}'){
+                jQuery('.advertiser-status-warning').show();
+            } else {
+                jQuery('.advertiser-status-warning').hide();
+            }
+        });
     });
 </script>
 @stop
