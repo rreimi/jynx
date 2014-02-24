@@ -71,6 +71,28 @@ class RatingController extends BaseController{
                 return Response::json($result, 400);
             }
 
+            // Enviar correo de notificación de comentario al anunciante
+            $publication = Publication::find($data->publication_id);
+            $publisher = User::find($publication->publisher->user_id);
+
+            $receiver = array(
+                'email' => $publisher->email,
+                'name' => $publisher->full_name,
+            );
+
+            $data = array(
+                'contentEmail' => 'publisher_new_comment',
+                'publisherName' => $publisher->full_name,
+                'userName' => Auth::user()->full_name,
+                'publicationLink' => UrlHelper::toWith('publicacion/detalle/'. $data->publication_id, array()),
+                'publicationTitle' => $publication->title,
+                'ratingComment' => $data->comment,
+            );
+
+            $subject = Lang::get('content.email_publisher_new_comment');
+
+            self::sendMail('emails.layout_email', $data, $receiver, $subject);
+
             // Calculate rating average for the publication related to this rating
             Queue::later(60, 'PublicationRatingAvg', $data->publication_id);
 

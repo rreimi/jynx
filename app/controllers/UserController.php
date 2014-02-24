@@ -212,6 +212,7 @@ class UserController extends BaseController {
         $operation = '';
         $previousData = null;
         $passwordChanged = false;
+        $suspendedUser = false;
 
         if ($isNew){
             $user = new User($userData);
@@ -222,6 +223,12 @@ class UserController extends BaseController {
         } else {
             $user = User::find($userData['id']);
             $previousData = $user->getOriginal();
+
+            // Si se Suspendio el usuario en esta oportunidad, se le notifica por correo
+            if ($previousData['status'] != $userData['status'] && $userData['status'] == 'Suspended'){
+                $suspendedUser = true;
+            }
+
             $user->fill($userData);
             $method = 'edit';
             $operation = 'Edit_user';
@@ -236,7 +243,6 @@ class UserController extends BaseController {
         }
 
         $user->save();
-
 
         if($passwordChanged){
             $receiver = array(
@@ -254,6 +260,22 @@ class UserController extends BaseController {
 
             self::sendMail('emails.layout_email', $data, $receiver, $subject);
 
+        }
+
+        if ($suspendedUser){
+            $receiver = array(
+                'email' => $userData['email'],
+                'name' => $userData['full_name'],
+            );
+
+            $data = array(
+                'contentEmail' => 'user_suspended',
+                'userName' => $userData['full_name'],
+            );
+
+            $subject = Lang::get('content.email_user_suspended');
+
+            self::sendMail('emails.layout_email', $data, $receiver, $subject);
         }
 
         // Log when is created or edited an user by an admin

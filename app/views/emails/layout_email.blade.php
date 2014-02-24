@@ -30,6 +30,10 @@
                 @include('emails.contactUs')
             @elseif ($contentEmail == "restore_user_password")
                 @include('emails.restore_user_password')
+            @elseif ($contentEmail == "user_suspended")
+                @include('emails.user_suspended')
+            @elseif ($contentEmail == "publisher_new_comment")
+                @include('emails.publisher_new_comment')
             @endif
 
             Atentamente,<br/>

@@ -96,6 +96,7 @@ class PublicationController extends BaseController {
 
         $publisher = User::find($data['publication']->publisher->user_id);
         $data['publisher_email']=$publisher->email;
+        $data['publisher_full_name']=$publisher->full_name;
 
         $data['lastvisited'] = array();
 
