@@ -14,9 +14,9 @@
         <thead>
         <tr>
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('title')}}">{{Lang::get('content.title')}} <i class="{{UrlHelper::getSortIcon('title')}}"></i></a></th>
-            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('created_at')}}">{{Lang::get('content.created_at')}} <i class="{{UrlHelper::getSortIcon('created_at')}}"></i></a></th>
-            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('from_date')}}">{{Lang::get('content.from_date')}} <i class="{{UrlHelper::getSortIcon('from_date')}}"></i></a></th>
-            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('to_date')}}">{{Lang::get('content.to_date')}} <i class="{{UrlHelper::getSortIcon('to_date')}}"></i></a></th>
+<!--            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('created_at')}}">{{Lang::get('content.created_at')}} <i class="{{UrlHelper::getSortIcon('created_at')}}"></i></a></th>-->
+<!--            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('from_date')}}">{{Lang::get('content.from_date')}} <i class="{{UrlHelper::getSortIcon('from_date')}}"></i></a></th>-->
+<!--            <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('to_date')}}">{{Lang::get('content.to_date')}} <i class="{{UrlHelper::getSortIcon('to_date')}}"></i></a></th>-->
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('status')}}">{{Lang::get('content.status')}} <i class="{{UrlHelper::getSortIcon('status')}}"></i></a></th>
             @if ($user->isAdmin())
             <th><a class="rowhead" href="{{UrlHelper::fullUrltoogleSort('seller_name')}}">{{Lang::get('content.seller_name')}} <i class="{{UrlHelper::getSortIcon('seller_name')}}"></i></a></th>
@@ -38,9 +38,9 @@
             <td class="row-title"><b>{{ e($pub->title) }}</b>
                 <span class="title-with-categories">{{ $pub->categories }}</span>
             </td>
-            <td nowrap class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>
-            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>
-            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->to_date)) }}</td>
+<!--            <td nowrap class="row-created">{{ date(Lang::get('content.date_format_php'),strtotime($pub->created_at)) }}</td>-->
+<!--            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->from_date)) }}</td>-->
+<!--            <td nowrap class="row-date">{{ date(Lang::get('content.date_format_php'),strtotime($pub->to_date)) }}</td>-->
             <td class="row-status">{{ Lang::get('content.status_publication_' . $pub->status) }}</td>
             @if ($user->isAdmin())
             <td class="row-seller_name">{{ $pub->seller_name }}</td>

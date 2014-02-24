@@ -54,12 +54,13 @@
             @if (!is_null(Auth::user()))
             @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
             <a href="{{ URL::to('publicacion/lista') }}" class="btn btn-mini btn-success">{{Lang::get('content.back_to_publications')}}</a>
-            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('search/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
             @endif
 
             <div class="publication-data">
-                <div class="seller-name"><b>{{Lang::get('content.sell_by_full')}}</b>: {{ $publication->publisher->seller_name }}</div>
+
+                <div class="seller-name"><b>{{Lang::get('content.sell_by_full')}}</b>: <a href="{{ URL::to('search?seller=' . $publication->publisher->id)}}">{{ $publication->publisher->seller_name }}</a></div>
                 <div class="visits"><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
                 <div class="evaluation"><b>{{Lang::get('content.evaluation')}}</b>: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
             </div>
