@@ -27,9 +27,16 @@ class AdvertiserController extends BaseController {
             {
                 $query->orWhere('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('full_name', 'LIKE', '%' . $q . '%')
-                    ->orWhere('publisher.seller_name', 'LIKE', '%' . $q . '%')
+                    //->orWhere('publisher.seller_name', 'LIKE', '%' . $q . '%')
                 ;
             });
+
+            //$advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
+
+//            $advertisers->orWhereHas('publisher', function($query) use ($q)
+//            {
+//                $query->where('seller_name', 'like', '%' . $q . '%');
+//            });
         }
 
         $status = $state['filter_status'];
