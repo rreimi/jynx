@@ -14,12 +14,6 @@ class PublicationController extends BaseController {
             $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));
         }
 
-        /* Los siguientes metodos reinician la cache */
-//        $this->afterFilter(function()
-//        {
-//            $this->invalidatePublicationCache();
-//        }, array('only' => 'postGuardar', 'getEliminar' , 'postImagenes', 'deleteImagenes', 'getCambiarEstatusPorFechas'));
-
         View::share('bannerTopHomeSize', self::$bannerTopHomeSize);
 
         View::share('categories', self::getCategories());
@@ -28,18 +22,22 @@ class PublicationController extends BaseController {
         View::share('thumbSize', self::$thumbSize);
     }
 
-    private function invalidatePublicationCache() {
-        Cache::forget('homeRecent');
-    }
-
-	public function getDetalle($id = null) {
+    /**
+     * Load publication detail
+     *
+     * @param null $id
+     * @return mixed
+     */
+    public function getDetalle($id = null) {
 
         if ($id == null){
             return Response::view('errors.missing', array(), 404);
         }
 
 		/* Cargar la lista de categorias */
-        $data['publication'] = Publication::with('images', 'publisher', 'contacts')->find($id);
+        $data['publication'] = Cache::remember(CacheHelper::$PUBLICATION . $id, 86400, function() use ($id) {
+            return Publication::with('images', 'publisher', 'contacts', 'categories')->find($id);
+        });
 
         //TODO Validar que la publicacion exista
 
@@ -77,30 +75,23 @@ class PublicationController extends BaseController {
         }
 
         $cookie = Cookie::forever($cookieName, $cookieArray);
-
         // END - Create cookie for last visited
 
-        Queue::later(60, 'VisitsJob', array('publication_id' => $id));
-
+        // Increment publication visits
+        Queue::later(60, 'VisitsJob', array('publication_id' => $id));  //3 Query
         // END - Create log of publication
 
-//        var_dump(DB::getQueryLog());
-//        die();
-        /* Cargar la publicidad del banner */
-
-        /* Cargar la lista de productos con mayor número de visitas */
-
-        /* Cargar la lista de los últimos productos agregados */
-
-        /* TODO Cargar la lista de los últimos productos vistos por el usuario actual */
-
-        $publisher = User::find($data['publication']->publisher->user_id);
+        // Load last view by current user
+        /* $publisher = User::find($data['publication']->publisher->user_id);
         $data['publisher_email']=$publisher->email;
-        $data['publisher_full_name']=$publisher->full_name;
+        */
+        $data['publisher_email']= $data['publication']->publisher->email;
+        $data['publisher_full_name']= $data['publication']->publisher->full_name;
 
         $data['lastvisited'] = array();
 
-        /* Get cookie of last visited by the user */
+        // Get cookie of last visited by the user
+
         $cookieName = (Auth::check()) ? ('last_visited_'. Auth::user()->id) : 'last_visited';
         $cookieArray = Cookie::get($cookieName);
         if (isset($cookieArray)){
@@ -120,10 +111,15 @@ class PublicationController extends BaseController {
             $data['lastvisited'] = $lastVisitedOrdered;
         }
 
-
         return Response::view('publication', $data)->withCookie($cookie);
 	}
 
+
+    /**
+     * Get publication list for publishers and admins
+     *
+     * @return mixed
+     */
     public function getLista() {
 
         $user = Auth::user();
@@ -219,10 +215,20 @@ class PublicationController extends BaseController {
         );
     }
 
+    /**
+     * Post request facade for getLista()
+     *
+     * @return mixed
+     */
     public function postLista() {
         return $this->getLista();
     }
 
+    /**
+     * Build list state, to restore users searchs and filters
+     *
+     * @return mixed
+     */
     private function retrieveListState(){
         $state = Session::get('pub_list.state');
         $isPost = (Input::server("REQUEST_METHOD") == "POST");
@@ -323,7 +329,7 @@ class PublicationController extends BaseController {
     }
 
     /**
-     * Solo si es publisher
+     * Add new publication (only admins and publishers)
      *
      * @return mixed
      */
@@ -420,7 +426,7 @@ class PublicationController extends BaseController {
                     'userAdminId' => Auth::user()->id));
             }
 
-            $this->invalidatePublicationCache();
+            Event::fire('publication.change', array($publication));
 
             return Response::json($image->id, 200);
         } else {
@@ -451,38 +457,39 @@ class PublicationController extends BaseController {
         //Build image path
         $filepath = public_path() . '/' . $this->pub_img_dir . '/pub/'  . $id . '/' . $pubImg->image_url; //../public
 
-        if (file_exists($filepath)){
+        /* Not delete images phisically from disk */
+//        if (file_exists($filepath)){
             //Remove img from disk (img by diferent sizes)
-            $result = unlink($filepath);
+            //$result = unlink($filepath);
 
-            if ($result === false){
-                return Response::json('error_removing_file', 400);
-            }
-        }
+//            if ($result === false){
+//                return Response::json('error_removing_file', 400);
+//            }
+//        }
 
         //remove thumb
-        $thumb = str_replace('.', '_' . BaseController::$thumbSize['width'] . '.', $filepath);
+        //$thumb = str_replace('.', '_' . BaseController::$thumbSize['width'] . '.', $filepath);
 
-        if (file_exists($thumb)){
-            //Remove img from disk (img by diferent sizes)
-            $result = unlink($thumb);
-
-            if ($result === false){
-                return Response::json('error_removing_file', 400);
-            }
-        }
+//        if (file_exists($thumb)){
+//            //Remove img from disk (img by diferent sizes)
+//            $result = unlink($thumb);
+//
+//            if ($result === false){
+//                return Response::json('error_removing_file', 400);
+//            }
+//        }
 
         //remove detail
-        $detail = str_replace('.', '_' . BaseController::$detailSize['width'] . '.', $filepath);
-
-        if (file_exists($detail)){
-            //Remove img from disk (img by diferent sizes)
-            $result = unlink($detail);
-
-            if ($result === false){
-                return Response::json('error_removing_file', 400);
-            }
-        }
+//        $detail = str_replace('.', '_' . BaseController::$detailSize['width'] . '.', $filepath);
+//
+//        if (file_exists($detail)){
+//            //Remove img from disk (img by diferent sizes)
+//            $result = unlink($detail);
+//
+//            if ($result === false){
+//                return Response::json('error_removing_file', 400);
+//            }
+//        }
 
         if (Auth::user()->isAdmin()){
             // Log when is deleted an image from publication by an admin
@@ -512,12 +519,11 @@ class PublicationController extends BaseController {
             }
         }
 
-
         if ($affectedRows != true) {
             return Response::json('error_removing_db', 400);
         }
 
-        $this->invalidatePublicationCache();
+        Event::fire('publication.change', array($publication));
 
         return Response::json('success', 200);
 
@@ -579,6 +585,11 @@ class PublicationController extends BaseController {
 
     }
 
+    /**
+     * Save publication
+     *
+     * @return mixed
+     */
     public function postGuardar() {
 
         //Get publication data
@@ -731,7 +742,7 @@ class PublicationController extends BaseController {
                 'userAdminId' => Auth::user()->id, 'previousData' => array($previousData)));
         }
 
-        $this->invalidatePublicationCache();
+        Event::fire('publication.save', array($pub));
 
         // Redirect to diferent places based on new or existing publication
         if ($isNew) {
@@ -769,13 +780,14 @@ class PublicationController extends BaseController {
 
         $result = $pub->delete();
 
+        Event::fire('publication.delete', array($pub));
+
         // Log when is deleted a publication by an admin
         if (Auth::user()->isAdmin()){
             Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_publication', 'entities' => array($pub),
                 'userAdminId' => Auth::user()->id));
         }
 
-        $this->invalidatePublicationCache();
 
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_publication_success'), 'success');
@@ -838,16 +850,17 @@ class PublicationController extends BaseController {
     public function getCambiarEstatusPorFechas(){
 
         $currentDate = Date('Y-m-d', strtotime('now'));
+        $currentDateTime = Date('Y-m-d h:i:s', strtotime('now'));
 
         // Activate publications - Change status to Published for publications that have from_date today and status On_Hold
         Publication::where('from_date', $currentDate)
                     ->where('status', 'On_Hold')
-                    ->update(array('status'=>'Published'));
+                    ->update(array('status'=>'Published', 'updated_at' => $currentDateTime));
 
         // Desactivate publications - Change status to Finished for publications that have to_date less than today
         Publication::where('to_date', '<', $currentDate)
                     ->where('status', 'Published')
-                    ->update(array('status'=>'Finished'));
+                    ->update(array('status'=>'Finished', 'updated_at' => $currentDateTime));
 
         // Notify the admin about the result of the operation
         $receiver = array(
@@ -861,8 +874,6 @@ class PublicationController extends BaseController {
         );
 
         $subject = Lang::get('content.email_cron_admin_notification_pub_change_status_date_subject');
-
-        $this->invalidatePublicationCache();
 
         self::sendMail('emails.layout_email', $data, $receiver, $subject);
 
