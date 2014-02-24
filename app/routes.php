@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/clearcache', function(){
     Cache::forget('categoryTree');
     Cache::forget('servicesTree');
@@ -57,6 +56,8 @@ Route::controller('evaluacion', 'RatingController');
 
 Route::controller('bolsa-trabajo','JobController');
 
+Route::controller('cron', 'CronController');
+
 Route::controller('/','HomeController');
 
 
@@ -84,3 +85,9 @@ Route::filter('cache', function( $response = null )
     }
 
 });
+
+/* Register event handlers */
+
+$subscriber = new PublicationObserver;
+
+Event::subscribe($subscriber);
