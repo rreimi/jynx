@@ -85,6 +85,17 @@ class ReportController extends BaseController {
         );
     }
 
+    public function getAcciones($id){
+        $response = PublicationReport::with('user', 'publication')->find($id);
+        $response->date = date("d-m-Y ", strtotime($response->date));
+
+        return View::make('include.report_actions_view',
+            array(
+                'report'=> $response
+            )
+        );
+    }
+
     public function postProcesar(){
         //Get report data
         $repData = array(
@@ -113,13 +124,14 @@ class ReportController extends BaseController {
         $operation = '';
 
         if ($repData['action'] == 'valid-report'){
-            $rep->status = PublicationReport::STATUS_CORRECT;
+            $rep->status = PublicationReport::STATUS_VALID;
             $operation = 'Valid_report';
         } elseif ($repData['action'] == 'invalid-report'){
-            $rep->status = PublicationReport::STATUS_INCORRECT;
+            $rep->status = PublicationReport::STATUS_INVALID;
             $operation = 'Invalid_report';
         }
 
+        $rep->final_status_date = date('Y-m-d h:i:s', time());
         $rep->save();
 
         // Log when is changed a report by an admin
@@ -196,9 +208,9 @@ class ReportController extends BaseController {
     private static function getReportStatuses($blankCaption = '') {
 
         $options = array (
-            'Pending' => Lang::get('content.status_report_Pending'),
-            'Correct' => Lang::get('content.status_report_Correct'),
-            'Incorrect' => Lang::get('content.status_report_Incorrect'),
+            PublicationReport::STATUS_PENDING => Lang::get('content.status_report_'. PublicationReport::STATUS_PENDING),
+            PublicationReport::STATUS_VALID => Lang::get('content.status_report_'. PublicationReport::STATUS_VALID),
+            PublicationReport::STATUS_INVALID => Lang::get('content.status_report_'. PublicationReport::STATUS_INVALID),
         );
 
         if (!empty($blankCaption)){

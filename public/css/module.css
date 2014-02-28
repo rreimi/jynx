@@ -564,6 +564,10 @@ div#home-banner-top .carousel-control {
     margin:1em 0 1em 0;
 }
 
+.modal .report-actions .text-center {
+    margin: 0;
+}
+
 .categories-form-list {
 
 }

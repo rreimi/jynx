@@ -4,9 +4,9 @@ class PublicationReport extends Eloquent {
 
     const STATUS_PENDING = "Pending";
 
-    const STATUS_CORRECT = "Correct";
+    const STATUS_VALID = "Valid";
 
-    const STATUS_INCORRECT = "Incorrect";
+    const STATUS_INVALID = "Invalid";
 
 //    protected $softDelete = true;
 

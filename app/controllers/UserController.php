@@ -329,6 +329,29 @@ class UserController extends BaseController {
 
     }
 
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspender($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_user', 404);
+        }
+
+        $user = User::find($id);
+
+        if (empty($user)){
+            return Response::json('report_actions_error_user', 404);
+        }
+
+        $user->status = User::STATUS_SUSPENDED;
+        $user->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_user'), 'success');
+        return Response::json('success', 200);
+    }
+
     private static function getUserStatuses($blankCaption = '') {
 
         $options = array (

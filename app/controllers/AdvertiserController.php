@@ -336,6 +336,30 @@ class AdvertiserController extends BaseController {
 
     }
 
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspender($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_publisher', 404);
+        }
+
+        $pub = User::find($id);
+
+        if (empty($pub)){
+            return Response::json('report_actions_error_publisher', 404);
+        }
+
+        // Change role of user from Publisher to Basic
+        $pub->role = User::ROLE_BASIC;
+        $pub->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_publisher'), 'success');
+        return Response::json('success', 200);
+    }
+
     private static function getAdvertiserStatuses($blankCaption = '') {
 
         $options = array (
