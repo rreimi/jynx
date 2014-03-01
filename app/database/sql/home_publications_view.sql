@@ -1,3 +1,4 @@
+USE mercatino;
 CREATE OR REPLACE ALGORITHM = UNDEFINED VIEW home_publications_view AS
 SELECT p.id, p.title, p.rating_avg, p.created_at, u.id as publisher_id, u.seller_name, i.image_url, SUM(IF(v.created_at>= date(now())-7, 1, 0)) AS last_days_visits
 FROM publications AS p
