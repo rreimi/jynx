@@ -18,7 +18,7 @@ class AdvertiserController extends BaseController {
     public function getLista() {
 
         $state = self::retrieveListState();
-        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id'))
+        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id, COUNT(publications_reports.id) as publisher_reports'))
             ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
@@ -47,6 +47,8 @@ class AdvertiserController extends BaseController {
         }
 
         $advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
+        $advertisers->leftJoin('publications','publishers.id','=','publications.publisher_id');
+        $advertisers->leftJoin('publications_reports','publications.id','=','publications_reports.publication_id');
 
         // Mostrar usuarios que han sido publishers en algun momento (rol actual como basic o publisher y step 0)
         $advertisers->whereIn('role', array(User::ROLE_BASIC, User::ROLE_PUBLISHER));
