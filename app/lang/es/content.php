@@ -462,7 +462,7 @@ return array(
     // Search
     "user_search_placeholder" => "Buscar...",
     "user_role_Admin" => "Administrador",
-    "user_role_Publisher" => "Publicador",
+    "user_role_Publisher" => "Anunciante",
     "user_role_Basic" => "Básico",
 
     // Status
@@ -471,8 +471,9 @@ return array(
     'status_Suspended' => 'Suspendido',
 
     // Roles
+    'role' => 'Rol',
     'role_Basic' => 'Básico',
-    'role_Publisher' => 'Publicador',
+    'role_Publisher' => 'Anunciante',
     'role_Admin' => 'Administrador',
 
     // Messages

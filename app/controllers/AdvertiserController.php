@@ -18,7 +18,8 @@ class AdvertiserController extends BaseController {
     public function getLista() {
 
         $state = self::retrieveListState();
-        $advertisers = User::with('publisher')->orderBy($state['sort'], $state['order']);
+        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id'))
+            ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -45,9 +46,11 @@ class AdvertiserController extends BaseController {
             $advertisers->where('status', '=', $status);
         }
 
-        // Don't show publishers users
-        $advertisers->where('role', '=', User::ROLE_PUBLISHER);
-//        $advertisers->where('is_publisher', '=', true);
+        $advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
+
+        // Mostrar usuarios que han sido publishers en algun momento (rol actual como basic o publisher y step 0)
+        $advertisers->whereIn('role', array(User::ROLE_BASIC, User::ROLE_PUBLISHER));
+        $advertisers->where('step', '=', 0);
 
         $advertisers->groupBy('id');
         $advertisers = $advertisers->paginate($this->page_size);
@@ -169,6 +172,7 @@ class AdvertiserController extends BaseController {
                 'states' => State::lists('name','id'),
                 "categories" => Category::parents()->orderBy('name','asc')->get(),
                 'advertiser_categories' => $advCats,
+                'advertiser_roles' => self::getAdvertiserRoles(Lang::get('content.filter_role_placeholder')),
                 'referer' => $referer,
             )
         );
@@ -182,6 +186,7 @@ class AdvertiserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'status' => Input::get('status'),
+            'role' => Input::get('role'),
             'publisher_type' => Input::get('publisher_type'),
             'letter_rif_ci' => Input::get('publisher_id_type'),
             'rif_ci' => Input::get('publisher_id'),
@@ -199,6 +204,7 @@ class AdvertiserController extends BaseController {
             'full_name' => 'required',
             'email' => 'required',
             'status' => 'required',
+            'role' => 'required',
             'publisher_type' => 'required',
             'letter_rif_ci' => 'required',
             'rif_ci' => 'required',
@@ -363,9 +369,23 @@ class AdvertiserController extends BaseController {
     private static function getAdvertiserStatuses($blankCaption = '') {
 
         $options = array (
-            'Active' => Lang::get('content.status_Active'),
-            'Inactive' => Lang::get('content.status_Inactive'),
-            'Suspended' => Lang::get('content.status_Suspended'),
+            Publisher::STATUS_ACTIVE => Lang::get('content.status_'. Publisher::STATUS_ACTIVE),
+            Publisher::STATUS_INACTIVE => Lang::get('content.status_'. Publisher::STATUS_INACTIVE),
+            Publisher::STATUS_SUSPENDED => Lang::get('content.status_'. Publisher::STATUS_SUSPENDED),
+        );
+
+        if (!empty($blankCaption)){
+            $options = array_merge(array('' => $blankCaption), $options);
+        }
+
+        return $options;
+    }
+
+    private static function getAdvertiserRoles($blankCaption = '') {
+
+        $options = array (
+            User::ROLE_BASIC => Lang::get('content.role_'. User::ROLE_BASIC),
+            User::ROLE_PUBLISHER => Lang::get('content.role_'. User::ROLE_PUBLISHER),
         );
 
         if (!empty($blankCaption)){
