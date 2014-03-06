@@ -76,8 +76,6 @@ class ReportController extends BaseController {
     }
 
     public function getDetalleInfo($id){
-//        $response = PublicationReport::with('user', 'publication')->find($id);
-
         $query = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
             ->with('user')->with('publication');
 
@@ -184,10 +182,10 @@ class ReportController extends BaseController {
             ($filterType != null && $filterId != null)){
             // Limit reports by user
             if ($filterType == 'usuario'){
-                $reports->where('user_id', $filterId);
+                $reports->where('publications_reports.user_id', $filterId);
                 // Limit reports by publication
             } elseif ($filterType == 'publicacion'){
-                $reports->where('publication_id', $filterId);
+                $reports->where('publications_reports.publication_id', $filterId);
             }
         }
 
