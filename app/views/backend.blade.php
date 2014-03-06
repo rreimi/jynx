@@ -55,7 +55,7 @@
                         <td>{{ $rep->user->full_name }}</td>
                         <td>{{ $rep->publication->title }}</td>
                         <td>{{ $rep->date }}</td>
-                        <td>{{ Lang::get('content.backend_report_status_'. $rep->status) }}</td>
+                        <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>
                         <td>
                             <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn report-modal" type="button"
                                         data-target="#viewReport" data-remote="{{URL::to('denuncia/detalle/'. $rep->id) }}">

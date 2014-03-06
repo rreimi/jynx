@@ -45,7 +45,6 @@
                 success: function(html){
                     if (action == 'valid-report'){
                         loadActions();
-                        Mercatino.showFlashMessage({title:'', message: "{{ Lang::get('content.report_message_change_success') }}", type:'success'});
                     } else if (action == 'invalid-report'){
                         window.parent.location.reload();
                     }

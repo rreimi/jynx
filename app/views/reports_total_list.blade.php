@@ -51,9 +51,11 @@
             <thead>
             <tr>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('full_name')}}">{{ Lang::get('content.backend_report_user') }} <i class="{{UrlHelper::getSortIcon('user.full_name')}}"></i></th>
+                <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('date')}}">{{ Lang::get('content.backend_report_date_created') }} <i class="{{UrlHelper::getSortIcon('date')}}"></i></th>
+                <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('date')}}">{{ Lang::get('content.backend_report_date_resolved') }} <i class="{{UrlHelper::getSortIcon('date')}}"></i></th>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('publication.title')}}">{{ Lang::get('content.backend_report_publication') }} <i class="{{UrlHelper::getSortIcon('publication.title')}}"></i></th>
-                <th><a href="{{UrlHelper::fullUrltoogleSort('comment')}}">{{ Lang::get('content.backend_report_comment') }} <i class="{{UrlHelper::getSortIcon('comment')}}"></i></th>
-                <th class="date"><a href="{{UrlHelper::fullUrltoogleSort('date')}}">{{ Lang::get('content.backend_report_date') }} <i class="{{UrlHelper::getSortIcon('date')}}"></i></th>
+                <th><a href="{{UrlHelper::fullUrltoogleSort('publisher')}}">{{ Lang::get('content.backend_report_publisher') }} <i class="{{UrlHelper::getSortIcon('publisher')}}"></i></th>
+                <th><a href="{{UrlHelper::fullUrltoogleSort('comment')}}">{{ Lang::get('content.backend_report_comments_in_publication') }} <i class="{{UrlHelper::getSortIcon('comment')}}"></i></th>
                 <th><a href="{{UrlHelper::fullUrltoogleSort('status')}}">{{ Lang::get('content.backend_report_status') }} <i class="{{UrlHelper::getSortIcon('status')}}"></i></th>
                 <th>-</th>
             </tr>
@@ -63,10 +65,12 @@
                 @foreach ($reports as $key => $rep)
                     <tr>
                         <td><a href="{{ URL::to('denuncia/lista/usuario/'. $rep->user->id) }}">{{ $rep->user->full_name }}</a></td>
-                        <td><a href="{{ URL::to('denuncia/lista/publicacion/'. $rep->publication->id) }}">{{ $rep->publication->title }}</a></td>
-                        <td>{{ $rep->comment }}</td>
                         <td>{{ $rep->date }}</td>
-                        <td>{{ Lang::get('content.backend_report_status_'. $rep->status) }}</td>
+                        <td>{{ $rep->final_status }}</td>
+                        <td><a href="{{ URL::to('denuncia/lista/publicacion/'. $rep->publication->id) }}">{{ $rep->publication->title }}</a></td>
+                        <td>{{ $rep->publication->publisher->seller_name }}</td>
+                        <td>{{ $rep->reports_in_publication }}</td>
+                        <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>
                         <td>
                             <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn report-modal" type="button"
                                         data-target="#viewReport" data-remote="{{URL::to('denuncia/detalle-info/'. $rep->id) }}">

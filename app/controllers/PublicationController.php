@@ -195,7 +195,7 @@ class PublicationController extends BaseController {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
         }
 
-        foreach (PublicationVIew::categoriesWithPublications()->get() as $item) {
+        foreach (PublicationView::categoriesWithPublications()->get() as $item) {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
@@ -761,29 +761,6 @@ class PublicationController extends BaseController {
             return Redirect::to('publicacion/lista');
 
         }
-    }
-
-    /**
-     * @ajax
-     * Used from publication report action like action after mark a report like valid.
-     */
-    public function getSuspender($id) {
-
-        if (empty($id)) {
-            return Response::json('report_actions_error_publication', 404);
-        }
-
-        $pub = Publication::find($id);
-
-        if (empty($pub)){
-            return Response::json('report_actions_error_publication', 404);
-        }
-
-        $pub->status = Publication::STATUS_SUSPENDED;
-        $pub->save();
-
-        self::addFlashMessage(null, Lang::get('content.report_actions_success_publication'), 'success');
-        return Response::json('success', 200);
     }
 
     public function getEliminar($id) {

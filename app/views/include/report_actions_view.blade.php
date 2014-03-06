@@ -4,7 +4,7 @@
     <br/>
 
     <div>
-        <a href="{{ URL::to('publicacion/detalle/'. $report->publication->id) }}" class="btn btn-info btn-small btn-action" data-id="valid-report">{{ Lang::get('content.report_view_delete_report') }}</a>
+        <a nohref class="btn btn-info btn-small btn-action" data-action="delete-comment">{{ Lang::get('content.report_view_delete_report') }}</a>
     </div>
 
     <br/>
@@ -28,7 +28,7 @@
     <br/>
 
     <div>
-        <button class="btn-info btn-small btn-action" data-dismiss="modal">{{ Lang::get('content.report_view_skip') }}Nuevo</button>
+        <a nohref class="btn btn-info btn-small btn-action" data-action="skip">{{ Lang::get('content.report_view_skip') }}</a>
     </div>
 </div>
 
@@ -44,14 +44,20 @@
             var url;
 
             switch (action){
+                case "delete-comment":
+                    url = '{{URL::to("denuncia/borrar-comentario/". $report->id) }}'
+                    break;
                 case "suspend-publication":
-                    url = '{{URL::to("publicacion/suspender/". $report->publication->id) }}'
+                    url = '{{URL::to("denuncia/suspender-publicacion/". $report->id) }}'
                     break;
                 case "suspend-publisher":
-                    url = '{{URL::to("anunciante/suspender/". $report->publication->publisher->user_id) }}'
+                    url = '{{URL::to("denuncia/suspender-anunciante/". $report->id) }}'
                     break;
                 case "suspend-user":
-                    url = '{{URL::to("usuario/suspender/". $report->user_id) }}'
+                    url = '{{URL::to("denuncia/suspender-usuario/". $report->id) }}'
+                    break;
+                case "skip":
+                    url = '{{URL::to("denuncia/saltar/". $report->id) }}'
                     break;
             }
 
@@ -59,7 +65,14 @@
                 url: url,
                 cache: false,
                 success: function(html){
-                    window.parent.location.reload();
+                    switch (action){
+                        case "delete-comment":
+                            window.location.replace("{{ URL::to('publicacion/detalle/'. $report->publication->id) }}");
+                            break;
+                        default:
+                            window.parent.location.reload();
+                            break;
+                    }
                 },
                 error: function(html){
                     var resp = html.responseText.substring(1, html.responseText.length - 1);

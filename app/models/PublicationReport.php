@@ -3,10 +3,12 @@
 class PublicationReport extends Eloquent {
 
     const STATUS_PENDING = "Pending";
-
-    const STATUS_VALID = "Valid";
-
     const STATUS_INVALID = "Invalid";
+    const STATUS_VALID = "Valid";
+    const STATUS_DELETED_COMMENT = "DeletedComment";
+    const STATUS_SUSPENDED_PUBLICATION = "SuspendedPublication";
+    const STATUS_SUSPENDED_PUBLISHER = "SuspendedPublisher";
+    const STATUS_SUSPENDED_REPORTER = "SuspendedReporter";
 
 //    protected $softDelete = true;
 
@@ -20,10 +22,6 @@ class PublicationReport extends Eloquent {
     public function scopePendingReports($query){
         $query->where('status','Pending')
             ->orderBy('id', 'desc');
-    }
-
-    public function scopeTotalReports($query, $sort, $order){
-        $query->orderBy($sort, $order);
     }
 
     public function user(){

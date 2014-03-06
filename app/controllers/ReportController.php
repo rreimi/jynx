@@ -76,11 +76,31 @@ class ReportController extends BaseController {
     }
 
     public function getDetalleInfo($id){
-        $response = PublicationReport::with('user', 'publication')->find($id);
+//        $response = PublicationReport::with('user', 'publication')->find($id);
+
+        $query = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
+            ->with('user')->with('publication');
+
+        $query->join('publications','publications_reports.publication_id','=','publications.id');
+
+        /**
+         * Aqui se aplica el siguiente subquery para mostrar el nro de denuncias que tiene la publicación asociada a cada denuncia
+         *
+         * select d.`id`, p.`publication_id`, p.cant from (SELECT `publication_id`, count(`publication_id`) cant
+         * FROM `publications_reports` GROUP BY `publication_id`) p, publications_reports d
+         * where p.`publication_id` = d.`publication_id`
+         */
+        $query->join(DB::raw('(SELECT publication_id, count(publication_id) reports_in_publication FROM publications_reports GROUP BY publication_id) AS sub_reports'), function($join)
+        {
+            $join->on('sub_reports.publication_id', '=', 'publications_reports.publication_id');
+        });
+
+        $query->where('publications_reports.id', $id);
+        $report = $query->first();
 
         return View::make('include.report_total_view',
             array(
-                'report'=> $response
+                'report'=> $report
             )
         );
     }
@@ -123,22 +143,19 @@ class ReportController extends BaseController {
 
         $operation = '';
 
-        if ($repData['action'] == 'valid-report'){
-            $rep->status = PublicationReport::STATUS_VALID;
-            $operation = 'Valid_report';
-        } elseif ($repData['action'] == 'invalid-report'){
+        // Change status only when is invalid, when is valid will change in the second step of the process
+        if ($repData['action'] == 'invalid-report'){
             $rep->status = PublicationReport::STATUS_INVALID;
             $operation = 'Invalid_report';
+            $rep->final_status = date('Y-m-d h:i:s', time());
+            $rep->save();
+
+            // Log when is changed a report by an admin
+            Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rep),
+                'userAdminId' => Auth::user()->id));
+
+            self::addFlashMessage(null, Lang::get('content.report_message_change_success'), 'success');
         }
-
-        $rep->final_status_date = date('Y-m-d h:i:s', time());
-        $rep->save();
-
-        // Log when is changed a report by an admin
-        Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rep),
-            'userAdminId' => Auth::user()->id));
-
-        self::addFlashMessage(null, Lang::get('content.report_message_change_success'), 'success');
 
         return Response::json('change_success', 200);
 
@@ -157,10 +174,14 @@ class ReportController extends BaseController {
         }
 
         $state = self::retrieveListState();
-        $reports = PublicationReport::totalReports($state['sort'], $state['order'])->with('user')->with('publication');
+
+        $reports = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
+            ->with('user')->with('publication')
+            ->orderBy($state['sort'], $state['order']);
 
         // Limit reports by received filters.
-        if (!empty($state['filtering_type']) && !empty($state['filtering_id'])){
+        if ((!empty($state['filtering_type']) && !empty($state['filtering_id'])) ||
+            ($filterType != null && $filterId != null)){
             // Limit reports by user
             if ($filterType == 'usuario'){
                 $reports->where('user_id', $filterId);
@@ -187,7 +208,21 @@ class ReportController extends BaseController {
             $reports->where('status', '=', $state['filter_status']);
         }
 
-        $reports->groupBy('id');
+        $reports->join('publications','publications_reports.publication_id','=','publications.id');
+
+        /**
+         * Aqui se aplica el siguiente subquery para mostrar el nro de denuncias que tiene la publicación asociada a cada denuncia
+         *
+         * select d.`id`, p.`publication_id`, p.cant from (SELECT `publication_id`, count(`publication_id`) cant
+         * FROM `publications_reports` GROUP BY `publication_id`) p, publications_reports d
+         * where p.`publication_id` = d.`publication_id`
+         */
+        $reports->join(DB::raw('(SELECT publication_id, count(publication_id) reports_in_publication FROM publications_reports GROUP BY publication_id) AS sub_reports'), function($join)
+        {
+            $join->on('sub_reports.publication_id', '=', 'publications_reports.publication_id');
+        });
+
+        $reports->groupBy('publications_reports.id');
         $reports = $reports->paginate($this->page_size);
 
         if ($user->isAdmin()){
@@ -205,12 +240,159 @@ class ReportController extends BaseController {
         );
     }
 
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getBorrarComentario($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report->status = PublicationReport::STATUS_DELETED_COMMENT;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_comment'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderPublicacion($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $pub = Publication::find($report->publication_id);
+
+        if (empty($pub)){
+            return Response::json('report_actions_error_publication', 404);
+        }
+
+        $pub->status = Publication::STATUS_SUSPENDED;
+        $pub->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLICATION;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_publication'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderAnunciante($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $pub = User::find($report->publication->publisher->user_id);
+
+        if (empty($pub)){
+            return Response::json('report_actions_error_publisher', 404);
+        }
+
+        // Change role of user from Publisher to Basic
+        $pub->role = User::ROLE_BASIC;
+        $pub->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLISHER;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_publisher'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderUsuario($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $user = User::find($report->user_id);
+
+        if (empty($user)){
+            return Response::json('report_actions_error_user', 404);
+        }
+
+        $user->status = User::STATUS_SUSPENDED;
+        $user->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_REPORTER;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_user'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSaltar($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report->status = PublicationReport::STATUS_VALID;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_skip'), 'success');
+        return Response::json('success', 200);
+    }
+
     private static function getReportStatuses($blankCaption = '') {
 
         $options = array (
             PublicationReport::STATUS_PENDING => Lang::get('content.status_report_'. PublicationReport::STATUS_PENDING),
-            PublicationReport::STATUS_VALID => Lang::get('content.status_report_'. PublicationReport::STATUS_VALID),
             PublicationReport::STATUS_INVALID => Lang::get('content.status_report_'. PublicationReport::STATUS_INVALID),
+            PublicationReport::STATUS_VALID => Lang::get('content.status_report_'. PublicationReport::STATUS_VALID),
+            PublicationReport::STATUS_DELETED_COMMENT => Lang::get('content.status_report_'. PublicationReport::STATUS_DELETED_COMMENT),
+            PublicationReport::STATUS_SUSPENDED_PUBLICATION => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLICATION),
+            PublicationReport::STATUS_SUSPENDED_PUBLISHER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLISHER),
+            PublicationReport::STATUS_SUSPENDED_REPORTER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_REPORTER),
         );
 
         if (!empty($blankCaption)){
