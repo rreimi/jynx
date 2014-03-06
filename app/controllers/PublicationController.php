@@ -883,12 +883,20 @@ class PublicationController extends BaseController {
 
     private static function getPublicationStatuses($blankCaption = '') {
 
+
+        //'Draft','Published','On_Hold','Suspended','Finished','Trashed'
         $options = array (
             'Draft' => Lang::get('content.status_publication_Draft'),
             'Published' => Lang::get('content.status_publication_Published'),
             'On_Hold' => Lang::get('content.status_publication_On_Hold'),
-            'Suspended' => Lang::get('content.status_publication_Suspended'),
+            'Finished' => Lang::get('content.status_publication_Finished'),
         );
+
+        if(!Auth::guest()){
+            if (Auth::user()->isAdmin()){
+                $options['Suspended'] = Lang::get('content.status_publication_Suspended');
+            }
+        }
 
         if (!empty($blankCaption)){
             $options = array_merge(array('' => $blankCaption), $options);
