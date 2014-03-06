@@ -220,6 +220,26 @@ class ReportController extends BaseController {
             $join->on('sub_reports.publication_id', '=', 'publications_reports.publication_id');
         });
 
+        //Date start date
+        if (!empty($state['date_start_date'])) {
+            $reports->where('date', '>=', date("Y-m-d", strtotime($state['date_start_date'])));
+        }
+
+        //Final status start date
+        if (!empty($state['final_status_start_date'])) {
+            $reports->where('date', '<=', date("Y-m-d", strtotime($state['final_status_start_date'])));
+        }
+
+        //Date end date
+        if (!empty($state['date_end_date'])) {
+            $reports->where('final_status', '>=', date("Y-m-d", strtotime($state['date_end_date'])));
+        }
+
+        //Final status end date
+        if (!empty($state['final_status_end_date'])) {
+            $reports->where('final_status', '<=', date("Y-m-d", strtotime($state['final_status_end_date'])));
+        }
+
         $reports->groupBy('publications_reports.id');
         $reports = $reports->paginate($this->page_size);
 
@@ -453,6 +473,34 @@ class ReportController extends BaseController {
 
         if ((isset($filteringId)) || !(isset($state['filtering_id']))) {
             $state['filtering_id'] = (isset($filteringType))? $filteringType : '';
+        }
+
+        // Date start date
+        $state['date_start_date'] = (isset($state['date_start_date']) ? $state['date_start_date'] : null);
+
+        if ($isPost) {
+            $state['date_start_date'] = Input::get('date_start_date');
+        }
+
+        //Final Status start date
+        $state['final_status_start_date'] = (isset($state['final_status_start_date']) ? $state['final_status_start_date'] : null);
+
+        if ($isPost) {
+            $state['final_status_start_date'] = Input::get('final_status_start_date');
+        }
+
+        //Date end date
+        $state['date_end_date'] = (isset($state['date_end_date']) ? $state['date_end_date'] : null);
+
+        if ($isPost) {
+            $state['date_end_date'] = Input::get('date_end_date');
+        }
+
+        //Final Status end date
+        $state['final_status_end_date'] = (isset($state['final_status_end_date']) ? $state['final_status_end_date']: null);
+
+        if ($isPost) {
+            $state['final_status_end_date'] = Input::get('final_status_end_date');
         }
 
         /* End custom filters */

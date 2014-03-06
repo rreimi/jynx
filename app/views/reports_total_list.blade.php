@@ -4,7 +4,7 @@
 <div class="row-fluid search-sidebar-box">
     {{ Form::open(array('method' => 'post', 'class' => 'form-inline sidebar-search-form', 'id' => 'report_list_form')) }}
     <div class="span11 user-list-filters">
-        <span class="nav-header">{{ Lang::get('content.backend_search_user_title') }}</span>
+        <span class="nav-header">{{ Lang::get('content.backend_search_reports_title') }}</span>
         <div class="control-group">
             <div class="controls">
                 {{Form::text('q', $state['q'], array('class' => 'input-large filter-field', 'placeholder' => Lang::get('content.user_search_placeholder')))}}
@@ -20,6 +20,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="control-group">
+            <label class="control-label" for="filter_start_date">{{ Lang::get('content.backend_report_date_created') }}</label>
+            <div class="controls">
+                {{ Form::text('date_start_date', $state['date_start_date'], array('id' => 'filter_start_date','class' => 'datepicker date-start-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+                {{ Form::text('final_status_start_date', $state['final_status_start_date'], array('class' => 'datepicker final-status-start-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="filter_end_date">{{ Lang::get('content.backend_report_date_resolved') }}</label>
+            <div class="controls">
+                {{ Form::text('date_end_date', $state['date_end_date'], array('id' => 'filter_end_date', 'class' => 'datepicker date-end-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+                {{ Form::text('final_status_end_date', $state['final_status_end_date'], array('class' => 'datepicker final-status-end-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
+            </div>
+        </div>
+
         @if ($state['active_filters'] > 0)
         <div class="control-group">
             <div class="controls">

@@ -274,7 +274,7 @@ class PublicationController extends BaseController {
             $state['filter_categories'] = Input::get('filter_categories');
         }
 
-        //Categories
+        //Publishers
         $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
 
         if ($isPost) {

@@ -209,6 +209,7 @@ return array(
     "backend_search_publication_title" => "Buscar publicaciones",
     "backend_search_user_title" => "Buscar usuarios",
     "backend_search_advertiser_title" => "Buscar anunciantes",
+    "backend_search_reports_title" => "Buscar denuncias",
 
     // Backend Dashboard
     "backend_users_section_title" => "Aprobaciones pendientes",
