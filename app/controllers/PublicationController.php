@@ -195,7 +195,7 @@ class PublicationController extends BaseController {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
         }
 
-        foreach (PublicationVIew::categoriesWithPublications()->get() as $item) {
+        foreach (PublicationView::categoriesWithPublications()->get() as $item) {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
@@ -274,7 +274,7 @@ class PublicationController extends BaseController {
             $state['filter_categories'] = Input::get('filter_categories');
         }
 
-        //Categories
+        //Publishers
         $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
 
         if ($isPost) {

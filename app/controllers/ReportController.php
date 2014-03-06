@@ -76,9 +76,38 @@ class ReportController extends BaseController {
     }
 
     public function getDetalleInfo($id){
-        $response = PublicationReport::with('user', 'publication')->find($id);
+        $query = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
+            ->with('user')->with('publication');
+
+        $query->join('publications','publications_reports.publication_id','=','publications.id');
+
+        /**
+         * Aqui se aplica el siguiente subquery para mostrar el nro de denuncias que tiene la publicación asociada a cada denuncia
+         *
+         * select d.`id`, p.`publication_id`, p.cant from (SELECT `publication_id`, count(`publication_id`) cant
+         * FROM `publications_reports` GROUP BY `publication_id`) p, publications_reports d
+         * where p.`publication_id` = d.`publication_id`
+         */
+        $query->join(DB::raw('(SELECT publication_id, count(publication_id) reports_in_publication FROM publications_reports GROUP BY publication_id) AS sub_reports'), function($join)
+        {
+            $join->on('sub_reports.publication_id', '=', 'publications_reports.publication_id');
+        });
+
+        $query->where('publications_reports.id', $id);
+        $report = $query->first();
 
         return View::make('include.report_total_view',
+            array(
+                'report'=> $report
+            )
+        );
+    }
+
+    public function getAcciones($id){
+        $response = PublicationReport::with('user', 'publication')->find($id);
+        $response->date = date("d-m-Y ", strtotime($response->date));
+
+        return View::make('include.report_actions_view',
             array(
                 'report'=> $response
             )
@@ -112,21 +141,19 @@ class ReportController extends BaseController {
 
         $operation = '';
 
-        if ($repData['action'] == 'valid-report'){
-            $rep->status = PublicationReport::STATUS_CORRECT;
-            $operation = 'Valid_report';
-        } elseif ($repData['action'] == 'invalid-report'){
-            $rep->status = PublicationReport::STATUS_INCORRECT;
+        // Change status only when is invalid, when is valid will change in the second step of the process
+        if ($repData['action'] == 'invalid-report'){
+            $rep->status = PublicationReport::STATUS_INVALID;
             $operation = 'Invalid_report';
+            $rep->final_status = date('Y-m-d h:i:s', time());
+            $rep->save();
+
+            // Log when is changed a report by an admin
+            Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rep),
+                'userAdminId' => Auth::user()->id));
+
+            self::addFlashMessage(null, Lang::get('content.report_message_change_success'), 'success');
         }
-
-        $rep->save();
-
-        // Log when is changed a report by an admin
-        Queue::push('LoggerJob@log', array('method' => null, 'operation' => $operation, 'entities' => array($rep),
-            'userAdminId' => Auth::user()->id));
-
-        self::addFlashMessage(null, Lang::get('content.report_message_change_success'), 'success');
 
         return Response::json('change_success', 200);
 
@@ -145,29 +172,31 @@ class ReportController extends BaseController {
         }
 
         $state = self::retrieveListState();
-        $reports = PublicationReport::totalReports($state['sort'], $state['order'])->with('user')->with('publication');
 
-        // Limit reports by received filters.
-        if (!empty($state['filtering_type']) && !empty($state['filtering_id'])){
-            // Limit reports by user
-            if ($filterType == 'usuario'){
-                $reports->where('user_id', $filterId);
-                // Limit reports by publication
-            } elseif ($filterType == 'publicacion'){
-                $reports->where('publication_id', $filterId);
-            }
-        }
+        $reports = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
+            ->with('user')->with('publication')
+            ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
         if (!empty($q)){
             $reports->where(function($query) use ($q)
             {
-                $query->orWhere('publications_reports.id', 'LIKE', '%' . $q . '%')
-                    ->orWhere('comment', 'LIKE', '%' . $q . '%')
-                    ->orWhere('date', 'LIKE', '%' . $q . '%')
+                $query->orWhere('publications.title', 'LIKE', '%' . $q . '%')
+                    ->orWhere('users.full_name', 'LIKE', '%' . $q . '%')
+//                    ->orWhere('date', 'LIKE', '%' . $q . '%')
                 ;
             });
+        }
+
+        //Reporter filter
+        if (is_array($state['filter_reporters'])) {
+            $reports->whereIn('publications_reports.user_id', $state['filter_reporters']);
+        }
+
+        //Publication filter
+        if (is_array($state['filter_publications'])) {
+            $reports->whereIn('publications_reports.publication_id', $state['filter_publications']);
         }
 
         //Status filter
@@ -175,8 +204,64 @@ class ReportController extends BaseController {
             $reports->where('status', '=', $state['filter_status']);
         }
 
-        $reports->groupBy('id');
+        //Publisher filter
+        if (is_array($state['filter_publishers'])) {
+            $reports->whereIn('publications.publisher_id', $state['filter_publishers']);
+        }
+
+        $reports->join('publications','publications_reports.publication_id','=','publications.id');
+        $reports->join('users','publications_reports.user_id','=','users.id');
+
+        /**
+         * Aqui se aplica el siguiente subquery para mostrar el nro de denuncias que tiene la publicación asociada a cada denuncia
+         *
+         * select d.`id`, p.`publication_id`, p.cant from (SELECT `publication_id`, count(`publication_id`) cant
+         * FROM `publications_reports` GROUP BY `publication_id`) p, publications_reports d
+         * where p.`publication_id` = d.`publication_id`
+         */
+        $reports->join(DB::raw('(SELECT publication_id, count(publication_id) reports_in_publication FROM publications_reports GROUP BY publication_id) AS sub_reports'), function($join)
+        {
+            $join->on('sub_reports.publication_id', '=', 'publications_reports.publication_id');
+        });
+
+        //Date start date
+        if (!empty($state['date_start_date'])) {
+            $reports->where('date', '>=', date("Y-m-d", strtotime($state['date_start_date'])));
+        }
+
+        //Final status start date
+        if (!empty($state['final_status_start_date'])) {
+            $reports->where('date', '<=', date("Y-m-d", strtotime($state['final_status_start_date'])));
+        }
+
+        //Date end date
+        if (!empty($state['date_end_date'])) {
+            $reports->where('final_status', '>=', date("Y-m-d", strtotime($state['date_end_date'])));
+        }
+
+        //Final status end date
+        if (!empty($state['final_status_end_date'])) {
+            $reports->where('final_status', '<=', date("Y-m-d", strtotime($state['final_status_end_date'])));
+        }
+
+        $reports->groupBy('publications_reports.id');
         $reports = $reports->paginate($this->page_size);
+
+        $reportersFilterValues = array();
+        $publicationsFilterValues = array();
+        $publishersFilterValues = array();
+
+        foreach (PublicationReport::reportersWithReports()->get() as $item) {
+            $reportersFilterValues[$item->user_id] = $item->full_name;
+        }
+
+        foreach (PublicationReport::publicationsWithReports()->get() as $item) {
+            $publicationsFilterValues[$item->publication_id] = $item->title;
+        }
+
+        foreach (PublicationReport::publishersWithReports()->get() as $item) {
+            $publishersFilterValues[$item->publisher_id] = $item->seller_name;
+        }
 
         if ($user->isAdmin()){
             $view = 'reports_total_list';
@@ -184,6 +269,9 @@ class ReportController extends BaseController {
 
         return View::make($view, array(
             'rep_statuses' => self::getReportStatuses(Lang::get('content.filter_status_placeholder')),
+            'rep_reporters' => $reportersFilterValues,
+            'rep_publications' => $publicationsFilterValues,
+            'rep_publishers' => $publishersFilterValues,
             'reports' => $reports,
             'state' => $state,
             'user' => $user,
@@ -193,12 +281,159 @@ class ReportController extends BaseController {
         );
     }
 
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getBorrarComentario($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report->status = PublicationReport::STATUS_DELETED_COMMENT;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_comment'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderPublicacion($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $pub = Publication::find($report->publication_id);
+
+        if (empty($pub)){
+            return Response::json('report_actions_error_publication', 404);
+        }
+
+        $pub->status = Publication::STATUS_SUSPENDED;
+        $pub->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLICATION;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_publication'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderAnunciante($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $pub = User::find($report->publication->publisher->user_id);
+
+        if (empty($pub)){
+            return Response::json('report_actions_error_publisher', 404);
+        }
+
+        // Change role of user from Publisher to Basic
+        $pub->role = User::ROLE_BASIC;
+        $pub->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLISHER;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_publisher'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSuspenderUsuario($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $user = User::find($report->user_id);
+
+        if (empty($user)){
+            return Response::json('report_actions_error_user', 404);
+        }
+
+        $user->status = User::STATUS_SUSPENDED;
+        $user->save();
+
+        $report->status = PublicationReport::STATUS_SUSPENDED_REPORTER;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_user'), 'success');
+        return Response::json('success', 200);
+    }
+
+    /**
+     * @ajax
+     * Used from publication report action like action after mark a report like valid.
+     */
+    public function getSaltar($id) {
+
+        if (empty($id)) {
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report = PublicationReport::find($id);
+
+        if (empty($report)){
+            return Response::json('report_actions_error_report', 404);
+        }
+
+        $report->status = PublicationReport::STATUS_VALID;
+        $report->save();
+
+        self::addFlashMessage(null, Lang::get('content.report_actions_success_skip'), 'success');
+        return Response::json('success', 200);
+    }
+
     private static function getReportStatuses($blankCaption = '') {
 
         $options = array (
-            'Pending' => Lang::get('content.status_report_Pending'),
-            'Correct' => Lang::get('content.status_report_Correct'),
-            'Incorrect' => Lang::get('content.status_report_Incorrect'),
+            PublicationReport::STATUS_PENDING => Lang::get('content.status_report_'. PublicationReport::STATUS_PENDING),
+            PublicationReport::STATUS_INVALID => Lang::get('content.status_report_'. PublicationReport::STATUS_INVALID),
+            PublicationReport::STATUS_VALID => Lang::get('content.status_report_'. PublicationReport::STATUS_VALID),
+            PublicationReport::STATUS_DELETED_COMMENT => Lang::get('content.status_report_'. PublicationReport::STATUS_DELETED_COMMENT),
+            PublicationReport::STATUS_SUSPENDED_PUBLICATION => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLICATION),
+            PublicationReport::STATUS_SUSPENDED_PUBLISHER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLISHER),
+            PublicationReport::STATUS_SUSPENDED_REPORTER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_REPORTER),
         );
 
         if (!empty($blankCaption)){
@@ -249,18 +484,53 @@ class ReportController extends BaseController {
             $state['filter_status'] = (isset($status))? $status : '';
         }
 
-        // FilteringType
-        $filteringType = (!is_null(Input::get('filtering_type')) ? Input::get('filtering_type') : null);
+        //Reporters
+        $state['filter_reporters'] = (isset($state['filter_reporters']) ? $state['filter_reporters'] : null);
 
-        if ((isset($filteringType)) || !(isset($state['filtering_type']))) {
-            $state['filtering_type'] = (isset($filteringType))? $filteringType : '';
+        if ($isPost) {
+            $state['filter_reporters'] = Input::get('filter_reporters');
         }
 
-        // FilteringId
-        $filteringId = (!is_null(Input::get('filtering_id')) ? Input::get('filtering_id') : null);
+        //Publications
+        $state['filter_publications'] = (isset($state['filter_publications']) ? $state['filter_publications'] : null);
 
-        if ((isset($filteringId)) || !(isset($state['filtering_id']))) {
-            $state['filtering_id'] = (isset($filteringType))? $filteringType : '';
+        if ($isPost) {
+            $state['filter_publications'] = Input::get('filter_publications');
+        }
+
+        //Publishes
+        $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
+
+        if ($isPost) {
+            $state['filter_publishers'] = Input::get('filter_publishers');
+        }
+
+        // Date start date
+        $state['date_start_date'] = (isset($state['date_start_date']) ? $state['date_start_date'] : null);
+
+        if ($isPost) {
+            $state['date_start_date'] = Input::get('date_start_date');
+        }
+
+        //Final Status start date
+        $state['final_status_start_date'] = (isset($state['final_status_start_date']) ? $state['final_status_start_date'] : null);
+
+        if ($isPost) {
+            $state['final_status_start_date'] = Input::get('final_status_start_date');
+        }
+
+        //Date end date
+        $state['date_end_date'] = (isset($state['date_end_date']) ? $state['date_end_date'] : null);
+
+        if ($isPost) {
+            $state['date_end_date'] = Input::get('date_end_date');
+        }
+
+        //Final Status end date
+        $state['final_status_end_date'] = (isset($state['final_status_end_date']) ? $state['final_status_end_date']: null);
+
+        if ($isPost) {
+            $state['final_status_end_date'] = Input::get('final_status_end_date');
         }
 
         /* End custom filters */

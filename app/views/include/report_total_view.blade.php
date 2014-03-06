@@ -1,17 +1,22 @@
-<h2>{{ Lang::get('content.backend_report_total_view_title') }}</h2>
+<br/>
 <p>
-    <b>{{ Lang::get('content.backend_report_id') }}:</b> {{ $report->id }} <br/>
-    <b>{{ Lang::get('content.backend_report_comment') }}:</b><br/> {{ $report->comment }}
-</p>
-
-<h2>{{ Lang::get('content.backend_report_user') }}</h2>
-<p>
-    <b>{{ Lang::get('content.backend_report_id') }}:</b> {{ $report->user->id }}<br/>
     <b>{{ Lang::get('content.backend_report_user') }}:</b> {{ $report->user->full_name }}
 </p>
-
-<h2>{{ Lang::get('content.backend_report_publication') }}</h2>
 <p>
-    <b>{{ Lang::get('content.backend_report_id') }}:</b> {{ $report->publication->id }}<br/>
-    <b>{{ Lang::get('content.title') }}:</b> {{ $report->publication->title }}
+    <b>{{ Lang::get('content.backend_report_date_created') }}:</b> {{ $report->date }}
+</p>
+<p>
+    <b>{{ Lang::get('content.backend_report_date_resolved') }}:</b> {{ $report->final_status }}
+</p>
+<p>
+    <b>{{ Lang::get('content.backend_report_publication') }}:</b> {{ $report->publication->title }}
+</p>
+<p>
+    <b>{{ Lang::get('content.backend_report_publisher') }}:</b> {{ $report->publication->publisher->seller_name }}
+</p>
+<p>
+    <b>{{ Lang::get('content.backend_report_comments_in_publication') }}:</b> {{ $report->reports_in_publication }}
+</p>
+<p>
+    <b>{{ Lang::get('content.backend_report_status') }}:</b> {{ Lang::get('content.status_report_'. $report->status) }}
 </p>

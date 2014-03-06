@@ -564,6 +564,10 @@ div#home-banner-top .carousel-control {
     margin:1em 0 1em 0;
 }
 
+.modal .report-actions .text-center {
+    margin: 0;
+}
+
 .categories-form-list {
 
 }
@@ -1092,7 +1096,7 @@ div#home-banner-top .carousel-control {
     vertical-align: middle;
 }
 
-.pub-list-filters .nav-header, .user-list-filters .nav-header {
+.pub-list-filters .nav-header, .user-list-filters .nav-header, .reporter-list-filters .nav-header {
     padding: 15px 0px;
 }
 
