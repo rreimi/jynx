@@ -1,52 +1,7 @@
 @extends('layout_backend')
 
 @section('sidebar')
-<div class="row-fluid search-sidebar-box">
-    {{ Form::open(array('method' => 'post', 'class' => 'form-inline sidebar-search-form', 'id' => 'report_list_form')) }}
-    <div class="span11 user-list-filters">
-        <span class="nav-header">{{ Lang::get('content.backend_search_reports_title') }}</span>
-        <div class="control-group">
-            <div class="controls">
-                {{Form::text('q', $state['q'], array('class' => 'input-large filter-field', 'placeholder' => Lang::get('content.user_search_placeholder')))}}
-                <button class="btn btn-warning btn-small" type="submit">{{Lang::get('content.search')}}</button>
-            </div>
-        </div>
-
-        <div id="search-options-box" class="more-search-options collapse in">
-            <div class="control-group">
-                <label class="control-label text-left" for="filter_status">{{ Lang::get('content.filter_publication_status') }}</label>
-                <div class="controls">
-                    {{ Form::select('filter_status', $rep_statuses, $state['filter_status'], array('class' => 'filter-field')) }}
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="filter_start_date">{{ Lang::get('content.backend_report_date_created') }}</label>
-            <div class="controls">
-                {{ Form::text('date_start_date', $state['date_start_date'], array('id' => 'filter_start_date','class' => 'datepicker date-start-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-                {{ Form::text('final_status_start_date', $state['final_status_start_date'], array('class' => 'datepicker final-status-start-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="filter_end_date">{{ Lang::get('content.backend_report_date_resolved') }}</label>
-            <div class="controls">
-                {{ Form::text('date_end_date', $state['date_end_date'], array('id' => 'filter_end_date', 'class' => 'datepicker date-end-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-                {{ Form::text('final_status_end_date', $state['final_status_end_date'], array('class' => 'datepicker final-status-end-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}
-            </div>
-        </div>
-
-        @if ($state['active_filters'] > 0)
-        <div class="control-group">
-            <div class="controls">
-                <button class="btn btn-small reset-fields" type="button">{{Lang::get('content.reset_search')}} <i class="icon-remove"></i></button>
-            </div>
-        </div>
-        @endif
-    </div>
-    {{ Form::close() }}
-</div>
+@include('include.publication_report_table_sidebar')
 @parent
 @stop
 
@@ -81,10 +36,10 @@
                 @if (count($reports) > 0)
                 @foreach ($reports as $key => $rep)
                     <tr>
-                        <td><a href="{{ URL::to('denuncia/lista/usuario/'. $rep->user->id) }}">{{ $rep->user->full_name }}</a></td>
+                        <td>{{ $rep->user->full_name }}</td>
                         <td>{{ $rep->date }}</td>
                         <td>{{ $rep->final_status }}</td>
-                        <td><a href="{{ URL::to('denuncia/lista/publicacion/'. $rep->publication->id) }}">{{ $rep->publication->title }}</a></td>
+                        <td>{{ $rep->publication->title }}</td>
                         <td>{{ $rep->publication->publisher->seller_name }}</td>
                         <td>{{ $rep->reports_in_publication }}</td>
                         <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>

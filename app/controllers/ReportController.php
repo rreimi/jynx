@@ -177,28 +177,26 @@ class ReportController extends BaseController {
             ->with('user')->with('publication')
             ->orderBy($state['sort'], $state['order']);
 
-        // Limit reports by received filters.
-        if ((!empty($state['filtering_type']) && !empty($state['filtering_id'])) ||
-            ($filterType != null && $filterId != null)){
-            // Limit reports by user
-            if ($filterType == 'usuario'){
-                $reports->where('publications_reports.user_id', $filterId);
-                // Limit reports by publication
-            } elseif ($filterType == 'publicacion'){
-                $reports->where('publications_reports.publication_id', $filterId);
-            }
-        }
-
         $q = $state['q'];
 
         if (!empty($q)){
             $reports->where(function($query) use ($q)
             {
-                $query->orWhere('publications_reports.id', 'LIKE', '%' . $q . '%')
-                    ->orWhere('comment', 'LIKE', '%' . $q . '%')
-                    ->orWhere('date', 'LIKE', '%' . $q . '%')
+                $query->orWhere('publications.title', 'LIKE', '%' . $q . '%')
+                    ->orWhere('users.full_name', 'LIKE', '%' . $q . '%')
+//                    ->orWhere('date', 'LIKE', '%' . $q . '%')
                 ;
             });
+        }
+
+        //Reporter filter
+        if (is_array($state['filter_reporters'])) {
+            $reports->whereIn('publications_reports.user_id', $state['filter_reporters']);
+        }
+
+        //Publication filter
+        if (is_array($state['filter_publications'])) {
+            $reports->whereIn('publications_reports.publication_id', $state['filter_publications']);
         }
 
         //Status filter
@@ -206,7 +204,13 @@ class ReportController extends BaseController {
             $reports->where('status', '=', $state['filter_status']);
         }
 
+        //Publisher filter
+        if (is_array($state['filter_publishers'])) {
+            $reports->whereIn('publications.publisher_id', $state['filter_publishers']);
+        }
+
         $reports->join('publications','publications_reports.publication_id','=','publications.id');
+        $reports->join('users','publications_reports.user_id','=','users.id');
 
         /**
          * Aqui se aplica el siguiente subquery para mostrar el nro de denuncias que tiene la publicación asociada a cada denuncia
@@ -243,12 +247,31 @@ class ReportController extends BaseController {
         $reports->groupBy('publications_reports.id');
         $reports = $reports->paginate($this->page_size);
 
+        $reportersFilterValues = array();
+        $publicationsFilterValues = array();
+        $publishersFilterValues = array();
+
+        foreach (PublicationReport::reportersWithReports()->get() as $item) {
+            $reportersFilterValues[$item->user_id] = $item->full_name;
+        }
+
+        foreach (PublicationReport::publicationsWithReports()->get() as $item) {
+            $publicationsFilterValues[$item->publication_id] = $item->title;
+        }
+
+        foreach (PublicationReport::publishersWithReports()->get() as $item) {
+            $publishersFilterValues[$item->publisher_id] = $item->seller_name;
+        }
+
         if ($user->isAdmin()){
             $view = 'reports_total_list';
         }
 
         return View::make($view, array(
             'rep_statuses' => self::getReportStatuses(Lang::get('content.filter_status_placeholder')),
+            'rep_reporters' => $reportersFilterValues,
+            'rep_publications' => $publicationsFilterValues,
+            'rep_publishers' => $publishersFilterValues,
             'reports' => $reports,
             'state' => $state,
             'user' => $user,
@@ -461,18 +484,25 @@ class ReportController extends BaseController {
             $state['filter_status'] = (isset($status))? $status : '';
         }
 
-        // FilteringType
-        $filteringType = (!is_null(Input::get('filtering_type')) ? Input::get('filtering_type') : null);
+        //Reporters
+        $state['filter_reporters'] = (isset($state['filter_reporters']) ? $state['filter_reporters'] : null);
 
-        if ((isset($filteringType)) || !(isset($state['filtering_type']))) {
-            $state['filtering_type'] = (isset($filteringType))? $filteringType : '';
+        if ($isPost) {
+            $state['filter_reporters'] = Input::get('filter_reporters');
         }
 
-        // FilteringId
-        $filteringId = (!is_null(Input::get('filtering_id')) ? Input::get('filtering_id') : null);
+        //Publications
+        $state['filter_publications'] = (isset($state['filter_publications']) ? $state['filter_publications'] : null);
 
-        if ((isset($filteringId)) || !(isset($state['filtering_id']))) {
-            $state['filtering_id'] = (isset($filteringType))? $filteringType : '';
+        if ($isPost) {
+            $state['filter_publications'] = Input::get('filter_publications');
+        }
+
+        //Publishes
+        $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
+
+        if ($isPost) {
+            $state['filter_publishers'] = Input::get('filter_publishers');
         }
 
         // Date start date
