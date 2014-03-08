@@ -8,7 +8,7 @@ class PublicationController extends BaseController {
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
-        //$this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except' => array('getDetalle', 'getCambiarStatusPorFechas', 'getVerificarVencimientoPublicacion')));
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
         if (!Auth::check()){
             $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));

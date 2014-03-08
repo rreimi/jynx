@@ -100,6 +100,8 @@
             width: "100%"
         });
 
+        jQuery('.search-sidebar-box').fadeIn();
+
         jQuery('.reset-fields').bind('click', function(){
             jQuery('.filter-field').val('');
             jQuery('.chosen-select').val('').trigger("chosen:updated");
