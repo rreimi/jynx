@@ -1,4 +1,4 @@
-<div class="row-fluid search-sidebar-box">
+<div class="row-fluid search-sidebar-box hide">
     {{ Form::open(array('method' => 'post', 'class' => 'form-inline sidebar-search-form', 'id' => 'report_list_form')) }}
     <div class="span11 reporter-list-filters">
         <span class="nav-header">{{ Lang::get('content.backend_search_reports_title') }}</span>

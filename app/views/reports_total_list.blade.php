@@ -79,6 +79,7 @@
 
 @section('scripts')
 @parent
+{{ HTML::script('js/chosen.jquery.min.js') }}
 <script type="text/javascript">
     Mercatino.reportForm = {
         show: function(title, content, url){
@@ -91,6 +92,13 @@
     };
 
     jQuery(document).ready(function(){
+
+        jQuery('.chosen-select').chosen({
+            width: "100%"
+        });
+
+        jQuery('.search-sidebar-box').fadeIn();
+
         jQuery('.report-modal').on('click',function(){
             var remote=jQuery(this).data('remote');
             var target=jQuery(this).data('target');
