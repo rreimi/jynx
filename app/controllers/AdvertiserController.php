@@ -345,18 +345,7 @@ class AdvertiserController extends BaseController {
     }
 
     private static function getAdvertiserStatuses($blankCaption = '') {
-
-        $options = array (
-            Publisher::STATUS_ACTIVE => Lang::get('content.status_'. Publisher::STATUS_ACTIVE),
-            Publisher::STATUS_INACTIVE => Lang::get('content.status_'. Publisher::STATUS_INACTIVE),
-            Publisher::STATUS_SUSPENDED => Lang::get('content.status_'. Publisher::STATUS_SUSPENDED),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_ADVERTISER, $blankCaption);
     }
 
     private static function getAdvertiserRoles($blankCaption = '') {

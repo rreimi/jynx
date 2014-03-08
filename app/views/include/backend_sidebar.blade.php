@@ -8,4 +8,5 @@
     <li><a href="{{ URL::to('denuncia/lista')}}">{{ Lang::get('content.backend_menu_reports') }}</a></li>
         <!--<li class="sub-category"><a class="sub-category-text" href="#">SUB</a></li>-->
 <!--    <li class="active"><a href="#">Link</a></li>-->
+    <li><a href="{{ URL::to('dashboard/mass-email')}}">{{ Lang::get('content.backend_menu_mass_email') }}</a></li>
 </ul>
