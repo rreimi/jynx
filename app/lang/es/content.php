@@ -189,6 +189,7 @@ return array(
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
     "backend_menu_reports" => "Denuncias",
+    "backend_menu_mass_email" => "Email Masivo",
     "backend_search_publication_title" => "Buscar publicaciones",
     "backend_search_user_title" => "Buscar usuarios",
     "backend_search_advertiser_title" => "Buscar anunciantes",
@@ -198,6 +199,11 @@ return array(
     "backend_reports_section_title" => "Denuncias pendientes",
     "backend_user_approve" => "Aprobar",
     "backend_user_not_approve" => "Negar",
+    "backend_mass_email_section_title" => "Enviar correo a anunciantes",
+
+    // Backend Mass-email
+    "email_content" => "Contenido del correo",
+    "mass_email_target_info" =>  'Este mensaje se enviará a <b id="mass_email_total_publishers">:total_publishers</b> anunciante(s).',
 
     // Backend reports total
     "backend_reports_total" => "Denuncias",
@@ -212,6 +218,8 @@ return array(
     "report_send_success" => "La denuncia se ha enviado correctamente",
     "report_send_error" => "Ha ocurrido un error enviando la denuncia",
     "rating_send_success" => "La calificación se ha enviado correctamente",
+    "mass_email_no_publishers" => "No se encontraron publicadores para el estatus seleccionado, no es posible enviar el mensaje",
+    "mass_email_sent_success" => "Se ha programado el envío masivo a :total anunciante(s) satisfactoriamente",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -307,6 +315,7 @@ return array(
     "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
+    "publisher_status" => "Estatus del anunciante",
     "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
@@ -374,6 +383,7 @@ return array(
     "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
     "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
     "help_publication_description" => "Máximo 500 caracteres",
+    "help_mass_email_content" => "Advertencia: Usa esta funcionalidad con responsabilidad",
 
     "auth_menu_my_profile" => "Editar perfil",
 
@@ -432,6 +442,8 @@ return array(
     "filter_category_placeholder" => 'Seleccione una o más categorías',
     "filter_publisher_placeholder" => 'Seleccione uno o más anunciantes',
     "select_default"=>"Seleccione",
+    "option_all" => 'Todos',
+
 
     "filter_role_placeholder" => 'Seleccione Rol',
     // Users
@@ -683,5 +695,10 @@ return array(
     "year_experience" => " :number año|[2,5] :number años| >:number años",
     "month" => ":number mes|:number meses",
     "year" => " :number año|:number años",
-    "web_page" => "Página web"
+    "web_page" => "Página web",
+
+    //Mass Email
+    "mass_email_content" => "Mensaje",
+    "mass_email_subject" => "Asunto",
+
 );

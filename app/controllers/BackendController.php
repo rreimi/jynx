@@ -5,6 +5,7 @@ class BackendController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('admin');
+        $this->beforeFilter('csrf', array('only' => array('postMassEmail')));
     }
 
     public function getIndex() {
@@ -79,6 +80,92 @@ class BackendController extends BaseController {
         return Redirect::to('dashboard');
     }
 
+    public function getMassEmail() {
+
+        $totalPublishers = Publisher::count();
+        $extraOptions = array('All' => Lang::get('content.option_all'));
+
+        $data = array(
+            'email_content' => '',
+            'total_publishers' => $totalPublishers,
+            'advertiser_status' => StatusHelper::getStatuses(StatusHelper::$TYPE_ADVERTISER, Lang::get('content.filter_status_placeholder'), $extraOptions)
+        );
+
+        return View::make('mass_email', $data);
+    }
+
+    public function getAjaxTotalPublishers($type){
+
+        if ($type == 'All') {
+            $total = $totalPublishers = Publisher::count();
+        } else {
+
+            $total = DB::table('publishers')
+                ->join('users', 'users.id', '=', 'publishers.user_id')
+                ->where('users.status', $type)
+                ->count();
+        }
+
+        return json_encode(array('total_publishers' => $total));
+    }
+
+    public function postMassEmail() {
+
+        //Get publication data
+        $postData = array(
+            'email_content' => Input::get('email_content'),
+            'status' => Input::get('status'),
+            'email_subject' => Input::get('email_subject'),
+        );
+
+        //Set validation rules
+        $rules = array(
+            'email_content' => 'required|max:2000',
+            'status' => 'required',
+            'email_subject' => 'required|max:120',
+        );
+
+        // Validate fields
+        $v = Validator::make($postData, $rules);
+        if ( $v->fails() ) {
+            return Redirect::to('dashboard/mass-email')
+                ->withErrors($v)
+                ->withInput();
+        }
+
+        $query = DB::table('publishers');
+
+        if ($postData['status'] != 'All') {
+            $query->select('users.*', 'publishers.seller_name');
+            $query->join('users', 'users.id', '=', 'publishers.user_id');
+            $query->where('users.status', $postData['status']);
+        }
+
+        $publishers = $query->get();
+
+        foreach ($publishers as $publisher) {
+            if (isset($publisher->email)) {
+                $emailData = array(
+                    'publisherEmail' => $publisher->email,
+                    'publisherName' => $publisher->seller_name,
+                    'body' => $postData['email_content'],
+                    'contentEmail' => 'publisher_mass_email',
+                );
+
+                Mail::queue('emails.layout_email', $emailData, function($message) use ($emailData, $postData){
+                    $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
+                    $message->to($emailData['publisherEmail'], $emailData['publisherName'])->subject($postData['email_subject']);;
+                });
+            }
+        }
+
+        self::addFlashMessage(null, Lang::get('content.mass_email_sent_success', array('total' => count($publishers))), 'success');
+        //Success mensaje
+
+        return Redirect::to('dashboard/mass-email');
+    }
+
+    /** @Deprecated used to generate publication images for old publications */
     public function getBatch() {
         $publications = Publication::with('images')->get();
         $basePath = public_path() . '/uploads/pub/';
@@ -136,4 +223,5 @@ class BackendController extends BaseController {
             }
         }
     }
+
 }

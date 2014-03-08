@@ -330,18 +330,7 @@ class UserController extends BaseController {
     }
 
     private static function getUserStatuses($blankCaption = '') {
-
-        $options = array (
-            User::STATUS_ACTIVE => Lang::get('content.status_Active'),
-            User::STATUS_INACTIVE => Lang::get('content.status_Inactive'),
-            User::STATUS_SUSPENDED => Lang::get('content.status_Suspended'),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_USER, $blankCaption);
     }
 
     private static function getUserRoles($blankCaption = '') {

@@ -194,18 +194,7 @@ class ReportController extends BaseController {
     }
 
     private static function getReportStatuses($blankCaption = '') {
-
-        $options = array (
-            'Pending' => Lang::get('content.status_report_Pending'),
-            'Correct' => Lang::get('content.status_report_Correct'),
-            'Incorrect' => Lang::get('content.status_report_Incorrect'),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_REPORT, $blankCaption);
     }
 
     private function retrieveListState(){

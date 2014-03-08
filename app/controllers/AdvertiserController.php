@@ -337,18 +337,7 @@ class AdvertiserController extends BaseController {
     }
 
     private static function getAdvertiserStatuses($blankCaption = '') {
-
-        $options = array (
-            'Active' => Lang::get('content.status_Active'),
-            'Inactive' => Lang::get('content.status_Inactive'),
-            'Suspended' => Lang::get('content.status_Suspended'),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_ADVERTISER, $blankCaption);
     }
 
 }

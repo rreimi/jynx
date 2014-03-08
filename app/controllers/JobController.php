@@ -270,13 +270,7 @@ class JobController extends BaseController {
                 Job::SEX_FEMALE=>Lang::get('content.female'),
                 Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
             ),
-            'statuses' => array(
-                ''=>Lang::get('content.select_default'),
-                Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
-                Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
-                Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
-                Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
-            ),
+            'statuses' => StatusHelper::getStatuses(StatusHelper::$TYPE_JOB, Lang::get('content.select_default')),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job,
             'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths(),
@@ -330,13 +324,7 @@ class JobController extends BaseController {
                 Job::SEX_FEMALE=>Lang::get('content.female'),
                 Job::SEX_INDISTINCT=>Lang::get('content.indistinct')
             ),
-            'statuses' =>array(
-                ''=>Lang::get('content.select_default'),
-                Job::STATUS_DRAFT => Lang::get('content.status_publication_Draft'),
-                Job::STATUS_PUBLISHED => Lang::get('content.status_publication_Published'),
-                Job::STATUS_ON_HOLD => Lang::get('content.status_publication_On_Hold'),
-                Job::STATUS_SUSPENDED => Lang::get('content.status_publication_Suspended'),
-            ),
+            'statuses' => StatusHelper::getStatuses(StatusHelper::$TYPE_JOB, Lang::get('content.select_default')),
             'referer' => Session::get($this->prefix . '_referer'),
             'job'=>$job,
             'temporaryMonths'=>array(''=>Lang::get('content.select_default'))+DateHelper::getMonths(),
