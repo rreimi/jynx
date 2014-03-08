@@ -18,7 +18,7 @@ class AdvertiserController extends BaseController {
     public function getLista() {
 
         $state = self::retrieveListState();
-        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id, COUNT(publications_reports.id) as publisher_reports'))
+        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id, publishers.seller_name as seller_name, publishers.letter_rif_ci as letter_rif_ci, publishers.rif_ci as rif_ci, COUNT(publications_reports.id) as publisher_reports'))
             ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
@@ -28,16 +28,9 @@ class AdvertiserController extends BaseController {
             {
                 $query->orWhere('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('full_name', 'LIKE', '%' . $q . '%')
-                    //->orWhere('publisher.seller_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('seller_name', 'LIKE', '%' . $q . '%')
                 ;
             });
-
-            //$advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
-
-//            $advertisers->orWhereHas('publisher', function($query) use ($q)
-//            {
-//                $query->where('seller_name', 'like', '%' . $q . '%');
-//            });
         }
 
         $status = $state['filter_status'];
