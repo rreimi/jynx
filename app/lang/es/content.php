@@ -48,6 +48,9 @@ return array(
     "search_no_results" => "No se encontraron :item para: :criteria",
     "view" => "Ver",
     "search" => "Buscar",
+    "view_publisher" => "Ver anunciante",
+    "view_publication" => "Ver publicación",
+    "check_report" => "Revisar denuncia",
 
     //Publications
     "publication" => "Publicacion|Publicaciones",

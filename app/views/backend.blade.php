@@ -15,6 +15,7 @@
                     <th>{{ Lang::get('content.backend_seller') }}</th>
                     <th>{{ Lang::get('content.backend_phone') }}</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,12 @@
                         <td>{{ $user->publisher->letter_rif_ci }}-{{ $user->publisher->rif_ci }}</td>
                         <td>{{ $user->publisher->seller_name }}</td>
                         <td>{{ $user->publisher->phone1 }} @if (!empty($user->publisher->phone2)) / {{ $user->publisher->phone2 }} @endif</td>
+                        <td>
+                            <a rel="tooltip" title="{{Lang::get('content.view_publisher')}}" class="btn" type="button"
+                               target="_blank" href="{{URL::to('anunciante/editar/'. $user->id) }}">
+                                <i class="icon-search"></i>
+                            </a>
+                        </td>
                         <td>{{ Form::checkbox('approve_users[]',$user->id,in_array($user->id,Input::old('approve_users',array()))) }}</td>
                     </tr>
                 @endforeach
@@ -46,7 +53,7 @@
                 <th>{{ Lang::get('content.backend_report_publication') }}</th>
                 <th>{{ Lang::get('content.backend_report_date') }}</th>
                 <th>{{ Lang::get('content.backend_report_status') }}</th>
-                <th>-</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -57,10 +64,15 @@
                         <td>{{ $rep->date }}</td>
                         <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>
                         <td>
-                            <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn report-modal" type="button"
-                                        data-target="#viewReport" data-remote="{{URL::to('denuncia/detalle/'. $rep->id) }}">
+                            <a rel="tooltip" title="{{Lang::get('content.view_publication')}}" class="btn" type="button"
+                               target="_blank" href="{{URL::to('/publicacion/detalle/'. $rep->publication->id) }}">
                                 <i class="icon-search"></i>
                             </a>
+                            <a rel="tooltip" title="{{Lang::get('content.check_report')}}" class="btn report-modal" type="button"
+                                        data-target="#viewReport" data-remote="{{URL::to('denuncia/detalle/'. $rep->id) }}">
+                                <i class="icon-pencil"></i>
+                            </a>
+
                         </td>
                     </tr>
                 @endforeach
