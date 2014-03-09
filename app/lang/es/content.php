@@ -202,14 +202,14 @@ return array(
 
     // Backend Menu
     "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
-    "backend_menu_dashboard" => "Dashboard",
+    "backend_menu_dashboard" => "Solicitudes Pendientes",
     "backend_menu_users" => "Usuarios",
     "backend_menu_publishers" => "Anunciantes",
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
     "backend_menu_reports" => "Denuncias",
-    "backend_menu_mass_email" => "Email Masivo",
+    "backend_menu_mass_email" => "Correos Masivos",
     "backend_search_publication_title" => "Buscar publicaciones",
     "backend_search_user_title" => "Buscar usuarios",
     "backend_search_advertiser_title" => "Buscar anunciantes",
