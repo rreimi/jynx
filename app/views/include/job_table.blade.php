@@ -23,7 +23,7 @@
                         @if(!Auth::user())
                             {{ HTML::image('img/default_image_130.jpg')}}
                         @else
-                            @if(!is_null($job->publisher))
+                            @if(!is_null($job->publisher->avatar))
                             {{ HTML::image(UrlHelper::imageUrl($job->publisher->avatar, '_' . $thumbSize['width']))}}
                             @else
                             {{ HTML::image('img/default_image_130.jpg')}}
