@@ -28,7 +28,7 @@
                         <td>{{ $user->publisher->phone1 }} @if (!empty($user->publisher->phone2)) / {{ $user->publisher->phone2 }} @endif</td>
                         <td>
                             <a rel="tooltip" title="{{Lang::get('content.view_publisher')}}" class="btn" type="button"
-                               target="_blank" href="{{URL::to('anunciante/editar/'. $user->id) }}">
+                               target="_blank" href="{{URL::to('anunciante/editar/'. $user->publisher->id) }}">
                                 <i class="icon-search"></i>
                             </a>
                         </td>
