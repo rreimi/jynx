@@ -55,6 +55,11 @@ h2.home-title {
     /*display: none;*/
 }
 
+.pub-img-box {
+    height: 210px;
+    width: 100%;
+}
+
 .pub-title {
     font-size: 1.1em;
     line-height: 1.1em;

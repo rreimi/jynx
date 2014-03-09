@@ -8,30 +8,41 @@
     <div class="row-fluid publication-detail">
         <div class="float-right">
             <!-- Carousel -->
-            <div id="pub-images-box" class=" pub-images-carousel carousel slide">
-                <ol class="carousel-indicators">
-                    @foreach ($publication->images as $key => $img)
-                        <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
-                    @endforeach
-                </ol>
-
-                <div class="carousel-inner">
-                    @foreach ($publication->images as $key => $img)
-                    <div class="item @if ($key == 0) active @endif">
-                        <div class="pub-image-wrapper">
-                            <img class="pub-img-medium"  src="
-                            {{ UrlHelper::imageUrl('/uploads/pub/' . $publication->id . '/' . $img->image_url, '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
+            <div id="pub-images-box" class="pub-images-carousel carousel slide">
+                @if (count($publication->images) > 0)
+                    @if (count($publication->images) > 1)
+                        <ol class="carousel-indicators">
+                            @foreach ($publication->images as $key => $img)
+                                <li data-target="#pub-images-box" data-slide-to="{{ $key }}"></li>
+                            @endforeach
+                        </ol>
+                    @endif
+                    <div class="carousel-inner">
+                        @foreach ($publication->images as $key => $img)
+                        <div class="item @if ($key == 0) active @endif">
+                            <div class="pub-image-wrapper">
+                                <img class="pub-img-medium"  src="
+                                {{ UrlHelper::imageUrl('/uploads/pub/' . $publication->id . '/' . $img->image_url, '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
-
-                @if (count($publication->images) > 1)
-                    <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
-                    <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                    @if (count($publication->images) > 1)
+                        <a data-slide="prev" href="#pub-images-box" class="left carousel-control">‹</a>
+                        <a data-slide="next" href="#pub-images-box" class="right carousel-control">›</a>
+                    @endif
+                @else
+                    <!--<!--<div class="carousel-inner">
+                        <div class="item active">
+                            <div class="pub-image-wrapper">-->
+                                <img class="pub-img-medium"  src="
+                                 {{ UrlHelper::imageUrl('/img/default_image.jpg', '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
+                            <!--</div>
+                        </div>
+                    </div>-->
                 @endif
-
             </div>
+
             @if (!is_null($publication->latitude) && !is_null($publication->longitude))
                 <div class="google-map">
                     Mapa con ubicación principal
@@ -187,24 +198,7 @@
                                 <ul class="row-fluid last-visited-items dashboard-item-list thumbnails">
                                     @endif
                                     <li class="span3 pub-thumb">
-                                        <div class="pub-rating-box">
-                                            @if ($pub->rating_avg != "")
-                                            {{ RatingHelper::getRatingBar($pub->rating_avg) }}
-                                            @endif
-                                        </div>
-                                        <div class="pub-info-box">
-                                            @if (isset($pub->image_url))
-                                            <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                                <img class="pub-img-small"  src="{{ UrlHelper::imageUrl('/uploads/pub/' . $pub->id . '/' . $pub->image_url, '_' . $thumbSize['width']) }}" alt="{{ $pub->title }}"/>
-                                            </a>
-                                            @endif
-                                            <div class="pub-info-desc">
-                                                <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
-                                                    <h2 class="pub-title">{{ $pub->title }}</h2>
-                                                </a>
-                                                <span class="pub-seller">{{Lang::get('content.sell_by')}}: {{ $pub->seller_name }}</span>
-                                            </div>
-                                        </div>
+                                        @include('include.publication_box')
                                     </li>
                                     @if (((($key+1)%4) == 0) || (($key+1) == count($lastvisited)))
                                 </ul>

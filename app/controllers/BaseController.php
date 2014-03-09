@@ -7,6 +7,7 @@ class BaseController extends Controller {
     protected $sliderSize = 12;
     protected static $thumbSize = array('width' => 200, 'height' => 200);
     protected static $detailSize = array('width' => 450, 'height' => 450);
+    protected static $logoSize = array('width' => 130, 'height' => 130);
     protected static $bannerTopHomeSize = array('width' => 1170, 'height' => 390);
 
     protected $phoneNumberRegex = '/^(04[16|26|14|24|12]{2})?(02[0-9]{2})?-[0-9]{7}$/';

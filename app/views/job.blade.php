@@ -5,12 +5,12 @@
 <div class="row-fluid">
     <div class="logo-job img-polaroid pull-right">
         @if(!Auth::user())
-        {{ HTML::image('img/logo_bolsa_trabajo.png')}}
+            {{ HTML::image('img/default_image_130.jpg')}}
         @else
             @if(!is_null($companyPicture))
                 {{ HTML::image(UrlHelper::imageUrl($companyPicture, '_' . $thumbSize['width']))}}
             @else
-                {{ HTML::image('img/logo_bolsa_trabajo.png')}}
+                {{ HTML::image('img/default_image_130.jpg')}}
             @endif
         @endif
     </div>
