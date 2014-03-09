@@ -399,17 +399,7 @@ class AdvertisingController extends BaseController {
     }
 
     private static function getAdvertisingStatuses($blankCaption = '') {
-
-        $options = array (
-            'Draft' => Lang::get('content.status_Draft'),
-            'Published' => Lang::get('content.status_Published'),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_ADVERTISING, $blankCaption);
     }
 
     private function invalidateAdvertisingCache() {

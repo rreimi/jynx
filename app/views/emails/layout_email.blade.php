@@ -34,6 +34,8 @@
                 @include('emails.user_suspended')
             @elseif ($contentEmail == "publisher_new_comment")
                 @include('emails.publisher_new_comment')
+            @elseif ($contentEmail == "publisher_mass_email")
+                @include('emails.publisher_mass_email')
             @endif
 
             Atentamente,<br/>

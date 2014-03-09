@@ -333,7 +333,7 @@ h2.home-title {
 }
 
 .pub-table .row-rating_avg {
-    width: 9%;
+    width: 11%;
 
 }
 
@@ -567,6 +567,10 @@ div#home-banner-top .carousel-control {
 /* Modal report */
 .modal-report .row-fluid {
     margin:1em 0 1em 0;
+}
+
+.modal .report-actions .text-center {
+    margin: 0;
 }
 
 .categories-form-list {
@@ -1097,7 +1101,7 @@ div#home-banner-top .carousel-control {
     vertical-align: middle;
 }
 
-.pub-list-filters .nav-header, .user-list-filters .nav-header {
+.pub-list-filters .nav-header, .user-list-filters .nav-header, .reporter-list-filters .nav-header {
     padding: 15px 0px;
 }
 
@@ -1172,3 +1176,4 @@ div#home-banner-top .carousel-control {
 .advertiser-form .advertiser-status-warning {
     display: none;
 }
+

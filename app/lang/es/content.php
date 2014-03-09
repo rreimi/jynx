@@ -56,6 +56,15 @@ return array(
     "report_publication_msg"  => "Denunciar a este usuario por publicar contenido no apropiado",
     "report_instructions" => "Razones por las cuales deseas denunciar esta publicación:",
     "report_commend_required" => "Debe indicar las razones de la denuncia",
+    "report_actions_success_comment" => "Denuncia actualizada existosamente. Ahora puede modificar los comentarios del publicación",
+    "report_actions_success_publication" => "La publicación ha sido suspendida exitosamente",
+    "report_actions_error_publication" => "La publicación que intenta suspender es inválida",
+    "report_actions_success_publisher" => "El anunciante ha sido suspendido exitosamente",
+    "report_actions_error_publisher" => "El anunciante que intenta suspender es inválido",
+    "report_actions_success_user" => "El usuario ha sido suspendido exitosamente",
+    "report_actions_error_user" => "El usuario que intenta suspender es inválido",
+    "report_actions_error_report" => "La denuncia que intenta modificar es inválida",
+    "report_actions_success_skip" => "La denuncia ha sido actualizada exitosamente",
     "rating_comment_required" => "Por favor indique los comentarios",
     "rating_title_required" => "Por favor indique el título",
     "report_it" => "Denunciar",
@@ -102,18 +111,26 @@ return array(
     'backend_report_by_publication' => 'Denuncias hechas a la publicación :p',
     'valid_report' => 'Denuncia válida',
     'invalid_report' => 'Denuncia inválida',
-    'suspend_publication' => 'Editar/Suspender publicación',
-    'suspend_user' => 'Editar/Suspender usuario',
+    'report_view_suspend_publication' => 'Suspender publicación',
+    'report_view_suspend_publisher' => 'Suspender anunciante',
+    'report_view_suspend_user' => 'Suspender usuario denunciante',
+    'report_view_skip' => 'Saltar',
+    'report_view_delete_report' => 'Borrar comentario',
     'report_view_user_name' => 'Nombre del denunciante',
     'report_view_publication_name' => 'Nombre de la publicación',
     'report_view_publisher_name' => 'Nombre del anunciante',
     'report_view_report_date' => 'Fecha de la denuncia',
     'report_view_report_comment' => 'Motivo de la denuncia',
+    'report_view_actions_title' => '¿Que desea hacer?',
 
     // Reports status
     'status_report_Pending' => 'Pendiente',
-    'status_report_Correct' => 'Correcto',
-    'status_report_Incorrect' => 'Incorrecto',
+    'status_report_Valid' => 'Válida',
+    'status_report_Invalid' => 'Inválida',
+    'status_report_DeletedComment' => 'Borrado Comentario',
+    'status_report_SuspendedPublication' => 'Suspendida Publicación',
+    'status_report_SuspendedPublisher' => 'Suspendido Anunciante',
+    'status_report_SuspendedReporter' => 'Suspendido Denunciante',
 
     // Reports search
     'reports_search_placeholder' => 'Buscar...',
@@ -189,15 +206,22 @@ return array(
     "backend_menu_advertisings" => "Publicidades",
     "backend_menu_stats" => "Estadísticas",
     "backend_menu_reports" => "Denuncias",
+    "backend_menu_mass_email" => "Email Masivo",
     "backend_search_publication_title" => "Buscar publicaciones",
     "backend_search_user_title" => "Buscar usuarios",
     "backend_search_advertiser_title" => "Buscar anunciantes",
+    "backend_search_reports_title" => "Buscar denuncias",
 
     // Backend Dashboard
     "backend_users_section_title" => "Aprobaciones pendientes",
     "backend_reports_section_title" => "Denuncias pendientes",
     "backend_user_approve" => "Aprobar",
     "backend_user_not_approve" => "Negar",
+    "backend_mass_email_section_title" => "Enviar correo a anunciantes",
+
+    // Backend Mass-email
+    "email_content" => "Contenido del correo",
+    "mass_email_target_info" =>  'Este mensaje se enviará a <b id="mass_email_total_publishers">:total_publishers</b> anunciante(s).',
 
     // Backend reports total
     "backend_reports_total" => "Denuncias",
@@ -212,6 +236,8 @@ return array(
     "report_send_success" => "La denuncia se ha enviado correctamente",
     "report_send_error" => "Ha ocurrido un error enviando la denuncia",
     "rating_send_success" => "La calificación se ha enviado correctamente",
+    "mass_email_no_publishers" => "No se encontraron publicadores para el estatus seleccionado, no es posible enviar el mensaje",
+    "mass_email_sent_success" => "Se ha programado el envío masivo a :total anunciante(s) satisfactoriamente",
 
     // Advertising
     "name" => "Nombre publicidad",
@@ -307,6 +333,7 @@ return array(
     "publisher_categories" => "Selecciona todos los sectores de negocio que apliquen",
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
+    "publisher_status" => "Estatus del anunciante",
     "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
@@ -340,13 +367,13 @@ return array(
     "backend_report_id" => "ID",
     "backend_report_user" => "Denunciante",
     "backend_report_publication" => "Publicación",
+    "backend_report_publisher" => "Anunciante",
     "backend_report_comment" => "Comentario",
+    "backend_report_comments_in_publication" => "Comentarios en publicación",
     "backend_report_date" => "Fecha",
+    "backend_report_date_created" => "Fecha denuncia",
+    "backend_report_date_resolved" => "Fecha solución",
     "backend_report_status" => "Estatus",
-
-    "backend_report_status_Pending" => "Pendiente",
-    "backend_report_status_Correct" => "Correcto",
-    "backend_report_status_Incorrect" => "Incorrecto",
 
     //Flash messages
     "add_publication_success" => 'La publicación se ha creado correctamente, aquí podrás <strong>agregar las imágenes</strong> de tu nueva publicación',
@@ -374,6 +401,7 @@ return array(
     "help_publication_map" => "Puedes especificar latitud y longitud de tu ubicación principal si deseas que aparezca en un mapa en el detalle de la publicación",
     "help_publication_categories" => "Puedes elegir sub-categorías al expandir la categoría principal",
     "help_publication_description" => "Máximo 500 caracteres",
+    "help_mass_email_content" => "Advertencia: Usa esta funcionalidad con responsabilidad",
 
     "auth_menu_my_profile" => "Editar perfil",
 
@@ -427,11 +455,16 @@ return array(
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
+    "filter_report_reporter" => 'Anunciante:',
+    "filter_report_publication" => 'Publicación:',
+    "filter_report_publisher" => 'Anunciante:',
     "filter_user_role" => "Rol:",
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o más categorías',
     "filter_publisher_placeholder" => 'Seleccione uno o más anunciantes',
     "select_default"=>"Seleccione",
+    "option_all" => 'Todos',
+
 
     "filter_role_placeholder" => 'Seleccione Rol',
     // Users
@@ -452,7 +485,7 @@ return array(
     // Search
     "user_search_placeholder" => "Buscar...",
     "user_role_Admin" => "Administrador",
-    "user_role_Publisher" => "Publicador",
+    "user_role_Publisher" => "Anunciante",
     "user_role_Basic" => "Básico",
 
     // Status
@@ -461,8 +494,9 @@ return array(
     'status_Suspended' => 'Suspendido',
 
     // Roles
+    'role' => 'Rol',
     'role_Basic' => 'Básico',
-    'role_Publisher' => 'Publicador',
+    'role_Publisher' => 'Anunciante',
     'role_Admin' => 'Administrador',
 
     // Messages
@@ -683,5 +717,10 @@ return array(
     "year_experience" => " :number año|[2,5] :number años| >:number años",
     "month" => ":number mes|:number meses",
     "year" => " :number año|:number años",
-    "web_page" => "Página web"
+    "web_page" => "Página web",
+
+    //Mass Email
+    "mass_email_content" => "Mensaje",
+    "mass_email_subject" => "Asunto",
+
 );

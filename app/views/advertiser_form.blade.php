@@ -49,6 +49,21 @@
             </div>
         </div>
 
+        @if (isset($user->id))
+            <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
+                <label class="control-label required-field" for="role">{{ Lang::get('content.role') }}</label>
+                <div class="controls">
+                    {{ Form::select(
+                    'role',
+                    array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
+                    $user->role,
+                    array('class'=>'required role')
+                    ) }}
+                    {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+        @endif
+
         <div class="control-group {{ $errors->has('publisher_type') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.publisher_type') }}</label>
             <div class="controls">

@@ -8,7 +8,7 @@ class PublicationController extends BaseController {
     private $pub_img_dir = 'uploads';
 
     public function __construct() {
-        //$this->beforeFilter('auth');
+        $this->beforeFilter('auth', array('except' => array('getDetalle', 'getCambiarStatusPorFechas', 'getVerificarVencimientoPublicacion')));
         $this->beforeFilter('referer:publication', array('only' => array('getLista', 'getDetalle')));
         if (!Auth::check()){
             $this->beforeFilter('referer:login_redirect', array('only' => array('getDetalle')));
@@ -195,7 +195,7 @@ class PublicationController extends BaseController {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
         }
 
-        foreach (PublicationVIew::categoriesWithPublications()->get() as $item) {
+        foreach (PublicationView::categoriesWithPublications()->get() as $item) {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
@@ -274,7 +274,7 @@ class PublicationController extends BaseController {
             $state['filter_categories'] = Input::get('filter_categories');
         }
 
-        //Categories
+        //Publishers
         $state['filter_publishers'] = (isset($state['filter_publishers']) ? $state['filter_publishers'] : null);
 
         if ($isPost) {
@@ -882,19 +882,7 @@ class PublicationController extends BaseController {
     }
 
     private static function getPublicationStatuses($blankCaption = '') {
-
-        $options = array (
-            'Draft' => Lang::get('content.status_publication_Draft'),
-            'Published' => Lang::get('content.status_publication_Published'),
-            'On_Hold' => Lang::get('content.status_publication_On_Hold'),
-            'Suspended' => Lang::get('content.status_publication_Suspended'),
-        );
-
-        if (!empty($blankCaption)){
-            $options = array_merge(array('' => $blankCaption), $options);
-        }
-
-        return $options;
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_PUBLICATION, $blankCaption);
     }
 
     private static function getThumbSizeSuffix(){
