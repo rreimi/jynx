@@ -30,7 +30,7 @@
                                 <li ><a href="{{URL::to('/bolsa-trabajo/lista')}}">{{Lang::get('content.my_jobs')}}</a></li>
                                 @endif
                                 @if(Auth::user()->isAdmin())
-                                <li><a href="{{URL::to('/dashboard')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
+                                <li><a href="{{URL::to('/estadisticas')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                                 @endif
                                 @if(Auth::user()->canBePublisher())
                                 <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>

@@ -12,6 +12,7 @@
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
+    @include('include.analytics')
 </head>
 
 <body class="login">

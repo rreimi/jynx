@@ -16,6 +16,7 @@
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
+    @include('include.analytics')
 </head>
 <body>
     <header id="header" class="site-header">
