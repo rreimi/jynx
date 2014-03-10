@@ -18,7 +18,7 @@ class AdvertiserController extends BaseController {
     public function getLista() {
 
         $state = self::retrieveListState();
-        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id, publishers.seller_name as seller_name, publishers.letter_rif_ci as letter_rif_ci, publishers.rif_ci as rif_ci, COUNT(publications_reports.id) as publisher_reports'))
+        $advertisers = User::select(DB::raw('users.*, publishers.id as publisher_id, publishers.state_id as publisher_state, publishers.seller_name as seller_name, publishers.letter_rif_ci as letter_rif_ci, publishers.rif_ci as rif_ci, COUNT(publications_reports.id) as publisher_reports'))
             ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
@@ -50,10 +50,13 @@ class AdvertiserController extends BaseController {
         $advertisers->groupBy('id');
         $advertisers = $advertisers->paginate($this->page_size);
 
+        $states = State::lists('name','id');
+
         return View::make('advertiser_list', array(
             'advertiser_statuses' => self::getAdvertiserStatuses(Lang::get('content.filter_status_placeholder')),
             'advertisers' => $advertisers,
             'state' => $state,
+            'states' => $states,
             ) //end array
         );
     }

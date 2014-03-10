@@ -59,7 +59,7 @@
             <td>{{ $advertiser->email }}</td>
             <td>{{ $advertiser->seller_name }}</td>
             <td>{{ $advertiser->letter_rif_ci }}-{{ $advertiser->rif_ci }}</td>
-            <td>{{ Lang::get('content.status_'. $advertiser->status) }}</td>
+            <td>{{ $states[$advertiser->publisher_state] }}</td>
             <td>{{ $advertiser->publisher_reports }}</td>
 <!--            <td> $advertiser->created_at </td>-->
             <td>
