@@ -642,6 +642,8 @@ return array(
     "stats_publications_reports"=>"Publicaciones con denuncia",
     "stats_description_publications_reports"=>"Cantidad de publicaciones donde se ha realizado alguna denuncia",
     "stats_reports"=>"Total de denuncias",
+    "stats_reports_valid_action"=>"Denuncias válidas",
+    "stats_description_reports_valid_action"=>"Cantidad de denuncias que son válidas o se ha tomado una acción",
     "stats_description_reports" => "Cantidad de denuncias realizadas en todas las publicaciones",
     "stats_products"=>"Productos",
     "stats_description_products"=>"Cantidad de publicaciones por categorías de productos",
