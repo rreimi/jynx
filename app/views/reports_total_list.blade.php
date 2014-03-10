@@ -36,11 +36,11 @@
                 @if (count($reports) > 0)
                 @foreach ($reports as $key => $rep)
                     <tr>
-                        <td>{{ $rep->user->full_name }}</td>
+                        <td>{{ $rep->user['full_name'] }}</td>
                         <td>{{ $rep->date }}</td>
                         <td>{{ $rep->final_status }}</td>
-                        <td>{{ $rep->publication->title }}</td>
-                        <td>{{ $rep->publication->publisher->seller_name }}</td>
+                        <td>{{ $rep->publication['title'] }}</td>
+                        <td>{{ $rep->publication['publisher']['seller_name'] }}</td>
                         <td>{{ $rep->reports_in_publication }}</td>
                         <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>
                         <td>
@@ -80,6 +80,7 @@
 @section('scripts')
 @parent
 {{ HTML::script('js/chosen.jquery.min.js') }}
+{{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 <script type="text/javascript">
     Mercatino.reportForm = {
         show: function(title, content, url){
@@ -117,6 +118,29 @@
             jQuery('.filter-field').val('');
             jQuery('.chosen-select').val('').trigger("chosen:updated");
             jQuery('#report_list_form').submit();
+        });
+
+        /* All date filters */
+        jQuery('.datepicker').datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true
+        });
+
+        /* Set dynamic date range */
+        jQuery('.datepicker.from-start-date').bind("change", function(){
+            jQuery('.datepicker.to-start-date').datepicker( "option", "minDate", jQuery(this).val());
+        });
+        jQuery('.datepicker.to-start-date').bind("change", function(){
+            jQuery('.datepicker.from-start-date').datepicker( "option", "maxDate", jQuery(this).val());
+        });
+
+        /* Set dynamic date range */
+        jQuery('.datepicker.from-end-date').bind("change", function(){
+            jQuery('.datepicker.to-end-date').datepicker( "option", "minDate", jQuery(this).val());
+        });
+        jQuery('.datepicker.to-end-date').bind("change", function(){
+            jQuery('.datepicker.from-end-date').datepicker( "option", "maxDate", jQuery(this).val());
         });
     });
 </script>
