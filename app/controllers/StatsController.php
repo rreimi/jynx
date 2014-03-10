@@ -15,9 +15,14 @@ class StatsController extends BaseController {
 
         $data['users_to_approve'] = User::toApprove()->count();
 
+        $data['reports_total'] = PublicationReport::count();
+
         $data['reports'] = PublicationReport::pendingReports()->count();
 
         $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
+
+        // Denuncias totales que son válidas o se ha tomado una acción
+        $data['reports_valid_or_action'] = PublicationReport::validOrActionReports()->count();
 
         $data['publications'] = PublicationView::published()->count();
 

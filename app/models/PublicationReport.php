@@ -20,7 +20,13 @@ class PublicationReport extends Eloquent {
                                 'comment', 'date', 'status');
 
     public function scopePendingReports($query){
-        $query->where('status','Pending')
+        $query->where('status', self::STATUS_PENDING)
+            ->orderBy('id', 'desc');
+    }
+
+    public function scopeValidOrActionReports($query){
+        $query->where('status','<>', self::STATUS_PENDING)
+            ->where('status','<>', self::STATUS_INVALID)
             ->orderBy('id', 'desc');
     }
 
