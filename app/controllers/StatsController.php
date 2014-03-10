@@ -19,7 +19,7 @@ class StatsController extends BaseController {
 
         $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
 
-        $data['publications'] = PublicationView::count();
+        $data['publications'] = PublicationView::published()->count();
 
         $elements = DB::table('categories')
             ->join('publications_categories','categories.id','=','publications_categories.category_id')
