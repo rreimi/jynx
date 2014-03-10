@@ -637,7 +637,7 @@ return array(
     "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Anunciantes en trámite",
     "stats_description_users_to_approve"=>"Cantidad de usuarios aspirando a ser anunciantes",
-    "stats_publications"=>"Publicaciones",
+    "stats_publications"=>"Publicaciones Activas",
     "stats_description_publications"=>"Cantidad de publicaciones",
     "stats_publications_reports"=>"Publicaciones con denuncia",
     "stats_description_publications_reports"=>"Cantidad de publicaciones donde se ha realizado alguna denuncia",
