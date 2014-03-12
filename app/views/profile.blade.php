@@ -194,7 +194,7 @@
                 <label class="description">{{ Lang::get('content.profile_suggest_products_label') }}</label>
             </div>
             <div class="suggestions hide">
-                {{ Form::text('suggested_products', $user->publisher->suggested_products, array('data-role' => 'tagsinput','class' => 'input-xlarge tessst','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
+                {{ Form::text('suggested_products', $user->publisher->suggested_products, array('data-role' => 'tagsinput','class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
                 {{ $errors->first('suggested_products', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
