@@ -126,6 +126,9 @@ return array(
         'city' => 'Ciudad',
         'phone1' => 'Teléfono 1',
         'phone2' => 'Teléfono 2',
+        'phone2' => 'Teléfono 2',
+        'suggested_products' => 'de sectores de negocio para productos',
+        'suggested_services' => 'de sectores de negocio para servicios',
         'avatar' => 'Imagen de perfil',
 
         'publisher_id_type' => 'Tipo de documento',

@@ -433,6 +433,9 @@ return array(
     "profile_edit_contact" => "Editar contacto",
     "profile_delete_contact_title" => "Eliminar contacto",
     "profile_delete_contact_content" => "¿Está seguro que desea eliminar este contacto?",
+    "profile_suggest_products_label" => "Dar sugerencias de nuevos sectores de negocio para productos",
+    "profile_suggest_services_label" => "Dar sugerencias de nuevos sectores de negocio para servicios",
+    "profile_placeholder_add_suggest" => "Agregar sugerencia",
 
     // File Uploader
     "fileuploader_select_image" => "Seleccione imagen",
