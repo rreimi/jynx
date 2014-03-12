@@ -113,6 +113,20 @@ class ProfileController extends BaseController{
             $profileData['address'] = Input::get('address');
             $profileData['phone1'] = Input::get('phone1');
             $profileData['phone2'] = Input::get('phone2');
+            $valueSuggestProducts = Input::get('suggest_products');
+            $profileData['suggest_products'] = isset($valueSuggestProducts) ? true : false;
+            if ($profileData['suggest_products']){
+                $profileData['suggested_products'] = Input::get('suggested_products');
+            } else {
+                $profileData['suggested_products'] = '';
+            }
+            $valueSuggestServices = Input::get('suggest_services');
+            $profileData['suggest_services'] = isset($valueSuggestServices) ? true : false;
+            if ($profileData['suggest_services']){
+                $profileData['suggested_services'] = Input::get('suggested_services');
+            } else {
+                $profileData['suggested_services'] = '';
+            }
             $profileData['avatar'] = Input::file('avatar');
             $profileData['web'] = Input::get('web');
 
@@ -120,6 +134,12 @@ class ProfileController extends BaseController{
             $profileRules['city'] = 'required';
             $profileRules['phone1'] = array('required', 'regex:'. $this->phoneNumberRegex);
             $profileRules['phone2'] = array('regex:'. $this->phoneNumberRegex);
+            if ($profileData['suggest_products']){
+                $profileRules['suggested_products'] = 'required';
+            }
+            if ($profileData['suggest_services']){
+                $profileRules['suggested_services'] = 'required';
+            }
             $profileRules['avatar'] = 'image';
             $profileRules['web'] = 'url';
         }
@@ -160,6 +180,10 @@ class ProfileController extends BaseController{
             $publisher->web = $profileData['web'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
+            $publisher->suggest_products = $profileData['suggest_products'];
+            $publisher->suggested_products = $profileData['suggested_products'];
+            $publisher->suggest_services = $profileData['suggest_services'];
+            $publisher->suggested_services = $profileData['suggested_services'];
             $publisherCats = (is_array(Input::get('publisher_categories'))) ? Input::get('publisher_categories') : array();
             $publisherCats = array_merge($publisherCats,(is_array(Input::get('publisher_services'))) ? Input::get('publisher_services') : array());
             $publisher->categories()->sync($publisherCats);
