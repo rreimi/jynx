@@ -36,7 +36,13 @@ class AdvertiserController extends BaseController {
         $status = $state['filter_status'];
 
         if (!empty($status)){
-            $advertisers->where('status', '=', $status);
+            $advertisers->where('users.status', '=', $status);
+        }
+
+        $statusPublisher = $state['filter_status_publisher'];
+
+        if (!empty($statusPublisher)){
+            $advertisers->where('publishers.status_publisher', '=', $statusPublisher);
         }
 
         $advertisers->leftJoin('publishers','users.id','=','publishers.user_id');
@@ -45,7 +51,7 @@ class AdvertiserController extends BaseController {
 
         // Mostrar usuarios que han sido publishers en algun momento (rol actual como basic o publisher y step 0)
         $advertisers->whereIn('role', array(User::ROLE_BASIC, User::ROLE_PUBLISHER));
-        $advertisers->where('step', '=', 0);
+        $advertisers->where('step', '<', 2);
 
         $advertisers->groupBy('id');
         $advertisers = $advertisers->paginate($this->page_size);
@@ -53,6 +59,7 @@ class AdvertiserController extends BaseController {
         $states = State::lists('name','id');
 
         return View::make('advertiser_list', array(
+            'user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
             'advertiser_statuses' => self::getAdvertiserStatuses(Lang::get('content.filter_status_placeholder')),
             'advertisers' => $advertisers,
             'state' => $state,
@@ -95,6 +102,12 @@ class AdvertiserController extends BaseController {
             $state['filter_status'] = (isset($status))? $status : '';
         }
 
+        $statusPublisher = (!is_null(Input::get('filter_status_publisher')) ? Input::get('filter_status_publisher') : null);
+
+        if ((isset($statusPublisher)) || !(isset($state['filter_status_publisher']))) {
+            $state['filter_status_publisher'] = (isset($statusPublisher))? $statusPublisher : '';
+        }
+
         /* Basic filters not count */
         $ignoreFilters = array('active_filters', 'sort', 'order');
         if ($isPost) {
@@ -123,7 +136,9 @@ class AdvertiserController extends BaseController {
         $advCats = array();
 
         return View::make('advertiser_form',
-            array('advertiser_statuses' => self::getAdvertiserStatuses(),
+            array(
+                  'user_statuses' => self::getUserStatuses(),
+                  'advertiser_statuses' => self::getAdvertiserStatuses(),
                   'user' => $user,
                   'advertiser' => $advertiser,
                   'states' => State::lists('name','id'),
@@ -164,7 +179,9 @@ class AdvertiserController extends BaseController {
         }
 
         return View::make('advertiser_form',
-            array('advertiser_statuses' => self::getAdvertiserStatuses(),
+            array(
+                'user_statuses' => self::getUserStatuses(),
+                'advertiser_statuses' => self::getAdvertiserStatuses(),
                 'user' => $user,
                 'advertiser' => $advertiser,
                 'states' => State::lists('name','id'),
@@ -184,7 +201,7 @@ class AdvertiserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'status' => Input::get('status'),
-            'role' => Input::get('role'),
+            'status_publisher' => Input::get('status_publisher'),
             'publisher_type' => Input::get('publisher_type'),
             'letter_rif_ci' => Input::get('publisher_id_type'),
             'rif_ci' => Input::get('publisher_id'),
@@ -202,7 +219,7 @@ class AdvertiserController extends BaseController {
             'full_name' => 'required',
             'email' => 'required',
             'status' => 'required',
-            'role' => 'required',
+            'status_publisher' => 'required',
             'publisher_type' => 'required',
             'letter_rif_ci' => 'required',
             'rif_ci' => 'required',
@@ -212,6 +229,11 @@ class AdvertiserController extends BaseController {
             'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
             'phone2' => array('regex:'. $this->phoneNumberRegex),
         );
+
+        if (Input::get('id') != null && Input::get('id') != ""){
+            $advertiserData['role'] = Input::get('role');
+            $rules['role'] = 'required';
+        }
 
         $messages = array();
 
@@ -237,19 +259,23 @@ class AdvertiserController extends BaseController {
         $operation = '';
         $previousDataUser = null;
         $previousDataAdvertiser = null;
-        $suspendedUser = false;
+        $suspendedPublisher = false;
 
         // Save advertiser
         if (empty($advertiserData['id'])){
             $user = new User($advertiserData);
             $user->password = Hash::make('123456');
             $user->role=User::ROLE_PUBLISHER;
-            $user->step=1;
+            $user->step = 1;
 
             $method = 'add';
             $operation = 'Add_publisher';
 
             $advertiser = new Publisher();
+            
+            if ($advertiserData['status_publisher'] == Publisher::STATUS_SUSPENDED){
+                $suspendedPublisher = true;
+            }
         } else {
             $advertiser = Publisher::find($advertiserData['id']);
             $previousDataAdvertiser = $advertiser->getOriginal();
@@ -258,23 +284,33 @@ class AdvertiserController extends BaseController {
             $method = 'edit';
             $operation = 'Edit_publisher';
 
-            if ($advertiserData['status'] != $previousDataUser['status'] &&
-                        $advertiserData['status'] == User::STATUS_SUSPENDED){
-                $suspendedUser = true;
+            if (($advertiserData['status_publisher'] != $previousDataAdvertiser['status_publisher']) &&
+                ($advertiserData['status_publisher'] == Publisher::STATUS_SUSPENDED)){
+                $suspendedPublisher = true;
             }
         }
 
         $user->fill($advertiserData);
+        // Si el publisher es suspendido le asigno rol Basic
+        if ($suspendedPublisher){
+            $user->role = User::ROLE_BASIC;
+        }
+        // Si se edito el publisher y se cambio status a Approved le reasigno el rol publisher
+        if (($advertiserData['status_publisher'] != $previousDataAdvertiser['status_publisher']) &&
+            ($advertiserData['status_publisher'] == Publisher::STATUS_APPROVED)){
+            $user->role = User::ROLE_PUBLISHER;
+        }
         $advertiser->publisher_type = $advertiserData['publisher_type'];
         $advertiser->seller_name = $advertiserData['seller_name'];
         $advertiser->letter_rif_ci = $advertiserData['letter_rif_ci'];
         $advertiser->rif_ci = $advertiserData['rif_ci'];
+        $advertiser->status_publisher = $advertiserData['status_publisher'];
         $advertiser->state_id = $advertiserData['state_id'];
         $advertiser->city = $advertiserData['city'];
         $advertiser->phone1 = $advertiserData['phone1'];
         $advertiser->phone2 = $advertiserData['phone2'];
         $advertiser->media = $advertiserData['media'];
-
+        
         DB::transaction(function() use ($advertiser, $user, $advertiserData){
             $user->save();
 
@@ -291,7 +327,7 @@ class AdvertiserController extends BaseController {
             'userAdminId' => Auth::user()->id, 'previousData' => array($previousDataUser, $previousDataAdvertiser)));
 
         // Si es suspendido el publisher se suspenden también todas sus publicaciones
-        if ($suspendedUser){
+        if ($suspendedPublisher){
             Publication::suspendPublicationsByUserId($user->publisher->id);
         }
 
@@ -338,6 +374,10 @@ class AdvertiserController extends BaseController {
 
         return Redirect::to('anunciante/'. $action);
 
+    }
+
+    private static function getUserStatuses($blankCaption = '') {
+        return StatusHelper::getStatuses(StatusHelper::$TYPE_USER, $blankCaption);
     }
 
     private static function getAdvertiserStatuses($blankCaption = '') {

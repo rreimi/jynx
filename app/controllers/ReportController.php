@@ -352,15 +352,19 @@ class ReportController extends BaseController {
             return Response::json('report_actions_error_report', 404);
         }
 
-        $pub = User::find($report->publication->publisher->user_id);
+        $user = User::find($report->publication->publisher->user_id);
+        $publisher = $report->publication->publisher;
 
-        if (empty($pub)){
+        if (empty($user)){
             return Response::json('report_actions_error_publisher', 404);
         }
 
         // Change role of user from Publisher to Basic
-        $pub->role = User::ROLE_BASIC;
-        $pub->save();
+        $user->role = User::ROLE_BASIC;
+        $user->save();
+
+        $publisher->status_publisher = Publisher::STATUS_SUSPENDED;
+        $publisher->save();
 
         $report->status = PublicationReport::STATUS_SUSPENDED_PUBLISHER;
         $report->save();

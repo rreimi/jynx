@@ -244,7 +244,8 @@ return array(
 
     // Advertising
     "name" => "Nombre publicidad",
-    "status" => 'Estatus',
+    "status" => 'Estatus usuario',
+    "status_publisher" => 'Estatus anunciante',
     "image_url" => "Imagen",
     "external_url" => "Url externa",
     "full_name" => "Nombre completo de persona contacto",
@@ -337,7 +338,7 @@ return array(
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
     "publisher_status" => "Estatus del anunciante",
-    "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
+    "publisher_status_publisher_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
@@ -470,6 +471,8 @@ return array(
     "filter_publisher_placeholder" => 'Seleccione uno o más anunciantes',
     "filter_reporter_placeholder" => 'Seleccione uno o más denunciantes',
     "filter_publication_placeholder" => 'Seleccione una o más publicaciones',
+    "filter_publisher_status_user" => "Estatus Usuario",
+    "filter_publisher_status_publisher" => "Estatus Anunciante",
     "select_default"=>"Seleccione",
     "option_all" => 'Todos',
 
@@ -500,6 +503,9 @@ return array(
     'status_Active' => 'Activo',
     'status_Inactive' => 'Inactivo',
     'status_Suspended' => 'Suspendido',
+    'status_Pending' => 'Pendiente',
+    'status_Approved' => 'Aprobado',
+    'status_Denied' => 'Negado',
 
     // Roles
     'role' => 'Rol',
@@ -534,7 +540,8 @@ return array(
     "advertisers" => 'Anunciantes',
     "advertiser_name" => 'Nombre',
     "advertiser_email" => 'Correo',
-    "advertiser_status" => 'Estatus',
+    "advertiser_status" => 'Estatus Usuario',
+    "advertiser_status_publisher" => 'Estatus',
 
     // Labels
     "new_advertiser" => 'Nuevo anunciante',

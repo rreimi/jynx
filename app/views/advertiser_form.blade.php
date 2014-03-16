@@ -40,12 +40,25 @@
             <div class="controls">
                 {{ Form::select(
                     'status',
-                    array_merge(array('' => Lang::get('content.select')), $advertiser_statuses),
+                    array_merge(array('' => Lang::get('content.select')), $user_statuses),
                     $user->status,
-                    array('class'=>'required status')
+                    array('class'=>'required')
                 ) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
-                <div class="text-warning alert-block advertiser-status-warning">{{ Lang::get('content.publisher_status_warning') }}</div>
+            </div>
+        </div>
+
+        <div class="control-group {{ $errors->has('status_publisher') ? 'error':'' }}">
+            <label class="control-label required-field" for="status_publisher">{{ Lang::get('content.status_publisher') }}</label>
+            <div class="controls">
+                {{ Form::select(
+                'status_publisher',
+                array_merge(array('' => Lang::get('content.select')), $advertiser_statuses),
+                $advertiser->status_publisher,
+                array('class'=>'status_publisher')
+                ) }}
+                {{ $errors->first('status_publisher', '<div class="field-error alert alert-error">:message</div>') }}
+                <div class="text-warning alert-block advertiser-status-publisher-warning">{{ Lang::get('content.publisher_status_publisher_warning') }}</div>
             </div>
         </div>
 
@@ -57,7 +70,7 @@
                     'role',
                     array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
                     $user->role,
-                    array('class'=>'required role')
+                    array('class'=>'role')
                     ) }}
                     {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
                 </div>
@@ -229,13 +242,15 @@
         // Phone mask
         jQuery('.phone-number-format').mask("9999-9999999");
 
-        jQuery('.status').bind("change", function(){
-            if (jQuery('select.status').val() == '{{ PUblisher::STATUS_SUSPENDED }}'){
-                jQuery('.advertiser-status-warning').show();
+        jQuery('.status_publisher').bind("change", function(){
+            if (jQuery('select.status_publisher').val() == '{{ Publisher::STATUS_SUSPENDED }}'){
+                jQuery('.advertiser-status-publisher-warning').show();
             } else {
-                jQuery('.advertiser-status-warning').hide();
+                jQuery('.advertiser-status-publisher-warning').hide();
             }
         });
+
+        jQuery('.status_publisher').trigger('change');
     });
 </script>
 @stop

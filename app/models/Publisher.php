@@ -7,9 +7,11 @@ class Publisher extends Eloquent {
 
     protected $softDelete = true;
 
-    const STATUS_ACTIVE="Active";
+    const STATUS_PENDING="Pending";
 
-    const STATUS_INACTIVE="Inactive";
+    const STATUS_APPROVED="Approved";
+
+    const STATUS_DENIED="Denied";
 
     const STATUS_SUSPENDED="Suspended";
 

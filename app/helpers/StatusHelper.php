@@ -47,8 +47,9 @@ class StatusHelper {
 
     private static function getAdvertiserStatuses($blankCaption = ''){
         $options = array (
-            Publisher::STATUS_ACTIVE => Lang::get('content.status_'. Publisher::STATUS_ACTIVE),
-            Publisher::STATUS_INACTIVE => Lang::get('content.status_'. Publisher::STATUS_INACTIVE),
+            Publisher::STATUS_PENDING=> Lang::get('content.status_'. Publisher::STATUS_PENDING),
+            Publisher::STATUS_APPROVED => Lang::get('content.status_'. Publisher::STATUS_APPROVED),
+            Publisher::STATUS_DENIED => Lang::get('content.status_'. Publisher::STATUS_DENIED),
             Publisher::STATUS_SUSPENDED => Lang::get('content.status_'. Publisher::STATUS_SUSPENDED),
         );
 

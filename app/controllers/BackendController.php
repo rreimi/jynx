@@ -28,8 +28,10 @@ class BackendController extends BaseController {
             if(count($users)>0){
                 if($approve=="true"){
                     User::whereIn('id',$users)->update(array('role'=>User::ROLE_PUBLISHER,'is_publisher'=>0));
+                    Publisher::whereIn('user_id',$users)->update(array('status_publisher'=>Publisher::STATUS_APPROVED));
                 }else{
                     User::whereIn('id',$users)->update(array('is_publisher'=>0));
+                    Publisher::whereIn('user_id',$users)->update(array('status_publisher'=>Publisher::STATUS_DENIED));
                 }
             }
 
