@@ -105,6 +105,7 @@
         jQuery('.reset-fields').bind('click', function(){
             jQuery('.filter-field').val('');
             jQuery('.chosen-select').val('').trigger("chosen:updated");
+            jQuery('.checked-checkbox').removeProp('checked');
             jQuery('#pub_list_form').submit();
         });
 
