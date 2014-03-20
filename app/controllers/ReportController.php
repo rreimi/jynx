@@ -6,6 +6,11 @@ class ReportController extends BaseController {
     private $page_size = '10';
     private $listSort = array('id', 'comment', 'date', 'status');
 
+    public function __construct() {
+        $this->beforeFilter('auth');
+        $this->beforeFilter('admin');
+    }
+
     /**
      * @ajax
      *
