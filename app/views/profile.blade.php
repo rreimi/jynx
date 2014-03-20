@@ -286,7 +286,7 @@
 
     <div class="control-group">
         <div class="controls">
-            <a href="{{ URL::to('perfil') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
+            <a href="{{ URL::to('/') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
             <button type="submit" class="btn btn-success">{{ Lang::get('content.save') }}</button>
         </div>
     </div>
