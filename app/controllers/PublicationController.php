@@ -160,6 +160,11 @@ class PublicationController extends BaseController {
             $publications->whereIn('publisher_id', $state['filter_publishers']);
         }
 
+        //Publications with reports filter
+        if (!empty($state['filter_publications_with_reports']) && $state['filter_publications_with_reports'] == true) {
+            $publications->where('reports', '>', 0);
+        }
+
         //From start date
         if (!empty($state['from_start_date'])) {
             //echo strtotime($state['from_start_date']);
@@ -279,6 +284,14 @@ class PublicationController extends BaseController {
 
         if ($isPost) {
             $state['filter_publishers'] = Input::get('filter_publishers');
+        }
+
+        //Publications with reports
+        $valueSuggestProducts = Input::get('filter_publications_with_reports');
+        $pubWithReports = ((isset($valueSuggestProducts)) ? true : false);
+
+        if ((isset($pubWithReports)) || !(isset($state['filter_publications_with_reports']))) {
+            $state['filter_publications_with_reports'] = (isset($pubWithReports))? $pubWithReports : '';
         }
 
         //From start date

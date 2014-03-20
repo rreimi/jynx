@@ -35,6 +35,13 @@
             @endif
 
             <div class="control-group">
+                <label class="control-label text-left" for="filter_publications_with_reports">{{ Lang::get('content.filter_publications_with_reports') }}</label>
+                <div class="controls">
+                    {{ Form::checkbox('filter_publications_with_reports', $state['filter_publications_with_reports'], $state['filter_publications_with_reports'], array('id' => 'filter_publications_with_reports' ,'class' => 'input checked-checkbox')) }}
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="filter_start_date">{{ Lang::get('content.filter_publication_start_date') }}</label>
                 <div class="controls">
                     {{ Form::text('from_start_date', $state['from_start_date'], array('id' => 'filter_start_date','class' => 'datepicker from-start-date input-small filter-field', 'placeholder' => Lang::get('content.date_format'))) }}

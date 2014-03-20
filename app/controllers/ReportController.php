@@ -201,7 +201,7 @@ class ReportController extends BaseController {
 
         //Status filter
         if (!empty($state['filter_status'])){
-            $reports->where('status', '=', $state['filter_status']);
+            $reports->where('publications_reports.status', '=', $state['filter_status']);
         }
 
         //Publisher filter
