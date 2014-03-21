@@ -367,6 +367,7 @@ return array(
     "backend_seller" => "Anunciante",
     "backend_id" => "RIF",
     "backend_phone" => "Teléfono",
+    "backend_date" => "Fecha solicitud",
 
     "backend_report_id" => "ID",
     "backend_report_user" => "Denunciante",

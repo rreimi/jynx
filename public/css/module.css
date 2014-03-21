@@ -1195,3 +1195,7 @@ div#home-banner-top .carousel-control {
     display: none;
 }
 
+.display-stats .caption.bar {
+    padding-top: 0;
+}
+
