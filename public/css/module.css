@@ -1195,6 +1195,10 @@ div#home-banner-top .carousel-control {
     display: none;
 }
 
+.display-stats .caption.bar {
+    padding-top: 0;
+}
+
 .stats .stats-column input:hover {
     cursor: pointer;
 }

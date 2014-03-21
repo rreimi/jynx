@@ -56,17 +56,6 @@
                     </a>
                 </li>
                 <li class="span4">
-                    <a href="{{ URL::to('publicacion/lista?filter_publications_with_reports=true')}}">
-                        <div class="thumbnail stats-column">
-                            <input type="text" value="{{ $reports_pending }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
-                            <div class="caption">
-                                <h4>{{ Lang::get('content.stats_publications_reports') }}</h4>
-                                <p>{{ Lang::get('content.stats_description_publications_reports') }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="span4">
                     <a href="{{ URL::to('denuncia/lista')}}">
                         <div class="thumbnail stats-column">
                             <input type="text" value="{{ $reports }}" class="dial publications" data-max="{{ $reports }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
@@ -77,8 +66,6 @@
                         </div>
                     </a>
                 </li>
-            </ul>
-            <ul class="thumbnails stats-row">
                 <li class="span4">
                     <a href="{{ URL::to('denuncia/lista?filter_status='.PublicationReport::STATUS_VALID)}}">
                         <div class="thumbnail stats-column">
@@ -91,11 +78,12 @@
                     </a>
                 </li>
             </ul>
+
             <ul class="thumbnails text-center">
                 <li class="span6">
                     <div class="thumbnail ">
                         <div id="products" style="width: auto;"></div>
-                        <div class="caption">
+                        <div class="caption bar">
                             <h4>{{ Lang::get('content.stats_products') }}</h4>
                             <p>{{ Lang::get('content.stats_description_products') }}</p>
                         </div>
@@ -104,7 +92,7 @@
                 <li class="span6">
                     <div class="thumbnail">
                         <div id="services" style="width: auto;"></div>
-                        <div class="caption">
+                        <div class="caption bar">
                             <h4>{{ Lang::get('content.stats_services') }}</h4>
                             <p>{{ Lang::get('content.stats_description_services') }}</p>
                         </div>
@@ -163,9 +151,12 @@
             google.setOnLoadCallback(function(){
                 var data = google.visualization.arrayToDataTable({{ $category_products }});
 
-                var options={
-                    legend:{position:'none'}
-                }
+            var options={
+                height: 350,
+                legend: { position: 'none', maxLines: 3 },
+                bar: { groupWidth: '85%' }
+
+            }
                 var chart = new google.visualization.BarChart(document.getElementById('products'));
                 chart.draw(data,options);
 
@@ -174,9 +165,12 @@
             google.setOnLoadCallback(function(){
                 var data = google.visualization.arrayToDataTable({{ $category_services }});
 
-                var options={
-                    legend:{position:'none'}
-                }
+            var options={
+                height: 350,
+                legend: { position: 'none', maxLines: 3 },
+                bar: { groupWidth: '85%' }
+
+            }
                 var chart = new google.visualization.BarChart(document.getElementById('services'));
                 chart.draw(data,options);
 

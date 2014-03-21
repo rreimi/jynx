@@ -14,6 +14,7 @@
                     <th>{{ Lang::get('content.backend_id') }}</th>
                     <th>{{ Lang::get('content.backend_seller') }}</th>
                     <th>{{ Lang::get('content.backend_phone') }}</th>
+                    <th>{{ Lang::get('content.backend_date') }}</th>
                     <th></th>
                     <th>{{ Form::checkbox('all', 0, 0, array('class' => 'chk-all', 'enabled' => 'false')) }}</th>
                 </tr>
@@ -26,6 +27,7 @@
                         <td>{{ $user->publisher->letter_rif_ci }}-{{ $user->publisher->rif_ci }}</td>
                         <td>{{ $user->publisher->seller_name }}</td>
                         <td>{{ $user->publisher->phone1 }} @if (!empty($user->publisher->phone2)) / {{ $user->publisher->phone2 }} @endif</td>
+                        <td>{{ date(Lang::get('content.date_format_php'),strtotime($user->publisher->created_at)) }}</td>
                         <td>
                             <a rel="tooltip" title="{{Lang::get('content.view_publisher')}}" class="btn" type="button"
                                target="_blank" href="{{URL::to('anunciante/editar/'. $user->publisher->id) }}">
@@ -51,6 +53,7 @@
             <tr>
                 <th>{{ Lang::get('content.backend_report_user') }}</th>
                 <th>{{ Lang::get('content.backend_report_publication') }}</th>
+                <th>{{ Lang::get('content.backend_report_publisher') }}</th>
                 <th>{{ Lang::get('content.backend_report_date') }}</th>
                 <th>{{ Lang::get('content.backend_report_status') }}</th>
                 <th></th>
@@ -61,7 +64,8 @@
                     <tr>
                         <td>{{ $rep->user->full_name }}</td>
                         <td>{{ $rep->publication->title }}</td>
-                        <td>{{ $rep->date }}</td>
+                        <td>{{ $rep->publication->publisher->seller_name }}</td>
+                        <td>{{ date(Lang::get('content.date_format_php'),strtotime($rep->date)) }}</td>
                         <td>{{ Lang::get('content.status_report_'. $rep->status) }}</td>
                         <td>
                             <a rel="tooltip" title="{{Lang::get('content.view_publication')}}" class="btn" type="button"
