@@ -354,6 +354,7 @@ return array(
     "contact_email" => "Correo electrónico",
     "contact_not_found" => "No has agregado contactos",
     "contact_add_contact" => "Agregar contacto",
+    "main_contact" => "Anunciante",
 
     "contact_delete_success" => "El contacto se ha eliminado correctamente",
     "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",

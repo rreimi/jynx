@@ -91,3 +91,7 @@ Route::filter('cache', function( $response = null )
 $subscriber = new PublicationObserver;
 
 Event::subscribe($subscriber);
+
+/* Register observers */
+
+Publisher::observe(new PublisherObserver);

@@ -40,4 +40,9 @@ class Publisher extends Eloquent {
         return $this->hasOne('User','id');
     }
 
+    public function getMainContact(){
+        return Contact::where('publisher_id', $this->id)->where('is_main', '')->first();
+    }
+    //after save create contact :D
+
 }
