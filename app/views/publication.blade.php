@@ -65,7 +65,7 @@
             @if (!is_null(Auth::user()))
             @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
             <a href="{{ URL::to('publicacion/lista') }}" class="btn btn-mini btn-success">{{Lang::get('content.back_to_publications')}}</a>
-            <a class="action btn btn-mini btn-info" href="{{ URL::to('search/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
+            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
             @endif
             @endif
 
@@ -90,38 +90,9 @@
                 </ul>
             </div>
 
-            @if (count($publication->contacts) > 0 || $publication->show_pub_as_contact)
+            @if (count($publication->contacts) > 0)
             <div>
                 <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
-
-                @if ($publication->show_pub_as_contact)
-                    <div class="contact">
-                        <div class="block">
-                            <p class="pub-name"><b>{{ $publication->publisher->seller_name }}</b></p>
-                            @if (Auth::check())
-                                <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $publisher_email }}">{{ $publisher_email }}</a></p>
-                            @endif
-                        </div>
-                        @if (Auth::check())
-                        <div class="block">
-                            <p class="pub-phone">{{Lang::get('content.phone')}}:  {{ $publication->publisher->phone1 }}
-                                @if ($publication->publisher->phone2)
-                                / {{ $publication->publisher->phone2 }}
-                                @endif
-                            </p>
-                            <p class="pub-location">{{Lang::get('content.location')}}:
-                                {{ $publication->publisher->state->name . ', ' . $publication->publisher->city }}
-                                @if ($publication->publisher->address) , {{ $publication->publisher->address }} @endif
-                            </p>
-                            @if ($publication->publisher->web)
-                                <p class="pub-web">{{Lang::get('content.web_page')}}:  <a href="{{ $publication->publisher->web }}" target="_blank">{{ $publication->publisher->web }}</a></p>
-                            @endif
-                        </div>
-                        @endif
-                        </div>
-                    </div>
-                @endif
-
                 @foreach ($publication->contacts as $contact)
                     <div class="contact">
                         <div class="block">
