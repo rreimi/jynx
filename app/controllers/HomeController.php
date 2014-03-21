@@ -122,7 +122,8 @@ class HomeController extends BaseController {
 
         /* Contar el total */
         $totalQuery = PublicationView::getSearchQuery('', 'COUNT(*) as total', $queryFilters);
-        $totalItems = DB::select($totalQuery)[0]->total;
+        $resultTotalQuery = DB::select($totalQuery);
+        $totalItems = $resultTotalQuery[0]->total;
 
         /* Añadir filtros de paginacion al query  */
 
@@ -234,8 +235,8 @@ class HomeController extends BaseController {
 
         /* Contar el total */
         $totalQuery = PublicationView::getSearchQuery($q, 'COUNT(*) as total', $queryFilters);
-        $totalItems = DB::select($totalQuery)[0]->total;
-
+        $resultTotalQuery = DB::select($totalQuery);
+        $totalItems = $resultTotalQuery[0]->total;
 
         /* Añadir filtros de paginacion al query  */
 
