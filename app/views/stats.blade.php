@@ -56,17 +56,6 @@
                     </a>
                 </li>
                 <li class="span4">
-                    <a href="{{ URL::to('publicacion/lista?filter_publications_with_reports=true')}}">
-                        <div class="thumbnail stats-column">
-                            <input type="text" value="{{ $reports_pending }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
-                            <div class="caption">
-                                <h4>{{ Lang::get('content.stats_publications_reports') }}</h4>
-                                <p>{{ Lang::get('content.stats_description_publications_reports') }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="span4">
                     <a href="{{ URL::to('denuncia/lista')}}">
                         <div class="thumbnail stats-column">
                             <input type="text" value="{{ $reports }}" class="dial publications" data-max="{{ $reports }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
@@ -77,8 +66,6 @@
                         </div>
                     </a>
                 </li>
-            </ul>
-            <ul class="thumbnails stats-row">
                 <li class="span4">
                     <a href="{{ URL::to('denuncia/lista?filter_status='.PublicationReport::STATUS_VALID)}}">
                         <div class="thumbnail stats-column">
