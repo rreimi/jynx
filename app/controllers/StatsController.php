@@ -3,6 +3,7 @@
 class StatsController extends BaseController {
 
     public function __construct(){
+        $this->beforeFilter('auth');
         $this->beforeFilter('admin');
     }
 
@@ -15,11 +16,16 @@ class StatsController extends BaseController {
 
         $data['users_to_approve'] = User::toApprove()->count();
 
+        $data['reports_total'] = PublicationReport::count();
+
         $data['reports'] = PublicationReport::pendingReports()->count();
 
         $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
 
-        $data['publications'] = PublicationView::count();
+        // Denuncias totales que son válidas o se ha tomado una acción
+        $data['reports_valid_or_action'] = PublicationReport::validOrActionReports()->count();
+
+        $data['publications'] = PublicationView::published()->count();
 
         $elements = DB::table('categories')
             ->join('publications_categories','categories.id','=','publications_categories.category_id')

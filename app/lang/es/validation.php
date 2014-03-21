@@ -111,6 +111,7 @@ return array(
         'to_date' => 'Hasta',
         'categories_name' => 'Categorías',
         'status' => 'Estatus',
+        'status_publisher' => 'Estatus anunciante',
 
         'email' => 'Correo',
         'full_name' => 'Nombre',
@@ -124,8 +125,11 @@ return array(
         'rif_ci' => 'Cédula / Rif',
         'state' => 'Estado',
         'city' => 'Ciudad',
+        'role' => 'Rol',
         'phone1' => 'Teléfono 1',
         'phone2' => 'Teléfono 2',
+        'suggested_products' => 'de sectores de negocio para productos',
+        'suggested_services' => 'de sectores de negocio para servicios',
         'avatar' => 'Imagen de perfil',
 
         'publisher_id_type' => 'Tipo de documento',

@@ -15,6 +15,9 @@
     <b>{{ Lang::get('content.backend_report_publisher') }}:</b> {{ $report->publication->publisher->seller_name }}
 </p>
 <p>
+    <b>{{ Lang::get('content.backend_report_comment') }}:</b> {{ $report->comment }}
+</p>
+<p>
     <b>{{ Lang::get('content.backend_report_comments_in_publication') }}:</b> {{ $report->reports_in_publication }}
 </p>
 <p>

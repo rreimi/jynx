@@ -130,7 +130,7 @@ class PublicationController extends BaseController {
         }
 
         $state = self::retrieveListState();
-        $publications = PublicationView::select(DB::raw('TRIM(GROUP_CONCAT(" ",category_name)) as categories, id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg, reports, ratings'))->orderBy($state['sort'], $state['order']);
+        $publications = PublicationView::select(DB::raw('publications_view.id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg, reports, ratings'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -152,12 +152,18 @@ class PublicationController extends BaseController {
 
         //Category filter
         if (is_array($state['filter_categories'])) {
-            $publications->whereIn('category_id', $state['filter_categories']);
+            $publications->leftJoin('publications_categories','publications_view.id','=','publications_categories.publication_id');
+            $publications->whereIn('publications_categories.category_id', $state['filter_categories']);
         }
 
         //Publisher filter
         if (is_array($state['filter_publishers'])) {
             $publications->whereIn('publisher_id', $state['filter_publishers']);
+        }
+
+        //Publications with reports filter
+        if (!empty($state['filter_publications_with_reports']) && $state['filter_publications_with_reports'] == true) {
+            $publications->where('reports', '>', 0);
         }
 
         //From start date
@@ -190,6 +196,8 @@ class PublicationController extends BaseController {
 
         $publisherFilterValues=array();
         $categoryFilterValues=array();
+
+
 
         foreach (PublicationView::publishersWithPublications()->get() as $item) {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
@@ -279,6 +287,14 @@ class PublicationController extends BaseController {
 
         if ($isPost) {
             $state['filter_publishers'] = Input::get('filter_publishers');
+        }
+
+        //Publications with reports
+        $valueSuggestProducts = Input::get('filter_publications_with_reports');
+        $pubWithReports = ((isset($valueSuggestProducts)) ? true : false);
+
+        if ((isset($pubWithReports)) || !(isset($state['filter_publications_with_reports']))) {
+            $state['filter_publications_with_reports'] = (isset($pubWithReports))? $pubWithReports : '';
         }
 
         //From start date
@@ -572,10 +588,16 @@ class PublicationController extends BaseController {
             $pubContacts = Input::old('contacts');
         }
 
+        // Get contacts ordered, main contact always first
+        $contacts = $pub->publisher->contacts->sortBy(function($contact)
+        {
+            return $contact->is_main;
+        });;
+
         return View::make('publication_form',
             array(
                 'pub_statuses' => self::getPublicationStatuses(Lang::get('content.select')),
-                'contacts' => $pub->publisher->contacts,
+                'contacts' => $contacts,
                 'publication' => $pub,
                 'publication_categories' => $pubCats,
                 'publication_contacts' => $pubContacts,
@@ -607,7 +629,7 @@ class PublicationController extends BaseController {
             'created_at' => Input::get('created_at'),
             'publisher_id' => Input::get('publisher_id'),
             'categories' => Input::get('categories'),
-            'show_pub_as_contact' => Input::get('show_pub_as_contact'),
+//            'show_pub_as_contact' => Input::get('show_pub_as_contact'),
             'contacts' => Input::get('contacts'),
             'remember' => Input::get('remember'),
         );
@@ -721,10 +743,6 @@ class PublicationController extends BaseController {
 
         if ($pub->remember == null){
             $pub->remember = 0;
-        }
-
-        if ($pub->show_pub_as_contact == null){
-            $pub->show_pub_as_contact = 0;
         }
 
         $pub->save();

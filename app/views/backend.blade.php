@@ -15,7 +15,7 @@
                     <th>{{ Lang::get('content.backend_seller') }}</th>
                     <th>{{ Lang::get('content.backend_phone') }}</th>
                     <th></th>
-                    <th></th>
+                    <th>{{ Form::checkbox('all', 0, 0, array('class' => 'chk-all', 'enabled' => 'false')) }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                                 <i class="icon-search"></i>
                             </a>
                         </td>
-                        <td>{{ Form::checkbox('approve_users[]',$user->id,in_array($user->id,Input::old('approve_users',array()))) }}</td>
+                        <td>{{ Form::checkbox('approve_users[]', $user->id, in_array($user->id,Input::old('approve_users',array())), array('class' => 'chk-pending-approval')) }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -133,6 +133,11 @@
                     jQuery(target).modal('show');
                 }
             });
+        });
+
+        jQuery('.chk-all').change(function(){
+            var checked = jQuery(this).is(':checked');
+            jQuery(".chk-pending-approval").prop('checked', checked);
         });
 
     });

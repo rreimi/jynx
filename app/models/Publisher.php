@@ -7,9 +7,11 @@ class Publisher extends Eloquent {
 
     protected $softDelete = true;
 
-    const STATUS_ACTIVE="Active";
+    const STATUS_PENDING="Pending";
 
-    const STATUS_INACTIVE="Inactive";
+    const STATUS_APPROVED="Approved";
+
+    const STATUS_DENIED="Denied";
 
     const STATUS_SUSPENDED="Suspended";
 
@@ -37,5 +39,10 @@ class Publisher extends Eloquent {
     public function user(){
         return $this->hasOne('User','id');
     }
+
+    public function getMainContact(){
+        return Contact::where('publisher_id', $this->id)->where('is_main', '')->first();
+    }
+    //after save create contact :D
 
 }

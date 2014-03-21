@@ -191,21 +191,10 @@
             <div class="field-error alert alert-error">{{ $errors->first('contacts') }}</div>
             @endif
 
-
-            <label class="checkbox">
-                {{ Form::checkbox('show_pub_as_contact', 1, ($publication->show_pub_as_contact == 1), array('class' => 'chk-show-pub-as-contact')) }}
-                Mis datos de anunciante como contacto
-            </label>
-
-            @if ($contacts->count() > 0)
-                <br/>
-                <b>Otros contactos</b>
-            @endif
-
             @foreach ($contacts as $contact)
 
                 <label class="checkbox">
-                    {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }}
+                    {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }} @if ($contact->isMainContact()) <small>({{ Lang::get('content.main_contact') }})</small> @endif
                     {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
                 </label>
             @endforeach

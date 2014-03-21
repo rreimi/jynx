@@ -14,9 +14,18 @@
 
         <div id="search-options-box" class="more-search-options collapse in">
             <div class="control-group">
-                <label class="control-label text-left" for="filter_status">{{ Lang::get('content.filter_publication_status') }}</label>
+                <label class="control-label text-left" for="filter_status">{{ Lang::get('content.filter_publisher_status_user') }}</label>
                 <div class="controls">
-                    {{ Form::select('filter_status', $advertiser_statuses, $state['filter_status'], array('id' => 'filter_status', 'class' => 'filter-field')) }}
+                    {{ Form::select('filter_status', $user_statuses, $state['filter_status'], array('id' => 'filter_status', 'class' => 'filter-field')) }}
+                </div>
+            </div>
+        </div>
+
+        <div id="search-options-box" class="more-search-options collapse in">
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_status_publisher">{{ Lang::get('content.filter_publisher_status_publisher') }}</label>
+                <div class="controls">
+                    {{ Form::select('filter_status_publisher', $advertiser_statuses, $state['filter_status_publisher'], array('id' => 'filter_status_publisher', 'class' => 'filter-field')) }}
                 </div>
             </div>
         </div>
@@ -59,7 +68,11 @@
             <td>{{ $advertiser->email }}</td>
             <td>{{ $advertiser->seller_name }}</td>
             <td>{{ $advertiser->letter_rif_ci }}-{{ $advertiser->rif_ci }}</td>
-            <td>{{ Lang::get('content.status_'. $advertiser->status) }}</td>
+            <td>
+                @if (array_key_exists($advertiser->publisher_state, $states))
+                    {{ $states[$advertiser->publisher_state] }}
+                @endif
+            </td>
             <td>{{ $advertiser->publisher_reports }}</td>
 <!--            <td> $advertiser->created_at </td>-->
             <td>

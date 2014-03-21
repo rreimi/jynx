@@ -187,6 +187,17 @@
         </div>
         @endif
         @endforeach
+
+        <div class="suggest-section suggest-products">
+            <div class="selection">
+                {{ Form::checkbox('suggest_products', Input::old('suggest_products'), $user->publisher->suggest_products) }}
+                <label class="description">{{ Lang::get('content.profile_suggest_products_label') }}</label>
+            </div>
+            <div class="suggestions hide">
+                {{ Form::text('suggested_products', $user->publisher->suggested_products, array('data-role' => 'tagsinput','class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
+                {{ $errors->first('suggested_products', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
     </div>
 
     <h5>{{Lang::get('content.services_title')}}</h5>
@@ -205,8 +216,18 @@
         </div>
         @endif
         @endforeach
-    </div>
 
+        <div class="suggest-section suggest-services">
+            <div class="selection">
+                {{ Form::checkbox('suggest_services', Input::old('suggest_services'), $user->publisher->suggest_services) }}
+                <label class="description">{{ Lang::get('content.profile_suggest_services_label') }}</label>
+            </div>
+            <div class="suggestions hide">
+                {{ Form::text('suggested_services', $user->publisher->suggested_services, array('data-role' => 'tagsinput','class' => 'input-xlarge tessst','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
+                {{ $errors->first('suggested_services', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+    </div>
 
     <h2 id="contactos">{{Lang::get('content.profile_edit_contacts')}}
         <a class="btn btn-info btn-small modal-contact" data-target="#addContact" data-remote="{{URL::to('contacto/agregar') }}">
@@ -230,30 +251,32 @@
         </tr>
         @endif
         @foreach ($user->publisher->contacts as $contact)
-        <tr>
-            <td>{{ $contact->full_name }}</td>
-            <td>{{ $contact->email }}</td>
-            <td>
-                {{ $contact->phone }}
-                @if($contact->other_phone)
-                , {{ $contact->other_phone }}
-                @endif
-            </td>
-            <td>{{ $contact->city }}</td>
-            <td class="table-cell-controls">
-                <div class="btn-group">
-                    <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
-                        <i class="icon-search"></i>
-                    </a>
-                    <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
-                        <i class="icon-pencil"></i>
-                    </a>
-                    <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
-                        <i class="icon-trash"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
+            @if (!$contact->isMainContact())
+            <tr>
+                <td>{{ $contact->full_name }}</td>
+                <td>{{ $contact->email }}</td>
+                <td>
+                    {{ $contact->phone }}
+                    @if($contact->other_phone)
+                    , {{ $contact->other_phone }}
+                    @endif
+                </td>
+                <td>{{ $contact->city }}</td>
+                <td class="table-cell-controls">
+                    <div class="btn-group">
+                        <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
+                            <i class="icon-search"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
@@ -265,12 +288,11 @@
 
     <div class="control-group">
         <div class="controls">
-            <a href="{{ URL::to('perfil') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
+            <a href="{{ URL::to('/') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
             <button type="submit" class="btn btn-success">{{ Lang::get('content.save') }}</button>
         </div>
     </div>
     {{ Form::close() }}
-
 
     {{ Form::open(array('url' => 'contacto/editar', 'class' => 'form-horizontal edit-contact-form' )) }}
     <div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
@@ -324,6 +346,7 @@
 
 @section('scripts')
 @parent
+{{ HTML::script('js/bootstrap-tagsinput.min.js') }}
 <script type="text/javascript">
     jQuery(document).ready(function(){
 
@@ -363,44 +386,89 @@
         });
 
         var passwordError = {{ $errors->has('password') || $errors->has('current-password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
-    if (passwordError){
-        jQuery("input:password").val('');
-        jQuery('.btn-password').click();
-    } else {
-        jQuery("input:password").val('');
-        jQuery("input:password").attr('disabled', 'disabled');
-    }
 
-    @if(Auth::user()->isPublisher())
-    var publisherType=jQuery('.publisher_type');
-    var publisherIdType=jQuery('.publisher_id_type');
+        if (passwordError){
+            jQuery("input:password").val('');
+            jQuery('.btn-password').click();
+        } else {
+            jQuery("input:password").val('');
+            jQuery("input:password").attr('disabled', 'disabled');
+        }
 
-    if(publisherType.val()=='Person'){
-        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
-    } else if(publisherType.val()=='Business'){
-        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
-    } else {
-        publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
-    }
+        @if(Auth::user()->isPublisher())
+        var publisherType=jQuery('.publisher_type');
+        var publisherIdType=jQuery('.publisher_id_type');
 
-    publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
-    @endif
+        if(publisherType.val()=='Person'){
+            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('V-', 'V')).append(new Option('E-', 'E'));
+        } else if(publisherType.val()=='Business'){
+            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', '')).append(new Option('J-', 'J')).append(new Option('G-', 'G'));
+        } else {
+            publisherIdType.append(new Option('{{ Lang::get('content.select') }}', ''));
+        }
 
-    jQuery('.perfil-form').validateBootstrap();
-    jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
-    jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
+        publisherIdType.val("{{ !is_null(Input::old('letter_rif_ci'))? Input::old('letter_rif_ci'): $user->publisher->letter_rif_ci }}");
+        @endif
 
-    // Set if exists avatar
-    if ('{{ $avatar }}'){
-        jQuery('.fileupload').removeClass('fileupload-new');
-        jQuery('.fileupload').addClass('fileupload-exists');
-        jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
-    }
+        jQuery('.perfil-form').validateBootstrap();
+        jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
+        jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
 
-    // Phone mask
-    jQuery('.phone-number-format').mask("9999-9999999");
+        // Set if exists avatar
+        if ('{{ $avatar }}'){
+            jQuery('.fileupload').removeClass('fileupload-new');
+            jQuery('.fileupload').addClass('fileupload-exists');
+            jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
+        }
+
+        // Manage suggest sections
+        jQuery('.suggest-products .selection input[type=checkbox]').each(function(i,object){
+            console.log('each');
+            refreshSuggest(this, '.suggest-products');
+        });
+
+        jQuery('.suggest-services .selection input[type=checkbox]').each(function(i,object){
+            console.log('each');
+            refreshSuggest(this, '.suggest-services');
+        });
+
+        jQuery('.suggest-products .selection input[type=checkbox]').change(function(){
+            console.log('change products');
+            refreshSuggest(this, '.suggest-products');
+        });
+
+        jQuery('.suggest-services .selection input[type=checkbox]').change(function(){
+            console.log('change services');
+            refreshSuggest(this, '.suggest-services');
+        });
+
+        jQuery('.suggest-section .suggestions input').change(function(){
+            var e = jQuery.Event( "keydown", { which: 13 } );
+            jQuery(this).trigger(e);
+        });
+
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
 
     });
+
+    function refreshSuggest(element, base){
+        console.log('refresh');
+        var baseCss = null;
+        if (base != null){
+            baseCss = base;
+        } else {
+            baseCss = '.suggest-section';
+        }
+
+        var value = jQuery(element).prop('checked');
+        if (value){
+            jQuery(baseCss + ' .suggestions').removeClass('hide');
+            jQuery(baseCss + ' .suggestions input').removeClass('hide');
+        } else {
+            jQuery(baseCss + ' .suggestions').addClass('hide');
+        }
+    }
 
 </script>
 @stop

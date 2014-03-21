@@ -19,4 +19,7 @@ class Contact extends Eloquent {
         return $this->belongsTo('State');
     }
 
+    public function isMainContact(){
+        return ($this->is_main === '');
+    }
 }

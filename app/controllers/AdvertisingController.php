@@ -8,6 +8,7 @@ class AdvertisingController extends BaseController {
 //    private $pub_img_dir = 'advertisement';
 
     public function __construct() {
+        $this->beforeFilter('auth');
         $this->beforeFilter('admin');
         $this->beforeFilter('referer:advertising', array('only' => array('getLista')));
 

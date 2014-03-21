@@ -244,7 +244,8 @@ return array(
 
     // Advertising
     "name" => "Nombre publicidad",
-    "status" => 'Estatus',
+    "status" => 'Estatus usuario',
+    "status_publisher" => 'Estatus anunciante',
     "image_url" => "Imagen",
     "external_url" => "Url externa",
     "full_name" => "Nombre completo de persona contacto",
@@ -337,7 +338,7 @@ return array(
     "publisher_finalize" => "Terminar",
     "publisher_signup" => "Continuar",
     "publisher_status" => "Estatus del anunciante",
-    "publisher_status_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
+    "publisher_status_publisher_warning" => "Al suspender un anunciante también se suspenderán todas sus publicaciones.",
 
     "contacts_header" => "Agregar contactos, distribuidores o sucursales",
     "contact_add" => "Agregar",
@@ -353,6 +354,7 @@ return array(
     "contact_email" => "Correo electrónico",
     "contact_not_found" => "No has agregado contactos",
     "contact_add_contact" => "Agregar contacto",
+    "main_contact" => "Anunciante",
 
     "contact_delete_success" => "El contacto se ha eliminado correctamente",
     "contact_delete_error" => "Ha ocurrido un error al intentar eliminar el contacto",
@@ -433,6 +435,9 @@ return array(
     "profile_edit_contact" => "Editar contacto",
     "profile_delete_contact_title" => "Eliminar contacto",
     "profile_delete_contact_content" => "¿Está seguro que desea eliminar este contacto?",
+    "profile_suggest_products_label" => "Dar sugerencias de nuevos sectores de negocio para productos",
+    "profile_suggest_services_label" => "Dar sugerencias de nuevos sectores de negocio para servicios",
+    "profile_placeholder_add_suggest" => "Agregar sugerencia",
 
     // File Uploader
     "fileuploader_select_image" => "Seleccione imagen",
@@ -458,13 +463,18 @@ return array(
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
-    "filter_report_reporter" => 'Anunciante:',
+    "filter_publications_with_reports" => 'Publicaciones con reportes:',
+    "filter_report_reporter" => 'Denunciante:',
     "filter_report_publication" => 'Publicación:',
     "filter_report_publisher" => 'Anunciante:',
     "filter_user_role" => "Rol:",
     "filter_status_placeholder" => 'Seleccione Estatus',
     "filter_category_placeholder" => 'Seleccione una o más categorías',
     "filter_publisher_placeholder" => 'Seleccione uno o más anunciantes',
+    "filter_reporter_placeholder" => 'Seleccione uno o más denunciantes',
+    "filter_publication_placeholder" => 'Seleccione una o más publicaciones',
+    "filter_publisher_status_user" => "Estatus Usuario",
+    "filter_publisher_status_publisher" => "Estatus Anunciante",
     "select_default"=>"Seleccione",
     "option_all" => 'Todos',
 
@@ -495,6 +505,9 @@ return array(
     'status_Active' => 'Activo',
     'status_Inactive' => 'Inactivo',
     'status_Suspended' => 'Suspendido',
+    'status_Pending' => 'Pendiente',
+    'status_Approved' => 'Aprobado',
+    'status_Denied' => 'Negado',
 
     // Roles
     'role' => 'Rol',
@@ -529,7 +542,8 @@ return array(
     "advertisers" => 'Anunciantes',
     "advertiser_name" => 'Nombre',
     "advertiser_email" => 'Correo',
-    "advertiser_status" => 'Estatus',
+    "advertiser_status" => 'Estatus Usuario',
+    "advertiser_status_publisher" => 'Estatus',
 
     // Labels
     "new_advertiser" => 'Nuevo anunciante',
@@ -635,11 +649,13 @@ return array(
     "stats_description_users_publisher" => "Cantidad de usuarios anunciantes que tienen permiso para publicar",
     "stats_users_to_approve" => "Anunciantes en trámite",
     "stats_description_users_to_approve"=>"Cantidad de usuarios aspirando a ser anunciantes",
-    "stats_publications"=>"Publicaciones",
+    "stats_publications"=>"Publicaciones Activas",
     "stats_description_publications"=>"Cantidad de publicaciones",
     "stats_publications_reports"=>"Publicaciones con denuncia",
     "stats_description_publications_reports"=>"Cantidad de publicaciones donde se ha realizado alguna denuncia",
     "stats_reports"=>"Total de denuncias",
+    "stats_reports_valid_action"=>"Denuncias válidas",
+    "stats_description_reports_valid_action"=>"Cantidad de denuncias que son válidas o se ha tomado una acción",
     "stats_description_reports" => "Cantidad de denuncias realizadas en todas las publicaciones",
     "stats_products"=>"Productos",
     "stats_description_products"=>"Cantidad de publicaciones por categorías de productos",

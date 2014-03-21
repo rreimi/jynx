@@ -40,7 +40,12 @@ Route::filter('auth', function()
     }else{
         switch (Auth::user()->step){
             case 2:
-                if(!(Auth::user()->isBasic()) && ( !str_contains(URL::current(),'registro/datos-anunciante') || !str_contains(URL::current(),'registro/anunciante'))){
+                // Admin con step 2 = Este es el caso cuando a un usuario basico se le cambia el rol a admin
+                if (Auth::user()->isAdmin()){
+                    if (str_contains(URL::current(),'registro/datos-anunciante') || str_contains(URL::current(),'registro/anunciante')){
+                        return Redirect::to('estadisticas');
+                    }
+                } else if(!(Auth::user()->isBasic()) && (!str_contains(URL::current(),'registro/datos-anunciante')) && (!str_contains(URL::current(),'registro/anunciante'))){
                     return Redirect::to('registro/datos-anunciante');
                 };
                 break;

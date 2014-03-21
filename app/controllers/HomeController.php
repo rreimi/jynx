@@ -100,6 +100,7 @@ class HomeController extends BaseController {
             $activeFilters['state']->id  = $state->id;
             $activeFilters['state']->label = $state->name;
             $activeFilters['state']->type = 'state';
+            $queryFilters['state'] = $state->id;
         }
 
         if (Input::get('seller')) {
@@ -108,8 +109,32 @@ class HomeController extends BaseController {
             $activeFilters['seller']->id  = $seller->id;
             $activeFilters['seller']->label = $seller->seller_name;
             $activeFilters['seller']->type = 'seller';
+            $queryFilters['seller'] = $seller->id;
         }
 
+        //Set category as main filter
+        if (Input::get('category')) {
+            $queryFilters['category'] = $data['category']->id;
+        }
+
+        $queryFilters['order_by'] = 'updated_at';
+        $queryFilters['order_dir'] = 'desc';
+
+        /* Contar el total */
+        $totalQuery = PublicationView::getSearchQuery('', 'COUNT(*) as total', $queryFilters);
+        $totalItems = DB::select($totalQuery)[0]->total;
+
+        /* Añadir filtros de paginacion al query  */
+
+        $offset = (Input::get('page', 1)-1) * $this->page_size;
+        $queryFilters['offset'] = ($offset < $totalItems)? $offset : 0;
+        $queryFilters['page_size'] = $this->page_size;
+
+        $searchQuery = PublicationView::getSearchQuery('', '*', $queryFilters);
+        $items = DB::select($searchQuery);
+        $data['publications'] = Paginator::make($items, $totalItems, $this->page_size);
+
+        //Get parent information
         $data['category_tree'][] = $data['category']->id;
         $parent = $data['category']->parent;
 
@@ -118,14 +143,17 @@ class HomeController extends BaseController {
             $parent = $parent->parent;
         }
 
-        //$data['publications'] = PublicationView::getSearch($q)->groupBy('id')->published()->filter($activeFilters)->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::where('category_id', $data['category']->id)->groupBy('id')->published()->filter($activeFilters)->orderBy('created_at', 'desc')->paginate($this->page_size);
-
         /* Calculate filters */
         $availableFilters = array();
+        //Reset query limits
+        $queryFilters['offset'] = null;
+        $queryFilters['page_size'] = null;
 
         if (!isset($activeFilters['state'])){
-            $result = PublicationView::where('category_id', $data['category']->id)->orderBy('label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, state_id as item_id, state as label'))->groupBy('state')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $queryFilters['group_by'] = null;
+            $searchQuery = PublicationView::getSearchQuery('', 'id', $queryFilters);
+            $queryState = "SELECT COUNT( pc.id ) AS total, c.state_id AS item_id, s.name AS label FROM publications_contacts pc JOIN contacts c ON c.id = pc.contact_id JOIN states s ON s.id = c.state_id WHERE pc.publication_id IN ($searchQuery) GROUP BY state_id ORDER BY label ASC";
+            $result = DB::select($queryState);
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -137,7 +165,13 @@ class HomeController extends BaseController {
         }
 
         if (!isset($activeFilters['seller'])){
-            $result = PublicationView::where('category_id', $data['category']->id)->orderBy('label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+
+            $queryFilters['order_by'] = 'label';
+            $queryFilters['order_dir'] = 'asc';
+            $queryFilters['group_by'] = 'publisher_id';
+            $searchQuery = PublicationView::getSearchQuery('', 'count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label', $queryFilters);
+
+            $result = DB::select($searchQuery);
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -150,18 +184,6 @@ class HomeController extends BaseController {
 
         $data['availableFilters'] = $availableFilters;
         $data['activeFilters'] = $activeFilters;
-
-
-        /* Cargar la lista de categorias */
-//        $data['categories'] = self::getCategories();
-
-        /* TODO: Cargar la publicidad del banner */
-
-        /* Cargar la lista de productos con mayor número de visitas */
-
-        /* Cargar la lista de los últimos productos agregados */
-
-        /* Cargar la lista de los últimos productos vistos por el usuario actual */
 
         return View::make('category', $data);
     }
@@ -186,6 +208,7 @@ class HomeController extends BaseController {
             $activeFilters['state']->id  = $state->id;
             $activeFilters['state']->label = $state->name;
             $activeFilters['state']->type = 'state';
+            $queryFilters['state'] = $state->id;
         }
 
         if (Input::get('seller')) {
@@ -194,6 +217,7 @@ class HomeController extends BaseController {
             $activeFilters['seller']->id  = $seller->id;
             $activeFilters['seller']->label = $seller->seller_name;
             $activeFilters['seller']->type = 'seller';
+            $queryFilters['seller'] = $seller->id;
         }
 
         if (Input::get('category')) {
@@ -202,18 +226,46 @@ class HomeController extends BaseController {
             $activeFilters['category']->id  = $category->id;
             $activeFilters['category']->label = $category->name;
             $activeFilters['category']->type = 'category';
+            $queryFilters['category'] = $category->id;
         }
 
-        /* Find publications */
-        //$data['publications'] = PublicationView::getSearch($q)->published()->with('images')->paginate($this->page_size);
-        $data['publications'] = PublicationView::getSearch($q, 'updated_at', 'desc')->groupBy('id')->published()->filter($activeFilters)->paginate($this->page_size);
+        $queryFilters['order_by'] = 'updated_at';
+        $queryFilters['order_dir'] = 'desc';
 
+        /* Contar el total */
+        $totalQuery = PublicationView::getSearchQuery($q, 'COUNT(*) as total', $queryFilters);
+        $totalItems = DB::select($totalQuery)[0]->total;
+
+
+        /* Añadir filtros de paginacion al query  */
+
+        $offset = (Input::get('page', 1)-1) * $this->page_size;
+        $queryFilters['offset'] = ($offset < $totalItems)? $offset : 0;
+        $queryFilters['page_size'] = $this->page_size;
+
+        $searchQuery = PublicationView::getSearchQuery($q, '*', $queryFilters);
+        $items = DB::select($searchQuery);
+
+        $data['publications'] = Paginator::make($items, $totalItems, $this->page_size);
+
+        //echo $searchQuery;
+
+        //die();
+
+        //$data['publications'] = PublicationView::getSearch($q, 'updated_at', 'desc')->groupBy('id')->published()->filter($activeFilters)->paginate($this->page_size);
+
+//        $groupBy = '', $orderBy = 'updated_at', $orderDir = 'desc'
 
         /* Calculate filters */
         $availableFilters = array();
+        $queryFilters['offset'] = null;
+        $queryFilters['page_size'] = null;
 
         if (!isset($activeFilters['category'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, category_id as item_id, category_name as label'))->groupBy('category_id')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $queryFilters['group_by'] = null;
+            $searchQuery = PublicationView::getSearchQuery($q, 'id', $queryFilters);
+            $queryCat = "SELECT COUNT( pc.category_id ) as total, pc.category_id as item_id, c.name as label FROM publications_categories pc JOIN categories AS c ON pc.category_id = c.id WHERE pc.publication_id IN ($searchQuery) GROUP BY pc.category_id ORDER BY label ASC";
+            $result = DB::select($queryCat);
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -225,7 +277,10 @@ class HomeController extends BaseController {
         }
 
         if (!isset($activeFilters['state'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, state_id as item_id, state as label'))->groupBy('state')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+            $queryFilters['group_by'] = null;
+            $searchQuery = PublicationView::getSearchQuery($q, 'id', $queryFilters);
+            $queryState = "SELECT COUNT( pc.id ) AS total, c.state_id AS item_id, s.name AS label FROM publications_contacts pc JOIN contacts c ON c.id = pc.contact_id JOIN states s ON s.id = c.state_id WHERE pc.publication_id IN ($searchQuery) GROUP BY state_id ORDER BY label ASC";
+            $result = DB::select($queryState);
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;
@@ -237,7 +292,13 @@ class HomeController extends BaseController {
         }
 
         if (!isset($activeFilters['seller'])){
-            $result = PublicationView::getSearch($q, 'label', 'asc')->select(DB::raw('count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label'))->groupBy('seller_name')->orderBy('label', 'asc')->published()->filter($activeFilters)->get();
+
+            $queryFilters['order_by'] = 'label';
+            $queryFilters['order_dir'] = 'asc';
+            $queryFilters['group_by'] = 'publisher_id';
+            $searchQuery = PublicationView::getSearchQuery($q, 'count(DISTINCT(id)) as total, id, publisher_id as item_id, seller_name as label', $queryFilters);
+
+            $result = DB::select($searchQuery);
             foreach ($result as $filter) {
                 $item = new stdClass;
                 $item->total = $filter->total;

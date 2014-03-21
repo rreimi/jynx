@@ -42,7 +42,24 @@ class PublicationView extends Eloquent {
     }
 
     public function scopeCategoriesWithPublications($query) {
-        $query->select('category_id', 'category_name', DB::raw('count(*) as publications_number'))->groupBy('category_id');
+
+        // las categorias de las publicaciones
+        $query->select('categories.id as category_id', 'categories.name as category_name', DB::raw('count(publications_view.id) as publications_number'));
+        $query->leftJoin('publications_categories','publications_view.id','=','publications_categories.publication_id');
+        $query->leftJoin('categories','publications_categories.category_id','=','categories.id');
+        $query->groupBy('categories.id');
+
+        /*
+        SELECT COUNT( pv.id ) AS total, c.id AS category_id, c.name
+        FROM publications_view pv
+        JOIN publications_categories pc ON pc.publication_id = pv.id
+        JOIN categories c ON pc.category_id = c.id
+        GROUP BY c.id */
+    }
+
+    public function scopeWithCategories($query, $categories) {
+        $query->leftJoin('publications_categories','publications_view.id','=','publications_categories.publication_id');
+        $query->whereIn('publications_categories.category_id', $categories);
     }
 
 
@@ -64,62 +81,131 @@ class PublicationView extends Eloquent {
     }
 
     public static function getSearch($q, $orderBy = 'visits_number', $orderDir = 'desc') {
-        /*
-         (SELECT p.*
-            FROM  `publications` AS p
-            JOIN category_publication AS cp ON p.id = cp.publication_id
-            WHERE cp.category_id
-            IN ( SELECT id FROM categories WHERE name LIKE  '%asdasadsdas%')
-            OR p.long_description LIKE '%carton%'
-
-            ) UNION (
-            SELECT p.*
-            FROM  `publications` AS p
-            JOIN publishers AS u ON p.publisher_id = u.id
-            WHERE u.seller_name LIKE  '%pepeasd%')
-         */
         $query = PublicationView::orderBy($orderBy, $orderDir);
-
         $tokens = explode(' ', $q);
-
         foreach ($tokens as $token) {
-
-
             $query->Where(function($query) use ($token)
             {
                 $query->orWhere('title', 'like', "%$token%")
                     //->orWhere('short_description', 'like', "%$token%")
                     ->orWhere('long_description', 'like', "%$token%")
                     ->orWhere('seller_name', 'like', "%$token%")
-                    ->orWhere('category_name', 'like', "%$token%")
+                    ->orWhere('categories', 'like', "%$token%")
                     ->orWhere('city', 'like', "%$token%")
                     ->orWhere('state', 'like', "%$token%")
+                    ->orWhere('contacts_state', 'like', "%$token%")
+                    ->orWhere('contacts_city', 'like', "%$token%")
                     ->orWhere('contacts', 'like', "%$token%");
             });
-
-//            $query->orWhere('title', 'like', "%$token%")
-//                ->orWhere('short_description', 'like', "%$token%")
-//                ->orWhere('long_description', 'like', "%$token%")
-//                ->orWhere('seller_name', 'like', "%$token%")
-//                ->orWhere('categories_name', 'like', "%$token%")
-//                ->orWhere('city', 'like', "%$token%")
-//                ->orWhere('state', 'like', "%$token%");
         }
 
         return $query;
+    }
 
-//        return PublicationView::select('*')
-////            ->leftjoin('publications_categories', 'publications.id', '=', 'publications_categories.publication_id')
-////            ->whereIn('publications_categories.category_id', $cats)
-//            ->orWhere('title', 'like', "%$q%")
-//            ->orWhere('short_description', 'like', "%$q%")
-//            ->orWhere('long_description', 'like', "%$q%")
-//            ->orWhere('seller_name', 'like', "%$q%")
-//            ->orWhere('categories_name', 'like', "%$q%")
-//            ->orWhere('city', 'like', "%$q%")
-//            ->orWhere('state', 'like', "%$q%")
-//            ;
+    public static function getSearchQuery($q, $fields = '*', $filters = array()) {
 
+        $query = "SELECT $fields from publications_view ";
+
+        $wheres = 0;
+
+        if ($q != "") {
+            $tokens = explode(' ', $q);
+            if (count($tokens) > 0) {
+                $query .= "WHERE (";
+                $wheres++;
+                $c = 0;
+                foreach ($tokens as $token) {
+
+                    if ($c > 0){
+                        $query .= " OR";
+                    }
+
+                    $query .= " title LIKE '%$token%' OR";
+                    $query .= " long_description LIKE '%$token%' OR";
+                    $query .= " seller_name LIKE '%$token%' OR";
+                    $query .= " categories LIKE '%$token%' OR";
+                    $query .= " city LIKE '%$token%' OR";
+                    $query .= " contacts_state LIKE '%$token%' OR";
+                    $query .= " contacts_city LIKE '%$token%' OR";
+                    $query .= " contacts LIKE '%$token%'";
+                }
+                $query .= ")";
+            }
+        }
+
+        if ($wheres == 0) {
+            $wheres++;
+            $query .= ' WHERE ';
+        } else {
+            $query .= ' AND ';
+        }
+
+        $query .= " status = '" . Publication::STATUS_PUBLISHED . "'";
+        /* Filters */
+
+        if (count($filters) > 0) {
+
+            if (isset($filters['state'])){
+                if ($wheres == 0) {
+                    $wheres++;
+                    $query .= ' WHERE ';
+                } else {
+                    $query .= ' AND ';
+                }
+                $query .= ' FIND_IN_SET (' . intval($filters['state']) . ',contacts_states_id)';
+            }
+
+            if (isset($filters['category'])){
+                if ($wheres == 0) {
+                    $wheres++;
+                    $query .= ' WHERE ';
+                } else {
+                    $query .= ' AND ';
+                }
+                $query .= ' FIND_IN_SET (' . intval($filters['category']) . ',categories_id)';
+            }
+
+            if (isset($filters['seller'])){
+
+                if ($wheres == 0) {
+                    //$wheres++; uncomment if there is a new condition
+                    $query .= ' WHERE ';
+                } else {
+                    $query .= ' AND ';
+                }
+
+                $query .= ' publisher_id = ' . intval($filters['seller']);
+            }
+        }
+
+        $activeFilters['order_by'] = 'updated_at';
+        $activeFilters['order_dir'] = 'desc';
+
+        /* Group by */
+        if (isset($filters['group_by'])) {
+            $query .= " GROUP BY " . $filters['group_by'];
+        }
+
+        if (isset($filters['order_by'])) {
+            $query .= " ORDER BY " . $filters['order_by'];
+
+            if (isset($filters['order_dir'])) {
+                $query .= ' ' . $filters['order_dir'];
+            }
+        }
+
+        //Pagination
+        if (isset($filters['page_size'])) {
+            $query .= " LIMIT ";
+
+            if (isset($filters['offset'])) {
+                $query .= $filters['offset'] . ',' . $filters['page_size'];
+            } else {
+                $query .= $filters['page_size'];
+            }
+        }
+
+        return $query;
     }
 
 }
