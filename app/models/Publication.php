@@ -11,7 +11,7 @@ class Publication extends Eloquent {
 
     protected $fillable = array('title', 'short_description',
         'long_description', 'status', 'from_date',
-        'to_date', 'publisher_id', 'remember', 'latitude', 'longitude', 'show_pub_as_contact');
+        'to_date', 'publisher_id', 'remember', 'latitude', 'longitude');
 
     public function scopeMostvisited($query, $pageSize){
         $query->orderBy('visits_number', 'desc')->with('publisher', 'images')->take($pageSize);

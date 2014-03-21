@@ -1199,3 +1199,6 @@ div#home-banner-top .carousel-control {
     padding-top: 0;
 }
 
+.stats .stats-column input:hover {
+    cursor: pointer;
+}

@@ -186,7 +186,9 @@ class RatingController extends BaseController{
                 $html .= '<div class="head">';
                 $html .= RatingHelper::getRatingBar($rating->vote);
                 $html .= '<div class="info">';
-                $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                if (!is_null($rating->user)) {
+                    $html .= '<span class="nickname">' . $rating->user->full_name .'</span>';
+                }
                 $originalDate = $rating->created_at;
                 $newDate = date("d-m-Y", strtotime($originalDate));
                 $html .= '<span class="date">' . $newDate .'</span>';

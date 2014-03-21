@@ -6,6 +6,11 @@ class ReportController extends BaseController {
     private $page_size = '10';
     private $listSort = array('id', 'comment', 'date', 'status');
 
+    public function __construct() {
+        $this->beforeFilter('auth');
+        $this->beforeFilter('admin');
+    }
+
     /**
      * @ajax
      *
@@ -201,7 +206,7 @@ class ReportController extends BaseController {
 
         //Status filter
         if (!empty($state['filter_status'])){
-            $reports->where('status', '=', $state['filter_status']);
+            $reports->where('publications_reports.status', '=', $state['filter_status']);
         }
 
         //Publisher filter

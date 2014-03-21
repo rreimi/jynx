@@ -251,30 +251,32 @@
         </tr>
         @endif
         @foreach ($user->publisher->contacts as $contact)
-        <tr>
-            <td>{{ $contact->full_name }}</td>
-            <td>{{ $contact->email }}</td>
-            <td>
-                {{ $contact->phone }}
-                @if($contact->other_phone)
-                , {{ $contact->other_phone }}
-                @endif
-            </td>
-            <td>{{ $contact->city }}</td>
-            <td class="table-cell-controls">
-                <div class="btn-group">
-                    <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
-                        <i class="icon-search"></i>
-                    </a>
-                    <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
-                        <i class="icon-pencil"></i>
-                    </a>
-                    <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
-                        <i class="icon-trash"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
+            @if (!$contact->isMainContact())
+            <tr>
+                <td>{{ $contact->full_name }}</td>
+                <td>{{ $contact->email }}</td>
+                <td>
+                    {{ $contact->phone }}
+                    @if($contact->other_phone)
+                    , {{ $contact->other_phone }}
+                    @endif
+                </td>
+                <td>{{ $contact->city }}</td>
+                <td class="table-cell-controls">
+                    <div class="btn-group">
+                        <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
+                            <i class="icon-search"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
@@ -286,7 +288,7 @@
 
     <div class="control-group">
         <div class="controls">
-            <a href="{{ URL::to('perfil') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
+            <a href="{{ URL::to('/') }}" class="btn">{{ Lang::get('content.cancel') }}</a>
             <button type="submit" class="btn btn-success">{{ Lang::get('content.save') }}</button>
         </div>
     </div>

@@ -20,9 +20,9 @@ class CronController extends BaseController {
             ;
         })->get();
 
-//        foreach ($publications as $publication) {
-//            Cache::forget(CacheHelper::$PUBLICATION . $publication->id);
-//        }
+        foreach ($publications as $publication) {
+            Cache::forget(CacheHelper::$PUBLICATION . $publication->id);
+        }
 
         if (count($publications) > 0){
             Cache::forget(CacheHelper::$PUBLICATIONS_MOST_RECENT);
