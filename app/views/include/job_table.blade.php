@@ -23,10 +23,10 @@
                         @if(!Auth::user())
                             {{ HTML::image('img/default_image_130.jpg')}}
                         @else
-                            @if(!is_null($job->publisher))
-                            {{ HTML::image(UrlHelper::imageUrl($job->publisher->avatar, '_' . $thumbSize['width']))}}
+                            @if(!is_null($job->publisher) && !is_null($job->publisher->avatar))
+                                {{ HTML::image(UrlHelper::imageUrl($job->publisher->avatar, '_' . $thumbSize['width']))}}
                             @else
-                            {{ HTML::image('img/default_image_130.jpg')}}
+                                {{ HTML::image('img/default_image_130.jpg')}}
                             @endif
                         @endif
                     </a>
