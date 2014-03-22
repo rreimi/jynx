@@ -732,6 +732,7 @@ return array(
     "more"=>"Mas información",
 
     "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
+    "suspended_user" => "Su usuario ha sido suspendido por el Administrador de TuMercato, si desea mayor información o esto es un error, por favor comuníquese con nosotros a través de la sección de <a href='" . URL::to('contactanos') . "'>contacto</a>",
     "jobs_areas_required" => "El campo áreas es requerido.",
     "year_experience" => " :number año|[2,5] :number años| >:number años",
     "month" => ":number mes|:number meses",

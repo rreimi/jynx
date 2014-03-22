@@ -17,18 +17,16 @@ class LoginController extends BaseController{
     public function postIndex(){
 
         $rules = array(
-            'login_email' => 'required|email|exists:users,email,status,Active',
+            'login_email' => 'required|email|exists:users,email',
             'login_password' => 'required'
         );
 
         $messages= array(
-            'login_email.exists' => Lang::get('content.inactive_user')
+            'login_email.exists' => Lang::get('content.login_error')
         );
 
         $validator = Validator::make(Input::all(),$rules,$messages);
-
         if($validator->fails()){
-
             if (Request::ajax())
             {
                 $result = new stdClass;
@@ -44,6 +42,38 @@ class LoginController extends BaseController{
             }
         }
 
+        //Bussiness Logic validation rules
+        $user = User::where('email',Input::get('login_email'))->first();
+
+        if ($user) {
+            if ($user->status != User::STATUS_ACTIVE) {
+
+                if ($user->status == User::STATUS_INACTIVE) {
+                    $validator->errors()->add('login_process',Lang::get('content.inactive_user'));
+                }
+
+                if ($user->status == User::STATUS_SUSPENDED) {
+                    $validator->errors()->add('login_process',Lang::get('content.suspended_user'));
+                }
+
+                //throw error
+                if (Request::ajax())
+                {
+                    $result = new stdClass;
+                    $result->status = "error";
+                    $result->status_code = "validation";
+                    $result->errors = array();
+                    foreach ($validator->messages()->getMessages() as $msg) {
+                        $result->errors[] =$msg[0];
+                    }
+                    return Response::json($result, 400);
+                } else {
+                    return Redirect::to('login')->withErrors($validator)->withInput(Input::all());
+                }
+            }
+        }
+
+        //Try to auth
         if (Auth::attempt(
             array(
                 'email' => Input::get('login_email'),
@@ -51,6 +81,9 @@ class LoginController extends BaseController{
             ),
             Input::get('login_remember')!=null)
         ){
+
+
+            Auth::user();
 
             if (Request::ajax())
             {
