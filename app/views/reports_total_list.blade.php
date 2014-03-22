@@ -37,8 +37,11 @@
                 @foreach ($reports as $key => $rep)
                     <tr>
                         <td>{{ $rep->user['full_name'] }}</td>
-                        <td>{{ $rep->date }}</td>
-                        <td>{{ $rep->final_status }}</td>
+                        <td>{{ date(Lang::get('content.date_format_php'),strtotime($rep->date)) }}</td>
+                        <td>@if (!empty($rep->final_status))
+                                {{ date(Lang::get('content.date_format_php'),strtotime($rep->final_status)) }}
+                            @endif
+                        </td>
                         <td>{{ $rep->publication['title'] }}</td>
                         <td>{{ $rep->publication['publisher']['seller_name'] }}</td>
                         <td>{{ $rep->reports_in_publication }}</td>

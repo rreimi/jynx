@@ -43,7 +43,7 @@
                         {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
                     </div>
                     <div class="control-group {{ $errors->has('publisher_media')? 'error':'' }}">
-                        {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level required')) }}
+                        {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level')) }}
                     </div>
                     <div class="row-fluid">
                         <div class="span6">

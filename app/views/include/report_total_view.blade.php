@@ -3,7 +3,7 @@
     <b>{{ Lang::get('content.backend_report_user') }}:</b> {{ $report->user->full_name }}
 </p>
 <p>
-    <b>{{ Lang::get('content.backend_report_date_created') }}:</b> {{ $report->date }}
+    <b>{{ Lang::get('content.backend_report_date_created') }}:</b> {{ date(Lang::get('content.date_format_php'),strtotime($report->date)) }}
 </p>
 <p>
     <b>{{ Lang::get('content.backend_report_date_resolved') }}:</b> {{ $report->final_status }}

@@ -262,7 +262,6 @@ class RegisterController extends BaseController{
             'publisher_id' => 'required',
             'publisher_type' => 'required',
             'publisher_seller' => 'required',
-            'publisher_media' => 'required',
             'publisher_state' => 'required',
             'publisher_city' => 'required',
             'publisher_phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
