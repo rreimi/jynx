@@ -139,4 +139,20 @@ class BaseController extends Controller {
         return $adminEmails;
     }
 
+    public function sendSuspendedEmail($email, $fullName){
+        $receiver = array(
+            'email' => $email,
+            'name' => $fullName,
+        );
+
+        $data = array(
+            'contentEmail' => 'user_suspended',
+            'userName' => $fullName,
+        );
+
+        $subject = Lang::get('content.email_user_suspended');
+
+        self::sendMail('emails.layout_email', $data, $receiver, $subject);
+    }
+
 }
