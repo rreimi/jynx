@@ -118,16 +118,18 @@ class PublicationView extends Eloquent {
 
                     if ($c > 0){
                         $query .= " OR";
+
                     }
 
-                    $query .= " title LIKE '%$token%' OR";
-                    $query .= " long_description LIKE '%$token%' OR";
-                    $query .= " seller_name LIKE '%$token%' OR";
-                    $query .= " categories LIKE '%$token%' OR";
-                    $query .= " city LIKE '%$token%' OR";
-                    $query .= " contacts_state LIKE '%$token%' OR";
-                    $query .= " contacts_city LIKE '%$token%' OR";
-                    $query .= " contacts LIKE '%$token%'";
+                    $query .= " title LIKE '%$token%'";
+                    $query .= " OR long_description LIKE '%$token%'";
+                    $query .= " OR seller_name LIKE '%$token%'";
+                    $query .= " OR categories LIKE '%$token%'";
+                    $query .= " OR city LIKE '%$token%'";
+                    $query .= " OR contacts_state LIKE '%$token%'";
+                    $query .= " OR contacts_city LIKE '%$token%'";
+                    $query .= " OR contacts LIKE '%$token%'";
+                    $c++;
                 }
                 $query .= ")";
             }
