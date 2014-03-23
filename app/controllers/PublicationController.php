@@ -138,7 +138,7 @@ class PublicationController extends BaseController {
             $publications->where(function($query) use ($q)
             {
                 $query->orWhere('title', 'LIKE', '%' . $q . '%')
-                    ->orWhere('category_name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('categories', 'LIKE', '%' . $q . '%')
                     ->orWhere('from_date', 'LIKE', '%' . $q . '%')
                     ->orWhere('to_date', 'LIKE', '%' . $q . '%')
                 ;
