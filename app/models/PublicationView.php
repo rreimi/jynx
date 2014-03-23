@@ -210,6 +210,9 @@ class PublicationView extends Eloquent {
         return $query;
     }
 
+    /**
+     * SELECT AVG(quantity) FROM (SELECT p.id, p.publisher_id, COUNT(id) as quantity FROM `publications_view` AS p GROUP BY p.`publisher_id` HAVING COUNT(p.id)) as b
+     */
     public function scopeAveragePublicationsByPublisher($query){
 
         $query->select(DB::raw('AVG(sub_query.quantity) as average'))
