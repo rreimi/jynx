@@ -23,4 +23,5 @@ CREATE OR REPLACE ALGORITHM = UNDEFINED VIEW publications_view AS
     LEFT JOIN publications_reports AS r ON r.publication_id = p.id
     LEFT JOIN publications_images AS i ON p.publication_image_id = i.id
     LEFT JOIN publications_ratings AS a ON a.publication_id = p.id
+  where p.deleted_at IS NULL
   GROUP BY p.id

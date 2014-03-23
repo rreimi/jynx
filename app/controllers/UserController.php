@@ -325,8 +325,12 @@ class UserController extends BaseController {
             self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
         }
 
-        return Redirect::to('usuario/'. $action);
 
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
+        return Redirect::to('usuario/lista');
     }
 
     private static function getUserStatuses($blankCaption = '') {
