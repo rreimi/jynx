@@ -806,13 +806,16 @@ class PublicationController extends BaseController {
                 'userAdminId' => Auth::user()->id));
         }
 
-
         if ($result){
             self::addFlashMessage(null, Lang::get('content.delete_publication_success'), 'success');
         } else {
             self::addFlashMessage(null, Lang::get('content.delete_publication_error'), 'error');
         }
 
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
         return Redirect::to('publicacion/'. $action);
 
     }

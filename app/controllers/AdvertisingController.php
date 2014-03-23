@@ -177,6 +177,10 @@ class AdvertisingController extends BaseController {
             self::addFlashMessage(null, Lang::get('content.delete_advertising_error'), 'error');
         }
 
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
         return Redirect::to('publicidad/'. $action);
 
     }
