@@ -8,24 +8,51 @@ class StatsController extends BaseController {
     }
 
     public function getIndex(){
+        // Cantidad total del usuarios
         $data['users'] = User::count();
 
+        // Cantidad de usuarios con rol basico y que no estan optando por ser anunciantes (is_publisher = 0)
         $data['users_basic'] = User::roleBasic()->count();
 
-        $data['users_publisher'] = User::rolePublisher()->count();
+        // Cantidad total de publishers
+//        $data['users_publisher'] = User::rolePublisher()->count();
 
+        // Cantidad total de publishes
+        $data['publishers'] = Publisher::count();
+
+        // Publishers con permiso para publicar (status approved)
+        $data['publishers_approved'] = Publisher::statusApproved()->count();
+
+        // Usuarios aspirando a ser anunciantes
         $data['users_to_approve'] = User::toApprove()->count();
 
+        // Anunciantes que tienen al menos una publicacion
+        // Nota: si se quita el get no trae el nro correcto.
+        $data['publishers_with_publications'] = Publisher::withPublications()->get()->count();
+
+        // Cantidad total de publicaciones
+        $data['publications'] =  PublicationView::count();
+
+        // Publicaciones Activas
+        $data['publications_published'] = PublicationView::published()->count();
+
+        // Promedio de publicaciones por anunciante
+        $average = PublicationView::averagePublicationsByPublisher()->get()[0]->average;
+        $data['avg_publications_by_publisher'] = number_format((float)$average, 2, '.', '');
+
+        // Publicaciones Suspendidas
+        $data['publications_suspended'] = PublicationView::suspended()->count();
+
+        // Cantidad total de reportes
         $data['reports_total'] = PublicationReport::count();
 
+        // Reportes con status pending
         $data['reports'] = PublicationReport::pendingReports()->count();
 
-        $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
+//        $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
 
         // Denuncias totales que son válidas o se ha tomado una acción
         $data['reports_valid_or_action'] = PublicationReport::validOrActionReports()->count();
-
-        $data['publications'] = PublicationView::published()->count();
 
         $elements = DB::table('categories')
             ->join('publications_categories','categories.id','=','publications_categories.category_id')
