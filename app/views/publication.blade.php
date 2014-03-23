@@ -96,9 +96,11 @@
                 @foreach ($publication->contacts as $contact)
                     <div class="contact">
                         <div class="block">
-                            <p class="pub-name">{{ $contact->full_name }}
-                                <b>@if (isset($contact->distributor)) - {{ $contact->distributor }} @endif</b>
-                            <p/>
+                            @if ($contact->full_name || $contact->distributor)
+                                <p class="pub-name">{{ $contact->full_name }}
+                                    <b>@if (isset($contact->distributor)) {{ (($contact->full_name)?'- ':''). $contact->distributor }} @endif</b>
+                                <p/>
+                            @endif
                             @if (Auth::check())
                                 <p class="pub-email">{{Lang::get('content.user_email')}}: <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
                             @endif
@@ -112,8 +114,8 @@
                             </p>
                             @if ($contact->state_id || $contact->city || $contact->address)
                             <p class="pub-location">{{Lang::get('content.location')}}:
-                                @if ($contact->state_id) {{ $contact->state->name }}, @endif
-                                @if ($contact->city) {{ $contact->city }}, @endif
+                                @if ($contact->state_id) {{ $contact->state->name.(($contact->city || $contact->address)?',':'') }} @endif
+                                @if ($contact->city) {{ $contact->city.(($contact->address)?',':'') }} @endif
                                 @if ($contact->address) {{ $contact->address }} @endif
                             </p>
                             @endif

@@ -192,9 +192,11 @@
             @endif
 
             @foreach ($contacts as $contact)
-
                 <label class="checkbox">
-                    {{ $contact->full_name . ', ' . $contact->city . ', ' . $contact->address . ', ' . $contact->phone }} @if ($contact->isMainContact()) <small>({{ Lang::get('content.main_contact') }})</small> @endif
+                    {{ !empty($contact->full_name) ? $contact->full_name .',' : '' }}
+                    {{ !empty($contact->city) ? $contact->city .',' : '' }}
+                    {{ !empty($contact->address) ? $contact->address .',' : '' }}
+                    {{ $contact->phone }} @if ($contact->isMainContact()) <small>({{ Lang::get('content.main_contact') }})</small> @endif
                     {{ Form::checkbox('contacts[]', $contact->id, in_array($contact->id, (array) $publication_contacts), array('class' => 'chk-contact')) }} {{ $contact->name }}
                 </label>
             @endforeach
