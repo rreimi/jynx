@@ -20,8 +20,13 @@ class PublisherObserver {
             $contact = new Contact();
         }
 
+        if ($publisher->user){
+            $contact->email = $publisher->user->email;
+        } else {
+            $contact->email = '-';
+        }
+
         $contact->full_name = $publisher->seller_name;
-        $contact->email = $publisher->user->email;
         $contact->phone = $publisher->phone1;
         $contact->other_phone = $publisher->phone2;
         $contact->state_id = $publisher->state_id;

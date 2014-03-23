@@ -32,4 +32,15 @@ class CronController extends BaseController {
         $job->touch(); //update last execution
     }
 
+    public function getUpdatePublishers(){
+        $publishers = Publisher::get();
+        foreach ($publishers as $publisher) {
+            if (!$publisher->getMainContact()) {
+                $publisher->save();
+                echo 'generated publisher main contact for: ' . $publisher->id . '<br/>';
+            }
+        }
+        die('done');
+    }
+
 }
