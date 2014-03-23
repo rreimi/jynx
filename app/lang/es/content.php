@@ -464,7 +464,7 @@ return array(
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
-    "filter_publications_with_reports" => 'Publicaciones con reportes:',
+    "filter_publications_with_reports" => 'Publicaciones con denuncias:',
     "filter_report_reporter" => 'Denunciante:',
     "filter_report_publication" => 'Publicación:',
     "filter_report_publisher" => 'Anunciante:',
