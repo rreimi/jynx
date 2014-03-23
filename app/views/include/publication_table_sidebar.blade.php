@@ -35,10 +35,11 @@
             @endif
 
             <div class="control-group">
-                <label class="control-label text-left" for="filter_publications_with_reports">{{ Lang::get('content.filter_publications_with_reports') }}</label>
-                <div class="controls">
+                <label class="control-label text-left float-left" for="filter_publications_with_reports">{{ Lang::get('content.filter_publications_with_reports') }}</label>
+                <div class="controls float-left publication-reports-filter">
                     {{ Form::checkbox('filter_publications_with_reports', $state['filter_publications_with_reports'], $state['filter_publications_with_reports'], array('id' => 'filter_publications_with_reports' ,'class' => 'input checked-checkbox')) }}
                 </div>
+                <div class="clear-both"></div>
             </div>
 
             <div class="control-group">

@@ -372,6 +372,10 @@ class AdvertiserController extends BaseController {
             self::addFlashMessage(null, Lang::get('content.delete_advertiser_error'), 'error');
         }
 
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
         return Redirect::to('anunciante/'. $action);
 
     }

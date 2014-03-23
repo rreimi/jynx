@@ -464,7 +464,7 @@ return array(
     "filter_publication_publisher"=> 'Anunciante:',
     "filter_publication_category" => 'Categoría:',
     "filter_publication_status" => 'Estatus:',
-    "filter_publications_with_reports" => 'Publicaciones con reportes:',
+    "filter_publications_with_reports" => 'Publicaciones con denuncias:',
     "filter_report_reporter" => 'Denunciante:',
     "filter_report_publication" => 'Publicación:',
     "filter_report_publisher" => 'Anunciante:',
@@ -733,6 +733,7 @@ return array(
     "more"=>"Mas información",
 
     "inactive_user" => "Por favor, verifica tu correo y activa tu usuario.",
+    "suspended_user" => "Su usuario ha sido suspendido por el Administrador de TuMercato, si desea mayor información o esto es un error, por favor comuníquese con nosotros a través de la sección de <a href='" . URL::to('contactanos') . "'>contacto</a>",
     "jobs_areas_required" => "El campo áreas es requerido.",
     "year_experience" => " :number año|[2,5] :number años| >:number años",
     "month" => ":number mes|:number meses",

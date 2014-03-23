@@ -37,7 +37,7 @@ class Publisher extends Eloquent {
     }
 
     public function user(){
-        return $this->hasOne('User','id');
+        return $this->belongsTo('User');
     }
 
     public function getMainContact(){
