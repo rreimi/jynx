@@ -22,7 +22,7 @@
                 <li class="span4">
                     <a href="{{ URL::to('anunciante/lista')}}">
                         <div class="thumbnail stats-column">
-                            <input type="text" value="{{ $users_publisher }}" class="dial users" data-max="{{ $users }}"/>
+                            <input type="text" value="{{ $publishers_approved }}" class="dial users" data-max="{{ $publishers }}"/>
                             <div class="caption">
                                 <h4>{{ Lang::get('content.stats_users_publisher') }}</h4>
                                 <p>{{ Lang::get('content.stats_description_users_publisher') }}</p>
@@ -47,10 +47,46 @@
                 <li class="span4">
                     <a href="{{ URL::to('publicacion/lista')}}">
                         <div class="thumbnail stats-column">
-                            <input type="text" value="{{ $publications }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
+                            <input type="text" value="{{ $publishers_with_publications }}" class="dial users" data-max="{{ $publishers }}"/>
+                            <div class="caption">
+                                <h4>{{ Lang::get('content.stats_publishers_with_publications') }}</h4>
+                                <p>{{ Lang::get('content.stats_description_publishers_with_publications') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="{{ URL::to('publicacion/lista?filter_status='.Publication::STATUS_PUBLISHED)}}">
+                        <div class="thumbnail stats-column">
+                            <input type="text" value="{{ $publications_published }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
                             <div class="caption">
                                 <h4>{{ Lang::get('content.stats_publications') }}</h4>
                                 <p>{{ Lang::get('content.stats_description_publications') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="{{ URL::to('publicacion/lista')}}">
+                        <div class="thumbnail stats-column">
+                            <input type="text" value="{{ $avg_publications_by_publisher }}" class="dial publications" data-max="{{ $avg_publications_by_publisher }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
+                            <div class="caption">
+                                <h4>{{ Lang::get('content.stats_avg_publications_by_publishers') }}</h4>
+                                <p>{{ Lang::get('content.stats_description_avg_publications_by_publishers') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="thumbnails stats-row">
+                <li class="span4">
+                    <a href="{{ URL::to('publicacion/lista?filter_status='.Publication::STATUS_SUSPENDED)}}">
+                        <div class="thumbnail stats-column">
+                            <input type="text" value="{{ $publications_suspended }}" class="dial publications" data-max="{{ $publications }}" data-fgColor="#0AA25A" data-inputColor="#0AA25A"/>
+                            <div class="caption">
+                                <h4>{{ Lang::get('content.stats_publications_suspended') }}</h4>
+                                <p>{{ Lang::get('content.stats_description_publications_suspended') }}</p>
                             </div>
                         </div>
                     </a>

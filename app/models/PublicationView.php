@@ -210,4 +210,19 @@ class PublicationView extends Eloquent {
         return $query;
     }
 
+    public function scopeAveragePublicationsByPublisher($query){
+
+        $query->select(DB::raw('AVG(sub_query.quantity) as average'))
+
+            ->join(DB::raw('(SELECT id, publisher_id, count(id) quantity FROM publications_view GROUP BY publisher_id HAVING COUNT(id)) AS sub_query'), function($join)
+            {
+                $join->on('publications_view.id', '=', 'sub_query.id');
+            });
+
+    }
+
+    public function scopeSuspended($query){
+        return $query->where('status', Publication::STATUS_SUSPENDED);
+    }
+
 }
