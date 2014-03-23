@@ -80,7 +80,7 @@ class RatingController extends BaseController{
                 'name' => $publisher->full_name,
             );
 
-            $data = array(
+            $dataEmail = array(
                 'contentEmail' => 'publisher_new_comment',
                 'publisherName' => $publisher->full_name,
                 'userName' => Auth::user()->full_name,
@@ -91,10 +91,10 @@ class RatingController extends BaseController{
 
             $subject = Lang::get('content.email_publisher_new_comment');
 
-            self::sendMail('emails.layout_email', $data, $receiver, $subject);
+            self::sendMail('emails.layout_email', $dataEmail, $receiver, $subject);
 
             // Calculate rating average for the publication related to this rating
-            Queue::later(60, 'PublicationRatingAvg', $data->publication_id);
+            Queue::later(60, 'PublicationRatingAvg', array('publication_id' => $data->publication_id));
 
             $result->status = "success";
             $result->status_code = "rating_success";
