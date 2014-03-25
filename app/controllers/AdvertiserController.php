@@ -224,6 +224,21 @@ class AdvertiserController extends BaseController {
             'categories' => Input::get('categories'),
         );
 
+        $valueSuggestProducts = Input::get('publisher_suggest_products');
+        $advertiserData['suggest_products'] = isset($valueSuggestProducts) ? true : false;
+        if ($advertiserData['suggest_products']){
+            $advertiserData['suggested_products'] = Input::get('publisher_suggested_products');
+        } else {
+            $advertiserData['suggested_products'] = '';
+        }
+        $valueSuggestServices = Input::get('publisher_suggest_services');
+        $advertiserData['suggest_services'] = isset($valueSuggestServices) ? true : false;
+        if ($advertiserData['suggest_services']){
+            $advertiserData['suggested_services'] = Input::get('publisher_suggested_services');
+        } else {
+            $advertiserData['suggested_services'] = '';
+        }
+
         if (Input::file('publisher_avatar')){
             $advertiserData['avatar'] = Input::file('avatar');
         }
@@ -245,6 +260,13 @@ class AdvertiserController extends BaseController {
             'web' => 'url',
             'avatar' => 'image',
         );
+
+        if ($advertiserData['suggest_products']){
+            $rules['suggested_products'] = 'required';
+        }
+        if ($advertiserData['suggest_services']){
+            $rules['suggested_services'] = 'required';
+        }
 
         if (Input::get('id') != null && Input::get('id') != ""){
             $advertiserData['role'] = Input::get('role');
@@ -342,6 +364,10 @@ class AdvertiserController extends BaseController {
         $advertiser->address = $advertiserData['address'];
         $advertiser->phone1 = $advertiserData['phone1'];
         $advertiser->phone2 = $advertiserData['phone2'];
+        $advertiser->suggest_products = $advertiserData['suggest_products'];
+        $advertiser->suggested_products = $advertiserData['suggested_products'];
+        $advertiser->suggest_services = $advertiserData['suggest_services'];
+        $advertiser->suggested_services = $advertiserData['suggested_services'];
         $advertiser->media = $advertiserData['media'];
         $advertiser->web = $advertiserData['web'];
         

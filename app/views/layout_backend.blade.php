@@ -57,6 +57,7 @@
     {{ HTML::script('js/footer.js') }}
     {{ HTML::script('js/messages_es.js') }}
     {{ HTML::script('js/jquery.maskedinput.min.js') }}
+    {{ HTML::style('css/bootstrap-tagsinput.css') }}
     @show
 
     @if (!is_null(Session::get('flash_global_message')))

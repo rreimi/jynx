@@ -213,7 +213,7 @@
                         <a href="#" class="btn fileupload-exists remove-avatar-button" data-dismiss="fileupload">{{ Lang::get('content.fileuploader_remove') }}</a>
                     </div>
                 </div>
-                {{ $errors->first('publisher_avatar', '<div class="field-error alert alert-error">:message</div>') }}
+                {{ $errors->first('avatar', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -233,6 +233,17 @@
                     </label>
                 </li>
                 @endforeach
+
+                <div class="suggest-section suggest-products">
+                    <div class="selection">
+                        {{ Form::checkbox('publisher_suggest_products', Input::old('publisher_suggest_products'), $user->publisher->suggest_products) }}
+                        <label class="description">{{ Lang::get('content.profile_suggest_products_label') }}</label>
+                    </div>
+                    <div class="suggestions hide">
+                        {{ Form::text('publisher_suggested_products', $user->publisher->suggested_products, array('data-role' => 'tagsinput','class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
+                        {{ $errors->first('suggested_products', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
             </ul>
 
             <ul class="float-left">
@@ -244,7 +255,19 @@
                     </label>
                 </li>
                 @endforeach
+
+                <div class="suggest-section suggest-services">
+                    <div class="selection">
+                        {{ Form::checkbox('publisher_suggest_services', Input::old('publisher_suggest_services'), $user->publisher->suggest_services) }}
+                        <label class="description">{{ Lang::get('content.profile_suggest_services_label') }}</label>
+                    </div>
+                    <div class="suggestions hide">
+                        {{ Form::text('publisher_suggested_services', $user->publisher->suggested_services, array('data-role' => 'tagsinput','class' => 'input-xlarge tessst','placeholder'=> Lang::get('content.profile_placeholder_add_suggest'))) }}
+                        {{ $errors->first('suggested_services', '<div class="field-error alert alert-error">:message</div>') }}
+                    </div>
+                </div>
             </ul>
+
         </div>
 
         <h2 id="contactos">{{Lang::get('content.advertiser_edit_contacts')}}
@@ -368,6 +391,7 @@
 
 @section('scripts')
 @parent
+{{ HTML::script('js/bootstrap-tagsinput.min.js') }}
 <script type="text/javascript">
     jQuery(document).ready(function(){
         var publisherType = jQuery('.publisher_type');
@@ -430,9 +454,6 @@
             jQuery("input:password").attr('disabled', 'disabled');
         }
 
-        // Phone mask
-        jQuery('.phone-number-format').mask("9999-9999999");
-
         jQuery('.status_publisher').bind("change", function(){
             if (jQuery('select.status_publisher').val() == '{{ Publisher::STATUS_SUSPENDED }}'){
                 jQuery('.advertiser-status-publisher-warning').show();
@@ -464,6 +485,12 @@
                 '{{ URL::to('contacto/eliminar/') }}' + '/' + jQuery(this).data('id') + '?referer={{ URL::full() }}'
             );
         });
+
+        // Manage suggest sections
+        Mercatino.prepareSuggestions();
+
+        // Phone mask
+        jQuery('.phone-number-format').mask("9999-9999999");
     });
 </script>
 @stop

@@ -436,53 +436,12 @@
         });
 
         // Manage suggest sections
-        jQuery('.suggest-products .selection input[type=checkbox]').each(function(i,object){
-            console.log('each');
-            refreshSuggest(this, '.suggest-products');
-        });
-
-        jQuery('.suggest-services .selection input[type=checkbox]').each(function(i,object){
-            console.log('each');
-            refreshSuggest(this, '.suggest-services');
-        });
-
-        jQuery('.suggest-products .selection input[type=checkbox]').change(function(){
-            console.log('change products');
-            refreshSuggest(this, '.suggest-products');
-        });
-
-        jQuery('.suggest-services .selection input[type=checkbox]').change(function(){
-            console.log('change services');
-            refreshSuggest(this, '.suggest-services');
-        });
-
-        jQuery('.suggest-section .suggestions input').change(function(){
-            var e = jQuery.Event( "keydown", { which: 13 } );
-            jQuery(this).trigger(e);
-        });
+        Mercatino.prepareSuggestions();
 
         // Phone mask
         jQuery('.phone-number-format').mask("9999-9999999");
 
     });
-
-    function refreshSuggest(element, base){
-        console.log('refresh');
-        var baseCss = null;
-        if (base != null){
-            baseCss = base;
-        } else {
-            baseCss = '.suggest-section';
-        }
-
-        var value = jQuery(element).prop('checked');
-        if (value){
-            jQuery(baseCss + ' .suggestions').removeClass('hide');
-            jQuery(baseCss + ' .suggestions input').removeClass('hide');
-        } else {
-            jQuery(baseCss + ' .suggestions').addClass('hide');
-        }
-    }
 
 </script>
 @stop
