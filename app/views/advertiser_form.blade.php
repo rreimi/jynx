@@ -8,21 +8,14 @@
 
 <div class="row-fluid">
 
-    {{ Form::open(array('url' => 'anunciante/guardar', 'method' => 'post', 'class' => 'form-horizontal advertiser-form')) }}
+    {{ Form::open(array('url' => 'anunciante/guardar', 'method' => 'post', 'class' => 'form-horizontal advertiser-form', 'enctype' => 'multipart/form-data')) }}
         @if (!isset($user->id))
         <h1>{{Lang::get('content.new_advertiser')}}</h1>
         @else
         <h1>{{Lang::get('content.edit_advertiser')}}: {{ $user->full_name }}</h1>
         @endif
 
-        <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
-            <label class="control-label required-field" for="name">{{ Lang::get('content.user_name') }}</label>
-            <div class="controls">
-                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.user_name'))) }}
-                {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
-            </div>
-        </div>
-
+        <h2 id="basico">{{Lang::get('content.profile_edit_basic')}}</h2>
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label required-field" for="email">{{ Lang::get('content.user_email') }}</label>
             <div class="controls">
@@ -32,6 +25,14 @@
                     {{ Form::text('email', $user->email, array('class' => 'input-xlarge required email', 'placeholder'=> Lang::get('content.user_email'), 'readonly' => 'readonly')) }}
                 @endif
                 {{ $errors->first('email', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
+        <div class="control-group {{ $errors->has('name') ? 'error':'' }}">
+            <label class="control-label required-field" for="name">{{ Lang::get('content.user_name') }}</label>
+            <div class="controls">
+                {{ Form::text('full_name', $user->full_name, array('class' => 'input-xlarge required','placeholder'=> Lang::get('content.user_name'))) }}
+                {{ $errors->first('full_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -45,6 +46,52 @@
                     array('class'=>'required')
                 ) }}
                 {{ $errors->first('status', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
+        @if (isset($user->id))
+        <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
+            <label class="control-label required-field" for="role">{{ Lang::get('content.role') }}</label>
+            <div class="controls">
+                {{ Form::select(
+                'role',
+                array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
+                $user->role,
+                array('class'=>'role')
+                ) }}
+                {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+        @endif
+
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn btn-password" type="button" data-toggle="collapse" data-target=".collapse-password">{{Lang::get('content.advertiser_change_password')}}</button>
+            </div>
+        </div>
+        <div class="collapse collapse-password out">
+            <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
+                <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_password') }}</label>
+                <div class="controls">
+                    {{ Form::password('password', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.advertiser_password'))) }}
+                    {{ $errors->first('password', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+            <div class="control-group {{ $errors->has('password_confirmation') ? 'error':'' }}">
+                <label class="control-label required-field" for="long_description">{{ Lang::get('content.advertiser_password_confirmation') }}</label>
+                <div class="controls">
+                    {{ Form::password('password_confirmation', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.advertiser_password_confirmation'))) }}
+                    {{ $errors->first('password_confirmation', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+        </div>
+
+        <h2 id="anunciante">{{Lang::get('content.profile_edit_publisher')}}</h2>
+        <div class="control-group {{ $errors->has('publisher_seller') ? 'error':'' }}">
+            <label class="control-label required-field" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
+            <div class="controls">
+                {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
+                {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -62,21 +109,6 @@
             </div>
         </div>
 
-        @if (isset($user->id))
-            <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
-                <label class="control-label required-field" for="role">{{ Lang::get('content.role') }}</label>
-                <div class="controls">
-                    {{ Form::select(
-                    'role',
-                    array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
-                    $user->role,
-                    array('class'=>'role')
-                    ) }}
-                    {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
-                </div>
-            </div>
-        @endif
-
         <div class="control-group {{ $errors->has('publisher_type') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.publisher_type') }}</label>
             <div class="controls">
@@ -92,35 +124,13 @@
             </div>
         </div>
 
-        <div class="control-group {{ $errors->has('publisher_id_type') ? 'error':'' }}">
-            <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.select_id_type') }}</label>
+        <div class="control-group letter-rif-ci {{ ($errors->has('publisher_id_type') || $errors->has('publisher_id')) ? 'error':'' }}">
+            <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.profile_id') }}</label>
             <div class="controls">
-                {{ Form::select('publisher_id_type', array('' => Lang::get('content.select')), $advertiser->letter_rif_ci, array('class'=>'publisher_id_type required')) }}
+                {{ Form::select('publisher_id_type', array('' => Lang::get('content.select')), $advertiser->letter_rif_ci, array('class'=>'input-small publisher_id_type required')) }}
+                {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-medium required rif-ci', 'placeholder'=> Lang::get('content.publisher_id'))) }}
                 {{ $errors->first('letter_rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
-            </div>
-        </div>
-
-        <div class="control-group {{ $errors->has('publisher_id') ? 'error':'' }}">
-            <label class="control-label required-field" for="publisher_id">{{ Lang::get('content.publisher_id') }}</label>
-            <div class="controls">
-                {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_id'))) }}
                 {{ $errors->first('rif_ci', '<div class="field-error alert alert-error">:message</div>') }}
-            </div>
-        </div>
-
-        <div class="control-group {{ $errors->has('publisher_seller') ? 'error':'' }}">
-            <label class="control-label required-field" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
-            <div class="controls">
-                {{ Form::text('publisher_seller', $advertiser->seller_name, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.publisher_seller'))) }}
-                {{ $errors->first('seller_name', '<div class="field-error alert alert-error">:message</div>') }}
-            </div>
-        </div>
-
-        <div class="control-group {{ $errors->has('publisher_media') ? 'error':'' }}">
-            <label class="control-label" for="publisher_media">{{ Lang::get('content.publisher_media') }}</label>
-            <div class="controls">
-                {{ Form::text('publisher_media', $advertiser->media, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_media'))) }}
-                {{ $errors->first('media', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
 
@@ -145,6 +155,14 @@
             </div>
         </div>
 
+        <div class="control-group {{ $errors->has('publisher_address') ? 'error':'' }}">
+            <label class="control-label" for="publisher_address">{{ Lang::get('content.publisher_address') }}</label>
+            <div class="controls">
+                {{ Form::text('publisher_address', $advertiser->address, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_address'))) }}
+                {{ $errors->first('address', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
         <div class="control-group {{ $errors->has('publisher_phone1') ? 'error':'' }}">
             <label class="control-label required-field" for="publisher_phone1">{{ Lang::get('content.publisher_phone1') }}</label>
             <div class="controls">
@@ -162,6 +180,43 @@
                 {{ $errors->first('phone2', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
+
+        <div class="control-group {{ $errors->has('publisher_web') ? 'error':'' }}">
+            <label class="control-label" for="publisher_web">{{ Lang::get('content.publisher_web_page') }}</label>
+            <div class="controls">
+                {{ Form::text('publisher_web', $advertiser->web, array('class' => 'input-xlarge url', 'placeholder'=> Lang::get('content.publisher_web_page'))) }}
+                <label class="external-url-label">{{ Lang::get('content.external_url_label') }}</label>
+                {{ $errors->first('web', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
+        <div class="control-group {{ $errors->has('publisher_media') ? 'error':'' }}">
+            <label class="control-label" for="publisher_media">{{ Lang::get('content.publisher_media') }}</label>
+            <div class="controls">
+                {{ Form::text('publisher_media', $advertiser->media, array('class' => 'input-xlarge', 'placeholder'=> Lang::get('content.publisher_media'))) }}
+                {{ $errors->first('media', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
+        <div class="control-group {{ $errors->has('publisher_avatar') ? 'error':'' }}">
+            <label class="control-label" for="long_description">{{ Lang::get('content.publisher_avatar') }}</label>
+            <div class="controls">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file">
+                            <span class="fileupload-new">{{ Lang::get('content.fileuploader_select_image') }}</span>
+                            <span class="fileupload-exists">{{ Lang::get('content.fileuploader_change') }}</span>
+                            <input type="file" name="publisher_avatar" />
+                            <input type="hidden" name="avatar_action" />
+                        </span>
+                        <a href="#" class="btn fileupload-exists remove-avatar-button" data-dismiss="fileupload">{{ Lang::get('content.fileuploader_remove') }}</a>
+                    </div>
+                </div>
+                {{ $errors->first('publisher_avatar', '<div class="field-error alert alert-error">:message</div>') }}
+            </div>
+        </div>
+
 
         <!-- Categories -->
         <div class="control-group categories-form">
@@ -238,6 +293,42 @@
         publisherIdType.val("{{ $advertiser->letter_rif_ci }}");
 
         jQuery('.advertiser-form').validateBootstrap();
+
+        // Set if exists avatar
+        if ('{{ $avatar }}'){
+            jQuery('.fileupload').removeClass('fileupload-new');
+            jQuery('.fileupload').addClass('fileupload-exists');
+            jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
+        }
+
+        // Avatar delete action
+        jQuery('.remove-avatar-button').click(function(){
+            jQuery('input[name=avatar_action]').val('delete-avatar');
+        });
+
+        // Password
+        jQuery('.btn-password').click(function() {
+            if (!jQuery('.collapse-password').hasClass('in')){
+                jQuery("input:password").removeAttr('disabled');
+                jQuery('.btn-password').button('toggle');
+                jQuery("input:password").addClass('required');
+            } else {
+                jQuery('.btn-password').button('toggle');
+                jQuery("input:password").val('');
+                jQuery("input:password").attr('disabled', 'disabled');
+                jQuery("input:password").removeClass('required');
+            }
+        });
+
+        var passwordError = {{ $errors->has('password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
+
+        if (passwordError){
+            jQuery("input:password").val('');
+            jQuery('.btn-password').click();
+        } else {
+            jQuery("input:password").val('');
+            jQuery("input:password").attr('disabled', 'disabled');
+        }
 
         // Phone mask
         jQuery('.phone-number-format').mask("9999-9999999");

@@ -163,9 +163,16 @@ class AdvertiserController extends BaseController {
             $referer = Input::old('referer');
         }
 
+        $avatarUrl = null;
+
         //Get advertiser
         $advertiser = Publisher::with('categories')->find($id);
         $user = User::find($advertiser->user_id);
+
+        // Retornar ruta del avatar
+        if ($advertiser->avatar != null){
+            $avatarUrl = URL::to('')."/".$advertiser->avatar;
+        }
 
         // Populate categories
         $advCats = array();
@@ -184,6 +191,7 @@ class AdvertiserController extends BaseController {
                 'advertiser_statuses' => self::getAdvertiserStatuses(),
                 'user' => $user,
                 'advertiser' => $advertiser,
+                'avatar' => $avatarUrl,
                 'states' => State::lists('name','id'),
                 "categories" => Category::parents()->orderBy('name','asc')->get(),
                 'advertiser_categories' => $advCats,
@@ -207,12 +215,18 @@ class AdvertiserController extends BaseController {
             'rif_ci' => Input::get('publisher_id'),
             'seller_name' => Input::get('publisher_seller'),
             'media' => Input::get('publisher_media'),
+            'web' => Input::get('publisher_web'),
             'state_id' => Input::get('publisher_state'),
             'city' => Input::get('publisher_city'),
+            'address' => Input::get('publisher_address'),
             'phone1' => Input::get('publisher_phone1'),
             'phone2' => Input::get('publisher_phone2'),
             'categories' => Input::get('categories'),
         );
+
+        if (Input::file('publisher_avatar')){
+            $advertiserData['avatar'] = Input::file('avatar');
+        }
 
         //Set validation rules
         $rules = array(
@@ -228,11 +242,24 @@ class AdvertiserController extends BaseController {
             'city' => 'required',
             'phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
             'phone2' => array('regex:'. $this->phoneNumberRegex),
+            'web' => 'url',
+            'avatar' => 'image',
         );
 
         if (Input::get('id') != null && Input::get('id') != ""){
             $advertiserData['role'] = Input::get('role');
             $rules['role'] = 'required';
+        }
+
+        // Si se recibe un nuevo password entonces validalo
+        if (Input::get('password') != null || Input::get('password_confirmation') != null){
+            $advertiserData['password'] = Input::get('password');
+            $advertiserData['password_confirmation'] = Input::get('password_confirmation');
+
+            $rules['password'] = 'required';
+            $rules['password_confirmation'] = 'required';
+
+            $rules['password'] = 'same:password_confirmation';
         }
 
         $messages = array();
@@ -295,6 +322,11 @@ class AdvertiserController extends BaseController {
         if ($suspendedPublisher){
             $user->role = User::ROLE_BASIC;
         }
+        // Si se cambio el password entonces guardarlo
+        if (Input::get('password') != null && Input::get('password') != "" &&
+            Input::get('password_confirmation') != null && Input::get('password_confirmation') != ""){
+            $user->password = Hash::make($advertiserData['password']);
+        }
         // Si se edito el publisher y se cambio status a Approved le reasigno el rol publisher
         if (($advertiserData['status_publisher'] != $previousDataAdvertiser['status_publisher']) &&
             ($advertiserData['status_publisher'] == Publisher::STATUS_APPROVED)){
@@ -307,9 +339,11 @@ class AdvertiserController extends BaseController {
         $advertiser->status_publisher = $advertiserData['status_publisher'];
         $advertiser->state_id = $advertiserData['state_id'];
         $advertiser->city = $advertiserData['city'];
+        $advertiser->address = $advertiserData['address'];
         $advertiser->phone1 = $advertiserData['phone1'];
         $advertiser->phone2 = $advertiserData['phone2'];
         $advertiser->media = $advertiserData['media'];
+        $advertiser->web = $advertiserData['web'];
         
         DB::transaction(function() use ($advertiser, $user, $advertiserData){
             $user->save();
@@ -321,6 +355,15 @@ class AdvertiserController extends BaseController {
 
             $advertiser->categories()->sync($categories);
         });
+
+        // Save avatar (if is received)
+        if(Input::hasFile('publisher_avatar')){
+            $avatar = Input::file('publisher_avatar');
+            self::saveAvatar($avatar, $user);
+            // Eliminar avatar previo si la accion seleccionada fue eliminar
+        } else if (Input::get('avatar_action') != null && Input::get('avatar_action') == 'delete-avatar' && $advertiser->avatar != null){
+            self::deleteAvatar($advertiser);
+        }
 
         // Log when is created or edited an advertiser by an admin
         Queue::push('LoggerJob@log', array('method' => $method, 'operation' => $operation, 'entities' => array($user, $advertiser),

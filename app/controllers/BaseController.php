@@ -155,4 +155,48 @@ class BaseController extends Controller {
         self::sendMail('emails.layout_email', $data, $receiver, $subject);
     }
 
+    public function saveAvatar($avatar, $user){
+
+        $fileOperation = 'success';
+
+        if($avatar != null && $user != null){
+
+            try {
+                $size = getimagesize($avatar);
+                $fileFinalName = 'avatar-'. $user->id .'.jpg';
+                $destinationPath = 'uploads/profile/';
+
+                ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '.jpg',  $size[0],  $size[1]);
+                ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '_' . BaseController::$thumbSize['width'] . '.jpg',  BaseController::$thumbSize['width'],  BaseController::$thumbSize['height']);
+
+                $publisher = $user->publisher;
+                $publisher->avatar = $destinationPath . $fileFinalName;
+                $publisher->save();
+            } catch (Exception $e){
+                $fileOperation = 'error';
+            }
+
+        }
+
+        return $fileOperation;
+
+    }
+
+    public function deleteAvatar($publisher){
+
+        $fileOperation = 'success';
+
+        $avatar = $publisher->avatar;
+        $publisher->avatar = null;
+        $publisher->save();
+
+        try {
+            File::delete($avatar);
+        } catch (Exception $e){
+            $fileOperation = 'error-delete';
+        }
+
+        return $fileOperation;
+    }
+
 }

@@ -48,7 +48,7 @@ class ProfileController extends BaseController{
 
             // Retornar ruta del avatar
             if ($user->publisher->avatar != null){
-                $avatarUrl = $user->publisher->avatar;
+                $avatarUrl = URL::to('')."/".$user->publisher->avatar;
             }
 
         }
@@ -127,8 +127,11 @@ class ProfileController extends BaseController{
             } else {
                 $profileData['suggested_services'] = '';
             }
-            $profileData['avatar'] = Input::file('avatar');
+            if (Input::file('avatar')){
+                $profileData['avatar'] = Input::file('avatar');
+            }
             $profileData['web'] = Input::get('web');
+            $profileData['media'] = Input::get('media');
 
             $profileRules['state'] = 'required';
             $profileRules['city'] = 'required';
@@ -178,6 +181,7 @@ class ProfileController extends BaseController{
             $publisher->city = $profileData['city'];
             $publisher->address = $profileData['address'];
             $publisher->web = $profileData['web'];
+            $publisher->media = $profileData['media'];
             $publisher->phone1 = $profileData['phone1'];
             $publisher->phone2 = $profileData['phone2'];
             $publisher->suggest_products = $profileData['suggest_products'];
@@ -191,35 +195,11 @@ class ProfileController extends BaseController{
 
             // Save avatar (if is received)
             if(Input::hasFile('avatar')){
-
-                try {
-                    $avatar = Input::file('avatar');
-                    $size = getimagesize($avatar);
-                    $fileFinalName = 'avatar-'. $user->id .'.jpg';
-                    $destinationPath = 'uploads/profile/';
-
-                    ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '.jpg',  $size[0],  $size[1]);
-                    ImageHelper::generateThumb($avatar->getPathName(), $destinationPath . 'avatar-'. $user->id . '_' . BaseController::$thumbSize['width'] . '.jpg',  BaseController::$thumbSize['width'],  BaseController::$thumbSize['height']);
-
-                    $publisher->avatar = $destinationPath . $fileFinalName;
-                    $publisher->save();
-                } catch (Exception $e){
-                    $fileOperation = 'error';
-                }
-            // Eliminar avatar previo (si existe)
-            } else {
-                if ($publisher->avatar != null){
-                    $avatar = $publisher->avatar;
-                    $publisher->avatar = null;
-                    $publisher->save();
-
-                    try {
-                        File::delete($avatar);
-                    } catch (Exception $e){
-                        $fileOperation = 'error-delete';
-                    }
-
-                }
+                $avatar = Input::file('avatar');
+                self::saveAvatar($avatar, $user);
+            // Eliminar avatar previo si la accion seleccionada fue eliminar
+            } else if (Input::get('avatar_action') != null && Input::get('avatar_action') == 'delete-avatar' && $publisher->avatar != null){
+                self::deleteAvatar($publisher);
             }
         }
 

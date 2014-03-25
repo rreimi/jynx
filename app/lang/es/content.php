@@ -329,6 +329,8 @@ return array(
     "publisher_phone1" => "Teléfono 1",
     "publisher_phone2" => "Teléfono 2",
     "publisher_media" => "¿Cómo te enteraste de nosotros?",
+    "publisher_web_page" => "Página web",
+    "publisher_avatar" => "Imagen de perfil",
     "select_state" => "Seleccione Estado",
     "publisher_address" => "Dirección",
     "publisher_seller" => "Anunciante",
@@ -484,7 +486,7 @@ return array(
     // Users
     "users" => 'Usuarios',
     "user_name" => 'Nombre',
-    "user_email" => 'Correo',
+    "user_email" => 'Correo electrónico',
     "user_role" => 'Rol',
     "user_status" => 'Estatus',
     "user_is_publisher" => '¿Es anunciante?',
@@ -545,6 +547,10 @@ return array(
     "advertiser_email" => 'Correo',
     "advertiser_status" => 'Estatus Usuario',
     "advertiser_status_publisher" => 'Estatus',
+    "advertiser_change_password" => "Cambiar contraseña",
+    "advertiser_current_password" => "Contraseña actual",
+    "advertiser_password" => "Contraseña",
+    "advertiser_password_confirmation" => "Confirmar Contraseña",
 
     // Labels
     "new_advertiser" => 'Nuevo anunciante',
