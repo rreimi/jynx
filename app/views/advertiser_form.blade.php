@@ -15,7 +15,7 @@
         <h1>{{Lang::get('content.edit_advertiser')}}: {{ $user->full_name }}</h1>
         @endif
 
-        <h2 id="basico">{{Lang::get('content.profile_edit_basic')}}</h2>
+        <h2 id="basico">{{Lang::get('content.advertiser_edit_basic')}}</h2>
         <div class="control-group {{ $errors->has('email') ? 'error':'' }}">
             <label class="control-label required-field" for="email">{{ Lang::get('content.user_email') }}</label>
             <div class="controls">
@@ -71,7 +71,7 @@
         </div>
         <div class="collapse collapse-password out">
             <div class="control-group {{ $errors->has('password') ? 'error':'' }}">
-                <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_password') }}</label>
+                <label class="control-label required-field" for="long_description">{{ Lang::get('content.advertiser_password') }}</label>
                 <div class="controls">
                     {{ Form::password('password', null, array('class' => 'input-xlarge required', 'placeholder'=> Lang::get('content.advertiser_password'))) }}
                     {{ $errors->first('password', '<div class="field-error alert alert-error">:message</div>') }}
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <h2 id="anunciante">{{Lang::get('content.profile_edit_publisher')}}</h2>
+        <h2 id="anunciante">{{Lang::get('content.advertiser_edit_publisher')}}</h2>
         <div class="control-group {{ $errors->has('publisher_seller') ? 'error':'' }}">
             <label class="control-label required-field" for="publisher_seller">{{ Lang::get('content.publisher_seller') }}</label>
             <div class="controls">
@@ -125,7 +125,7 @@
         </div>
 
         <div class="control-group letter-rif-ci {{ ($errors->has('publisher_id_type') || $errors->has('publisher_id')) ? 'error':'' }}">
-            <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.profile_id') }}</label>
+            <label class="control-label required-field" for="publisher_id_type">{{ Lang::get('content.advertiser_id') }}</label>
             <div class="controls">
                 {{ Form::select('publisher_id_type', array('' => Lang::get('content.select')), $advertiser->letter_rif_ci, array('class'=>'input-small publisher_id_type required')) }}
                 {{ Form::text('publisher_id', $advertiser->rif_ci, array('class' => 'input-medium required rif-ci', 'placeholder'=> Lang::get('content.publisher_id'))) }}
@@ -217,10 +217,9 @@
             </div>
         </div>
 
-
         <!-- Categories -->
         <div class="control-group categories-form">
-            <h2 id="sectores" class="required-field">{{Lang::get('content.profile_edit_sectors')}}</h2>
+            <h2 id="sectores" class="required-field">{{Lang::get('content.advertiser_edit_sectors')}}</h2>
             @if ($errors->has('categories'))
             <div class="field-error alert alert-error">{{ $errors->first('categories') }}</div>
             @endif
@@ -248,6 +247,58 @@
             </ul>
         </div>
 
+        <h2 id="contactos">{{Lang::get('content.advertiser_edit_contacts')}}
+            <a class="btn btn-info btn-small modal-contact" data-target="#addContact" data-remote="{{URL::to('contacto/agregar') }}">
+                {{Lang::get('content.contact_add_contact')}}
+            </a>
+        </h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>{{ Lang::get('content.contact_full_name') }}</th>
+                <th>{{ Lang::get('content.contact_email') }}</th>
+                <th>{{ Lang::get('content.contact_phone') }}</th>
+                <th>{{ Lang::get('content.contact_city') }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @if(count($user->publisher->contacts)==0)
+            <tr>
+                <td colspan="5">{{ Lang::get('content.contact_not_found') }}</td>
+            </tr>
+            @endif
+            @foreach ($user->publisher->contacts as $contact)
+            @if (!$contact->isMainContact())
+            <tr>
+                <td>{{ $contact->full_name }}</td>
+                <td>{{ $contact->email }}</td>
+                <td>
+                    {{ $contact->phone }}
+                    @if($contact->other_phone)
+                    , {{ $contact->other_phone }}
+                    @endif
+                </td>
+                <td>{{ $contact->city }}</td>
+                <td class="table-cell-controls">
+                    <div class="btn-group">
+                        <a rel="tooltip" title="{{Lang::get('content.view')}}" class="btn modal-contact" type="button" data-target="#viewContact" data-remote="{{URL::to('contacto/detalle/'.$contact->id) }}">
+                            <i class="icon-search"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn modal-contact" type="button" data-target="#editContact" data-remote="{{URL::to('contacto/editar/'.$contact->id) }}">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        <a rel="tooltip" title="{{Lang::get('content.delete')}}" class="btn delete-contact" data-id="{{ $contact->id }}">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            @endif
+            @endforeach
+            </tbody>
+        </table>
+
         {{ Form::hidden('id', $advertiser->id) }}
         {{ Form::hidden('referer', $referer) }}
 
@@ -264,6 +315,53 @@
 
 
     {{ Form::close() }}
+
+    {{ Form::open(array('url' => 'contacto/editar', 'class' => 'form-horizontal edit-contact-form' )) }}
+    <div id="editContact" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{{ Lang::get('content.profile_edit_contact') }}</h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
+            <button type="submit" class="btn btn-primary">{{ Lang::get('content.save') }}</button>
+        </div>
+    </div>
+    {{ Form::hidden('referer', URL::full()) }}
+    {{ Form::close() }}
+
+    {{ Form::open(array('url' => 'contacto', 'class' => 'big-form add-contact-form' )) }}
+    <div id="addContact" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{{ Lang::get('content.contact_add_contact') }}</h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">{{ Lang::get('content.cancel') }}</button>
+            <button type="submit" class="btn btn-primary">{{ Lang::get('content.save') }}</button>
+        </div>
+    </div>
+    {{ Form::hidden('advertiser_id', $advertiser->id) }}
+    {{ Form::close() }}
+
+    <div id="viewContact" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{{ Lang::get('content.profile_view_contact') }}</h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">{{ Lang::get('content.close') }}</button>
+        </div>
+    </div>
 
 </div><!--/row-fluid-->
 @stop
@@ -293,6 +391,8 @@
         publisherIdType.val("{{ $advertiser->letter_rif_ci }}");
 
         jQuery('.advertiser-form').validateBootstrap();
+        jQuery('.add-contact-form').validateBootstrap({placement:'bottom'});
+        jQuery('.edit-contact-form').validateBootstrap({placement:'bottom'});
 
         // Set if exists avatar
         if ('{{ $avatar }}'){
@@ -342,6 +442,28 @@
         });
 
         jQuery('.status_publisher').trigger('change');
+
+        jQuery('.modal-contact').on('click',function(){
+            var remote=jQuery(this).data('remote');
+            var target=jQuery(this).data('target');
+
+            jQuery.ajax({
+                url: remote,
+                cache: false,
+                success: function(html){
+                    jQuery(target).children('.modal-body').html(html);
+                    jQuery(target).modal('show');
+                }
+            });
+        });
+
+        jQuery('.delete-contact').on('click',function(){
+            Mercatino.modalConfirm.show(
+                '{{ Lang::get('content.profile_delete_contact_title') }}',
+                '{{ Lang::get('content.profile_delete_contact_content') }}',
+                '{{ URL::to('contacto/eliminar/') }}' + '/' + jQuery(this).data('id') + '?referer={{ URL::full() }}'
+            );
+        });
     });
 </script>
 @stop

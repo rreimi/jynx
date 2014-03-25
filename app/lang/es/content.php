@@ -545,12 +545,17 @@ return array(
     "advertisers" => 'Anunciantes',
     "advertiser_name" => 'Nombre',
     "advertiser_email" => 'Correo',
+    "advertiser_id" => "Cédula / Rif",
     "advertiser_status" => 'Estatus Usuario',
     "advertiser_status_publisher" => 'Estatus',
     "advertiser_change_password" => "Cambiar contraseña",
     "advertiser_current_password" => "Contraseña actual",
     "advertiser_password" => "Contraseña",
     "advertiser_password_confirmation" => "Confirmar Contraseña",
+    "advertiser_edit_contacts" => "Contactos",
+    "advertiser_edit_basic" => "Datos Básicos",
+    "advertiser_edit_publisher" => "Datos de Anunciante",
+    "advertiser_edit_sectors" => "Sectores de Negocio",
 
     // Labels
     "new_advertiser" => 'Nuevo anunciante',
