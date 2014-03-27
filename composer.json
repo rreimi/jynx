@@ -24,13 +24,9 @@
         "laravel"
     ],
     "require": {
-        "laravel/framework": "4.0.*",
-        "twitter/bootstrap": "dev-master",
-        "jasonlewis/basset": "dev-master",
-        "natxet/CssMin": "dev-master",
-        "juy/profiler": "dev-master",
-        "pda/pheanstalk": "dev-master",
-        "iron-io/iron_mq": "1.4.6"
+        "laravel/framework": "4.0.x-dev",
+        "iron-io/iron_mq": "1.4.6",
+	"juy/profiler": "dev-master"
     },
     "autoload": {
         "classmap": [
@@ -59,5 +55,5 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
