@@ -406,6 +406,8 @@ class ReportController extends BaseController {
         $report->status = PublicationReport::STATUS_SUSPENDED_REPORTER;
         $report->save();
 
+        self::sendSuspendedEmail($user->email, $user->full_name);
+
         self::addFlashMessage(null, Lang::get('content.report_actions_success_user'), 'success');
         return Response::json('success', 200);
     }

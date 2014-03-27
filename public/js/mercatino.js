@@ -424,5 +424,48 @@ Mercatino.longTextTooltips = function() {
     });
 }
 
+Mercatino.prepareSuggestions = function(){
 
+    console.log('prepare from js');
+
+    jQuery('.suggest-products .selection input[type=checkbox]').each(function(i,object){
+        Mercatino.refreshSuggest(this, '.suggest-products');
+    });
+
+    jQuery('.suggest-services .selection input[type=checkbox]').each(function(i,object){
+        Mercatino.refreshSuggest(this, '.suggest-services');
+    });
+
+    jQuery('.suggest-products .selection input[type=checkbox]').change(function(){
+        Mercatino.refreshSuggest(this, '.suggest-products');
+    });
+
+    jQuery('.suggest-services .selection input[type=checkbox]').change(function(){
+        Mercatino.refreshSuggest(this, '.suggest-services');
+    });
+
+    jQuery('.suggest-section .suggestions input').change(function(){
+        var e = jQuery.Event( "keydown", { which: 13 } );
+        jQuery(this).trigger(e);
+    });
+
+}
+
+Mercatino.refreshSuggest = function(element, base){
+    console.log('refresh from js');
+    var baseCss = null;
+    if (base != null){
+        baseCss = base;
+    } else {
+        baseCss = '.suggest-section';
+    }
+
+    var value = jQuery(element).prop('checked');
+    if (value){
+        jQuery(baseCss + ' .suggestions').removeClass('hide');
+        jQuery(baseCss + ' .suggestions input').removeClass('hide');
+    } else {
+        jQuery(baseCss + ' .suggestions').addClass('hide');
+    }
+}
 

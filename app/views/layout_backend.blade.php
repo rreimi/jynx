@@ -50,12 +50,14 @@
     {{ HTML::script('js/jquery-1.10.1.min.js') }}
     {{ HTML::script('js/jquery.validate.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
+    {{ HTML::script('js/bootstrap-fileupload.js') }}
     {{ HTML::script('js/jquery.pnotify.min.js') }}
     {{ HTML::script('js/mercatino.js') }}
     {{ HTML::script('js/verge/verge.min.js') }}
     {{ HTML::script('js/footer.js') }}
     {{ HTML::script('js/messages_es.js') }}
     {{ HTML::script('js/jquery.maskedinput.min.js') }}
+    {{ HTML::style('css/bootstrap-tagsinput.css') }}
     @show
 
     @if (!is_null(Session::get('flash_global_message')))

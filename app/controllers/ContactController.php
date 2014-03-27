@@ -49,7 +49,7 @@ class ContactController extends BaseController {
 
         if (empty($contact)){
             self::addFlashMessage(null, Lang::get('content.delete_advertising_invalid'), 'error');
-            return Redirect::to('perfil');
+            return Redirect::to((Input::get('referer')) ? Input::get('referer') : 'perfil');
         }
 
         $result = $contact->delete();
@@ -60,7 +60,7 @@ class ContactController extends BaseController {
             self::addFlashMessage(null, Lang::get('content.contact_delete_error'), 'error');
         }
 
-        return Redirect::to('perfil');
+        return Redirect::to((Input::get('referer')) ? Input::get('referer') : 'perfil');
 
     }
 
@@ -94,7 +94,7 @@ class ContactController extends BaseController {
             // redirect back to the form with
             // errors, input and our currently
             // logged in user
-            return Redirect::to('perfil')
+            return Redirect::to((Input::get('referer')) ? Input::get('referer') : 'perfil')
 //                ->withErrors($v)
                 ->withInput();
         }
@@ -111,7 +111,7 @@ class ContactController extends BaseController {
         $contact->save();
 
         self::addFlashMessage(null, Lang::get('content.profile_edit_contact_success'), 'success');
-        return Redirect::to('perfil');
+        return Redirect::to((Input::get('referer')) ? Input::get('referer') : 'perfil');
     }
 
     public function getDetalle($id){
@@ -149,7 +149,7 @@ class ContactController extends BaseController {
 
         $contact= new Contact();
 
-        $contact->publisher_id=Auth::user()->publisher->id;
+        $contact->publisher_id = (Input::get('advertiser_id')) ? Input::get('advertiser_id') : Auth::user()->publisher->id;
         $contact->email=Input::get('contact_email');
         $contact->full_name=Input::get('contact_full_name');
         $contact->distributor=Input::get('contact_distributor');

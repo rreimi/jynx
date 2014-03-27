@@ -512,19 +512,19 @@ div#home-banner-top .carousel-control {
     width: 117px;
 }
 
-.profile-form .suggest-section {
+.suggest-section {
     margin-top: 15px;
 }
 
-.profile-form .suggest-section .selection, .profile-form .suggest-section .suggestions {
+.suggest-section .selection, .suggest-section .suggestions {
     margin: 6px;
 }
 
-.profile-form .suggest-section .selection input {
+.suggest-section .selection input {
     margin: 0px;
 }
 
-.profile-form .suggest-section .selection .description {
+.suggest-section .selection .description {
     display: inline;
     vertical-align: middle;
     font-size: 13px;
@@ -1206,4 +1206,8 @@ div#home-banner-top .carousel-control {
 .publication-reports-filter {
     margin-left: 10px;
     line-height: 1.3;
+}
+
+.advertiser-form .rif-ci {
+    width: 178px;
 }
