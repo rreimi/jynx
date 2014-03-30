@@ -37,7 +37,8 @@ class StatsController extends BaseController {
         $data['publications_published'] = PublicationView::published()->count();
 
         // Promedio de publicaciones por anunciante
-        $average = PublicationView::averagePublicationsByPublisher()->get()[0]->average;
+        $average = PublicationView::averagePublicationsByPublisher()->get();
+        $average = $average[0]->average;
         $data['avg_publications_by_publisher'] = number_format((float)$average, 2, '.', '');
 
         // Publicaciones Suspendidas
