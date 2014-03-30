@@ -68,7 +68,7 @@
             <td>{{ $user->email }}</td>
             <td>{{ Lang::get('content.user_role_'. $user->role) }}</td>
             <td>{{ Lang::get('content.status_'. $user->status) }}</td>
-            <td>{{ $user->created_at }}</td>
+            <td>{{ date(Lang::get('content.date_format_php'),strtotime($user->created_at)) }}</td>
             <td>{{ $user->reports }}</td>
             <td>
                 <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('usuario/editar/' . $user->id)}}">

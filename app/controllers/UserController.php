@@ -269,19 +269,7 @@ class UserController extends BaseController {
         }
 
         if ($suspendedUser){
-            $receiver = array(
-                'email' => $userData['email'],
-                'name' => $userData['full_name'],
-            );
-
-            $data = array(
-                'contentEmail' => 'user_suspended',
-                'userName' => $userData['full_name'],
-            );
-
-            $subject = Lang::get('content.email_user_suspended');
-
-            self::sendMail('emails.layout_email', $data, $receiver, $subject);
+            self::sendSuspendedEmail($userData['email'], $userData['full_name']);
         }
 
         // Log when is created or edited an user by an admin

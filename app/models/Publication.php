@@ -22,7 +22,7 @@ class Publication extends Eloquent {
     }
 
     public function scopePublished($query){
-        return $query->where('status', 'Published');
+        return $query->where('status', self::STATUS_PUBLISHED);
     }
 
     public function scopeParents($query) {

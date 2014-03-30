@@ -117,22 +117,22 @@
         </div>
     </div>
 
-                <div class="control-group {{ $errors->has('address') ? 'error':'' }}">
-                    <label class="control-label" for="long_description">{{ Lang::get('content.profile_address') }}</label>
-                    <div class="controls">
-                        {{ Form::text('address', $user->publisher->address, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_address'))) }}
-                        {{ $errors->first('address', '<div class="field-error alert alert-error">:message</div>') }}
-                    </div>
-                </div>
+    <div class="control-group {{ $errors->has('address') ? 'error':'' }}">
+        <label class="control-label" for="long_description">{{ Lang::get('content.profile_address') }}</label>
+        <div class="controls">
+            {{ Form::text('address', $user->publisher->address, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.profile_address'))) }}
+            {{ $errors->first('address', '<div class="field-error alert alert-error">:message</div>') }}
+        </div>
+    </div>
 
-                <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
-                    <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
-                    <div class="controls">
-                        {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required phone-number-format','placeholder'=> Lang::get('content.profile_phone1'))) }}
-                        <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
-                        {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
-                    </div>
-                </div>
+    <div class="control-group {{ $errors->has('phone1') ? 'error':'' }}">
+        <label class="control-label required-field" for="long_description">{{ Lang::get('content.profile_phone1') }}</label>
+        <div class="controls">
+            {{ Form::text('phone1', $user->publisher->phone1, array('class' => 'input-xlarge required phone-number-format','placeholder'=> Lang::get('content.profile_phone1'))) }}
+            <label class="phone-format-label">{{ Lang::get('content.phone_format_label') }}</label>
+            {{ $errors->first('phone1', '<div class="field-error alert alert-error">:message</div>') }}
+        </div>
+    </div>
 
     <div class="control-group {{ $errors->has('phone2') ? 'error':'' }}">
         <label class="control-label" for="long_description">{{ Lang::get('content.profile_phone2') }}</label>
@@ -144,26 +144,35 @@
     </div>
 
     <div class="control-group {{ $errors->has('web') ? 'error':'' }}">
-        <label class="control-label" for="long_description">{{ Lang::get('content.web_page') }}</label>
+        <label class="control-label" for="long_description">{{ Lang::get('content.publisher_web_page') }}</label>
         <div class="controls">
-            {{ Form::text('web', $user->publisher->web, array('class' => 'input-xlarge url','placeholder'=> Lang::get('content.web_page'))) }}
+            {{ Form::text('web', $user->publisher->web, array('class' => 'input-xlarge url','placeholder'=> Lang::get('content.publisher_web_page'))) }}
             <label class="external-url-label">{{ Lang::get('content.external_url_label') }}</label>
             {{ $errors->first('web', '<div class="field-error alert alert-error">:message</div>') }}
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="control-group {{ $errors->has('media') ? 'error':'' }}">
+        <label class="control-label" for="long_description">{{ Lang::get('content.publisher_media') }}</label>
+        <div class="controls">
+            {{ Form::text('media', $user->publisher->media, array('class' => 'input-xlarge','placeholder'=> Lang::get('content.publisher_media'))) }}
+            {{ $errors->first('media', '<div class="field-error alert alert-error">:message</div>') }}
+        </div>
+    </div>
+
+    <div class="control-group {{ $errors->has('avatar') ? 'error':'' }}">
         <label class="control-label" for="long_description">{{ Lang::get('content.profile_avatar') }}</label>
         <div class="controls">
             <div class="fileupload fileupload-new" data-provides="fileupload">
                 <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
                 <div>
-                                <span class="btn btn-file">
-                                    <span class="fileupload-new">{{ Lang::get('content.fileuploader_select_image') }}</span>
-                                    <span class="fileupload-exists">{{ Lang::get('content.fileuploader_change') }}</span>
-                                    <input type="file" name="avatar" />
-                                </span>
-                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">{{ Lang::get('content.fileuploader_remove') }}</a>
+                    <span class="btn btn-file">
+                        <span class="fileupload-new">{{ Lang::get('content.fileuploader_select_image') }}</span>
+                        <span class="fileupload-exists">{{ Lang::get('content.fileuploader_change') }}</span>
+                        <input type="file" name="avatar" />
+                        <input type="hidden" name="avatar_action" />
+                    </span>
+                    <a href="#" class="btn fileupload-exists remove-avatar-button" data-dismiss="fileupload">{{ Lang::get('content.fileuploader_remove') }}</a>
                 </div>
             </div>
             {{ $errors->first('avatar', '<div class="field-error alert alert-error">:message</div>') }}
@@ -363,6 +372,16 @@
             }
         });
 
+        var passwordError = {{ $errors->has('password') || $errors->has('current-password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
+
+        if (passwordError){
+            jQuery("input:password").val('');
+            jQuery('.btn-password').click();
+        } else {
+            jQuery("input:password").val('');
+            jQuery("input:password").attr('disabled', 'disabled');
+        }
+
         jQuery('.modal-contact').on('click',function(){
             var remote=jQuery(this).data('remote');
             var target=jQuery(this).data('target');
@@ -384,16 +403,6 @@
                     '{{ URL::to('contacto/eliminar/') }}'+'/'+jQuery(this).data('id')
             );
         });
-
-        var passwordError = {{ $errors->has('password') || $errors->has('current-password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
-
-        if (passwordError){
-            jQuery("input:password").val('');
-            jQuery('.btn-password').click();
-        } else {
-            jQuery("input:password").val('');
-            jQuery("input:password").attr('disabled', 'disabled');
-        }
 
         @if(Auth::user()->isPublisher())
         var publisherType=jQuery('.publisher_type');
@@ -421,54 +430,18 @@
             jQuery('.fileupload-preview').html('<img src="{{ $avatar }}" />');
         }
 
+        // Avatar delete action
+        jQuery('.remove-avatar-button').click(function(){
+            jQuery('input[name=avatar_action]').val('delete-avatar');
+        });
+
         // Manage suggest sections
-        jQuery('.suggest-products .selection input[type=checkbox]').each(function(i,object){
-            console.log('each');
-            refreshSuggest(this, '.suggest-products');
-        });
-
-        jQuery('.suggest-services .selection input[type=checkbox]').each(function(i,object){
-            console.log('each');
-            refreshSuggest(this, '.suggest-services');
-        });
-
-        jQuery('.suggest-products .selection input[type=checkbox]').change(function(){
-            console.log('change products');
-            refreshSuggest(this, '.suggest-products');
-        });
-
-        jQuery('.suggest-services .selection input[type=checkbox]').change(function(){
-            console.log('change services');
-            refreshSuggest(this, '.suggest-services');
-        });
-
-        jQuery('.suggest-section .suggestions input').change(function(){
-            var e = jQuery.Event( "keydown", { which: 13 } );
-            jQuery(this).trigger(e);
-        });
+        Mercatino.prepareSuggestions();
 
         // Phone mask
         jQuery('.phone-number-format').mask("9999-9999999");
 
     });
-
-    function refreshSuggest(element, base){
-        console.log('refresh');
-        var baseCss = null;
-        if (base != null){
-            baseCss = base;
-        } else {
-            baseCss = '.suggest-section';
-        }
-
-        var value = jQuery(element).prop('checked');
-        if (value){
-            jQuery(baseCss + ' .suggestions').removeClass('hide');
-            jQuery(baseCss + ' .suggestions input').removeClass('hide');
-        } else {
-            jQuery(baseCss + ' .suggestions').addClass('hide');
-        }
-    }
 
 </script>
 @stop

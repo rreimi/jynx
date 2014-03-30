@@ -19,6 +19,15 @@ class Publisher extends Eloquent {
         'letter_rif_ci', 'rif_ci', 'state_id', 'city',
         'media', 'phone1', 'phone2');
 
+    public function scopeStatusApproved($query){
+        $query->where('status_publisher', '=', self::STATUS_APPROVED);
+    }
+
+    public function scopeWithPublications($query){
+        $query->select('publishers.id', 'publications.id', 'publications.publisher_id')
+            ->join('publications','publishers.id','=','publications.publisher_id')
+            ->groupBy('publications.publisher_id');
+    }
 
     public function sectors() {
         return $this->belongsToMany('BusinessSector', 'publishers_sectors');

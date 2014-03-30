@@ -116,7 +116,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Basset\BassetServiceProvider',
+        //'Basset\BassetServiceProvider',
         'Juy\Profiler\Providers\ProfilerServiceProvider',
         //'KevBaldwyn\Image\ImageServiceProvider'
         //'Intervention\Image\ImageServiceProvider'
@@ -184,7 +184,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-        'Basset'          => 'Basset\Facade',
+        //'Basset'          => 'Basset\Facade',
         'Profiler'        => 'Juy\Profiler\Facades\Profiler',
         //'Image'           => 'Intervention\Image\Facades\Image',
 	),
