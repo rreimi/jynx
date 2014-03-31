@@ -105,7 +105,7 @@
                 <li class="span4">
                     <a href="{{ URL::to('denuncia/lista?filter_status='.PublicationReport::STATUS_VALID)}}">
                         <div class="thumbnail stats-column">
-                            <input type="text" value="{{ $reports_valid_or_action }}" class="dial publications" data-max="{{ $reports_total }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
+                            <input type="text" value="{{ $reports_valid_or_action }}" class="dial publications" data-max="{{ $reports }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
                             <div class="caption">
                                 <h4>{{ Lang::get('content.stats_reports_valid_action') }}</h4>
                                 <p>{{ Lang::get('content.stats_description_reports_valid_action') }}</p>
