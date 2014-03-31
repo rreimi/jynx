@@ -482,6 +482,10 @@ return array(
     "filter_publisher_status_user" => "Estatus Usuario",
     "filter_publisher_status_publisher" => "Estatus Anunciante",
     "select_default"=>"Seleccione",
+    "select_batch_users" => 'Por favor, seleccione uno o mas usuarios',
+    "batch_options_label" => 'Para los elementos seleccionados:',
+    "confirm_delete_batch_users_title" => 'Eliminar Usuarios',
+    "confirm_delete_batch_users_message" => '¿Está seguro que desea eliminar a los usuarios seleccionados?',
     "option_all" => 'Todos',
 
 
@@ -527,6 +531,7 @@ return array(
     "modal_user_delete_content" => "¿Está seguro que deseas eliminar este usuario?",
     "delete_user_invalid" => "El usuario que intenta eliminar es inválido",
     "delete_user_success" => "El usuario se ha eliminado correctamente",
+    'delete_user_batch' => 'Se eliminó :count usuario(s) correctamente',
     "delete_user_error" => "Ha ocurrido un error al intentar eliminar el usuario.",
     "rating_publication_error" => "Ha ocurrido un error enviando la calificación, intente nuevamente.",
     "rating_publication_empty_error" => "Debe indicar una puntuación o un comentario para que la calificación sea válida.",

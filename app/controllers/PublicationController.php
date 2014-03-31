@@ -352,15 +352,24 @@ class PublicationController extends BaseController {
     public function getCrear() {
 
         // Get the current user publications list
+        //Get publisher
+        $publisher = Auth::user()->publisher;
 
         // Populate categories
         $pubCats = (is_array(Input::old('categories'))) ? Input::old('categories') : array();
 
+        if (empty($pubCats)) {
+            //Populate categories based on publisher categories
+            $sectors = $publisher->categories;
+            //Merge with business sectors
+            foreach ($sectors as $sector) {
+                $pubCats[] = $sector->id;
+            }
+        }
+
         // Populate publication contacts
         $pubContacts = (is_array(Input::old('contacts')))? Input::old('contacts') : array();
 
-        //Get publisher
-        $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
         $pub->from_date = date('d-m-Y',time());

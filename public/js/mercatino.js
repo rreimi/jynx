@@ -132,13 +132,23 @@ Mercatino.showFlashMessage = function(object){
 };
 
 Mercatino.modalConfirm = {
-    show: function(title, content, url){
+    show: function(title, content, url, callback){
         jQuery('#modal-confirm .modal-header h3').html(title);
         jQuery('#modal-confirm .modal-body p').html(content);
+
         jQuery('#modal-confirm .modal-footer a.danger').attr('href', url);
+
+        if (callback) {
+            jQuery('#modal-confirm .modal-footer a.danger').attr('href', '#');
+            jQuery('#modal-confirm .modal-footer a.danger').bind('click', function(){
+                jQuery('#modal-confirm').modal('hide');
+                callback();
+            });
+        }
         jQuery('#modal-confirm').modal('show');
     },
     hide: function(){
+        jQuery('#modal-confirm .modal-footer a.danger').unbind('click');
         jQuery('#modal-confirm').modal('hide')
     }
 };
