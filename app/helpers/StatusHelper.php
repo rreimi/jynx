@@ -65,10 +65,6 @@ class StatusHelper {
             PublicationReport::STATUS_PENDING => Lang::get('content.status_report_'. PublicationReport::STATUS_PENDING),
             PublicationReport::STATUS_INVALID => Lang::get('content.status_report_'. PublicationReport::STATUS_INVALID),
             PublicationReport::STATUS_VALID => Lang::get('content.status_report_'. PublicationReport::STATUS_VALID),
-            PublicationReport::STATUS_DELETED_COMMENT => Lang::get('content.status_report_'. PublicationReport::STATUS_DELETED_COMMENT),
-            PublicationReport::STATUS_SUSPENDED_PUBLICATION => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLICATION),
-            PublicationReport::STATUS_SUSPENDED_PUBLISHER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_PUBLISHER),
-            PublicationReport::STATUS_SUSPENDED_REPORTER => Lang::get('content.status_report_'. PublicationReport::STATUS_SUSPENDED_REPORTER),
         );
 
         if (!empty($blankCaption)){
