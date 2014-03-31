@@ -207,10 +207,10 @@ class PublicationController extends BaseController {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
-        $view = 'publication_list';
-        if ($user->isAdmin()){
+        //$view = 'publication_list';
+        //if ($user->isAdmin()){
             $view = 'backend_publication_list';
-        }
+        //}
 
         return View::make($view, array(
             'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status_placeholder')),
