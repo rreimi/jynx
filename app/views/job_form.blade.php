@@ -1,4 +1,4 @@
-@extends('layout_home')
+@extends('layout_backend')
 
 @section('sidebar')
 @parent
@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="row-fluid">
+    <div class="row-fluid job-form">
         {{ Form::open(array('url' => 'bolsa-trabajo/guardar', 'method' => 'post', 'class' => 'form-horizontal')) }}
         @if (!isset($job->id))
         <h1>{{Lang::get('content.new_job')}}</h1>
