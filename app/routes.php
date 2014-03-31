@@ -13,14 +13,19 @@
 
 Route::get('/clearcache', function(){
     Cache::forget('categoryTree');
+    Cache::forget('productsTree');
     Cache::forget('servicesTree');
     Cache::forget('currentAdvertising');
     Cache::forget('homeRecent');
     Cache::forget('homeMostVisited');
+    Cache::forget(CacheHelper::$ALL_CATEGORIES);
 });
 
 Route::get("/debug", function(){
-
+    //$categories = BaseController::getCategories();
+    //echo json_encode($categories);
+    $categories = Category::getCategoryArray();
+    echo json_encode($categories[1]);
 });
 
 Route::controller('login','LoginController');

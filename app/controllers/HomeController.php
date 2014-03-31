@@ -86,6 +86,7 @@ class HomeController extends BaseController {
 
         /* Load category by slug */
         $data['category'] = Category::where('slug', '=', $slug)->first();
+        $data['category'] = Category::getFromCache($data['category']->id);
 
         if ($data['category'] == null) {
             return Response::view('errors.missing', array(), 404);
@@ -135,14 +136,26 @@ class HomeController extends BaseController {
         $items = DB::select($searchQuery);
         $data['publications'] = Paginator::make($items, $totalItems, $this->page_size);
 
+
         //Get parent information
         $data['category_tree'][] = $data['category']->id;
-        $parent = $data['category']->parent;
+        $parent = Category::getFromCache($data['category']->category_id);
 
         while ($parent != null ){
-            $data['category_tree'][] = $parent->id;
-            $parent = $parent->parent;
+            $data['category_tree'][] = $parent->category_id;
+            $parent = Category::getFromCache($parent->category_id);
         }
+
+        $subcategories = array();
+
+        /* Subcategories */
+        foreach ($data['category']->subcategories as $subcatId) {
+            $subcategories[] = Category::getFromCache($subcatId);
+        }
+
+        $data['category']->subcategories = $subcategories;
+
+
 
         /* Calculate filters */
         $availableFilters = array();
@@ -195,7 +208,6 @@ class HomeController extends BaseController {
     public function getSearch(){
 
         $q = Input::get('q');
-        //echo Publication::getSearch($q)->with('categories')->get();
 
         /* Append search query */
         $data['q'] = $q;

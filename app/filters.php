@@ -14,6 +14,7 @@
 App::before(function($request)
 {
     UrlHelper::globalXssClean();
+    CacheHelper::generateMasterCache();
 });
 
 
