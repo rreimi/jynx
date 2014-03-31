@@ -10,6 +10,7 @@ class CacheHelper {
     public static $PUBLICATIONS_MOST_VISITED  = 'PUBLICATIONS_MOST_VISITED';
     public static $PUBLICATIONS_MOST_RECENT = 'PUBLICATIONS_MOST_RECENT';
     public static $ADVERTISING_CURRENT = 'ADVERTISING_CURRENT';
+    public static $ALL_CATEGORIES = 'ALL_CATEGORIES';
 
 
     public static function getMonths(){
@@ -46,5 +47,9 @@ class CacheHelper {
         }else{
             return null;
         }
+    }
+
+    public static function generateMasterCache(){
+        Category::builtCategoryArray();
     }
 }
