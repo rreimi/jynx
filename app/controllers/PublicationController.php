@@ -589,10 +589,7 @@ class PublicationController extends BaseController {
         }
 
         // Get contacts ordered, main contact always first
-        $contacts = $pub->publisher->contacts->sortBy(function($contact)
-        {
-            return $contact->is_main;
-        });;
+        $contacts = Contact::where('publisher_id', $publisher->id)->orderBy('is_main', 'desc')->get();
 
         return View::make('publication_form',
             array(
