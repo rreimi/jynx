@@ -1215,3 +1215,9 @@ div#home-banner-top .carousel-control {
 .advertiser-form .rif-ci {
     width: 178px;
 }
+
+/* Batch */
+
+.batch-options-buttons {
+    padding:10px;
+}
