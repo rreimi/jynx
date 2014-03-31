@@ -1,39 +1,55 @@
 @extends('layout_home')
 
 @section('sidebar')
-
-@if (isset($category))
-    <h1>{{ $category->name }}</h1>
-    @if (count($category->subcategories) > 0)
-    <span class="nav-header">{{ Lang::get('content.sub_categories_title') }}</span>
-    <ul id="cats_for_{{$category->id}}" class="level2">
-        @foreach ($category->subcategories as $subcat)
-        <li>
-            @if (isset($category) && ($subcat->id == $category->id))
-            <a class="active" nohref><b>{{ $subcat->name }}</b></a>
-            @else
-            <a href="{{ URL::to('cat/' . $subcat->slug)}}">{{ $subcat->name }}</a>
-            @endif
-            @if (count($subcat->subcategories) > 0)
-            <ul id="cats_for_{{$subcat->id}}" class="level3">
-                @foreach ($subcat->subcategories as $thirdcat)
-                <li>
-                    @if (isset($category) && ($thirdcat->id == $category->id))
-                    <a class="active" nohref><b>{{ $thirdcat->name }}</b></a>
-                    @else
-                    <a href="{{ URL::to('cat/' . $thirdcat->slug)}}">{{ $thirdcat->name }}</a>
-                    @endif
-                </li>
-                @endforeach
-            </ul>
-            @endif
-        </li>
-        @endforeach
-    </ul>
-    <hr/>
+    @if (!is_null($category))
+        <h1>{{ $category->name }}</h1>
+        @if (count($category->subcategories) > 0)
+        <span class="nav-header">{{ Lang::get('content.sub_categories_title') }}</span>
+        <ul id="cats_for_{{$category->id}}" class="level2">
+            @foreach ($category->subcategories as $subcat)
+            <li>
+                @if (isset($category) && ($subcat->id == $category->id))
+                <a class="active" nohref><b>{{ $subcat->name }}</b></a>
+                @else
+                <a href="{{ URL::to('cat/' . $subcat->slug)}}">{{ $subcat->name }}</a>
+                @endif
+                @if (count($subcat->subcategories) > 0)
+                <ul id="cats_for_{{$subcat->id}}" class="level3">
+                    @foreach ($subcat->subcategories as $thirdcat)
+                    <li>
+                        @if (isset($category) && ($thirdcat->id == $category->id))
+                        <a class="active" nohref><b>{{ $thirdcat->name }}</b></a>
+                        @else
+                        <a href="{{ URL::to('cat/' . $thirdcat->slug)}}">{{ $thirdcat->name }}</a>
+                        @endif
+                    </li>
+                    @endforeach
+                </ul>
+                @endif
+            </li>
+            @endforeach
+        </ul>
+        <hr/>
+        @include('include.filter_sidebar')
+        @endif
+    @else
+        <h1>Productos</h1>
+        <ul class="level2">
+            @foreach ($categories as $cat)
+            <li>
+                <a href="{{ URL::to('cat/' . $cat->slug)}}">{{ $cat->name }}</a>
+            </li>
+            @endforeach
+        </ul>
+        <h1>Servicios</h1>
+        <ul class="level2">
+            @foreach ($services as $cat)
+            <li>
+                <a href="{{ URL::to('cat/' . $cat->slug)}}">{{ $cat->name }}</a>
+            </li>
+            @endforeach
+        </ul>
     @endif
-@endif
-    @include('include.filter_sidebar')
 @stop
 
 @section('content')
