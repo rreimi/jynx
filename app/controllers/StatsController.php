@@ -45,12 +45,7 @@ class StatsController extends BaseController {
         $data['publications_suspended'] = PublicationView::suspended()->count();
 
         // Cantidad total de reportes
-        $data['reports_total'] = PublicationReport::count();
-
-        // Reportes con status pending
-        $data['reports'] = PublicationReport::pendingReports()->count();
-
-//        $data['reports_pending'] = count(PublicationReport::select(DB::raw('distinct(publication_id)'))->pendingReports()->distinct()->get());
+        $data['reports'] = PublicationReport::count();
 
         // Denuncias totales que son válidas o se ha tomado una acción
         $data['reports_valid_or_action'] = PublicationReport::validOrActionReports()->count();
