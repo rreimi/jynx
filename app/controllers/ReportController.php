@@ -206,7 +206,13 @@ class ReportController extends BaseController {
 
         //Status filter
         if (!empty($state['filter_status'])){
-            $reports->where('publications_reports.status', '=', $state['filter_status']);
+            // Activate filter by validOrAction (comes from stats)
+            if ($state['filter_status'] == PublicationReport::STATE_VALID_OR_ACTION){
+                $reports->where('publications_reports.status', '<>', PublicationReport::STATUS_PENDING);
+                $reports->where('publications_reports.status', '<>', PublicationReport::STATUS_INVALID);
+            } else {
+                $reports->where('publications_reports.status', '=', $state['filter_status']);
+            }
         }
 
         //Publisher filter
@@ -542,6 +548,9 @@ class ReportController extends BaseController {
                     }
                 }
             }
+        // Activate Nueva busqueda button when is filtered by validOrAction (comes from stats)
+        } elseif (isset($state['filter_status']) && $state['filter_status'] == PublicationReport::STATE_VALID_OR_ACTION){
+            $state['active_filters']++;
         }
 
         Session::put('rep_list.state', $state);

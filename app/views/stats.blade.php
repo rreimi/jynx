@@ -103,7 +103,7 @@
                     </a>
                 </li>
                 <li class="span4">
-                    <a href="{{ URL::to('denuncia/lista?filter_status='.PublicationReport::STATUS_VALID)}}">
+                    <a href="{{ URL::to('denuncia/lista?filter_status='.PublicationReport::STATE_VALID_OR_ACTION)}}">
                         <div class="thumbnail stats-column">
                             <input type="text" value="{{ $reports_valid_or_action }}" class="dial publications" data-max="{{ $reports }}" data-fgColor="#FAC741" data-inputColor="#FAC741"/>
                             <div class="caption">
