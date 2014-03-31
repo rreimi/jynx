@@ -308,7 +308,7 @@ class ReportController extends BaseController {
             return Response::json('report_actions_error_report', 404);
         }
 
-        $report->status = PublicationReport::STATUS_DELETED_COMMENT;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_comment'), 'success');
@@ -340,7 +340,7 @@ class ReportController extends BaseController {
         $pub->status = Publication::STATUS_SUSPENDED;
         $pub->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLICATION;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_publication'), 'success');
@@ -377,7 +377,7 @@ class ReportController extends BaseController {
         $publisher->status_publisher = Publisher::STATUS_SUSPENDED;
         $publisher->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLISHER;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_publisher'), 'success');
@@ -409,7 +409,7 @@ class ReportController extends BaseController {
         $user->status = User::STATUS_SUSPENDED;
         $user->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_REPORTER;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::sendSuspendedEmail($user->email, $user->full_name);
