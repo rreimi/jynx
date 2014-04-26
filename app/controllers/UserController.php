@@ -47,6 +47,11 @@ class UserController extends BaseController {
         // Don't show publishers users
         $users->where('role', '!=', User::ROLE_PUBLISHER);
 
+        // Filter by subAdmin
+        if (Auth::user()->isSubAdmin()){
+            $users->where('group_id', Auth::user()->group_id);
+        }
+
         // Join with reports made by users
         $users->leftJoin('publications_reports','users.id','=','publications_reports.user_id');
 

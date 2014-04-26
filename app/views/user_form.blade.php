@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        @if ($groupsQty > 1 || $user->role == User::ROLE_SUBADMIN || $user->id == null)
+        @if ($groupsQty > 1 || $user->id == null)
             <div class="control-group group-section {{ $errors->has('group') ? 'error':'' }}">
                 <label class="control-label required-field" for="role">{{ Lang::get('content.user_group') }}</label>
                 <div class="controls">
@@ -130,16 +130,6 @@
             jQuery("input:password").attr('disabled', 'disabled');
         }
 
-        jQuery('.role').bind("change", function(){
-            if (jQuery('select.role').val() == '{{ User::ROLE_SUBADMIN }}'){
-                jQuery('.group-section').show();
-            } else {
-                jQuery('.group-section').hide();
-                jQuery('.group-field').val('');
-            }
-        });
-
-        jQuery('.role').trigger('change');
     });
 
 </script>
