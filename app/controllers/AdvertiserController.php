@@ -39,6 +39,11 @@ class AdvertiserController extends BaseController {
             $advertisers->where('users.status', '=', $status);
         }
 
+        // Filter by subAdmin
+        if (Auth::user()->isSubAdmin()){
+            $advertisers->where('users.group_id', Auth::user()->group_id);
+        }
+
         $statusPublisher = $state['filter_status_publisher'];
 
         if (!empty($statusPublisher)){
