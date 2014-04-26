@@ -129,11 +129,21 @@ class UserController extends BaseController {
 
         $user = new User();
 
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
         return View::make('user_form',
             array('user_statuses' => self::getUserStatuses(Lang::get('content.select')),
-                  'user_roles' => array('' => Lang::get('content.select'), 'Admin' => Lang::get('content.role_Admin')),
+                  'user_roles' => array('' => Lang::get('content.select'), 'Admin' => Lang::get('content.role_Admin'), 'SubAdmin' => Lang::get('content.role_SubAdmin')),
                   'user' => $user,
                   'referer' => URL::previous(),
+                  'groups' => $finalGroups,
+                  'groupsQty' => $groupsQty
                 )
             );
     }
@@ -155,11 +165,21 @@ class UserController extends BaseController {
         //Get user
         $user = User::find($id);
 
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
         return View::make('user_form',
             array('user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
                 'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
                 'user' => $user,
                 'referer' => $referer,
+                'groups' => $finalGroups,
+                'groupsQty' => $groupsQty
             )
         );
     }
@@ -172,10 +192,11 @@ class UserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'role' => Input::get('role'),
+            'group' => Input::get('group'),
             'status' => Input::get('status'),
         );
 
-        $isNew=empty($userData['id']);
+        $isNew = empty($userData['id']);
 
         //Set validation rules
         $rules = array(
@@ -185,6 +206,9 @@ class UserController extends BaseController {
             'email' => $isNew?'required|email|unique:users,email':'unique:users,email,'.$userData['id']
         );
 
+        if (isset($userData['role']) && $userData['role'] == User::ROLE_SUBADMIN){
+            $rules['group'] = 'required';
+        }
 
         $messages = array();
 
@@ -246,6 +270,11 @@ class UserController extends BaseController {
                 $passwordChanged = true;
             }
 
+        }
+
+        // Set group when is sent
+        if (isset($userData['group']) && !empty($userData['group'])){
+            $user->group_id = $userData['group'];
         }
 
         $user->save();
@@ -384,9 +413,10 @@ class UserController extends BaseController {
     private static function getUserRoles($blankCaption = '') {
 
         $options = array (
-            User::ROLE_BASIC => Lang::get('content.role_Basic'),
+            User::ROLE_BASIC => Lang::get('content.role_'.User::ROLE_BASIC),
 //            User::ROLE_PUBLISHER => Lang::get('content.role_Publisher'),
-            User::ROLE_ADMIN => Lang::get('content.role_Admin'),
+            User::ROLE_ADMIN => Lang::get('content.role_'.User::ROLE_ADMIN),
+            User::ROLE_SUBADMIN => Lang::get('content.role_'.User::ROLE_SUBADMIN),
         );
 
         if (!empty($blankCaption)){

@@ -206,6 +206,7 @@ return array(
     "backend_menu_title" => "SECCIONES DE ADMINISTRACIÓN",
     "backend_menu_dashboard" => "Solicitudes Pendientes",
     "backend_menu_users" => "Usuarios",
+    "backend_menu_groups" => "Grupos",
     "backend_menu_publishers" => "Anunciantes",
     "backend_menu_publications" => "Publicaciones",
     "backend_menu_advertisings" => "Publicidades",
@@ -215,6 +216,7 @@ return array(
     "backend_menu_mass_email" => "Correos Masivos",
     "backend_search_publication_title" => "Buscar publicaciones",
     "backend_search_user_title" => "Buscar usuarios",
+    "backend_search_group_title" => "Buscar grupos",
     "backend_search_advertiser_title" => "Buscar anunciantes",
     "backend_search_reports_title" => "Buscar denuncias",
 
@@ -481,6 +483,7 @@ return array(
     "filter_publication_placeholder" => 'Seleccione una o más publicaciones',
     "filter_publisher_status_user" => "Estatus Usuario",
     "filter_publisher_status_publisher" => "Estatus Anunciante",
+    "filter_group_status" => 'Estatus:',
     "select_default"=>"Seleccione",
     "select_batch_users" => 'Por favor, seleccione uno o mas usuarios',
     "batch_options_label" => 'Para los elementos seleccionados:',
@@ -495,6 +498,7 @@ return array(
     "user_name" => 'Nombre',
     "user_email" => 'Correo electrónico',
     "user_role" => 'Rol',
+    "user_group" => 'Grupo',
     "user_status" => 'Estatus',
     "user_is_publisher" => '¿Es anunciante?',
 
@@ -508,8 +512,16 @@ return array(
     // Search
     "user_search_placeholder" => "Buscar...",
     "user_role_Admin" => "Administrador",
+    "user_role_SubAdmin" => "Sub-Administrador",
     "user_role_Publisher" => "Anunciante",
     "user_role_Basic" => "Básico",
+
+    // Search
+    "group_search_placeholder" => "Buscar...",
+//    "user_role_Admin" => "Administrador",
+//    "user_role_SubAdmin" => "Sub-Administrador",
+//    "user_role_Publisher" => "Anunciante",
+//    "user_role_Basic" => "Básico",
 
     // Status
     'status_Active' => 'Activo',
@@ -519,11 +531,28 @@ return array(
     'status_Approved' => 'Aprobado',
     'status_Denied' => 'Negado',
 
+    // Groups
+    "groups" => 'Grupos',
+    "group_name" => 'Nombre',
+    "group_status" => 'Estatus',
+    "new_group" => 'Nuevo grupo',
+    "edit_group" => 'Editar grupo',
+    "modal_group_delete_title" => "Eliminar grupo",
+    "modal_group_delete_content" => "¿Está seguro que desea eliminar este grupo?",
+    "group_name_placeholder" => 'Nombre grupo',
+    'save_group_success' => 'El grupo ha sido guardado satisfactoriamente',
+    "delete_group_invalid" => "El grupo que intenta eliminar es inválido",
+    "delete_group_success" => "El grupo se ha eliminado correctamente",
+    "delete_group_error" => "Ha ocurrido un error al intentar eliminar el grupo.",
+    "delete_group_with_users" => "No es posible eliminar este grupo ya que hay usuarios que pertenecen al grupo.",
+    "select_group" => "Seleccione grupo",
+
     // Roles
     'role' => 'Rol',
     'role_Basic' => 'Básico',
     'role_Publisher' => 'Anunciante',
     'role_Admin' => 'Administrador',
+    'role_SubAdmin' => 'Sub-Administrador',
 
     // Messages
     'save_user_success' => 'El usuario ha sido guardado satisfactoriamente',
@@ -575,11 +604,11 @@ return array(
 
     // Messages
     'save_advertiser_success' => 'El anunciante ha sido guardado satisfactoriamente',
-    "delete_advertiser_invalid" => "El anunciante que intentas eliminar es inválido",
+    "delete_advertiser_invalid" => "El anunciante que intenta eliminar es inválido",
     "delete_advertiser_success" => "El anunciante se ha eliminado correctamente",
     "delete_advertiser_error" => "Ha ocurrido un error al intentar eliminar el anunciante.",
     "modal_advertiser_delete_title" => "Eliminar anunciante",
-    "modal_advertiser_delete_content" => "¿Está seguro que deseas eliminar este anunciante?",
+    "modal_advertiser_delete_content" => "¿Está seguro que desea eliminar este anunciante?",
 
     // General
     "required_label" => "Campo Obligatorio",

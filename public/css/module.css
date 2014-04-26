@@ -1221,3 +1221,8 @@ div#home-banner-top .carousel-control {
 .batch-options-buttons {
     padding:10px;
 }
+
+/* User */
+.user-form .group-section {
+    display: none;
+}

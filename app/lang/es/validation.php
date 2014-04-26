@@ -150,7 +150,10 @@ return array(
         'area_ids' => 'Áreas',
         'reset_password' => 'Contraseña',
         'reset_password_confirmation' => 'Confirme la contraseña',
-        'web' => 'Página web'
+        'web' => 'Página web',
+
+        'group_name' => 'Nombre grupo',
+        'group' => 'Grupo',
     ),
 
 );

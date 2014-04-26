@@ -89,9 +89,16 @@ class RegisterController extends BaseController{
         // Reorder states to maintain the correct id
         $states = State::lists('name','id');
         $finalStates = array('' => Lang::get('content.select_state'));
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
 
         foreach($states as $key => $value){
             $finalStates[$key] = $value;
+        }
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
         }
 
         return View::make('register_step2')->with(
@@ -99,7 +106,9 @@ class RegisterController extends BaseController{
                 "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
                 "activation_flag" => (boolean) Session::get('activation_flag'),
-                "hide_modal" => $hideModal
+                "hide_modal" => $hideModal,
+                "groups" => $finalGroups,
+                "groupsQty" => $groupsQty
             )
         );
     }
@@ -148,6 +157,11 @@ class RegisterController extends BaseController{
 
             $user->is_publisher=1;
             $user->step=1;
+
+            $group = Input::get('publisher_group');
+            if (isset($group)){
+                $user->group_id=Input::get('publisher_group');
+            }
 
             $user->save();
 

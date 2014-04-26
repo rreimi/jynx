@@ -7,6 +7,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     const ROLE_ADMIN="Admin";
 
+    const ROLE_SUBADMIN="SubAdmin";
+
     const ROLE_PUBLISHER="Publisher";
 
     const ROLE_BASIC="Basic";
@@ -70,6 +72,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasOne('Publisher');
     }
 
+    public function group(){
+        return $this->belongsTo('Group');
+    }
+
     public function scopeToApprove($query){
         return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
     }
@@ -84,6 +90,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isAdmin(){
         return $this->role==self::ROLE_ADMIN;
+    }
+
+    public function isSubAdmin(){
+        return $this->role==self::ROLE_SUBADMIN;
     }
 
     public function isBasic(){

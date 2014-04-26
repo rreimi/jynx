@@ -50,18 +50,28 @@
         </div>
 
         @if (isset($user->id))
-        <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
-            <label class="control-label required-field" for="role">{{ Lang::get('content.role') }}</label>
-            <div class="controls">
-                {{ Form::select(
-                'role',
-                array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
-                $user->role,
-                array('class'=>'role')
-                ) }}
-                {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+            <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
+                <label class="control-label required-field" for="role">{{ Lang::get('content.role') }}</label>
+                <div class="controls">
+                    {{ Form::select(
+                    'role',
+                    array_merge(array('' => Lang::get('content.select')), $advertiser_roles),
+                    $user->role,
+                    array('class'=>'role')
+                    ) }}
+                    {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
             </div>
-        </div>
+        @endif
+
+        @if ($groupsQty > 1)
+            <div class="control-group group-section {{ $errors->has('group') ? 'error':'' }}">
+                <label class="control-label required-field" for="role">{{ Lang::get('content.user_group') }}</label>
+                <div class="controls">
+                    {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
+                    {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
         @endif
 
         <div class="control-group">

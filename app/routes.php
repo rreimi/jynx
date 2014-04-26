@@ -51,6 +51,8 @@ Route::controller('contacto','ContactController');
 
 Route::controller('usuario','UserController');
 
+Route::controller('grupo','GroupController');
+
 Route::controller('anunciante','AdvertiserController');
 
 Route::controller('estadisticas','StatsController');

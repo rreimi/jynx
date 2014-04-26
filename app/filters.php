@@ -42,7 +42,7 @@ Route::filter('auth', function()
         switch (Auth::user()->step){
             case 2:
                 // Admin con step 2 = Este es el caso cuando a un usuario basico se le cambia el rol a admin
-                if (Auth::user()->isAdmin()){
+                if (Auth::user()->isAdmin() || Auth::user()->isSubAdmin()){
                     if (str_contains(URL::current(),'registro/datos-anunciante') || str_contains(URL::current(),'registro/anunciante')){
                         return Redirect::to('estadisticas');
                     }
@@ -68,14 +68,22 @@ Route::filter('auth', function()
     }
 });
 
+// Este filtro englobaría toda la capa de administradores (tanto superadmin como subadmin)
 Route::filter('admin',function(){
+    if(!Auth::guest()){
+        if (!Auth::user()->isAdmin() && !Auth::user()->isSubAdmin()){
+            return Redirect::to('/');
+        }
+    }
+});
+// Este filtro se utilizara para proteger los recursos que solo puede ver el administrador (no tiene acceso el subadministrador)
+Route::filter('onlyadmin',function(){
     if(!Auth::guest()){
         if (!Auth::user()->isAdmin()){
             return Redirect::to('/');
         }
     }
 });
-
 
 Route::filter('auth.basic', function()
 {

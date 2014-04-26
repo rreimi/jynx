@@ -34,10 +34,20 @@
         <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
             <label class="control-label required-field" for="role">{{ Lang::get('content.user_role') }}</label>
             <div class="controls">
-                {{ Form::select('role', $user_roles, $user->role, array('class'=>'required')) }}
+                {{ Form::select('role', $user_roles, $user->role, array('class'=>'required role')) }}
                 {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
+
+        @if ($groupsQty > 1 || $user->role == User::ROLE_SUBADMIN || $user->id == null)
+            <div class="control-group group-section {{ $errors->has('group') ? 'error':'' }}">
+                <label class="control-label required-field" for="role">{{ Lang::get('content.user_group') }}</label>
+                <div class="controls">
+                    {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
+                    {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+        @endif
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
@@ -112,13 +122,25 @@
         });
 
         var passwordError = {{ $errors->has('password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
-            if (passwordError){
-                jQuery("input:password").val('');
-                jQuery('.btn-password').click();
+        if (passwordError){
+            jQuery("input:password").val('');
+            jQuery('.btn-password').click();
+        } else {
+            jQuery("input:password").val('');
+            jQuery("input:password").attr('disabled', 'disabled');
+        }
+
+        jQuery('.role').bind("change", function(){
+            if (jQuery('select.role').val() == '{{ User::ROLE_SUBADMIN }}'){
+                jQuery('.group-section').show();
             } else {
-                jQuery("input:password").val('');
-                jQuery("input:password").attr('disabled', 'disabled');
+                jQuery('.group-section').hide();
+                jQuery('.group-field').val('');
             }
         });
+
+        jQuery('.role').trigger('change');
+    });
+
 </script>
 @stop

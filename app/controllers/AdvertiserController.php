@@ -132,19 +132,35 @@ class AdvertiserController extends BaseController {
 
         $user = new User();
         $advertiser = new Publisher();
+        $advertiser->suggest_products = 0;
+        $advertiser->suggested_products = '';
+        $advertiser->avatar = false;
+        $user->publisher = $advertiser;
+        $avatarUrl = null;
 
         $advCats = array();
+
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
 
         return View::make('advertiser_form',
             array(
                   'user_statuses' => self::getUserStatuses(),
                   'advertiser_statuses' => self::getAdvertiserStatuses(),
                   'user' => $user,
+                  'avatar' => $avatarUrl,
                   'advertiser' => $advertiser,
                   'states' => State::lists('name','id'),
                   "categories" => Category::parents()->orderBy('name','asc')->get(),
                   'advertiser_categories' => $advCats,
                   'referer' => URL::previous(),
+                  'groups' => $finalGroups,
+                  'groupsQty' => $groupsQty
                 )
             );
     }
@@ -185,6 +201,14 @@ class AdvertiserController extends BaseController {
             $advCats = Input::old('categories');
         }
 
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
         return View::make('advertiser_form',
             array(
                 'user_statuses' => self::getUserStatuses(),
@@ -197,6 +221,8 @@ class AdvertiserController extends BaseController {
                 'advertiser_categories' => $advCats,
                 'advertiser_roles' => self::getAdvertiserRoles(Lang::get('content.filter_role_placeholder')),
                 'referer' => $referer,
+                'groups' => $finalGroups,
+                'groupsQty' => $groupsQty
             )
         );
     }
@@ -209,6 +235,7 @@ class AdvertiserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'status' => Input::get('status'),
+            'group' => Input::get('group'),
             'status_publisher' => Input::get('status_publisher'),
             'publisher_type' => Input::get('publisher_type'),
             'letter_rif_ci' => Input::get('publisher_id_type'),
@@ -340,6 +367,12 @@ class AdvertiserController extends BaseController {
         }
 
         $user->fill($advertiserData);
+
+        // Set group when is sent
+        if (isset($advertiserData['group']) && !empty($advertiserData['group'])){
+            $user->group_id = $advertiserData['group'];
+        }
+
         // Si el publisher es suspendido le asigno rol Basic
         if ($suspendedPublisher){
             $user->role = User::ROLE_BASIC;
