@@ -76,6 +76,7 @@ Route::filter('admin',function(){
         }
     }
 });
+
 // Este filtro se utilizara para proteger los recursos que solo puede ver el administrador (no tiene acceso el subadministrador)
 Route::filter('onlyadmin',function(){
     if(!Auth::guest()){
