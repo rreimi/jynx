@@ -32,10 +32,10 @@
         </div>
 
         <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
-            <label class="control-label required-field" for="role">{{ Lang::get('content.user_role') }}</label>
+            <label class="control-label required-field" for="role">{{ lang::get('content.user_role') }}</label>
             <div class="controls">
-                @if(Auth::user()->isAdmin())
-                    {{ Form::select('role', $user_roles, $user->role, array('class'=>'required role')) }}
+                @if(auth::user()->isadmin())
+                    {{ form::select('role', $user_roles, $user->role, array('class'=>'required role')) }}
                     {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
                 @else
                     <label class="label-value">{{ $user_roles[$user->role] }}</label>
@@ -43,17 +43,15 @@
             </div>
         </div>
 
-        <div class="control-group @if(Auth::user()->isAdmin()) group-section @endif {{ $errors->has('group') ? 'error':'' }}">
-            <label class="control-label required-field" for="group">{{ Lang::get('content.user_group') }}</label>
-            <div class="controls">
-                @if(Auth::user()->isAdmin())
+        @if ($user->role == Auth::user()->isAdmin())
+            <div class="control-group @if(Auth::user()->isAdmin()) group-section @endif {{ $errors->has('group') ? 'error':'' }}">
+                <label class="control-label required-field" for="group">{{ Lang::get('content.user_group') }}</label>
+                <div class="controls">
                     {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
                     {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
-                @else
-                    <label class="label-value">{{ $groups[$user->group_id] }}</label>
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>

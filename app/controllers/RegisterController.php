@@ -147,20 +147,24 @@ class RegisterController extends BaseController{
         $publisher->phone2=Input::get('publisher_phone2');
         $publisher->media=Input::get('publisher_media');
 
-        DB::transaction(function() use ($publisher,$userId){
+        $user = User::find($userId);
+
+        DB::transaction(function() use ($publisher,$user){
 
             $publisher->save();
 
             $publisher->categories()->sync(Input::get('publisher_categories'));
 
-            $user=User::find($userId);
-
             $user->is_publisher=1;
             $user->step=1;
 
             $group = Input::get('publisher_group');
-            if (isset($group)){
-                $user->group_id=Input::get('publisher_group');
+            $activeGroups = Group::activeGroups()->get();
+
+            if (isset($group) && count($activeGroups) > 1){
+                $user->group_id = $group;
+            } else {
+                $user->group_id = $activeGroups[0]->id;
             }
 
             $user->save();
@@ -168,9 +172,9 @@ class RegisterController extends BaseController{
         });
 
         $advertiserData = new stdClass();
-        $user = Auth::user();
-        $advertiserData->full_name = $user->full_name;
-        $advertiserData->email = $user->email;
+        $loggedUser = Auth::user();
+        $advertiserData->full_name = $loggedUser->full_name;
+        $advertiserData->email = $loggedUser->email;
         $advertiserData->publisher_type=Input::get('publisher_type');
         $advertiserData->seller_name=Input::get('publisher_seller');
         $advertiserData->letter_rif_ci=Input::get('publisher_id_type');
