@@ -206,7 +206,13 @@ class ReportController extends BaseController {
 
         //Status filter
         if (!empty($state['filter_status'])){
-            $reports->where('publications_reports.status', '=', $state['filter_status']);
+            // Activate filter by validOrAction (comes from stats)
+            if ($state['filter_status'] == PublicationReport::STATE_VALID_OR_ACTION){
+                $reports->where('publications_reports.status', '<>', PublicationReport::STATUS_PENDING);
+                $reports->where('publications_reports.status', '<>', PublicationReport::STATUS_INVALID);
+            } else {
+                $reports->where('publications_reports.status', '=', $state['filter_status']);
+            }
         }
 
         //Publisher filter
@@ -302,7 +308,7 @@ class ReportController extends BaseController {
             return Response::json('report_actions_error_report', 404);
         }
 
-        $report->status = PublicationReport::STATUS_DELETED_COMMENT;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_comment'), 'success');
@@ -334,7 +340,7 @@ class ReportController extends BaseController {
         $pub->status = Publication::STATUS_SUSPENDED;
         $pub->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLICATION;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_publication'), 'success');
@@ -371,7 +377,7 @@ class ReportController extends BaseController {
         $publisher->status_publisher = Publisher::STATUS_SUSPENDED;
         $publisher->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_PUBLISHER;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::addFlashMessage(null, Lang::get('content.report_actions_success_publisher'), 'success');
@@ -403,7 +409,7 @@ class ReportController extends BaseController {
         $user->status = User::STATUS_SUSPENDED;
         $user->save();
 
-        $report->status = PublicationReport::STATUS_SUSPENDED_REPORTER;
+        $report->status = PublicationReport::STATUS_VALID;
         $report->save();
 
         self::sendSuspendedEmail($user->email, $user->full_name);
@@ -542,6 +548,9 @@ class ReportController extends BaseController {
                     }
                 }
             }
+        // Activate Nueva busqueda button when is filtered by validOrAction (comes from stats)
+        } elseif (isset($state['filter_status']) && $state['filter_status'] == PublicationReport::STATE_VALID_OR_ACTION){
+            $state['active_filters']++;
         }
 
         Session::put('rep_list.state', $state);

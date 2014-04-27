@@ -287,18 +287,47 @@ class UserController extends BaseController {
     }
 
     public function getEliminar($id) {
-
-        $action = 'lista';
-
         if (empty($id)) {
             return Response::view('errors.missing', array(), 404);
         }
 
+        $result = $this->deleteUser($id);
+        self::addFlashMessage(null, $result->message, $result->status);
+
+//        $user = User::find($id);
+//
+//        if (empty($user)){
+//            self::addFlashMessage(null, Lang::get('content.delete_user_invalid'), 'error');
+//            return Redirect::to('usuario/'. $action);
+//        }
+//
+//        $result = $user->delete();
+//
+//        // Log when is deleted an user by an admin
+//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_user', 'entities' => array($user),
+//            'userAdminId' => Auth::user()->id));
+
+//        if ($result){
+//            self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');
+//        } else {
+//            self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
+//        }
+
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
+        return Redirect::to('usuario/lista');
+    }
+
+    private function deleteUser($id) {
+        $response = new stdClass;
         $user = User::find($id);
 
         if (empty($user)){
-            self::addFlashMessage(null, Lang::get('content.delete_user_invalid'), 'error');
-            return Redirect::to('usuario/'. $action);
+            $response->status = 'error';
+            $response->message = Lang::get('content.delete_user_invalid');
+            return $response;
         }
 
         $result = $user->delete();
@@ -308,11 +337,38 @@ class UserController extends BaseController {
             'userAdminId' => Auth::user()->id));
 
         if ($result){
-            self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');
+            $response->status = 'success';
+            $response->message = Lang::get('content.delete_user_success');
         } else {
-            self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
+            $response->status = 'error';
+            $response->message = Lang::get('content.delete_user_error');
         }
 
+        return $response;
+    }
+
+    public function postBatch() {
+
+        $ids = (array) Input::get('ids', array());
+        $action = Input::get('batch_action');
+
+        if (count($ids) > 0) {
+            switch ($action) {
+                case 'delete':
+                    $count = 0;
+                    foreach($ids as $id) {
+                        $result = $this->deleteUser($id);
+                        if ($result->status == 'success') {
+                            $count++;
+                        }
+                    }
+                    //TODO Mejorar esta parte, hacer distincion entre usuarios eliminados y los que no
+                    if ($count > 0) {
+                        self::addFlashMessage(null, Lang::get('content.delete_user_batch', array('count' => $count)), 'success');
+                    }
+                break;
+            }
+        }
 
         $referer = URL::previous();
         if (!empty($referer)){

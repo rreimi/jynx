@@ -5,10 +5,8 @@ class PublicationReport extends Eloquent {
     const STATUS_PENDING = "Pending";
     const STATUS_INVALID = "Invalid";
     const STATUS_VALID = "Valid";
-    const STATUS_DELETED_COMMENT = "DeletedComment";
-    const STATUS_SUSPENDED_PUBLICATION = "SuspendedPublication";
-    const STATUS_SUSPENDED_PUBLISHER = "SuspendedPublisher";
-    const STATUS_SUSPENDED_REPORTER = "SuspendedReporter";
+
+    const STATE_VALID_OR_ACTION = "ValidOrAction";
 
 //    protected $softDelete = true;
 

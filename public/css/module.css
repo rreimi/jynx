@@ -337,6 +337,10 @@ h2.home-title {
 
 }
 
+.publication-form, .profile-form, .job-form {
+    width:90%;
+}
+
 .publication-form hr {
     margin-bottom: 10px;
     margin-top: 30px;
@@ -564,17 +568,6 @@ div#home-banner-top .carousel-control {
     /* place center */
     margin-left:auto;
     margin-right:auto;
-}
-
-.modal-terms {
-    left: 15%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-}
-
-.modal-terms .modal-header h2 {
-    line-height: 1em;
 }
 
 .modal-register .modal-body {
@@ -1265,4 +1258,11 @@ dl.faq dd{
     position: fixed;
     bottom: 30px;
     right: 6%;
+}
+}
+
+/* Batch */
+
+.batch-options-buttons {
+    padding:10px;
 }

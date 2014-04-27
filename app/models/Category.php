@@ -113,4 +113,52 @@ class Category extends Eloquent {
         return $subcategories;
     }
 
+    public static function loadFromCache($id) {
+
+
+    }
+
+    public static function builtCategoryArray() {
+        if (!Cache::has(CacheHelper::$ALL_CATEGORIES)){
+            Cache::rememberForever(CacheHelper::$ALL_CATEGORIES, function() {
+                $categoryList = Category::get();
+                $categories = array();
+
+                foreach ($categoryList as $category) {
+                    $item = (object) $category->getAttributes();
+                    $subcategories = array();
+
+                    foreach ($category->subcategories as $subcategory) {
+                        $subcategories[] = $subcategory->id;
+                    }
+
+                    $item->subcategories = $subcategories;
+
+                    $categories[$item->id] = $item;
+                }
+                return $categories;
+            });
+        }
+    }
+
+    public static function getCategoryArray() {
+        return Cache::get(CacheHelper::$ALL_CATEGORIES);
+    }
+
+    public static function getFromCache($id) {
+
+        if ($id == null) {
+            return;
+        }
+
+        $categories = self::getCategoryArray();
+
+        if (isset($categories[$id])) {
+            return $categories[$id];
+        }
+
+        //Not in cache, load from db
+        return self::find($id);
+    }
+
 }

@@ -207,10 +207,10 @@ class PublicationController extends BaseController {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
-        $view = 'publication_list';
-        if ($user->isAdmin()){
+        //$view = 'publication_list';
+        //if ($user->isAdmin()){
             $view = 'backend_publication_list';
-        }
+        //}
 
         return View::make($view, array(
             'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status_placeholder')),
@@ -352,15 +352,24 @@ class PublicationController extends BaseController {
     public function getCrear() {
 
         // Get the current user publications list
+        //Get publisher
+        $publisher = Auth::user()->publisher;
 
         // Populate categories
         $pubCats = (is_array(Input::old('categories'))) ? Input::old('categories') : array();
 
+        if (empty($pubCats)) {
+            //Populate categories based on publisher categories
+            $sectors = $publisher->categories;
+            //Merge with business sectors
+            foreach ($sectors as $sector) {
+                $pubCats[] = $sector->id;
+            }
+        }
+
         // Populate publication contacts
         $pubContacts = (is_array(Input::old('contacts')))? Input::old('contacts') : array();
 
-        //Get publisher
-        $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
         $pub->from_date = date('d-m-Y',time());
@@ -589,10 +598,7 @@ class PublicationController extends BaseController {
         }
 
         // Get contacts ordered, main contact always first
-        $contacts = $pub->publisher->contacts->sortBy(function($contact)
-        {
-            return $contact->is_main;
-        });;
+        $contacts = Contact::where('publisher_id', $publisher->id)->orderBy('is_main', 'desc')->get();
 
         return View::make('publication_form',
             array(
