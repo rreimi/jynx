@@ -22,7 +22,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected $softDelete = true;
 
     protected $fillable = array('full_name', 'email',
-        'role', 'status');
+        'role', 'group_id', 'status');
 
 	/**
 	 * The database table used by the model.
@@ -86,11 +86,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function scopeRoleBasic($query){
-        return $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+        $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->where('group_id', Auth::user()->group_id);
+        }
     }
 
     public function scopeRolePublisher($query){
         return $query->where('role',self::ROLE_PUBLISHER);
+    }
+
+    public function scopeAllRows($query){
+        if (Auth::user()->isSubAdmin()){
+            $query->where('group_id', Auth::user()->group_id);
+        }
     }
 
     public function isAdmin(){

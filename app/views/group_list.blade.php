@@ -54,7 +54,7 @@
             <tr>
                 <td>{{ $group->group_name }}</td>
                 <td>{{ Lang::get('content.status_'. $group->status) }}</td>
-                <td>{{ $group->group_users_in_group }}</td>
+                <td>{{ $group->users_in_group }}</td>
                 <td>{{ date(Lang::get('content.date_format_php'),strtotime($group->created_at)) }}</td>
                 <td>
                     <a rel="tooltip" title="{{Lang::get('content.edit')}}" class="btn" href="{{URL::to('grupo/editar/' . $group->id)}}">

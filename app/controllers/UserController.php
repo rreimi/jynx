@@ -9,6 +9,7 @@ class UserController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('admin');
+        $this->beforeFilter('onlyadmin', array('only' => array('getCrear')));
         $this->beforeFilter('referer:user', array('only' => array('getLista', 'getDetalle')));
         // TODO: al cambiar layout backend lo puedo obviar
     }
@@ -44,13 +45,14 @@ class UserController extends BaseController {
             $users->where('users.role', '=', $rol);
         }
 
-        // Don't show publishers users
-        $users->where('role', '!=', User::ROLE_PUBLISHER);
-
         // Filter by subAdmin
         if (Auth::user()->isSubAdmin()){
             $users->where('group_id', Auth::user()->group_id);
+            $users->whereIn('role', RoleHelper::getEditableRoles());
         }
+
+        // Don't show publishers users
+        $users->where('role', '!=', User::ROLE_PUBLISHER);
 
         // Join with reports made by users
         $users->leftJoin('publications_reports','users.id','=','publications_reports.user_id');
@@ -134,8 +136,7 @@ class UserController extends BaseController {
 
         $user = new User();
 
-        $groups = Group::activeGroups()->get();
-        $groupsQty = count($groups);
+        $groups = Group::get();
         $finalGroups = array('' => Lang::get('content.select_group'));
 
         foreach($groups as $group){
@@ -148,7 +149,6 @@ class UserController extends BaseController {
                   'user' => $user,
                   'referer' => URL::previous(),
                   'groups' => $finalGroups,
-                  'groupsQty' => $groupsQty
                 )
             );
     }
@@ -170,8 +170,7 @@ class UserController extends BaseController {
         //Get user
         $user = User::find($id);
 
-        $groups = Group::activeGroups()->get();
-        $groupsQty = count($groups);
+        $groups = Group::get();
         $finalGroups = array('' => Lang::get('content.select_group'));
 
         foreach($groups as $group){
@@ -184,7 +183,6 @@ class UserController extends BaseController {
                 'user' => $user,
                 'referer' => $referer,
                 'groups' => $finalGroups,
-                'groupsQty' => $groupsQty
             )
         );
     }
@@ -197,7 +195,7 @@ class UserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'role' => Input::get('role'),
-            'group' => Input::get('group'),
+            'group_id' => Input::get('group'),
             'status' => Input::get('status'),
         );
 
@@ -206,13 +204,16 @@ class UserController extends BaseController {
         //Set validation rules
         $rules = array(
             'full_name' => 'required',
-            'role' => 'required',
             'status' => 'required',
             'email' => $isNew?'required|email|unique:users,email':'unique:users,email,'.$userData['id']
         );
 
-        if (isset($userData['role']) && $userData['role'] == User::ROLE_SUBADMIN){
-            $rules['group'] = 'required';
+        if (Auth::user()->isAdmin() == User::ROLE_ADMIN){
+            $rules['role'] = 'required';
+
+            if (isset($userData['role']) && $userData['role'] == User::ROLE_SUBADMIN){
+                $rules['group_id'] = 'required';
+            }
         }
 
         $messages = array();
@@ -265,6 +266,12 @@ class UserController extends BaseController {
             }
 
             $user->fill($userData);
+
+            if (Auth::user()->isSubAdmin()){
+                $user->role = $previousData['role'];
+                $user->group_id = $previousData['group_id'];
+            }
+
             $method = 'edit';
             $operation = 'Edit_user';
 
@@ -277,9 +284,8 @@ class UserController extends BaseController {
 
         }
 
-        // Set group when is sent
-        if (isset($userData['group']) && !empty($userData['group'])){
-            $user->group_id = $userData['group'];
+        if ($userData['role'] == User::ROLE_ADMIN){
+            $user->group_id = null;
         }
 
         $user->save();

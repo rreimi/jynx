@@ -16,7 +16,8 @@ class GroupController extends BaseController {
 
         $state = self::retrieveListState();
 
-        $groups = Group::orderBy($state['sort'], $state['order']);
+        $groups = Group::select(DB::raw('groups.*, count(users.id) as users_in_group'))
+            ->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -26,6 +27,8 @@ class GroupController extends BaseController {
                 $query->orWhere('group_name', 'LIKE', '%' . $q . '%');
             });
         }
+
+        $groups->join('users', 'users.group_id', '=', 'groups.id');
 
         $status = $state['filter_status'];
 

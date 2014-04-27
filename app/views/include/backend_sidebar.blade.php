@@ -17,7 +17,7 @@
 
     @if (Auth::user()->isSubAdmin())
         <ul class="nav nav-tabs nav-stacked side-nav">
-            <li><a href="{{ URL::to('estadisticas')}}">P-{{ Lang::get('content.backend_menu_stats') }}</a></li>
+            <li><a href="{{ URL::to('estadisticas')}}">{{ Lang::get('content.backend_menu_stats') }}</a></li>
             <li><a href="{{ URL::to('dashboard')}}">{{ Lang::get('content.backend_menu_dashboard') }}</a></li>
             <li><a href="{{ URL::to('usuario/lista')}}">{{ Lang::get('content.backend_menu_users') }}</a></li>
             <li><a href="{{ URL::to('anunciante/lista')}}">{{ Lang::get('content.backend_menu_publishers') }}</a></li>

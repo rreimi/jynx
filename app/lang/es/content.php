@@ -534,6 +534,7 @@ return array(
     // Groups
     "groups" => 'Grupos',
     "group_name" => 'Nombre',
+    "group_users_in_group" => 'Usuarios en grupo',
     "group_status" => 'Estatus',
     "new_group" => 'Nuevo grupo',
     "edit_group" => 'Editar grupo',

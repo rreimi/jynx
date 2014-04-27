@@ -133,42 +133,42 @@ class AdvertiserController extends BaseController {
     /**
      * @return mixed
      */
-    public function getCrear() {
-
-        $user = new User();
-        $advertiser = new Publisher();
-        $advertiser->suggest_products = 0;
-        $advertiser->suggested_products = '';
-        $advertiser->avatar = false;
-        $user->publisher = $advertiser;
-        $avatarUrl = null;
-
-        $advCats = array();
-
-        $groups = Group::activeGroups()->get();
-        $groupsQty = count($groups);
-        $finalGroups = array('' => Lang::get('content.select_group'));
-
-        foreach($groups as $group){
-            $finalGroups[$group->id] = $group->group_name;
-        }
-
-        return View::make('advertiser_form',
-            array(
-                  'user_statuses' => self::getUserStatuses(),
-                  'advertiser_statuses' => self::getAdvertiserStatuses(),
-                  'user' => $user,
-                  'avatar' => $avatarUrl,
-                  'advertiser' => $advertiser,
-                  'states' => State::lists('name','id'),
-                  "categories" => Category::parents()->orderBy('name','asc')->get(),
-                  'advertiser_categories' => $advCats,
-                  'referer' => URL::previous(),
-                  'groups' => $finalGroups,
-                  'groupsQty' => $groupsQty
-                )
-            );
-    }
+//    public function getCrear() {
+//
+//        $user = new User();
+//        $advertiser = new Publisher();
+//        $advertiser->suggest_products = 0;
+//        $advertiser->suggested_products = '';
+//        $advertiser->avatar = false;
+//        $user->publisher = $advertiser;
+//        $avatarUrl = null;
+//
+//        $advCats = array();
+//
+//        $groups = Group::activeGroups()->get();
+//        $groupsQty = count($groups);
+//        $finalGroups = array('' => Lang::get('content.select_group'));
+//
+//        foreach($groups as $group){
+//            $finalGroups[$group->id] = $group->group_name;
+//        }
+//
+//        return View::make('advertiser_form',
+//            array(
+//                  'user_statuses' => self::getUserStatuses(),
+//                  'advertiser_statuses' => self::getAdvertiserStatuses(),
+//                  'user' => $user,
+//                  'avatar' => $avatarUrl,
+//                  'advertiser' => $advertiser,
+//                  'states' => State::lists('name','id'),
+//                  "categories" => Category::parents()->orderBy('name','asc')->get(),
+//                  'advertiser_categories' => $advCats,
+//                  'referer' => URL::previous(),
+//                  'groups' => $finalGroups,
+//                  'groupsQty' => $groupsQty
+//                )
+//            );
+//    }
 
     /**
      * Load advertirser for edit
