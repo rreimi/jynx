@@ -566,6 +566,17 @@ div#home-banner-top .carousel-control {
     margin-right:auto;
 }
 
+.modal-terms {
+    left: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.modal-terms .modal-header h2 {
+    line-height: 1em;
+}
+
 .modal-register .modal-body {
     padding-bottom: 2em;
 }
@@ -1210,4 +1221,48 @@ div#home-banner-top .carousel-control {
 
 .advertiser-form .rif-ci {
     width: 178px;
+}
+
+/** Style our faq questions **/
+dl.faq{
+    margin-bottom:30px;
+}
+
+/** Make the question itself stand out **/
+dl.faq dt{
+    font-weight:bold;
+    color:#000000;
+    padding: 0 0 5px;
+    display:block;
+}
+
+/** Add a divisor below the question answer **/
+dl.faq dd{
+    padding-bottom:22px;
+    margin-bottom: 20px;
+    border-bottom:1px solid #EEE;
+    display:block;
+    margin-left: 0;
+}
+.help a:hover {
+    text-decoration: none;
+    color: #3385CB;
+}
+
+.help a{
+    color: #333;
+}
+
+.help li {
+    line-height: 25px;
+}
+
+.help hr {
+    margin-top: 35px;
+}
+
+.pagetop {
+    position: fixed;
+    bottom: 30px;
+    right: 6%;
 }
