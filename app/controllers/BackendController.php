@@ -9,8 +9,6 @@ class BackendController extends BaseController {
     }
 
     public function getIndex() {
-
-
         $data['users'] = User::toApprove()->with('publisher')->get();
 
         $data['reports'] = PublicationReport::pendingReports()->with('user')->with('publication')->get();

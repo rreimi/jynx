@@ -77,7 +77,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function scopeToApprove($query){
-        return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
+        $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->where('users.group_id', Auth::user()->group_id);
+        }
     }
 
     public function scopeRoleBasic($query){

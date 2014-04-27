@@ -18,8 +18,15 @@ class PublicationReport extends Eloquent {
                                 'comment', 'date', 'status');
 
     public function scopePendingReports($query){
-        $query->where('status', self::STATUS_PENDING)
-            ->orderBy('id', 'desc');
+        $query->where('publications_reports.status', self::STATUS_PENDING);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->leftJoin('users','users.id','=','publications_reports.user_id');
+            $query->where('users.group_id', Auth::user()->group_id);
+        }
+
+        $query->orderBy('publications_reports.id', 'desc');
     }
 
     public function scopeValidOrActionReports($query){
