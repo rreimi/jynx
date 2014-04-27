@@ -64,15 +64,13 @@
             </div>
         @endif
 
-        @if ($groupsQty > 1)
-            <div class="control-group group-section {{ $errors->has('group') ? 'error':'' }}">
-                <label class="control-label required-field" for="role">{{ Lang::get('content.user_group') }}</label>
-                <div class="controls">
-                    {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
-                    {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
-                </div>
+        <div class="control-group {{ $errors->has('group') ? 'error':'' }}">
+            <label class="control-label required-field" for="group">{{ Lang::get('content.user_group') }}</label>
+            <div class="controls">
+                {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
+                {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
-        @endif
+        </div>
 
         <div class="control-group">
             <div class="controls">

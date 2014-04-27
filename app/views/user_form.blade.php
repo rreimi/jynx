@@ -44,7 +44,7 @@
         </div>
 
         <div class="control-group @if(Auth::user()->isAdmin()) group-section @endif {{ $errors->has('group') ? 'error':'' }}">
-            <label class="control-label required-field" for="role">{{ Lang::get('content.user_group') }}</label>
+            <label class="control-label required-field" for="group">{{ Lang::get('content.user_group') }}</label>
             <div class="controls">
                 @if(Auth::user()->isAdmin())
                     {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
