@@ -340,22 +340,22 @@ class AdvertiserController extends BaseController {
         $previousDataAdvertiser = null;
         $suspendedPublisher = false;
 
-        // Save advertiser
-        if (empty($advertiserData['id'])){
-            $user = new User($advertiserData);
-            $user->password = Hash::make('123456');
-            $user->role=User::ROLE_PUBLISHER;
-            $user->step = 1;
-
-            $method = 'add';
-            $operation = 'Add_publisher';
-
-            $advertiser = new Publisher();
-            
-            if ($advertiserData['status_publisher'] == Publisher::STATUS_SUSPENDED){
-                $suspendedPublisher = true;
-            }
-        } else {
+//        // Save advertiser
+//        if (empty($advertiserData['id'])){
+//            $user = new User($advertiserData);
+//            $user->password = Hash::make('123456');
+//            $user->role=User::ROLE_PUBLISHER;
+//            $user->step = 1;
+//
+//            $method = 'add';
+//            $operation = 'Add_publisher';
+//
+//            $advertiser = new Publisher();
+//
+//            if ($advertiserData['status_publisher'] == Publisher::STATUS_SUSPENDED){
+//                $suspendedPublisher = true;
+//            }
+//        } else {
             $advertiser = Publisher::find($advertiserData['id']);
             $previousDataAdvertiser = $advertiser->getOriginal();
             $user = User::find($advertiser->user_id);
@@ -367,9 +367,13 @@ class AdvertiserController extends BaseController {
                 ($advertiserData['status_publisher'] == Publisher::STATUS_SUSPENDED)){
                 $suspendedPublisher = true;
             }
-        }
+//        }
 
         $user->fill($advertiserData);
+
+        if (Auth::user()->isSubAdmin()){
+            $user->group_id = $previousDataUser['group_id'];
+        }
 
         // Si el publisher es suspendido le asigno rol Basic
         if ($suspendedPublisher){
