@@ -61,7 +61,7 @@ class ReportController extends BaseController {
 
             $subject = Lang::get('content.email_admin_notification_new_report');
 
-            self::sendMailAdmins('emails.layout_email', $data, $subject);
+            self::sendMailAdmins('emails.layout_email', $data, $subject, $user->group_id);
 
             return Response::json(null, 200);
         } else {

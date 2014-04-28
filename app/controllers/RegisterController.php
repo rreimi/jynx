@@ -193,7 +193,7 @@ class RegisterController extends BaseController{
             'advertiserData' => $advertiserData,
         );
 
-        $adminEmails = self::getEmailAdmins();
+        $adminEmails = self::getEmailAdmins($user->group_id);
 
         $subject = Lang::get('content.email_new_adviser_request');
 
