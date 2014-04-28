@@ -100,11 +100,13 @@
 
                             <li><a href="{{URL::to('acerca-de')}}">{{Lang::get('content.about_us')}}</a></li>
 
+                            <li><a href="{{URL::to('ayuda')}}">{{Lang::get('content.help')}}</a>
+
                             <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
 
 
-                            <!--<li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a>-->
+
 
 
 
