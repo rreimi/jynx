@@ -42,7 +42,11 @@
 
 @section('content')
 <div class="row-fluid">
-    <h1>{{Lang::get('content.users')}} <a href="{{URL::to('usuario/crear')}}" class="btn btn-info btn-small ">{{Lang::get('content.new_user_admin')}}</a></h1>
+    <h1>{{Lang::get('content.users')}}
+        @if (Auth::user()->isAdmin())
+            <a href="{{URL::to('usuario/crear')}}" class="btn btn-info btn-small ">{{Lang::get('content.new_user_admin')}}</a>
+        @endif
+    </h1>
     {{ Form::open(array('url' => 'usuario/batch', 'method' => 'post', 'class' => 'form-inline batch-form', 'id' => 'user_list_form')) }}
     <table class="user-table table table-bordered table-condensed">
         <thead>

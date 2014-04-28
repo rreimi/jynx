@@ -24,8 +24,10 @@ Route::get('/clearcache', function(){
 Route::get("/debug", function(){
     //$categories = BaseController::getCategories();
     //echo json_encode($categories);
-    $categories = Category::getCategoryArray();
-    echo json_encode($categories[1]);
+
+    $adminUsers = User::adminEmailList(2)->get();
+
+    var_dump($adminUsers);
 });
 
 Route::controller('login','LoginController');
@@ -50,6 +52,8 @@ Route::controller('perfil', 'ProfileController');
 Route::controller('contacto','ContactController');
 
 Route::controller('usuario','UserController');
+
+Route::controller('grupo','GroupController');
 
 Route::controller('anunciante','AdvertiserController');
 

@@ -18,7 +18,13 @@ class PublicationView extends Eloquent {
 	//protected $hidden = array('password');
 
     public function scopePublished($query){
-        return $query->where('status', 'Published');
+        if (Auth::user()->isSubAdmin()){
+            $query->join('publishers', 'publishers.id', '=', 'publications_view.publisher_id')
+                ->join('users', 'users.id', '=', 'publishers.user_id')
+                ->where('users.group_id', Auth::user()->group_id);
+        }
+
+        $query->where('publications_view.status', 'Published');
     }
 
     public function scopeFilter($query, $filters) {
@@ -222,10 +228,30 @@ class PublicationView extends Eloquent {
                 $join->on('publications_view.id', '=', 'sub_query.id');
             });
 
+        if (Auth::user()->isSubAdmin()){
+            $query->join('publishers', 'publishers.id', '=', 'publications_view.publisher_id')
+                ->join('users', 'users.id', '=', 'publishers.user_id')
+                ->where('users.group_id', Auth::user()->group_id);
+        }
+
     }
 
     public function scopeSuspended($query){
-        return $query->where('status', Publication::STATUS_SUSPENDED);
+        if (Auth::user()->isSubAdmin()){
+            $query->join('publishers', 'publishers.id', '=', 'publications_view.publisher_id')
+                ->join('users', 'users.id', '=', 'publishers.user_id')
+                ->where('users.group_id', Auth::user()->group_id);
+        }
+
+        $query->where('publications_view.status', Publication::STATUS_SUSPENDED);
+    }
+
+    public function scopeAllRows($query){
+        if (Auth::user()->isSubAdmin()){
+            $query->join('publishers', 'publishers.id', '=', 'publications_view.publisher_id')
+                  ->join('users', 'users.id', '=', 'publishers.user_id')
+                  ->where('users.group_id', Auth::user()->group_id);
+        }
     }
 
 }

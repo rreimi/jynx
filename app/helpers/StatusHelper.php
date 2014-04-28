@@ -12,6 +12,7 @@ class StatusHelper {
     public static $TYPE_ADVERTISING  = 'AVERTISING';
     public static $TYPE_REPORT  = 'REPORT';
     public static $TYPE_USER  = 'USER';
+    public static $TYPE_GROUP  = 'GROUP';
 
     public static function getStatuses($type, $blankCaption = '', $extraOptions = array()) {
         $statuses = array();
@@ -35,7 +36,9 @@ class StatusHelper {
             case 'USER' :
                 $statuses = self::getUserStatuses($blankCaption);
                 break;
-
+            case 'GROUP' :
+                $statuses = self::getGroupStatuses($blankCaption);
+                break;
         }
 
         if (count($extraOptions) > 0){
@@ -80,6 +83,20 @@ class StatusHelper {
             User::STATUS_ACTIVE => Lang::get('content.status_Active'),
             User::STATUS_INACTIVE => Lang::get('content.status_Inactive'),
             User::STATUS_SUSPENDED => Lang::get('content.status_Suspended'),
+        );
+
+        if (!empty($blankCaption)){
+            $options = array_merge(array('' => $blankCaption), $options);
+        }
+
+        return $options;
+    }
+
+    private static function getGroupStatuses($blankCaption = '') {
+
+        $options = array (
+            Group::STATUS_ACTIVE => Lang::get('content.status_Active'),
+            Group::STATUS_INACTIVE => Lang::get('content.status_Inactive'),
         );
 
         if (!empty($blankCaption)){
