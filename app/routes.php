@@ -13,14 +13,21 @@
 
 Route::get('/clearcache', function(){
     Cache::forget('categoryTree');
+    Cache::forget('productsTree');
     Cache::forget('servicesTree');
     Cache::forget('currentAdvertising');
     Cache::forget('homeRecent');
     Cache::forget('homeMostVisited');
+    Cache::forget(CacheHelper::$ALL_CATEGORIES);
 });
 
 Route::get("/debug", function(){
+    //$categories = BaseController::getCategories();
+    //echo json_encode($categories);
 
+    $adminUsers = User::adminEmailList(2)->get();
+
+    var_dump($adminUsers);
 });
 
 Route::controller('login','LoginController');
@@ -45,6 +52,8 @@ Route::controller('perfil', 'ProfileController');
 Route::controller('contacto','ContactController');
 
 Route::controller('usuario','UserController');
+
+Route::controller('grupo','GroupController');
 
 Route::controller('anunciante','AdvertiserController');
 

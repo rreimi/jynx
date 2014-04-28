@@ -2,7 +2,7 @@
 
 @section('sidebar')
     @include('include.publication_table_sidebar')
-@parent
+    @parent
 @stop
 
 @include('include.publication_table')

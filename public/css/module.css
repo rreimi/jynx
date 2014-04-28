@@ -337,6 +337,10 @@ h2.home-title {
 
 }
 
+.publication-form, .profile-form, .job-form {
+    width:90%;
+}
+
 .publication-form hr {
     margin-bottom: 10px;
     margin-top: 30px;
@@ -1210,4 +1214,64 @@ div#home-banner-top .carousel-control {
 
 .advertiser-form .rif-ci {
     width: 178px;
+}
+
+/** Style our faq questions **/
+dl.faq{
+    margin-bottom:30px;
+}
+
+/** Make the question itself stand out **/
+dl.faq dt{
+    font-weight:bold;
+    color:#000000;
+    padding: 0 0 5px;
+    display:block;
+}
+
+/** Add a divisor below the question answer **/
+dl.faq dd{
+    padding-bottom:22px;
+    margin-bottom: 20px;
+    border-bottom:1px solid #EEE;
+    display:block;
+    margin-left: 0;
+}
+.help a:hover {
+    text-decoration: none;
+    color: #3385CB;
+}
+
+.help a{
+    color: #333;
+}
+
+.help li {
+    line-height: 25px;
+}
+
+.help hr {
+    margin-top: 35px;
+}
+
+.pagetop {
+    position: fixed;
+    bottom: 30px;
+    right: 6%;
+}
+}
+
+/* Batch */
+
+.batch-options-buttons {
+    padding:10px;
+}
+
+/* User */
+.group-section {
+    display: none;
+}
+
+.label-value {
+    padding-top: 5px;
 }

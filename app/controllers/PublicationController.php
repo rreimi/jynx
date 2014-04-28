@@ -125,12 +125,12 @@ class PublicationController extends BaseController {
         $user = Auth::user();
 
         // Si no es publisher lo boto
-        if (!$user->isAdmin() && !$user->isPublisher()){
+        if (!$user->isAdmin() && !$user->isSubAdmin() && !$user->isPublisher()){
             return Redirect::to('/');
         }
 
         $state = self::retrieveListState();
-        $publications = PublicationView::select(DB::raw('publications_view.id, title, created_at, from_date, to_date, status, seller_name, visits_number, rating_avg, reports, ratings'))->orderBy($state['sort'], $state['order']);
+        $publications = PublicationView::select(DB::raw('publications_view.id, title, publications_view.created_at, from_date, to_date, publications_view.status, publications_view.seller_name, visits_number, rating_avg, reports, ratings'))->orderBy($state['sort'], $state['order']);
 
         $q = $state['q'];
 
@@ -147,7 +147,7 @@ class PublicationController extends BaseController {
 
         //Status filter
         if (!empty($state['filter_status'])){
-            $publications->where('status', '=', $state['filter_status']);
+            $publications->where('publications_view.status', '=', $state['filter_status']);
         }
 
         //Category filter
@@ -187,17 +187,22 @@ class PublicationController extends BaseController {
             $publications->where('to_date', '<=', date("Y-m-d", strtotime($state['to_end_date'])));
         }
 
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $publications->leftJoin('publishers','publishers.id','=','publications_view.publisher_id');
+            $publications->leftJoin('users','users.id','=','publishers.user_id');
+            $publications->where('users.group_id', Auth::user()->group_id);
+        }
+
         if ($user->isPublisher()){
             $publications->where('publisher_id', '=', $user->publisher->id);
         }
 
-        $publications->groupBy('id');
+        $publications->groupBy('publications_view.id');
         $publications = $publications->paginate($this->page_size);
 
         $publisherFilterValues=array();
         $categoryFilterValues=array();
-
-
 
         foreach (PublicationView::publishersWithPublications()->get() as $item) {
             $publisherFilterValues[$item->publisher_id] = $item->seller_name;
@@ -207,10 +212,10 @@ class PublicationController extends BaseController {
             $categoryFilterValues[$item->category_id] = $item->category_name;
         }
 
-        $view = 'publication_list';
-        if ($user->isAdmin()){
+        //$view = 'publication_list';
+        //if ($user->isAdmin()){
             $view = 'backend_publication_list';
-        }
+        //}
 
         return View::make($view, array(
             'pub_statuses' => self::getPublicationStatuses(Lang::get('content.filter_status_placeholder')),
@@ -352,15 +357,24 @@ class PublicationController extends BaseController {
     public function getCrear() {
 
         // Get the current user publications list
+        //Get publisher
+        $publisher = Auth::user()->publisher;
 
         // Populate categories
         $pubCats = (is_array(Input::old('categories'))) ? Input::old('categories') : array();
 
+        if (empty($pubCats)) {
+            //Populate categories based on publisher categories
+            $sectors = $publisher->categories;
+            //Merge with business sectors
+            foreach ($sectors as $sector) {
+                $pubCats[] = $sector->id;
+            }
+        }
+
         // Populate publication contacts
         $pubContacts = (is_array(Input::old('contacts')))? Input::old('contacts') : array();
 
-        //Get publisher
-        $publisher = Auth::user()->publisher;
 
         $pub = new Publication();
         $pub->from_date = date('d-m-Y',time());
@@ -589,10 +603,7 @@ class PublicationController extends BaseController {
         }
 
         // Get contacts ordered, main contact always first
-        $contacts = $pub->publisher->contacts->sortBy(function($contact)
-        {
-            return $contact->is_main;
-        });;
+        $contacts = Contact::where('publisher_id', $publisher->id)->orderBy('is_main', 'desc')->get();
 
         return View::make('publication_form',
             array(
