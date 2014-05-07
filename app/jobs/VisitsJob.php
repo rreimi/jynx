@@ -25,7 +25,15 @@ class VisitsJob {
             $job->delete();
         } catch (Exception $ex){
             Log::error('No se pudo ejecutar visitsJob para la publicación con id: ' . $id);
-            $job->release();
+            $job->delete();
+
+            //Attemps its not supported right now
+//            if ($job->attempts() > 3) {
+//                Log::error('Job fuera de la cola por limite de intentos');
+//                $job->delete();
+//            } else {
+//                $job->release();
+//            }
         }
     }
 }
