@@ -22,7 +22,13 @@ class PublicationRatingAvg {
             $job->delete();
         } catch (Exception $ex){
             Log::error('No se pudo calcular ratingAvg para la publicación con id: ' . $pubId);
-            $job->release();
+            if ($job->attempts() > 3) {
+                Log::error('Job fuera de la cola por limite de intentos');
+                $job->delete();
+            } else {
+                $job->release();
+
+            }
         }
     }
 }
