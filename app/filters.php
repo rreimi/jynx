@@ -56,9 +56,11 @@ Route::filter('auth', function()
                 };
                 break;
             case -1:
-                Auth::logout();
-                return Redirect::to('login');
-                break;
+                if (!Auth::user()->isAdmin() && !Auth::user()->isSubAdmin()){ // Caso cuando es creado admin y subadmin por backend (queda en paso -1)
+                    Auth::logout();
+                    return Redirect::to('login');
+                    break;
+                }
             case 0:
                 if(str_contains(URL::current(),'registro/datos-contactos') || str_contains(URL::current(),'registro/datos-anunciante') || str_contains(URL::current(),'registro/anunciante')){
                     return Redirect::to(URL::previous());
