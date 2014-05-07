@@ -154,6 +154,10 @@ class BackendController extends BaseController {
                     'contentEmail' => 'publisher_mass_email',
                 );
 
+                Log::debug('####  Queue -> postMassEmail');
+                Log::debug('Data: ' .json_encode($emailData));
+                Log::debug('Subject: ' .json_encode($postData));
+
                 Mail::queue('emails.layout_email', $emailData, function($message) use ($emailData, $postData){
                     $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
                     $message->to($emailData['publisherEmail'], $emailData['publisherName'])->subject($postData['email_subject']);;

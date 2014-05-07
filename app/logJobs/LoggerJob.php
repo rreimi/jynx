@@ -10,6 +10,8 @@ class LoggerJob {
 
     public function log($job, $dataLog) {
 
+        Log::debug('Starting logjob');
+
         /*$entity = $dataLog['entity'];
 
         $logJob = new LogJob();
@@ -82,6 +84,7 @@ class LoggerJob {
 
         $logJob->save();
 
+        Log::debug('Ending logjob');
     }
 
 }
