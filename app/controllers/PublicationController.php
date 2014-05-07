@@ -559,6 +559,34 @@ class PublicationController extends BaseController {
 
     }
 
+    private function canEditPublication($ownerId) {
+
+        if (Auth::user()->isPublisher()) {
+            if (Auth::user()->id == $ownerId){
+                return true;
+            }
+        }
+
+        if (Auth::user()->isAdmin()) {
+            return true;
+        }
+
+        if (Auth::user()->isSubAdmin()){
+
+            //Load owner group
+
+//            if (Auth::user()->group_id == $publisherGroupId){
+//
+//            }
+
+            /* TODO validate user group against publisher group, disabled right now */
+            return false;
+        }
+        //Is admin
+
+        return false;
+    }
+
     /**
      * Load publication for edit
      *
@@ -573,12 +601,11 @@ class PublicationController extends BaseController {
             $referer = Input::old('referer');
         }
 
-        //Get publisher
-        $publisher = Auth::user()->publisher;
-
-        //TODO verificar el publisher con el logueado
-
         $pub = Publication::with('categories', 'images', 'publisher', 'contacts', 'publisher.contacts')->find($id);
+        $pub->publisher->id;
+        if (!self::canEditPublication($pub->publisher->user_id)) {
+            return Response::view('errors.forbidden', array(), 403);
+        }
 
         // Populate categories
         $pubCats = array();
@@ -603,7 +630,7 @@ class PublicationController extends BaseController {
         }
 
         // Get contacts ordered, main contact always first
-        $contacts = Contact::where('publisher_id', $publisher->id)->orderBy('is_main', 'desc')->get();
+        $contacts = Contact::where('publisher_id', $pub->publisher->id)->orderBy('is_main', 'desc')->get();
 
         return View::make('publication_form',
             array(
@@ -924,4 +951,6 @@ class PublicationController extends BaseController {
     private static function getDetailSizeSuffix(){
         return '_' . self::$detailSize['width'] . 'x' . self::$detailSize['height'];
     }
+
+
 }
