@@ -20,13 +20,30 @@ class Publisher extends Eloquent {
         'media', 'phone1', 'phone2');
 
     public function scopeStatusApproved($query){
-        $query->where('status_publisher', '=', self::STATUS_APPROVED);
+        $query->where('publishers.status_publisher', '=', self::STATUS_APPROVED);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->join('users', 'users.id', '=', 'publishers.user_id')
+                  ->where('users.group_id', Auth::user()->group_id);
+        }
     }
 
     public function scopeWithPublications($query){
         $query->select('publishers.id', 'publications.id', 'publications.publisher_id')
-            ->join('publications','publishers.id','=','publications.publisher_id')
-            ->groupBy('publications.publisher_id');
+              ->join('publications','publishers.id','=','publications.publisher_id');
+        if (Auth::user()->isSubAdmin()){
+            $query->join('users', 'users.id', '=', 'publishers.user_id')
+                  ->where('group_id', Auth::user()->group_id);
+        }
+        $query->groupBy('publications.publisher_id');
+    }
+
+    public function scopeAllRows($query){
+        if (Auth::user()->isSubAdmin()){
+            $query->join('users', 'users.id', '=', 'publishers.user_id')
+                  ->where('group_id', Auth::user()->group_id);
+        }
     }
 
     public function sectors() {

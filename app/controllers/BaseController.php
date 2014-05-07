@@ -144,8 +144,8 @@ class BaseController extends Controller {
         });
     }
 
-    protected function getEmailAdmins(){
-        $adminUsers = User::adminEmailList()->get();
+    protected function getEmailAdmins($subAdminGroup = null){
+        $adminUsers = User::adminEmailList($subAdminGroup)->get();
 
         $adminEmails = array();
 

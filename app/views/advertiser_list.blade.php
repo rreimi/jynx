@@ -45,7 +45,7 @@
 
 @section('content')
 <div class="row-fluid">
-    <h1>{{Lang::get('content.advertisers')}} <a href="{{URL::to('anunciante/crear')}}" class="btn btn-info btn-small ">{{Lang::get('content.new_advertiser')}}</a></h1>
+    <h1>{{Lang::get('content.advertisers')}}</h1>
 
     <table class="advertiser-table table table-bordered table-condensed">
         <thead>

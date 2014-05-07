@@ -26,14 +26,14 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
                                 @if(Auth::user()->isPublisher())
-                                <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
-                                <li ><a href="{{URL::to('/bolsa-trabajo/lista')}}">{{Lang::get('content.my_jobs')}}</a></li>
+                                    <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
+                                    <li ><a href="{{URL::to('/bolsa-trabajo/lista')}}">{{Lang::get('content.my_jobs')}}</a></li>
                                 @endif
-                                @if(Auth::user()->isAdmin())
-                                <li><a href="{{URL::to('/estadisticas')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
+                                @if(Auth::user()->isAdmin() || Auth::user()->isSubAdmin())
+                                    <li><a href="{{URL::to('/estadisticas')}}">{{ Lang::get('content.admin_dashboard') }}</a></li>
                                 @endif
                                 @if(Auth::user()->canBePublisher())
-                                <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
+                                    <li><a href="{{URL::to('/registro/datos-anunciante')}}">{{ Lang::get('content.postulation') }}</a></li>
                                 @endif
                                 <li class="divider"></li>
                                 <li><a href="{{ URL::to('logout') }}">{{ Lang::get('content.exit') }}</a></li>
@@ -100,11 +100,13 @@
 
                             <li><a href="{{URL::to('acerca-de')}}">{{Lang::get('content.about_us')}}</a></li>
 
+                            <li><a href="{{URL::to('ayuda')}}">{{Lang::get('content.help')}}</a>
+
                             <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
 
 
 
-                            <!--<li><a href="{{URL::to('')}}">{{Lang::get('content.help')}}</a>-->
+
 
 
 

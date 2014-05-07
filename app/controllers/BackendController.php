@@ -9,8 +9,6 @@ class BackendController extends BaseController {
     }
 
     public function getIndex() {
-
-
         $data['users'] = User::toApprove()->with('publisher')->get();
 
         $data['reports'] = PublicationReport::pendingReports()->with('user')->with('publication')->get();
@@ -98,15 +96,19 @@ class BackendController extends BaseController {
 
     public function getAjaxTotalPublishers($type){
 
-        if ($type == 'All') {
-            $total = $totalPublishers = Publisher::count();
-        } else {
+        $query = DB::table('publishers')
+            ->join('users', 'users.id', '=', 'publishers.user_id');
 
-            $total = DB::table('publishers')
-                ->join('users', 'users.id', '=', 'publishers.user_id')
-                ->where('users.status', $type)
-                ->count();
+        // Filter by subAdmin
+        if (Auth::user()->isSubAdmin()){
+            $query->where('users.group_id', Auth::user()->group_id);
         }
+
+        if ($type != 'All') {
+            $query->where('users.status', $type);
+        }
+
+        $total = $query->count();
 
         return json_encode(array('total_publishers' => $total));
     }
@@ -141,6 +143,11 @@ class BackendController extends BaseController {
             $query->select('users.*', 'publishers.seller_name');
             $query->join('users', 'users.id', '=', 'publishers.user_id');
             $query->where('users.status', $postData['status']);
+        }
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->where('group_id', Auth::user()->group_id);
         }
 
         $publishers = $query->get();
