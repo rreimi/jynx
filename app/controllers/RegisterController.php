@@ -66,6 +66,10 @@ class RegisterController extends BaseController{
 
         //BaseController::sendAjaxMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
+        Log::debug('####  Queue -> registerController Post@index');
+        Log::debug('Data: ' .json_encode($welcomeData));
+        Log::debug('Subject: ' .json_encode($subject));
+
         Mail::queue('emails.layout_email', $welcomeData, function($message) use ($receiver, $subject){
          $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
          $message->to($receiver['email'], $receiver['name'])->subject($subject);;
@@ -196,6 +200,10 @@ class RegisterController extends BaseController{
         $adminEmails = self::getEmailAdmins($user->group_id);
 
         $subject = Lang::get('content.email_new_adviser_request');
+
+        Log::debug('####  Queue -> registerController Post@postStep2');
+        Log::debug('Data: ' .json_encode($welcomeData));
+        Log::debug('Subject: ' .json_encode($subject));
 
         Mail::queue('emails.layout_email', $welcomeData, function($message) use ($adminEmails, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
