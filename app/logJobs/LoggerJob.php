@@ -63,12 +63,15 @@ class LoggerJob {
         } catch (Exception $ex){
             Log::error('No se pudo ejecutar LoggerJob para los datos ' . json_encode($dataLog));
             Log::error('Mensaje: ' . $ex->getMessage());
-            if ($job->attempts() > 3) {
-                Log::error('Job fuera de la cola por limite de intentos');
-                $job->delete();
-            } else {
-                $job->release();
-            }
+            $job->delete();
+
+            //Attemps its not supported right now
+//            if ($job->attempts() > 3) {
+//                Log::error('Job fuera de la cola por limite de intentos');
+//                $job->delete();
+//            } else {
+//                $job->release();
+//            }
         }
         Log::debug('Ending logjob');
     }
