@@ -53,22 +53,28 @@
 @stop
 
 @section('content')
-    <div class="publication-grid">
-    @if (count($publications) === 0)
-        <h5 class="alert alert-warning">{{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $category->name))}}</h5>
-    @endif
 
-    @foreach ($publications as $key => $pub)
-        @if ($key % 3 == 0)
-        <div class="row-fluid">
+
+
+    <div class="publication-grid">
+        @if (is_null($category))
+        <h2 class="home-title"><span class="title-arrow">&gt;</span> {{Lang::get('content.recent_items')}}</h2>
         @endif
-            <div class="span4 pub-thumb">
-                @include('include.publication_box')
-            </div><!--/span-->
-        @if (((($key+1)%3) == 0) || ($key+1 == count($publications)))
-        </div><!--/div.row-fluid-->
+        @if (count($publications) === 0)
+            <h5 class="alert alert-warning">{{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $category->name))}}</h5>
         @endif
-    @endforeach
+
+        @foreach ($publications as $key => $pub)
+            @if ($key % 3 == 0)
+            <div class="row-fluid">
+            @endif
+                <div class="span4 pub-thumb">
+                    @include('include.publication_box')
+                </div><!--/span-->
+            @if (((($key+1)%3) == 0) || ($key+1 == count($publications)))
+            </div><!--/div.row-fluid-->
+            @endif
+        @endforeach
     </div>
     {{ $publications->appends(Input::except('page'))->links() }}
 </div><!--/row-->
