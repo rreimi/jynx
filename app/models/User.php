@@ -126,7 +126,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if ($subAdminGroup != null){
             $query->orWhere(function($query) use ($subAdminGroup)
             {
-                $query->where('role', self::ROLE_SUBADMIN)
+                $query->where('role', User::ROLE_SUBADMIN)
                     ->where('group_id', $subAdminGroup)
                     ->where('deleted_at', null); // TODO: No se porq esta clausula se trae los eliminados tambien
             });
