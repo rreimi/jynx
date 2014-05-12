@@ -1266,3 +1266,12 @@ dl.faq dd{
 .batch-options-buttons {
     padding:10px;
 }
+
+/* User */
+.group-section {
+    display: none;
+}
+
+.label-value {
+    padding-top: 5px;
+}

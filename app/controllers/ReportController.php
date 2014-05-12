@@ -61,7 +61,7 @@ class ReportController extends BaseController {
 
             $subject = Lang::get('content.email_admin_notification_new_report');
 
-            self::sendMailAdmins('emails.layout_email', $data, $subject);
+            self::sendMailAdmins('emails.layout_email', $data, $subject, $user->group_id);
 
             return Response::json(null, 200);
         } else {
@@ -171,11 +171,6 @@ class ReportController extends BaseController {
     public function getLista($filterType = null, $filterId = null){
         $user = Auth::user();
 
-        // Si no es admin lo boto
-        if (!$user->isAdmin()){
-            return Redirect::to('/');
-        }
-
         $state = self::retrieveListState();
 
         $reports = PublicationReport::select(DB::raw('publications_reports.*, sub_reports.reports_in_publication'))
@@ -255,6 +250,11 @@ class ReportController extends BaseController {
             $reports->where('final_status', '<=', date("Y-m-d", strtotime($state['final_status_end_date'])));
         }
 
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $reports->where('users.group_id', Auth::user()->group_id);
+        }
+
         $reports->groupBy('publications_reports.id');
         $reports = $reports->paginate($this->page_size);
 
@@ -274,9 +274,7 @@ class ReportController extends BaseController {
             $publishersFilterValues[$item->publisher_id] = $item->seller_name;
         }
 
-        if ($user->isAdmin()){
-            $view = 'reports_total_list';
-        }
+        $view = 'reports_total_list';
 
         return View::make($view, array(
             'rep_statuses' => self::getReportStatuses(Lang::get('content.filter_status_placeholder')),

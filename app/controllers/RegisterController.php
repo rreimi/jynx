@@ -66,6 +66,10 @@ class RegisterController extends BaseController{
 
         //BaseController::sendAjaxMail('emails.layout_email', $welcomeData, $receiver, $subject);
 
+        Log::debug('####  Queue -> registerController Post@index');
+        Log::debug('Data: ' .json_encode($welcomeData));
+        Log::debug('Subject: ' .json_encode($subject));
+
         Mail::queue('emails.layout_email', $welcomeData, function($message) use ($receiver, $subject){
          $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
          $message->to($receiver['email'], $receiver['name'])->subject($subject);;
@@ -89,9 +93,16 @@ class RegisterController extends BaseController{
         // Reorder states to maintain the correct id
         $states = State::lists('name','id');
         $finalStates = array('' => Lang::get('content.select_state'));
+        $groups = Group::activeGroups()->get();
+        $groupsQty = count($groups);
+        $finalGroups = array('' => Lang::get('content.select_group'));
 
         foreach($states as $key => $value){
             $finalStates[$key] = $value;
+        }
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
         }
 
         return View::make('register_step2')->with(
@@ -99,7 +110,9 @@ class RegisterController extends BaseController{
                 "states" => $finalStates,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
                 "activation_flag" => (boolean) Session::get('activation_flag'),
-                "hide_modal" => $hideModal
+                "hide_modal" => $hideModal,
+                "groups" => $finalGroups,
+                "groupsQty" => $groupsQty
             )
         );
     }
@@ -138,25 +151,34 @@ class RegisterController extends BaseController{
         $publisher->phone2=Input::get('publisher_phone2');
         $publisher->media=Input::get('publisher_media');
 
-        DB::transaction(function() use ($publisher,$userId){
+        $user = User::find($userId);
+
+        DB::transaction(function() use ($publisher,$user){
 
             $publisher->save();
 
             $publisher->categories()->sync(Input::get('publisher_categories'));
 
-            $user=User::find($userId);
-
             $user->is_publisher=1;
             $user->step=1;
+
+            $group = Input::get('publisher_group');
+            $activeGroups = Group::activeGroups()->get();
+
+            if (isset($group) && count($activeGroups) > 1){
+                $user->group_id = $group;
+            } else {
+                $user->group_id = $activeGroups[0]->id;
+            }
 
             $user->save();
 
         });
 
         $advertiserData = new stdClass();
-        $user = Auth::user();
-        $advertiserData->full_name = $user->full_name;
-        $advertiserData->email = $user->email;
+        $loggedUser = Auth::user();
+        $advertiserData->full_name = $loggedUser->full_name;
+        $advertiserData->email = $loggedUser->email;
         $advertiserData->publisher_type=Input::get('publisher_type');
         $advertiserData->seller_name=Input::get('publisher_seller');
         $advertiserData->letter_rif_ci=Input::get('publisher_id_type');
@@ -175,9 +197,13 @@ class RegisterController extends BaseController{
             'advertiserData' => $advertiserData,
         );
 
-        $adminEmails = self::getEmailAdmins();
+        $adminEmails = self::getEmailAdmins($user->group_id);
 
         $subject = Lang::get('content.email_new_adviser_request');
+
+        Log::debug('####  Queue -> registerController Post@postStep2');
+        Log::debug('Data: ' .json_encode($welcomeData));
+        Log::debug('Subject: ' .json_encode($subject));
 
         Mail::queue('emails.layout_email', $welcomeData, function($message) use ($adminEmails, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));

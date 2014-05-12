@@ -32,12 +32,26 @@
         </div>
 
         <div class="control-group {{ $errors->has('role') ? 'error':'' }}">
-            <label class="control-label required-field" for="role">{{ Lang::get('content.user_role') }}</label>
+            <label class="control-label required-field" for="role">{{ lang::get('content.user_role') }}</label>
             <div class="controls">
-                {{ Form::select('role', $user_roles, $user->role, array('class'=>'required')) }}
-                {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+                @if(auth::user()->isadmin())
+                    {{ form::select('role', $user_roles, $user->role, array('class'=>'required role')) }}
+                    {{ $errors->first('role', '<div class="field-error alert alert-error">:message</div>') }}
+                @else
+                    <label class="label-value">{{ $user_roles[$user->role] }}</label>
+                @endif
             </div>
         </div>
+
+        @if ($user->role == Auth::user()->isAdmin())
+            <div class="control-group @if(Auth::user()->isAdmin()) group-section @endif {{ $errors->has('group') ? 'error':'' }}">
+                <label class="control-label required-field" for="group">{{ Lang::get('content.user_group') }}</label>
+                <div class="controls">
+                    {{ Form::select('group', $groups, $user->group_id, array('class'=>'required group-field')) }}
+                    {{ $errors->first('group', '<div class="field-error alert alert-error">:message</div>') }}
+                </div>
+            </div>
+        @endif
 
         <div class="control-group {{ $errors->has('status') ? 'error':'' }}">
             <label class="control-label required-field" for="status">{{ Lang::get('content.status') }}</label>
@@ -112,13 +126,26 @@
         });
 
         var passwordError = {{ $errors->has('password') || $errors->has('password_confirmation') ? 'true' : 'false' }};
-            if (passwordError){
-                jQuery("input:password").val('');
-                jQuery('.btn-password').click();
+        if (passwordError){
+            jQuery("input:password").val('');
+            jQuery('.btn-password').click();
+        } else {
+            jQuery("input:password").val('');
+            jQuery("input:password").attr('disabled', 'disabled');
+        }
+
+        jQuery('.role').change(function(){
+            if (jQuery(this).val() == '{{ User::ROLE_ADMIN }}' || jQuery(this).val() == ''){
+                jQuery('.group-section').hide();
+                jQuery('.group').val('');
             } else {
-                jQuery("input:password").val('');
-                jQuery("input:password").attr('disabled', 'disabled');
+                jQuery('.group-section').show();
             }
         });
+
+        jQuery('.role').trigger('change');
+
+    });
+
 </script>
 @stop
