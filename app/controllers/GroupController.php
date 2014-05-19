@@ -28,7 +28,7 @@ class GroupController extends BaseController {
             });
         }
 
-        $groups->join('users', 'users.group_id', '=', 'groups.id');
+        $groups->leftJoin('users', 'users.group_id', '=', 'groups.id');
 
         $status = $state['filter_status'];
 
