@@ -92,14 +92,14 @@ class LoginController extends BaseController{
                 $result->status_code = "login_success";
                 $result->redirect_url = '';
 
-                if(Auth::user()->isAdmin()){
+                if(Auth::user()->isAdmin() || Auth::user()->isSubAdmin()){
                     $result->redirect_url = URL::to('/estadisticas');
                 }
                 return Response::json($result, 200);
 
             } else {
 
-                if(Auth::user()->isAdmin()){
+                if(Auth::user()->isAdmin() || Auth::user()->isSubAdmin()){
                     return Redirect::to('estadisticas');
                 } else {
                     if (Session::get('login_redirect_referer')){

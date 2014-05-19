@@ -7,6 +7,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     const ROLE_ADMIN="Admin";
 
+    const ROLE_SUBADMIN="SubAdmin";
+
     const ROLE_PUBLISHER="Publisher";
 
     const ROLE_BASIC="Basic";
@@ -20,7 +22,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected $softDelete = true;
 
     protected $fillable = array('full_name', 'email',
-        'role', 'status');
+        'role', 'group_id', 'status');
 
 	/**
 	 * The database table used by the model.
@@ -70,20 +72,44 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasOne('Publisher');
     }
 
+    public function group(){
+        return $this->belongsTo('Group');
+    }
+
     public function scopeToApprove($query){
-        return $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
+        $query->where('is_publisher',1)->where('role',self::ROLE_BASIC);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->where('users.group_id', Auth::user()->group_id);
+        }
     }
 
     public function scopeRoleBasic($query){
-        return $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+        $query->where('is_publisher',0)->where('role',self::ROLE_BASIC);
+
+        // Filter by subAdmin group
+        if (Auth::user()->isSubAdmin()){
+            $query->where('group_id', Auth::user()->group_id);
+        }
     }
 
     public function scopeRolePublisher($query){
         return $query->where('role',self::ROLE_PUBLISHER);
     }
 
+    public function scopeAllRows($query){
+        if (Auth::user()->isSubAdmin()){
+            $query->where('group_id', Auth::user()->group_id);
+        }
+    }
+
     public function isAdmin(){
         return $this->role==self::ROLE_ADMIN;
+    }
+
+    public function isSubAdmin(){
+        return $this->role==self::ROLE_SUBADMIN;
     }
 
     public function isBasic(){
@@ -94,8 +120,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->role==self::ROLE_PUBLISHER;
     }
 
-    public function scopeAdminEmailList($query){
-        return $query->where('role',self::ROLE_ADMIN);
+    public function scopeAdminEmailList($query, $subAdminGroup = null){
+        $query->where('role',self::ROLE_ADMIN);
+
+        if ($subAdminGroup != null){
+            $query->orWhere(function($query) use ($subAdminGroup)
+            {
+                $query->where('role', self::ROLE_SUBADMIN)
+                    ->where('group_id', $subAdminGroup)
+                    ->where('deleted_at', null); // TODO: No se porq esta clausula se trae los eliminados tambien
+            });
+        }
     }
 
     public function canBePublisher(){

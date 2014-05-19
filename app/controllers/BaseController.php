@@ -89,8 +89,12 @@ class BaseController extends Controller {
     }
 
     protected function sendMail($template, $data, $receivers, $subject){
+        Log::debug('####  Queue -> sendMail');
+        Log::debug('Data: ' .json_encode($data));
+        Log::debug('Receivers: ' .json_encode($receivers));
+        Log::debug('Subject: ' .json_encode($subject));
 
-       Mail::send($template, $data, function($message) use ($receivers, $subject){
+        Mail::queue($template, $data, function($message) use ($receivers, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers['email'], $receivers['name'])->subject($subject);
         });
@@ -98,7 +102,12 @@ class BaseController extends Controller {
 
     protected function sendMultipleMail($template, $data, $receivers, $subject){
 
-        Mail::send($template, $data, function($message) use ($receivers, $subject){
+        Log::debug('####  Queue -> sendMultipleMail');
+        Log::debug('Data: ' .json_encode($data));
+        Log::debug('Receivers: ' .json_encode($receivers));
+        Log::debug('Subject: ' .json_encode($subject));
+
+        Mail::queue($template, $data, function($message) use ($receivers, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers['email'])->subject($subject);
         });
@@ -106,9 +115,12 @@ class BaseController extends Controller {
 
     protected function sendMailAdmins($template, $data, $subject){
 
-        $receivers = self::getEmailAdmins();
+        Log::debug('####  Queue -> sendMailAdmins');
+        Log::debug('Data: ' .json_encode($data));
+        Log::debug('Subject: ' .json_encode($subject));
 
-        Mail::send($template, $data, function($message) use ($receivers, $subject){
+        $receivers = self::getEmailAdmins();
+        Mail::queue($template, $data, function($message) use ($receivers, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers);
             $ccoAdminEmails = Config::get('emails/addresses.cco_admin');
@@ -121,14 +133,19 @@ class BaseController extends Controller {
 
     public static function sendAjaxMail($template, $data, $receivers, $subject){
 
-        Mail::send($template, $data, function($message) use ($receivers, $subject){
+        Log::debug('####  Queue -> sendMailAdmins');
+        Log::debug('Data: ' .json_encode($data));
+        Log::debug('Receivers: ' .json_encode($receivers));
+        Log::debug('Subject: ' .json_encode($subject));
+
+        Mail::queue($template, $data, function($message) use ($receivers, $subject){
             $message->from(Config::get('emails/addresses.no_reply'), Config::get('emails/addresses.company_name'));
             $message->to($receivers['email'], $receivers['name'])->subject($subject);
         });
     }
 
-    protected function getEmailAdmins(){
-        $adminUsers = User::adminEmailList()->get();
+    protected function getEmailAdmins($subAdminGroup = null){
+        $adminUsers = User::adminEmailList($subAdminGroup)->get();
 
         $adminEmails = array();
 

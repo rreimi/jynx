@@ -15,17 +15,29 @@ class VisitsJob {
                 Log::debug('Incrementando las visitas para la publicacion : ' . $id);
 
                 /* Increment visits counter */
-                Publication::find($data['publication_id'])->increment('visits_number');
+                $publication = Publication::find($data['publication_id']);
 
-                // INIT - Create log of publication
-                $pubVisit = new PublicationVisit();
-                $pubVisit->publication_id = $data['publication_id'];
-                $pubVisit->save();
+                if ($publication != null) {
+                    $publication->increment('visits_number');
+                    // INIT - Create log of publication
+                    $pubVisit = new PublicationVisit();
+                    $pubVisit->publication_id = $data['publication_id'];
+                    $pubVisit->save();
+                }
             }
+
             $job->delete();
         } catch (Exception $ex){
             Log::error('No se pudo ejecutar visitsJob para la publicación con id: ' . $id);
-            $job->release();
+            $job->delete();
+
+            //Attemps its not supported right now
+//            if ($job->attempts() > 3) {
+//                Log::error('Job fuera de la cola por limite de intentos');
+//                $job->delete();
+//            } else {
+//                $job->release();
+//            }
         }
     }
 }

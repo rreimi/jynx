@@ -87,8 +87,38 @@ class HomeController extends BaseController {
         /* Load category by slug */
         $data['category'] = Category::where('slug', '=', $slug)->first();
 
-        if ($data['category'] == null) {
-            return Response::view('errors.missing', array(), 404);
+        if ($data['category'] != null) {
+
+            $data['category'] = Category::getFromCache($data['category']->id);
+
+            //return Response::view('errors.missing', array(), 404);
+
+            //Get parent information
+            $data['category_tree'][] = $data['category']->id;
+            $parent = Category::getFromCache($data['category']->category_id);
+
+            while ($parent != null ){
+                $data['category_tree'][] = $parent->category_id;
+                $parent = Category::getFromCache($parent->category_id);
+            }
+
+            $subcategories = array();
+
+            /* Subcategories */
+            foreach ($data['category']->subcategories as $subcatId) {
+                $subcategories[] = Category::getFromCache($subcatId);
+            }
+
+            $data['category']->subcategories = $subcategories;
+
+            //Set category as main filter
+            if (Input::get('category')) {
+                $queryFilters['category'] = $data['category']->id;
+            }
+        } else {
+            /* Load productos */
+
+            /* Load Servicios */
         }
 
         /* Load filters */
@@ -112,11 +142,6 @@ class HomeController extends BaseController {
             $queryFilters['seller'] = $seller->id;
         }
 
-        //Set category as main filter
-        if (Input::get('category')) {
-            $queryFilters['category'] = $data['category']->id;
-        }
-
         $queryFilters['order_by'] = 'updated_at';
         $queryFilters['order_dir'] = 'desc';
 
@@ -134,15 +159,6 @@ class HomeController extends BaseController {
         $searchQuery = PublicationView::getSearchQuery('', '*', $queryFilters);
         $items = DB::select($searchQuery);
         $data['publications'] = Paginator::make($items, $totalItems, $this->page_size);
-
-        //Get parent information
-        $data['category_tree'][] = $data['category']->id;
-        $parent = $data['category']->parent;
-
-        while ($parent != null ){
-            $data['category_tree'][] = $parent->id;
-            $parent = $parent->parent;
-        }
 
         /* Calculate filters */
         $availableFilters = array();
@@ -195,7 +211,6 @@ class HomeController extends BaseController {
     public function getSearch(){
 
         $q = Input::get('q');
-        //echo Publication::getSearch($q)->with('categories')->get();
 
         /* Append search query */
         $data['q'] = $q;

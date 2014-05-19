@@ -9,6 +9,7 @@ class UserController extends BaseController {
     public function __construct() {
         $this->beforeFilter('auth');
         $this->beforeFilter('admin');
+        $this->beforeFilter('onlyadmin', array('only' => array('getCrear')));
         $this->beforeFilter('referer:user', array('only' => array('getLista', 'getDetalle')));
         // TODO: al cambiar layout backend lo puedo obviar
     }
@@ -42,6 +43,12 @@ class UserController extends BaseController {
 
         if (!empty($rol)){
             $users->where('users.role', '=', $rol);
+        }
+
+        // Filter by subAdmin
+        if (Auth::user()->isSubAdmin()){
+            $users->where('group_id', Auth::user()->group_id);
+            $users->whereIn('role', RoleHelper::getEditableRoles());
         }
 
         // Don't show publishers users
@@ -129,11 +136,19 @@ class UserController extends BaseController {
 
         $user = new User();
 
+        $groups = Group::get();
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
         return View::make('user_form',
             array('user_statuses' => self::getUserStatuses(Lang::get('content.select')),
-                  'user_roles' => array('' => Lang::get('content.select'), 'Admin' => Lang::get('content.role_Admin')),
+                  'user_roles' => array('' => Lang::get('content.select'), 'Admin' => Lang::get('content.role_Admin'), 'SubAdmin' => Lang::get('content.role_SubAdmin')),
                   'user' => $user,
                   'referer' => URL::previous(),
+                  'groups' => $finalGroups,
                 )
             );
     }
@@ -155,11 +170,19 @@ class UserController extends BaseController {
         //Get user
         $user = User::find($id);
 
+        $groups = Group::get();
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
         return View::make('user_form',
             array('user_statuses' => self::getUserStatuses(Lang::get('content.filter_status_placeholder')),
                 'user_roles' => self::getUserRoles(Lang::get('content.filter_role_placeholder')),
                 'user' => $user,
                 'referer' => $referer,
+                'groups' => $finalGroups,
             )
         );
     }
@@ -172,19 +195,26 @@ class UserController extends BaseController {
             'full_name' => Input::get('full_name'),
             'email' => Input::get('email'),
             'role' => Input::get('role'),
+            'group_id' => Input::get('group'),
             'status' => Input::get('status'),
         );
 
-        $isNew=empty($userData['id']);
+        $isNew = empty($userData['id']);
 
         //Set validation rules
         $rules = array(
             'full_name' => 'required',
-            'role' => 'required',
             'status' => 'required',
             'email' => $isNew?'required|email|unique:users,email':'unique:users,email,'.$userData['id']
         );
 
+        if (Auth::user()->isAdmin() == User::ROLE_ADMIN){
+            $rules['role'] = 'required';
+
+            if (isset($userData['role']) && $userData['role'] == User::ROLE_SUBADMIN){
+                $rules['group_id'] = 'required';
+            }
+        }
 
         $messages = array();
 
@@ -236,6 +266,12 @@ class UserController extends BaseController {
             }
 
             $user->fill($userData);
+
+            if (Auth::user()->isSubAdmin()){
+                $user->role = $previousData['role'];
+                $user->group_id = $previousData['group_id'];
+            }
+
             $method = 'edit';
             $operation = 'Edit_user';
 
@@ -246,6 +282,10 @@ class UserController extends BaseController {
                 $passwordChanged = true;
             }
 
+        }
+
+        if ($userData['role'] == User::ROLE_ADMIN){
+            $user->group_id = null;
         }
 
         $user->save();
@@ -287,18 +327,47 @@ class UserController extends BaseController {
     }
 
     public function getEliminar($id) {
-
-        $action = 'lista';
-
         if (empty($id)) {
             return Response::view('errors.missing', array(), 404);
         }
 
+        $result = $this->deleteUser($id);
+        self::addFlashMessage(null, $result->message, $result->status);
+
+//        $user = User::find($id);
+//
+//        if (empty($user)){
+//            self::addFlashMessage(null, Lang::get('content.delete_user_invalid'), 'error');
+//            return Redirect::to('usuario/'. $action);
+//        }
+//
+//        $result = $user->delete();
+//
+//        // Log when is deleted an user by an admin
+//        Queue::push('LoggerJob@log', array('method' => 'delete', 'operation' => 'Delete_user', 'entities' => array($user),
+//            'userAdminId' => Auth::user()->id));
+
+//        if ($result){
+//            self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');
+//        } else {
+//            self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
+//        }
+
+        $referer = URL::previous();
+        if (!empty($referer)){
+            return Redirect::to($referer);
+        }
+        return Redirect::to('usuario/lista');
+    }
+
+    private function deleteUser($id) {
+        $response = new stdClass;
         $user = User::find($id);
 
         if (empty($user)){
-            self::addFlashMessage(null, Lang::get('content.delete_user_invalid'), 'error');
-            return Redirect::to('usuario/'. $action);
+            $response->status = 'error';
+            $response->message = Lang::get('content.delete_user_invalid');
+            return $response;
         }
 
         $result = $user->delete();
@@ -308,11 +377,38 @@ class UserController extends BaseController {
             'userAdminId' => Auth::user()->id));
 
         if ($result){
-            self::addFlashMessage(null, Lang::get('content.delete_user_success'), 'success');
+            $response->status = 'success';
+            $response->message = Lang::get('content.delete_user_success');
         } else {
-            self::addFlashMessage(null, Lang::get('content.delete_user_error'), 'error');
+            $response->status = 'error';
+            $response->message = Lang::get('content.delete_user_error');
         }
 
+        return $response;
+    }
+
+    public function postBatch() {
+
+        $ids = (array) Input::get('ids', array());
+        $action = Input::get('batch_action');
+
+        if (count($ids) > 0) {
+            switch ($action) {
+                case 'delete':
+                    $count = 0;
+                    foreach($ids as $id) {
+                        $result = $this->deleteUser($id);
+                        if ($result->status == 'success') {
+                            $count++;
+                        }
+                    }
+                    //TODO Mejorar esta parte, hacer distincion entre usuarios eliminados y los que no
+                    if ($count > 0) {
+                        self::addFlashMessage(null, Lang::get('content.delete_user_batch', array('count' => $count)), 'success');
+                    }
+                break;
+            }
+        }
 
         $referer = URL::previous();
         if (!empty($referer)){
@@ -328,9 +424,10 @@ class UserController extends BaseController {
     private static function getUserRoles($blankCaption = '') {
 
         $options = array (
-            User::ROLE_BASIC => Lang::get('content.role_Basic'),
+            User::ROLE_BASIC => Lang::get('content.role_'.User::ROLE_BASIC),
 //            User::ROLE_PUBLISHER => Lang::get('content.role_Publisher'),
-            User::ROLE_ADMIN => Lang::get('content.role_Admin'),
+            User::ROLE_ADMIN => Lang::get('content.role_'.User::ROLE_ADMIN),
+            User::ROLE_SUBADMIN => Lang::get('content.role_'.User::ROLE_SUBADMIN),
         );
 
         if (!empty($blankCaption)){

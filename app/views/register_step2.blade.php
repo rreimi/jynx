@@ -39,9 +39,28 @@
                         </div>
 
                     </div>
-                    <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
-                        {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
-                    </div>
+                    @if ($groupsQty > 1)
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
+                                    {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group {{ $errors->has('publisher_group')? 'error':'' }}">
+                                    {{ Form::select('publisher_group',
+                                    $groups,
+                                    Input::old('publisher_group'),
+                                    array('class'=>'input-block-level required'))
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="control-group {{ $errors->has('publisher_seller')? 'error':'' }}">
+                            {{ Form::text('publisher_seller',null,array('placeholder' => Lang::get('content.publisher_seller'),'class' => 'input-block-level required')) }}
+                        </div>
+                    @endif
                     <div class="control-group {{ $errors->has('publisher_media')? 'error':'' }}">
                         {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level')) }}
                     </div>
