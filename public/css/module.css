@@ -1237,6 +1237,11 @@ dl.faq dd{
     display:block;
     margin-left: 0;
 }
+
+.faq a {
+    text-decoration: underline;
+}
+
 .help a:hover {
     text-decoration: none;
     color: #3385CB;
