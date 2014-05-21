@@ -1,10 +1,20 @@
 @extends('layout_home_no_sidebar')
 
+@section('head_after')
+    {{ HTML::style('css/colorbox.css') }}
+@show
+
 @section('sidebar')
 @parent
 @stop
 
 @section('content')
+
+<a href="images/venezuela/v1.jpg" class="publication-gallery>AAA</a>
+<a href="images/venezuela/v2.jpg" class="venezuela-gallery" title="Venezuela 2"></a>
+<a href="images/venezuela/v3.jpg" class="venezuela-gallery" title="Venezuela 3"></a>
+<a href="images/venezuela/v4.jpg" class="venezuela-gallery" title="Venezuela 4"></a>
+<a href="images/venezuela/v5.jpg" class="venezuela-gallery" title="Venezuela 4"></a>
     <div class="row-fluid publication-detail">
         <div class="float-right">
             <!-- Carousel -->
@@ -21,8 +31,10 @@
                         @foreach ($publication->images as $key => $img)
                         <div class="item @if ($key == 0) active @endif">
                             <div class="pub-image-wrapper">
-                                <img class="pub-img-medium"  src="
-                                {{ UrlHelper::imageUrl('/uploads/pub/' . $publication->id . '/' . $img->image_url, '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
+                                <a href="{{ URL::to('/uploads/pub/' . $publication->id . '/' . $img->image_url) }}" class="publication-gallery">
+                                    <img class="pub-img-medium"  src="
+                                    {{ UrlHelper::imageUrl('/uploads/pub/' . $publication->id . '/' . $img->image_url, '_' . $detailSize['width']) }}" alt="{{ $publication->title }}"/>
+                                </a>
                             </div>
                         </div>
                         @endforeach
@@ -192,9 +204,16 @@
 
 @section('scripts')
 @parent
+{{ HTML::script('js/colorbox/jquery.colorbox-min.js') }}
 {{ HTML::script('js/jquery.barrating.min.js') }}
 {{ HTML::script('js/imagecow.js') }}
 <script type="text/javascript">
+
+    jQuery('.publication-gallery').colorbox({
+        rel: 'publication-gallery',
+        maxHeight: '95%'
+    });
+
     Imagecow.init();
 
     Mercatino.reportForm = {

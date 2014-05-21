@@ -17,6 +17,9 @@
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
+    @section('head_after')
+
+    @show
     @include('include.analytics')
 </head>
 <body>
