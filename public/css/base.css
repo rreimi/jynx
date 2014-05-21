@@ -285,7 +285,8 @@ footer .contact-row.contact-text {
     background-color: #2C2C2C;
     border-top: 1px solid #222222;
     margin-top: 30px;
-    line-height: 45px;
+    line-height: 30px;
+    padding: 10px 0;
 }
 
 footer [class^="icon-"], footer [class*="icon-"] {
@@ -309,6 +310,10 @@ footer a, footer a:visited {
 footer a:hover, footer a:active {
     color: #FFF;
     text-decoration: none;
+}
+
+.modal-terms {
+    color: #333333;
 }
 
 @media (max-width: 1199px) {

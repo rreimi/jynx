@@ -1,3 +1,5 @@
+@include('include.modal_terms_and_conditions')
+
 <div class="container">
     <div class="dynamic-footer-blocks">
         <div class="row-fluid products-footer footer-block">
@@ -104,7 +106,10 @@
 </div>
 <div class="clear-both copyright-footer">
     <div class="androb">
-        {{Lang::get('content.copyright')}} <a href="http://www.androb.com" target="_blank">{{Lang::get('content.androb')}}</a>
+        <div>{{Lang::get('content.copyright')}} <a class='manito' nohref onclick='javascript:Mercatino.termsForm.show();'>{{Lang::get('content.terminos')}}</a>
+        </div>
+        <div>{{Lang::get('content.copyright2')}} <a href="http://www.androb.com" target="_blank">{{Lang::get('content.androb')}}</a>
+        </div>
     </div>
 </div>
 
