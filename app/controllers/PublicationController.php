@@ -457,6 +457,7 @@ class PublicationController extends BaseController {
             }
 
             Event::fire('publication.change', array($publication));
+            Cache::forget(CacheHelper::$PUBLICATION . $publication->id);
 
             return Response::json($image->id, 200);
         } else {
@@ -784,6 +785,7 @@ class PublicationController extends BaseController {
         }
 
         $pub->save();
+        Cache::forget(CacheHelper::$PUBLICATION . $pub->id);
 
         // Save publication categories
         $categories = (array) $pubData['categories'];

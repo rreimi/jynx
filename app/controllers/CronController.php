@@ -30,6 +30,7 @@ class CronController extends BaseController {
         }
 
         $job->touch(); //update last execution
+        echo "done";
     }
 
     public function getUpdatePublishers(){
