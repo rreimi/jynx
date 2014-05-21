@@ -182,7 +182,9 @@ return array(
     "tumercato_email" => "info@tumercato.com",
     "facebook" => "CAVENIT",
     "twitter" => "@cavenit",
-    "copyright" => "&copy; Copyright 2013 E-Italiani Producciones C.A. (J-40083848-7) / CAVENIT (J-00066510-9) - TuMercato.com &nbsp; | &nbsp; Desarrollado por",
+    "copyright" => "&copy; Copyright 2013 E-Italiani Producciones C.A. (J-40083848-7) / CAVENIT (J-00066510-9) - ",
+    "terminos" => "Términos y Condiciones",
+    "copyright2" => "TuMercato.com &nbsp; | &nbsp; Desarrollado por",
     "androb" => "ANDROB",
 
     //Options
