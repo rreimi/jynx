@@ -14,7 +14,7 @@
         <div class="span9">
             @if ($contentEmail == 'new_user_welcome')
                 @include('emails.new_user_welcome')
-            @if ($contentEmail == 'new_user_admin_subadmin_welcome')
+            @elseif ($contentEmail == 'new_user_admin_subadmin_welcome')
                 @include('emails.new_user_admin_subadmin_welcome')
             @elseif ($contentEmail == 'admin_notification_new_adviser')
                 @include('emails.admin_notification_new_adviser')

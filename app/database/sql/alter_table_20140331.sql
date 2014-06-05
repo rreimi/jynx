@@ -1,12 +1,17 @@
 -- -----------------------------------------------------
 -- Table `mercatino`.`groups`
 -- -----------------------------------------------------
+
+SET foreign_key_checks = 0;
+DROP TABLE `mercatino`.`groups`;
 CREATE  TABLE IF NOT EXISTS `mercatino`.`groups` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(80) NOT NULL ,
   `allow_new_members` ENUM('Active','Inactive') NOT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = INNODB;
+
+SET foreign_key_checks = 1;
 
 INSERT INTO  `mercatino`.`groups` (`id` ,`name` ,`allow_new_members`) VALUES ('1',  'CAVENIT',  'Active');
 
