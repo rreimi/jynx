@@ -112,9 +112,9 @@ class HomeController extends BaseController {
             $data['category']->subcategories = $subcategories;
 
             //Set category as main filter
-            if (Input::get('category')) {
+            //if (Input::get('category')) {
                 $queryFilters['category'] = $data['category']->id;
-            }
+            //}
         } else {
             /* Load productos */
 

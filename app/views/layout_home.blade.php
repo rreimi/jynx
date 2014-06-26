@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>{{ $title }} - {{ App::environment() }}</title>
+    <title>{{ $title }}</title>
     <meta charset="UTF-8">
-    <meta name="description" content="Mercatino"/>
+    <meta name="description" content="Tumercato"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
@@ -17,6 +17,9 @@
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/module.css') }}
+    @section('head_after')
+
+    @show
     @include('include.analytics')
 </head>
 <body>

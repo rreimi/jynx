@@ -1237,6 +1237,11 @@ dl.faq dd{
     display:block;
     margin-left: 0;
 }
+
+.faq a {
+    text-decoration: underline;
+}
+
 .help a:hover {
     text-decoration: none;
     color: #3385CB;
@@ -1258,7 +1263,6 @@ dl.faq dd{
     position: fixed;
     bottom: 30px;
     right: 6%;
-}
 }
 
 /* Batch */

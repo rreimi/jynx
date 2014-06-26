@@ -290,6 +290,25 @@ class UserController extends BaseController {
 
         $user->save();
 
+        if($isNew){
+            // Send welcome email to admin/subadmin
+            $welcomeData = array(
+                'contentEmail' => 'new_user_admin_subadmin_welcome',
+                'userName' => $user->full_name,
+                'role' => Lang::get("content.role_".$user->role),
+                'email' => $user->email,
+            );
+
+            $receiver = array(
+                'email' => $user->email,
+                'name' => $user->full_name,
+            );
+
+            $subject = Lang::get('content.email_welcome_user_subject');
+
+            self::sendMail('emails.layout_email', $welcomeData, $receiver, $subject);
+        }
+
         if($passwordChanged){
             $receiver = array(
                 'email' => $userData['email'],
