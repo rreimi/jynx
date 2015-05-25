@@ -46,6 +46,7 @@ return array(
     "publications_search_placeholder" => "Buscar...",
     "search_results" => "Resultados para",
     "search_no_results" => "No se encontraron :item para: :criteria",
+    "search_no_publications" => "No se encontraron publicaciones",
     "view" => "Ver",
     "search" => "Buscar",
     "view_publisher" => "Ver anunciante",

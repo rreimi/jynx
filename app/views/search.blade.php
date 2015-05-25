@@ -6,10 +6,24 @@
 @stop
 
 @section('content')
-    <h1>{{Lang::get('content.search_results')}}: {{ $q }}</h1>
+    <h1>{{Lang::get('content.search_results')}}:
+    @if (isset($q))
+        {{ $q }}
+    @elseif (isset($activeFilters['seller']))
+        {{-- When comming from directory to show publications of the seller, show the seler name --}}
+        {{ $activeFilters['seller']->label }}
+    @endif
+    </h1>
 
     @if (count($publications) === 0)
-    <h5 class="alert alert-warning">{{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $q))}}</h5>
+    <h5 class="alert alert-warning">
+        @if (isset($q))
+            {{Lang::get('content.search_no_results', array('item' => Lang::choice('content.publication',2), 'criteria' => $q))}}
+        @else
+            {{-- When comming from directory to show publications of the seller, show the seler name --}}
+            {{Lang::get('content.search_no_publications')}}
+        @endif
+    </h5>
     @endif
 
     @foreach ($publications as $key => $pub)

@@ -16,7 +16,7 @@
     {{ HTML::style('css/bar-rating.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
-    {{ HTML::style('css/module.css?v=2') }}
+    {{ HTML::style('css/module.css?v=' . Config::get('app.app_version')) }}
     @section('head_after')
 
     @show

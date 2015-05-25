@@ -17,11 +17,9 @@
 
         <div class="control-group">
             <div class="controls">
-                <a href="{{ $referer }}" class="btn btn-medium">{{Lang::get('content.previous')}}</a>
+                <a href="{{ $referer }}" class="btn btn-mini">{{Lang::get('content.previous')}}</a>
             </div>
         </div>
-
-
 
         @if (!empty($advertiser->description))
         <h2 id="basico">{{Lang::get('content.description')}}</h2>
@@ -30,7 +28,7 @@
         </p>
         @endif
 
-                <!-- Categories -->
+        <!-- Categories -->
         <h2 id="sectores">{{Lang::get('content.categories_and_sectors')}}</h2>
 
         <ul class="categories-form-list">
