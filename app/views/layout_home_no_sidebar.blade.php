@@ -15,7 +15,7 @@
     {{ HTML::style('css/bar-rating.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
-    {{ HTML::style('css/module.css') }}
+    {{ HTML::style('css/module.css?v=2') }}
     @include('include.analytics')
 </head>
 <body>
