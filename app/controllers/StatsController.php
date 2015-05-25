@@ -21,7 +21,7 @@ class StatsController extends BaseController {
         $data['publishers'] = Publisher::allRows()->count();
 
         // Publishers con permiso para publicar (status approved)
-        $data['publishers_approved'] = Publisher::statusApproved()->count();
+        $data['publishers_approved'] = Publisher::statusApproved()->subAdmin()->count();
 
         // Usuarios aspirando a ser anunciantes
         $data['users_to_approve'] = User::toApprove()->count();

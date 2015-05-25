@@ -32,6 +32,7 @@
 @section('content')
 <?php //var_dump($activeadvertisings); die(); ?>
 
+@if (count($mostvisited) > 0)
 <h2 class="home-title"><span class="title-arrow">&gt;</span> {{Lang::get('content.mostvisited_items')}}</h2>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -56,7 +57,9 @@
         </div>
     </div>
 </div>
+@endif
 
+@if (count($recent) > 0)
 <h2 class="home-title"><span class="title-arrow">&gt;</span> {{Lang::get('content.recent_items')}}</h2>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -81,6 +84,7 @@
         </div>
     </div>
 </div>
+@endif
 
 @if (count($lastvisited) > 3)
     <div class="last-visited-box">

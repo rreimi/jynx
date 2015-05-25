@@ -48,11 +48,6 @@
             jQuery('#modal-rateit').modal('hide')
         },
         send: function(){
-
-            if (!jQuery('#rating-form').valid()){
-                return false;
-            }
-
             // Set value to rating
             var vote = jQuery(".bar-rating .current.selected").attr('data-rating-value');
             jQuery('#rating-sel').val(vote);
@@ -60,13 +55,20 @@
             var formData = jQuery('#rating-form').serializeObject();
             var url = jQuery('#rating-form').attr('action');
 
+            if (!formData["rating-select"] && !formData["rating-select"] && !formData["rating-select"]) {
+                Mercatino.showFlashMessage({title:'', message:'{{Lang::get('content.rating_publication_empty_error')}}', type:'error'});
+                return;
+            }
+
+            Mercatino.rateitForm.hide();
+
             jQuery.ajax({
                 url: url,
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
                 success: function(result) {
-                    Mercatino.rateitForm.hide();
+
                     Mercatino.showFlashMessage({title:'', message: result.message, type:'success'});
                     jQuery('#rating-form').get(0).reset();
                     Mercatino.ratings.currentPage = 0;

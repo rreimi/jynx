@@ -84,10 +84,6 @@
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">
                         <ul class="nav public-menu">
-                            <!--                    @if(Auth::check())-->
-                            <!--                        <li class="active"><a href="{{URL::to('/')}}">{{Lang::get('content.home')}}</a></li>-->
-                            <!--                    @endif-->
-
                             <li class="category-menu-link">
                                 <a href="{{URL::to('cat')}}">{{Lang::get('content.products_and_services')}}</a>
                                 <div class="products-services-menu">
@@ -96,6 +92,8 @@
                                 @include('include.category_tree')
                             </li>
 
+                            <li><a href="{{URL::to('directorio')}}">{{Lang::get('content.directorio')}}</a></li>
+
                             <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.jobs')}}</a></li>
 
                             <li><a href="{{URL::to('acerca-de')}}">{{Lang::get('content.about_us')}}</a></li>
@@ -103,12 +101,6 @@
                             <li><a href="{{URL::to('ayuda')}}">{{Lang::get('content.help')}}</a>
 
                             <li><a href="{{URL::to('contactanos')}}">{{Lang::get('content.contact')}}</a></li>
-
-
-
-
-
-
 
                         </ul>
                     </div>

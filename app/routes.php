@@ -67,8 +67,11 @@ Route::controller('bolsa-trabajo','JobController');
 
 Route::controller('cron', 'CronController');
 
-Route::controller('/','HomeController');
+Route::controller('directorio','DirectoryController');
 
+Route::controller('mi-directorio','MyDirectoryController');
+
+Route::controller('/','HomeController');
 
 View::share('title', 'TuMercato.com');
 View::share('categories', BaseController::getCategories());
