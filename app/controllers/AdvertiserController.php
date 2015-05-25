@@ -8,7 +8,7 @@ class AdvertiserController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth');
-        $this->beforeFilter('admin');
+        $this->beforeFilter('admin', array('except' => array('getPerfil')));
         $this->beforeFilter('referer:advertiser', array('only' => array('getLista', 'getDetalle')));
         View::share('categories', self::getCategories());
         View::share('products', self::getProducts());
