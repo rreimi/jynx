@@ -11,8 +11,8 @@
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
     {{ HTML::style('css/chosen.min.css') }}
-    {{ HTML::style('css/basic.css') }}
-    {{ HTML::style('css/base.css') }}
+    {{ HTML::style('css/basic.css?v=' . Config::get('app.app_version')) }}
+    {{ HTML::style('css/base.css?v=' . Config::get('app.app_version')) }}
     {{ HTML::style('css/module.css?v=' . Config::get('app.app_version')) }}
 </head>
 <body>

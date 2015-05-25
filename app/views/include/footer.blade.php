@@ -52,9 +52,8 @@
                 </div>
                 <br/>
                 <div class="contact-row phone contact-text">
-                    {{Lang::get('content.phones_label')}} {{Lang::get('content.phones_line1')}}<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{Lang::get('content.phones_label')}} <br/>
+                    {{Lang::get('content.phones_line1')}}<br/>
                     {{Lang::get('content.phones_line2')}}
                 </div>
                 <br/>
@@ -83,7 +82,11 @@
         </div>
     </div>
     <div class="footer-block footer-static-blocks">
-
+        <a href="{{URL::to('directorio')}}">
+            <div class="footer-title footer-block directory-footer">
+                {{Lang::get('content.directory')}}
+            </div>
+        </a>
         <a href="{{URL::to('ayuda')}}">
             <div class="footer-title footer-block help-footer">
                 {{Lang::get('content.help')}}

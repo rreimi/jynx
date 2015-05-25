@@ -93,7 +93,7 @@
                                 @include('include.category_tree')
                             </li>
 
-                            <li><a href="{{URL::to('directorio')}}">{{Lang::get('content.directorio')}}</a></li>
+                            <li><a href="{{URL::to('directorio')}}">{{Lang::get('content.directory')}}</a></li>
 
                             <li><a href="{{URL::to('bolsa-trabajo')}}">{{Lang::get('content.jobs')}}</a></li>
 
