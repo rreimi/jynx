@@ -152,7 +152,7 @@ return array(
     //Menu
     "home" => "Inicio",
     "products_and_services" => "Productos y Servicios",
-    "directorio" => "Directorio",
+    "directory" => "Directorio",
     "about_us" => "Acerca de",
     "partners" => "Aliados",
     "contact" => "Contacto",

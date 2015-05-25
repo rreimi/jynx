@@ -184,7 +184,7 @@ footer .contact-row {
 footer .contact-row.contact-text {
     display: block;
     padding-left: 35px;
-    width: 231px;
+    width: 232px;
     margin: auto;
 }
 
@@ -236,8 +236,10 @@ footer .contact-row.contact-text {
     line-height: 60px;
     border-bottom:1px solid #444444;
     color: #FFF;
-    text-transform: uppercase;
     margin-bottom: 18px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .footer-title:hover {
@@ -257,15 +259,19 @@ footer .contact-row.contact-text {
 }
 
 .us-footer {
-    width: 33%;
+    width: 25%;
+}
+
+.directory-footer {
+    width: 20%;
 }
 
 .help-footer {
-    width: 24%;
+    width: 20%;
 }
 
 .jobs-footer {
-    width: 43%;
+    width: 34%;
 }
 
 .dynamic-footer-blocks {

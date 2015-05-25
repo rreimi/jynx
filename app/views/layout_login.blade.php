@@ -8,7 +8,7 @@
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
     {{ HTML::style('css/module.css?v=' . Config::get('app.app_version')) }}
-    {{ HTML::style('css/base.css') }}
+    {{ HTML::style('css/base.css?v=' . Config::get('app.app_version')) }}
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
     @include('include.analytics')
