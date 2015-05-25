@@ -23,7 +23,9 @@
             <th></th>
             <th><a href="{{UrlHelper::fullUrltoogleSort('seller_name', true)}}">{{Lang::get('content.advertiser_name')}} <i class="{{UrlHelper::getSortIcon('seller_name')}}"></i></a></th>
             <th><a href="{{UrlHelper::fullUrltoogleSort('city', true)}}">{{Lang::get('content.location')}} <i class="{{UrlHelper::getSortIcon('city')}}"></i></a></th>
+            @if (Auth::check())
             <th>{{Lang::get('content.contact')}}</th>
+            @endif
             <th></th>
         </tr>
         </thead>
@@ -49,11 +51,12 @@
                 {{ $advertiser->phone1 }}<br/>
                 {{ $advertiser->phone2 }}<br/>
             </td>
-            @else
-            <td>
-                Registrate
-            </td>
             @endif
+            {{--@else--}}
+            {{--<td>--}}
+                {{--Registrate--}}
+            {{--</td>--}}
+            {{--@endif--}}
 
             <!--            <td> $advertiser->created_at </td>-->
             <td class="directory-options">
