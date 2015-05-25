@@ -155,6 +155,20 @@ h2.home-title {
     float: left;
 }
 
+.advertiser-detail h1 {
+    background-color: #3385CB;
+    color: #FFF;
+    font-size: 1.6em;
+    padding-left: 20px;
+    width: 55%;
+    margin-top: 30px;
+    float: left;
+}
+
+.advertiser-detail h2 {
+    margin-top: 15px;
+}
+
 .triangle {
     border-bottom: 20px solid transparent;
     border-left: 20px solid #3385CB;
@@ -166,7 +180,7 @@ h2.home-title {
 }
 
 
-.publication-info {
+.publication-info, .publisher-info {
     float: left;
     width: 660px;
     margin-bottom: 20px;
@@ -1284,6 +1298,14 @@ dl.faq dd{
 
 .adv-logo-small {
     width:55px;
+}
+
+.adv-logo-big {
+    max-width: 450px;
+}
+
+.advertiser-detail .adv-logo-big {
+    margin-top: 70px;
 }
 
 .directory-table {

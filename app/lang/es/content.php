@@ -759,7 +759,7 @@ return array(
     "temporary_months"=>"Duración",
     "areas"=>"Áreas",
     "area_sector"=>"Área o sector de la empresa",
-    "description"=>"Descripción del cargo",
+    "job_description"=>"Descripción del cargo",
     "job_location"=>"Ubicación del cargo",
     "requirements"=>"Requisitos",
     "academic_level"=>"Nivel Académico",
@@ -812,7 +812,10 @@ return array(
     "add_to_directory_success" => "Se ha agregado a tu directorio",
     "remove_from_directory_error" => "Ha ocurrido un error, intente nuevamente",
     "add_to_directory_error" => "Ha ocurrido un error, intente nuevamente",
-
+    "description" => "Descripción",
+    "categories_and_sectors" => "Categorias / Sectores de Negocio",
+    "information" => "Información",
+    "website" => "Sitio web",
     //FAQ
     "faq_subtitle1" => "Preguntas frecuentes para usuarios:",
     "faq1_1" => "¿Por qué registrarme en TuMercato.com?",
