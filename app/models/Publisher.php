@@ -139,6 +139,8 @@ class Publisher extends Eloquent {
         $whereClause .=  ($isWhere? " WHERE " : " AND " ) . "p.deleted_at is null";
         $isWhere = false;
         $whereClause .=  ($isWhere? " WHERE " : " AND " ) . "p.status_publisher = 'Approved'";
+        $isWhere = false;
+        $whereClause .=  ($isWhere? " WHERE " : " AND " ) . "u.role <> 'Basic'";
 
 //        //Add query sort and order
         if (isset($listState['sort'])) {
