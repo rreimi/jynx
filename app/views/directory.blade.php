@@ -18,8 +18,8 @@
         <thead>
         <tr>
             <th></th>
-            <th><a href="{{UrlHelper::fullUrltoogleSort('seller_name')}}">{{Lang::get('content.advertiser_name')}} <i class="{{UrlHelper::getSortIcon('seller_name')}}"></i></a></th>
-            <th><a href="{{UrlHelper::fullUrltoogleSort('city')}}">{{Lang::get('content.location')}} <i class="{{UrlHelper::getSortIcon('city')}}"></i></a></th>
+            <th><a href="{{UrlHelper::fullUrltoogleSort('seller_name', true)}}">{{Lang::get('content.advertiser_name')}} <i class="{{UrlHelper::getSortIcon('seller_name')}}"></i></a></th>
+            <th><a href="{{UrlHelper::fullUrltoogleSort('city', true)}}">{{Lang::get('content.location')}} <i class="{{UrlHelper::getSortIcon('city')}}"></i></a></th>
             <th>{{Lang::get('content.contact')}}</th>
             <th></th>
         </tr>

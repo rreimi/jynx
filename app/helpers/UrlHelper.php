@@ -53,8 +53,21 @@ class UrlHelper {
         return URL::to($url);
     }
 
-    public static function fullUrltoogleSort($field) {
-        $url = self::fullExcept(array('order','sort'));
+    /**
+     * Generate sort url for the desiredField
+     *
+     * @param $field
+     * @param bool $resetPage whether or not reset the page number
+     * @return mixed|string
+     */
+    public static function fullUrltoogleSort($field, $resetPage = false) {
+        $except = array('order','sort');
+
+        if ($resetPage) {
+            $except[] = 'page';
+        }
+
+        $url = self::fullExcept($except);
         $dir = (Input::get('order') == 'desc')? 'asc':'desc';
         if (!str_contains($url, '?')) {
             $url .= '?';
