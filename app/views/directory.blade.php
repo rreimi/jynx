@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="row-fluid">
-    <h1>{{Lang::get('content.advertisers')}}@if (!empty($searchString)): {{ $searchString }} @endif</h1>
+    <h1>{{Lang::get(isset($isMyDirectory)?'content.my_directory':'content.advertisers')}}@if (!empty($searchString)): {{ $searchString }} @endif</h1>
 
     <table class="directory-table table">
         <thead>

@@ -804,6 +804,7 @@ return array(
 
     //Directory
     "view_profile" => "Ver Perfil",
+    "my_directory" => "Mi Directorio",
     "view_publications" => "Ver Publicaciones",
     "add_to_my_directory" => "Agregar a mi Directorio",
     "remove_from_my_directory" => "Quitar de mi Directorio",
