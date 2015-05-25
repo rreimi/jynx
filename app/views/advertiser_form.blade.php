@@ -107,6 +107,14 @@
             </div>
         </div>
 
+    <div class="control-group {{ $errors->has('description') ? 'error':'' }}">
+        <label class="control-label required-field" for="description">{{ Lang::get('content.description') }}</label>
+        <div class="controls">
+            {{ Form::textarea('description', $advertiser->description, array('class' => 'input-xxlarge required'))}}
+            {{ $errors->first('description', '<div class="field-error alert alert-error">:message</div>') }}
+        </div>
+    </div>
+
         <div class="control-group {{ $errors->has('status_publisher') ? 'error':'' }}">
             <label class="control-label required-field" for="status_publisher">{{ Lang::get('content.status_publisher') }}</label>
             <div class="controls">

@@ -15,6 +15,59 @@ class AdvertiserController extends BaseController {
         View::share('services', self::getServices());
     }
 
+    public function getPerfil($id) {
+        if (is_null(Input::old('referer'))) {
+            $referer = URL::previous();
+        } else {
+            $referer = Input::old('referer');
+        }
+
+        $avatarUrl = null;
+
+        //Get advertiser
+        $advertiser = Publisher::with('categories')->find($id);
+        $user = User::find($advertiser->user_id);
+
+        // Retornar ruta del avatar
+        if ($advertiser->avatar != null){
+            $avatarUrl = URL::to('')."/".$advertiser->avatar;
+        }
+
+        // Populate categories
+        $advCats = array();
+
+        foreach ($advertiser->categories as $adv) {
+            $advCats[] = $adv->id;
+        }
+
+        if (is_array(Input::old('categories'))){
+            $advCats = Input::old('categories');
+        }
+
+        $groups = Group::get();
+        $finalGroups = array('' => Lang::get('content.select_group'));
+
+        foreach($groups as $group){
+            $finalGroups[$group->id] = $group->group_name;
+        }
+
+        return View::make('publisher_profile',
+            array(
+                'user_statuses' => self::getUserStatuses(),
+                'advertiser_statuses' => self::getAdvertiserStatuses(),
+                'user' => $user,
+                'advertiser' => $advertiser,
+                'avatar' => $avatarUrl,
+                'states' => State::lists('name','id'),
+                "categories" => Category::parents()->orderBy('name','asc')->get(),
+                'advertiser_categories' => $advCats,
+                'advertiser_roles' => self::getAdvertiserRoles(Lang::get('content.filter_role_placeholder')),
+                'referer' => $referer,
+                'groups' => $finalGroups,
+            )
+        );
+    }
+
     public function getLista() {
 
         $state = self::retrieveListState();
@@ -252,6 +305,7 @@ class AdvertiserController extends BaseController {
             'phone1' => Input::get('publisher_phone1'),
             'phone2' => Input::get('publisher_phone2'),
             'categories' => Input::get('categories'),
+            'description' => Input::get('description')
         );
 
         $valueSuggestProducts = Input::get('publisher_suggest_products');
@@ -289,6 +343,7 @@ class AdvertiserController extends BaseController {
             'phone2' => array('regex:'. $this->phoneNumberRegex),
             'web' => 'url',
             'avatar' => 'image',
+            'description' => 'required'
         );
 
         if ($advertiserData['suggest_products']){
@@ -405,7 +460,8 @@ class AdvertiserController extends BaseController {
         $advertiser->suggested_services = $advertiserData['suggested_services'];
         $advertiser->media = $advertiserData['media'];
         $advertiser->web = $advertiserData['web'];
-        
+        $advertiser->description = $advertiserData['description'];
+
         DB::transaction(function() use ($advertiser, $user, $advertiserData){
             $user->save();
 

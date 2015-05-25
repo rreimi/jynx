@@ -34,7 +34,7 @@
             <span class="description-job">{{ $job->job_title }}</span>
         </div>
         <div class="field">
-            <span class="title-job">{{ Lang::get('content.description') }}: </span>
+            <span class="title-job">{{ Lang::get('content.job_description') }}: </span>
             <span class="description-job">{{ $job->description }}</span>
         </div>
         @if(Auth::user())

@@ -90,9 +90,9 @@
         </div>
 
         <div class="control-group {{ $errors->has('description') ? 'error':'' }}">
-            <label class="control-label required-field" for="description">{{ Lang::get('content.description') }}</label>
+            <label class="control-label required-field" for="description">{{ Lang::get('content.job_description') }}</label>
             <div class="controls">
-                {{ Form::textarea('description', $job->description, array('id'=>'description','class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.description'))) }}
+                {{ Form::textarea('description', $job->description, array('id'=>'description','class' => 'input-xxlarge required', 'placeholder'=> Lang::get('content.job_description'))) }}
                 {{ $errors->first('description', '<div class="field-error alert alert-error">:message</div>') }}
             </div>
         </div>
