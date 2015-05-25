@@ -10,11 +10,6 @@
 
 @section('content')
 
-<a href="images/venezuela/v1.jpg" class="publication-gallery>AAA</a>
-<a href="images/venezuela/v2.jpg" class="venezuela-gallery" title="Venezuela 2"></a>
-<a href="images/venezuela/v3.jpg" class="venezuela-gallery" title="Venezuela 3"></a>
-<a href="images/venezuela/v4.jpg" class="venezuela-gallery" title="Venezuela 4"></a>
-<a href="images/venezuela/v5.jpg" class="venezuela-gallery" title="Venezuela 4"></a>
     <div class="row-fluid publication-detail">
         <div class="float-right">
             <!-- Carousel -->
