@@ -1,17 +1,20 @@
 @extends('layout_home')
 
 @section('sidebar')
-    {{ Form::open(array('url' => $formAction, 'method' => 'get', 'class' => '')) }}
-        {{ Form::text('q', $searchString, array('class' => 'input-medium required', 'placeholder'=> Lang::get('content.search'))) }}
-        <button class="btn btn-medium btn-warning" type="submit">{{Lang::get('content.send')}}</button>
+    {{ Form::open(array('url' => $formAction, 'method' => 'get', 'class' => 'directory-search-form')) }}
+    <div class="input-append">
+        <div class="controls">
+            {{ Form::text('q', $searchString, array('class' => 'input-block-level', 'placeholder'=> Lang::get('content.search'))) }}
+            <button class="btn btn-warning search" type="submit"><i class="icon-search icon-white"></i></button>
+        </div>
+    </div>
     {{ Form::close() }}
-
     @include('include.filter_sidebar')
 @parent
 @stop
 
 @section('content')
-<div class="row-fluid">
+    <div class="row-fluid">
     <h1>{{Lang::get(isset($isMyDirectory)?'content.my_directory':'content.advertisers')}}@if (!empty($searchString)): {{ $searchString }} @endif</h1>
 
     <table class="directory-table table">

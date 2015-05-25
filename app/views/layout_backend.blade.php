@@ -13,7 +13,7 @@
     {{ HTML::style('css/chosen.min.css') }}
     {{ HTML::style('css/basic.css') }}
     {{ HTML::style('css/base.css') }}
-    {{ HTML::style('css/module.css') }}
+    {{ HTML::style('css/module.css?v=' . Config::get('app.app_version')) }}
 </head>
 <body>
     <header id="header" class="site-header">

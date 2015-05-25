@@ -189,4 +189,5 @@ return array(
         //'Image'           => 'Intervention\Image\Facades\Image',
 	),
 
+	"app_version" => 3
 );

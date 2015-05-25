@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/bootstrap-responsive.min.css') }}
-    {{ HTML::style('css/module.css?v=2') }}
+    {{ HTML::style('css/module.css?v=' . Config::get('app.app_version')) }}
     {{ HTML::style('css/base.css') }}
     {{ HTML::style('css/jquery.pnotify.default.css') }}
     {{ HTML::style('css/jquery.pnotify.default.icons.css') }}
