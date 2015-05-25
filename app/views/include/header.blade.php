@@ -25,6 +25,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ URL::to('perfil') }}">{{ Lang::get('content.auth_menu_my_profile') }}</a></li>
+                                <li><a href="{{ URL::to('mi-directorio') }}">{{ Lang::get('content.my_directory') }}</a></li>
                                 @if(Auth::user()->isPublisher())
                                     <li><a href="{{URL::to('/publicacion/lista')}}">{{Lang::get('content.my_publications')}}</a></li>
                                     <li ><a href="{{URL::to('/bolsa-trabajo/lista')}}">{{Lang::get('content.my_jobs')}}</a></li>
