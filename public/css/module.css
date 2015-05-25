@@ -1279,3 +1279,36 @@ dl.faq dd{
 .label-value {
     padding-top: 5px;
 }
+
+/* Directory */
+
+.adv-logo-small {
+    width:55px;
+}
+
+.directory-table {
+    font-size: 1em;
+}
+
+.directory-table td {
+    vertical-align: middle;
+}
+
+.directory-table td.publisher-name {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.directory-table .directory-options {
+    text-align: right;
+    min-width: 142px;
+}
+
+.directory-table .directory-options a {
+    display: block;
+}
+
+.directory-table .directory-options a.hide {
+    display: none;
+}
+

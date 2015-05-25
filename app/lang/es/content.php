@@ -151,6 +151,7 @@ return array(
     //Menu
     "home" => "Inicio",
     "products_and_services" => "Productos y Servicios",
+    "directorio" => "Directorio",
     "about_us" => "Acerca de",
     "partners" => "Aliados",
     "contact" => "Contacto",
@@ -801,10 +802,20 @@ return array(
     "mass_email_content" => "Mensaje",
     "mass_email_subject" => "Asunto",
 
+    //Directory
+    "view_profile" => "Ver Perfil",
+    "view_publications" => "Ver Publicaciones",
+    "add_to_my_directory" => "Agregar a mi Directorio",
+    "remove_from_my_directory" => "Quitar de mi Directorio",
+    "remove_from_directory_success" => "Se ha quitado de tu directorio",
+    "add_to_directory_success" => "Se ha agregado a tu directorio",
+    "remove_from_directory_error" => "Ha ocurrido un error, intente nuevamente",
+    "add_to_directory_error" => "Ha ocurrido un error, intente nuevamente",
+
     //FAQ
     "faq_subtitle1" => "Preguntas frecuentes para usuarios:",
     "faq1_1" => "¿Por qué registrarme en TuMercato.com?",
-    "ans1_1" => "Al navegar por los productos y servicios en TuMercato.com, podrás ver los datos actualizados de los anunciantes vinculados a la comunidad italiana en Venezuela quienes cuentan con el respaldo  de la Cámara de Comercio Venezolana-Italiana (CAVENIT).",
+    "ans1_1" => "Al navegar por los  en TuMercato.com, podrás ver los datos actualizados de los anunciantes vinculados a la comunidad italiana en Venezuela quienes cuentan con el respaldo  de la Cámara de Comercio Venezolana-Italiana (CAVENIT).",
     "faq1_2" => "¿Qué beneficios obtengo al utilizar TuMercato como usuario?",
     "ans1_2" => "Además de las valoraciones de las personas que hayan adquirido algún bien o servicio publicado en TuMercato.com, tal como en otros portales de la misma naturaleza, todos los anunciantes cuentan con el previo visto bueno de una organización de peso y prestigio tal como lo es CAVENIT.",
     "faq1_3" => "¿Cómo veo los datos de contacto de los anunciantes?",
