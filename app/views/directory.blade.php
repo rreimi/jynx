@@ -54,18 +54,18 @@
 
             <!--            <td> $advertiser->created_at </td>-->
             <td class="directory-options">
-                <a rel="tooltip" title="{{Lang::get('content.edit')}}" href="{{URL::to('anunciante/perfil/' . $advertiser->id)}}">
+                <a rel="tooltip" title="{{Lang::get('content.view_profile')}}" href="{{URL::to('anunciante/perfil/' . $advertiser->id)}}">
                     {{Lang::get('content.view_profile')}}
                 </a>
-                <a rel="tooltip" title="{{Lang::get('content.delete')}}" href="{{URL::to('search?seller=' . $advertiser->id)}}">
+                <a rel="tooltip" title="{{Lang::get('content.view_publications')}}" href="{{URL::to('search?seller=' . $advertiser->id)}}">
                     {{Lang::get('content.view_publications')}}
                 </a>
                 @if (Auth::check())
                 {{--*/ $isInMyDirectory = isset($isMyDirectory) || in_array($advertiser->id, $myDirectoryEntries) /*--}}
-                <a rel="tooltip" class="remove-to-dir-link-{{$advertiser->id}} {{$isInMyDirectory? "":"hide"}} manito" title="{{Lang::get('content.delete')}}" nohref onclick="Mercatino.directory.removeFromDirectory('{{$advertiser->id}}', '{{$advertiser->seller_name}}','{{isset($isMyDirectory)? "true":"false"}}')">
+                <a rel="tooltip" title="{{Lang::get('content.remove_from_my_directory')}}" class="remove-to-dir-link-{{$advertiser->id}} {{$isInMyDirectory? "":"hide"}} manito" title="{{Lang::get('content.delete')}}" nohref onclick="Mercatino.directory.removeFromDirectory('{{$advertiser->id}}', '{{$advertiser->seller_name}}','{{isset($isMyDirectory)? "true":"false"}}')">
                     {{Lang::get('content.remove_from_my_directory')}}
                 </a>
-                <a rel="tooltip" class="add-to-dir-link-{{$advertiser->id}}  {{$isInMyDirectory? "hide":""}} manito" title="{{Lang::get('content.delete')}}" nohref onclick="Mercatino.directory.addToDirectory('{{$advertiser->id}}', '{{$advertiser->seller_name}}')">
+                <a rel="tooltip" title="{{Lang::get('content.add_to_my_directory')}}"  class="add-to-dir-link-{{$advertiser->id}}  {{$isInMyDirectory? "hide":""}} manito" title="{{Lang::get('content.delete')}}" nohref onclick="Mercatino.directory.addToDirectory('{{$advertiser->id}}', '{{$advertiser->seller_name}}')">
                     {{Lang::get('content.add_to_my_directory')}}
                 </a>
                 @endif
