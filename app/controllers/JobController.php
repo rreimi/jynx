@@ -56,7 +56,11 @@ class JobController extends BaseController {
             });
         }
 
-        if (!empty($state['filter_state'])){
+        if (!empty($state['filter_country'])){
+            $jobs->where('country_id', '=', $state['filter_country']);
+        }
+
+        if (!empty($state['filter_state']) && !empty($state['filter_country'])){
             $jobs->where('state_id', '=', $state['filter_state']);
         }
 
@@ -99,6 +103,7 @@ class JobController extends BaseController {
             'state' => $state,
             'all'=>$all,
             'states'=> array(''=>Lang::get('content.select_state'))+State::lists('name','id'),
+            'countries'=> array(''=>Lang::get('content.select_country'))+Country::lists('country_name','id'),
             'areas'=>Area::lists('name','id'),
             'jobTypes'=>array(
                 ''=>Lang::get('content.select_default'),
@@ -170,6 +175,12 @@ class JobController extends BaseController {
 
         if ((isset($q)) || !(isset($state['q']))) {
             $state['q'] = (isset($q))? $q : '';
+        }
+
+        $filterCountry = (!is_null(Input::get('filter_country')) ? Input::get('filter_country') : 232);
+
+        if ((isset($filterCountry)) || !(isset($state['filter_country']))) {
+            $state['filter_country'] = (isset($filterCountry))? $filterCountry : '';
         }
 
         $filterState = (!is_null(Input::get('filter_state')) ? Input::get('filter_state') : null);

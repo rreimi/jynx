@@ -166,7 +166,7 @@
     <script type="text/javascript">
         jQuery(document).ready(function(){
 
-            var countryStatesUrl = '{{ URL::to('registro/country-states/') }}/';
+            var countryStatesUrl = '{{ URL::to('ajax/country-states/') }}/';
 
             jQuery('.numeric-only').numericField();
             //TODO buscar la manera de que esto este por defecto en laravel o en algún otro lado

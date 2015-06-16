@@ -38,6 +38,7 @@ return array(
     "contacts" => "Contactos, Sucursales, Distribuidores",
     "city" => "Ciudad",
     "state" => "Estado",
+    "country" => "País",
     "states" => "Estados",
     "location" => "Ubicación",
     "contacts_more_info" => "<b>Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor te invitamos a </b><a href=':loginUrl' class='btn btn-primary btn'>Ingresar</a><b> o </b><a nohref onclick='Mercatino.registerForm.show()' class='btn btn-primary btn'>Registrarte</a>",

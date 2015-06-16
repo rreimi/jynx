@@ -11,6 +11,18 @@
         </div>
 
         <div id="search-options-box" class="more-search-options collapse in">
+
+            <div class="control-group">
+                <label class="control-label text-left" for="filter_country">{{ Lang::get('content.country') }}: </label>
+                <div class="controls">
+                    {{ Form::select('filter_country',
+                        $countries,
+                        $state['filter_country'],
+                        array('class'=>'input filter-field', 'id' => 'filter_country'))
+                    }}
+                </div>
+            </div>
+
             <div class="control-group">
                 <label class="control-label text-left" for="filter_state">{{ Lang::get('content.location') }}: </label>
                 <div class="controls">
@@ -71,6 +83,9 @@
 {{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
 <script type="text/javascript">
     jQuery(document).ready(function(){
+
+        var countryStatesUrl = '{{ URL::to('ajax/country-states/') }}/';
+
         jQuery('.chosen-select').chosen({
             width: "100%"
         });
@@ -96,6 +111,42 @@
             jQuery('.chosen-select').val('').trigger("chosen:updated");
             jQuery('#jobListForm').submit();
         });
+
+        jQuery('#filter_country').bind('change', function() {
+            var countryId = jQuery(this).val();
+
+            if (!countryId) {
+                updateSelect('#filter_state', []);
+                return;
+            }
+
+            jQuery.ajax({
+                url: countryStatesUrl,
+                type: 'GET',
+                data: {country: countryId},
+                success: function(result) {
+                    updateSelect('#filter_state', result);
+                },
+                error: function(result) {
+                    Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.app_generic_error')}}", type:'error'});
+                }
+            });
+        });
+
+        //Populate states
+        jQuery('#filter_country').change();
+
+        function updateSelect(itemSelector, elements) {
+
+            var selectedValue = jQuery(itemSelector).val();
+
+            jQuery(itemSelector).find('option:gt(0)').remove();
+            for (var index in elements) {
+                jQuery(itemSelector).append($("<option />").val(index).text(elements[index]));
+            }
+
+            jQuery(itemSelector).val(selectedValue);
+        }
     });
 </script>
 @stop

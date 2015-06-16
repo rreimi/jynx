@@ -71,6 +71,8 @@ Route::controller('directorio','DirectoryController');
 
 Route::controller('mi-directorio','MyDirectoryController');
 
+Route::controller('ajax','AjaxController');
+
 Route::controller('/','HomeController');
 
 View::share('title', 'TuMercato.com');
