@@ -85,7 +85,7 @@
         @endif
         </tbody>
     </table>
-    {{ $advertisers->appends(Input::only('sort','order'))->links() }}
+    {{ $advertisers->appends(Input::only('sort','order','category','state','country','q'))->links() }}
 </div><!--/row-fluid-->
 @stop
 

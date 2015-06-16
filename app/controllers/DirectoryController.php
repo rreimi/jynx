@@ -29,6 +29,13 @@ class DirectoryController extends BaseController {
             $myDirectoryEntries = MyDirectory::ofUser(Auth::user()->id)->lists('publisher_id');
         }
 
+        $sidebarExcludedParams = array();
+
+        //If country is an available filter, clear the state filter as well
+        if (isset($result->availableFilters['country'])) {
+            $sidebarExcludedParams[] = 'state';
+        }
+
         return View::make("directory", array(
                 'advertisers' => $publishers,
                 'states' => $states,
@@ -36,7 +43,8 @@ class DirectoryController extends BaseController {
                 'activeFilters' => $listState['filters'],
                 'searchString' => $listState['q'],
                 'formAction' => "directorio",
-                'myDirectoryEntries' => $myDirectoryEntries
+                'myDirectoryEntries' => $myDirectoryEntries,
+                'sidebarExcludedParams' => $sidebarExcludedParams
             )
         );
     }
@@ -65,7 +73,21 @@ class DirectoryController extends BaseController {
         //Search String
         $state['q'] = Input::get('q', '');
 
-        if (Input::get('state')) {
+        $country = null;
+
+        if (Input::get('country')) {
+            $country = Country::find(Input::get('country'));
+            if (!is_null($country)){
+                $countryFilter = new \stdClass;
+                $countryFilter->value  = $country->id;
+                $countryFilter->label = $country->country_name;
+                $countryFilter->type = 'country';
+                $state['filters'][] = $countryFilter;
+            }
+        }
+
+        //Only display states if country is selected
+        if (Input::get('state') && !is_null($country)) {
             $location = State::find(Input::get('state'));
             if (!is_null($location)){
                 $locationFilter = new \stdClass;

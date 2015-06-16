@@ -65,16 +65,25 @@
                         {{ Form::text('publisher_media',null,array('placeholder' => Lang::get('content.publisher_media'),'class' => 'input-block-level')) }}
                     </div>
                     <div class="row-fluid">
-                        <div class="span6">
+                        <div class="span4">
+                            <div class="control-group {{ $errors->has('publisher_country')? 'error':'' }}">
+                                {{ Form::select('publisher_country',
+                                    $countries,
+                                    !is_null(Input::old('publisher_country'))? Input::old('publisher_country') : $defaultCountry,
+                                    array('class'=>'input-block-level required', 'id' => 'publisher_country'))
+                                }}
+                            </div>
+                        </div>
+                        <div class="span4">
                             <div class="control-group {{ $errors->has('publisher_state')? 'error':'' }}">
                                 {{ Form::select('publisher_state',
                                     $states,
                                     Input::old('publisher_state'),
-                                    array('class'=>'input-block-level required'))
+                                    array('class'=>'input-block-level required', 'id' => 'publisher_state'))
                                 }}
                             </div>
                         </div>
-                        <div class="span6">
+                        <div class="span4">
                             <div class="control-group {{ $errors->has('publisher_city')? 'error':'' }}">
                                 {{ Form::text('publisher_city',null,array('placeholder' => Lang::get('content.publisher_city'),'class' => 'input-block-level required')) }}
                             </div>
@@ -156,6 +165,9 @@
 @parent
     <script type="text/javascript">
         jQuery(document).ready(function(){
+
+            var countryStatesUrl = '{{ URL::to('registro/country-states/') }}/';
+
             jQuery('.numeric-only').numericField();
             //TODO buscar la manera de que esto este por defecto en laravel o en algún otro lado
             jQuery('option').each(function(i,object){
@@ -196,6 +208,42 @@
 
             // Phone mask
             jQuery('.phone-number-format').mask("9999-9999999");
+
+            jQuery('#publisher_country').bind('change', function() {
+                var countryId = jQuery(this).val();
+
+                if (!countryId) {
+                    updateSelect('#publisher_state', []);
+                    return;
+                }
+
+                jQuery.ajax({
+                    url: countryStatesUrl,
+                    type: 'GET',
+                    data: {country: countryId},
+                    success: function(result) {
+                        updateSelect('#publisher_state', result);
+                    },
+                    error: function(result) {
+                        Mercatino.showFlashMessage({title:'', message:"{{Lang::get('content.app_generic_error')}}", type:'error'});
+                    }
+                });
+            });
+
+            //Populate states
+            jQuery('#publisher_country').change();
+
+            function updateSelect(itemSelector, elements) {
+
+                var selectedValue = jQuery(itemSelector).val();
+
+                jQuery(itemSelector).find('option:gt(0)').remove();
+                for (var index in elements) {
+                    jQuery(itemSelector).append($("<option />").val(index).text(elements[index]));
+                }
+
+                jQuery(itemSelector).val(selectedValue);
+            }
         });
     </script>
 @stop

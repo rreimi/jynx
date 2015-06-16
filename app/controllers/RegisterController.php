@@ -97,6 +97,11 @@ class RegisterController extends BaseController{
         $groupsQty = count($groups);
         $finalGroups = array('' => Lang::get('content.select_group'));
 
+        $finalCountries = array('' => Lang::get('content.select_country'));
+        $countries = Country::lists('country_name','id');
+
+        $defaultCountry = 232; //Venezuela
+
         foreach($states as $key => $value){
             $finalStates[$key] = $value;
         }
@@ -105,9 +110,15 @@ class RegisterController extends BaseController{
             $finalGroups[$group->id] = $group->group_name;
         }
 
+        foreach($countries as $key => $value){
+            $finalCountries[$key] = $value;
+        }
+
         return View::make('register_step2')->with(
             array(
                 "states" => $finalStates,
+                "countries" => $finalCountries,
+                "defaultCountry" => $defaultCountry,
                 "all_categories" => Category::parents()->orderBy('name','asc')->get(),
                 "activation_flag" => (boolean) Session::get('activation_flag'),
                 "hide_modal" => $hideModal,
@@ -134,6 +145,9 @@ class RegisterController extends BaseController{
             return Redirect::to('registro/anunciante')->withErrors($validator)->withInput();
         }
 
+        //TODO test state
+        //TODO test country
+
         $publisher = new Publisher();
 
         $userId=Auth::user()->id;
@@ -144,6 +158,7 @@ class RegisterController extends BaseController{
         $publisher->letter_rif_ci=Input::get('publisher_id_type');
         $publisher->rif_ci=Input::get('publisher_id');
         $publisher->status_publisher=Publisher::STATUS_PENDING;
+        $publisher->country_id=Input::get('publisher_country');
         $publisher->state_id=Input::get('publisher_state');
         $publisher->city=Input::get('publisher_city');
         $publisher->address=Input::get('publisher_address');
@@ -221,8 +236,9 @@ class RegisterController extends BaseController{
 
     public function getDatosContactos(){
 
-        $contacts = Publisher::with('contacts')->where('user_id',Auth::user()->id)->first()->contacts;
-        $states = State::lists('name','id');
+        $publisher = Publisher::with('contacts')->where('user_id',Auth::user()->id)->first();
+        $contacts = $publisher->contacts;
+        $states = State::where('country_id', $publisher->country_id)->lists('name','id');
         $finalStates = array('' => Lang::get('content.select_state'));
 
         foreach($states as $key => $value){
@@ -282,18 +298,30 @@ class RegisterController extends BaseController{
         }
     }
 
+    /**
+     * Ajax get states by country
+     *
+     * @return mixed
+     */
+    public function getCountryStates(){
+        $country = Input::get('country');
+        $result = State::where('country_id', $country)->lists('name','id');
+        return Response::json($result, 200);
+    }
+
     private function registroPublicadorReglas(){
 
         return array(
             'publisher_id' => 'required',
             'publisher_type' => 'required',
             'publisher_seller' => 'required',
-            'publisher_state' => 'required',
+            'publisher_state' => 'required', //TODO validar state
             'publisher_city' => 'required',
             'publisher_phone1' => array('required', 'regex:'. $this->phoneNumberRegex),
             'publisher_phone2' => array('regex:'. $this->phoneNumberRegex),
             'publisher_categories' => 'required',
-            'publisher_id_type' => 'required'
+            'publisher_id_type' => 'required',
+            'publisher_country' => 'required' //TODO validar pais
         );
     }
 

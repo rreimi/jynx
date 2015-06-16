@@ -109,6 +109,14 @@ class Publisher extends Eloquent {
 
         if (isset($listState['filters'])) {
             foreach ($listState['filters'] as $filter) {
+                if ($filter->type == 'country') {
+                    $whereClause .= ($isWhere? " WHERE " : " AND " ) . "p.country_id = :country_id";
+                    $isWhere = false;
+                    $params[":country_id"] = $filter->value;
+                    $activeFilters[] = 'country';
+
+                }
+
                 if ($filter->type == 'state') {
                     $whereClause .= ($isWhere? " WHERE " : " AND " ) . "p.state_id = :state_id";
                     $isWhere = false;
@@ -195,6 +203,12 @@ class Publisher extends Eloquent {
             var_dump($ex);
             //TODO capture exception in the proper way
         }
+
+        //If country is not selected, mark state as an active filter in order to avoid get it displayed
+        if (!in_array('country', $activeFilters)) {
+            $activeFilters[] = 'state';
+        }
+
 
         $activeFiltersIn = self::buildStringInClause($activeFilters);
         //$activeFiltersIn = implode(",", $activeFilters);

@@ -3,7 +3,7 @@
 <ul class="nav-filter-active">
     @foreach ($activeFilters as $type => $filter)
     <li>
-        <div class="label"><a class="close" href="{{ UrlHelper::fullExcept(array($filter->type, 'page')) }}">&times;</a>{{ Lang::get('content.filter_' . $filter->type . '_title') }}: {{$filter->label}}</div>
+        <div class="label"><a class="close" href="{{ UrlHelper::fullExcept(array_merge(array($filter->type, 'page'), $sidebarExcludedParams)) }}">&times;</a>{{ Lang::get('content.filter_' . $filter->type . '_title') }}: {{$filter->label}}</div>
     </li>
     @endforeach
 </ul>
@@ -16,7 +16,7 @@
 <ul class="nav-filter-available">
     @foreach ($filters as $filter)
     <li>
-        <a href="{{ URLHelper::toWith(URLHelper::fullExcept(array('page')), array($filter->type => $filter->item_id)) }}">{{$filter->label}} ({{$filter->total}})</a>
+        <a href="{{ URLHelper::toWith(URLHelper::fullExcept(array_merge(array('page'), $sidebarExcludedParams)), array($filter->type => $filter->item_id)) }}">{{$filter->label}} ({{$filter->total}})</a>
     </li>
     @endforeach
 </ul>

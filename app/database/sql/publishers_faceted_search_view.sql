@@ -16,4 +16,11 @@ CREATE OR REPLACE ALGORITHM = UNDEFINED VIEW publishers_faceted_search_view AS
     pc.category_id  AS value,
     'category' COLLATE utf8_unicode_ci AS type,
     c.name          AS label
-  FROM `publishers_categories` pc JOIN categories c ON c.id = pc.category_id;
+  FROM `publishers_categories` pc JOIN categories c ON c.id = pc.category_id
+  UNION ALL
+  SELECT
+    p.id       AS publisher_id,
+    p.country_id AS value,
+    'country' COLLATE utf8_unicode_ci AS type,
+    c.country_name     AS label
+  FROM `publishers` p JOIN countries c ON c.id = p.country_id

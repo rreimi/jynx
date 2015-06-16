@@ -3,6 +3,7 @@ CREATE OR REPLACE ALGORITHM = UNDEFINED VIEW publications_view AS
   SELECT p. * ,
     u.seller_name,
     u.state_id,
+    u.country_id,
     u.city,
     i.image_url,
     GROUP_CONCAT( DISTINCT (c.id )) AS categories_id,
