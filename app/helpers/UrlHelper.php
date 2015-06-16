@@ -18,6 +18,12 @@ class UrlHelper {
         }
 
         $url = str_replace('?&','?',$url);
+
+        //remove last character if is just the ?
+        if (substr($url, -1) == '?') {
+            $url = substr($url, 0, strlen($url)-1);
+        }
+
         return $url;
     }
 
@@ -30,6 +36,12 @@ class UrlHelper {
             $url .= '&' . http_build_query($params);
         }
         $url = str_replace('?&','?',$url);
+
+        //remove last character if is just the ?
+        if (substr($url, -1) == '?') {
+            $url = substr($url, 0, strlen($url)-1);
+        }
+
         return $url;
     }
 
