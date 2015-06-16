@@ -22,6 +22,13 @@ class MyDirectoryController extends DirectoryController {
         //Required master data
         $states = State::lists("name","id");
 
+        $sidebarExcludedParams = array();
+
+        //If country is an available filter, clear the state filter as well
+        if (isset($result->availableFilters['country'])) {
+            $sidebarExcludedParams[] = 'state';
+        }
+
         return View::make("directory", array(
                 'advertisers' => $publishers,
                 'states' => $states,

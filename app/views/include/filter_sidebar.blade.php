@@ -16,7 +16,7 @@
 <ul class="nav-filter-available">
     @foreach ($filters as $filter)
     <li>
-        <a href="{{ URLHelper::toWith(URLHelper::fullExcept(array_merge(array('page'), $sidebarExcludedParams)), array($filter->type => $filter->item_id)) }}">{{$filter->label}} ({{$filter->total}})</a>
+        <a href="{{ URLHelper::toWith(URLHelper::fullExcept(array_merge(array('page'), $sidebarExcludedParams)), array($filter->type => $filter->item_id)) }}">{{$filter->label}} @if (!empty($filter->total)) ({{$filter->total}}) @endif</a>
     </li>
     @endforeach
 </ul>

@@ -255,11 +255,10 @@ INSERT INTO `countries` VALUES (240, 'ZR', 'Zaire');
 INSERT INTO `countries` VALUES (241, 'ZM', 'Zambia');
 INSERT INTO `countries` VALUES (242, 'ZW', 'Zimbabwe');
 
-update publishers set country_id = 232;
-update jobs set country_id = 232;
-
+update publishers set country_id = 232 where country_id = 0;
+update jobs set country_id = 232 where country_id = 0;
 update states set country_id = 232 where country_id = 0;
-
+update contacts set state_id = 1 where state_id = 0;
 
 -- ARGENTINA ESTADOS --
 INSERT INTO states (code, country_id, name) VALUES ('AR-', 12, 'Buenos Aires');

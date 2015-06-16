@@ -124,7 +124,16 @@ class HomeController extends BaseController {
         /* Load filters */
         $activeFilters = array();
 
-        if (Input::get('state')) {
+        if (Input::get('country')) {
+            $country = Country::find(Input::get('country'));
+            $activeFilters['country'] = new stdClass;
+            $activeFilters['country']->id  = $country->id;
+            $activeFilters['country']->label = $country->country_name;
+            $activeFilters['country']->type = 'country';
+            $queryFilters['country'] = $country->id;
+        }
+
+        if (Input::get('state') && (isset($activeFilters['country']))) {
             $state = State::find(Input::get('state'));
             $activeFilters['state'] = new stdClass;
             $activeFilters['state']->id  = $state->id;
@@ -166,6 +175,21 @@ class HomeController extends BaseController {
         $queryFilters['offset'] = null;
         $queryFilters['page_size'] = null;
 
+        if (!isset($activeFilters['country'])){
+            $queryFilters['group_by'] = null;
+            $searchQuery = PublicationView::getSearchQuery('', 'id', $queryFilters);
+            $queryCountry = "SELECT COUNT( pc.id ) AS total, c.id AS item_id, c.country_name AS label FROM publications pc JOIN publishers p ON p.id = pc.publisher_id JOIN countries c ON c.id = p.country_id WHERE pc.id IN ($searchQuery) GROUP BY p.country_id ORDER BY label ASC";
+            $result = DB::select($queryCountry);
+            foreach ($result as $filter) {
+                $item = new stdClass;
+                $item->total = ''; //TODO enable total after fixing states
+                $item->item_id = $filter->item_id;
+                $item->label = $filter->label;
+                $item->type = 'country';
+                $availableFilters['country'][] = $item;
+            }
+        }
+
         if (!isset($activeFilters['state'])){
             $queryFilters['group_by'] = null;
             $searchQuery = PublicationView::getSearchQuery('', 'id', $queryFilters);
@@ -199,8 +223,17 @@ class HomeController extends BaseController {
             }
         }
 
+        $sidebarExcludedParams = array();
+
+        //If country is an available filter, clear the state filter as well
+        if (isset($availableFilters['country'])) {
+            $sidebarExcludedParams[] = 'state';
+            unset($availableFilters['state']);
+        }
+
         $data['availableFilters'] = $availableFilters;
         $data['activeFilters'] = $activeFilters;
+        $data['sidebarExcludedParams'] = $sidebarExcludedParams;
 
         return View::make('category', $data);
     }
@@ -218,7 +251,16 @@ class HomeController extends BaseController {
         /* Load filters */
         $activeFilters = array();
 
-        if (Input::get('state')) {
+        if (Input::get('country')) {
+            $country = Country::find(Input::get('country'));
+            $activeFilters['country'] = new stdClass;
+            $activeFilters['country']->id  = $country->id;
+            $activeFilters['country']->label = $country->country_name;
+            $activeFilters['country']->type = 'country';
+            $queryFilters['country'] = $country->id;
+        }
+
+        if (Input::get('state') && (isset($activeFilters['country']))) {
             $state = State::find(Input::get('state'));
             $activeFilters['state'] = new stdClass;
             $activeFilters['state']->id  = $state->id;
@@ -277,6 +319,23 @@ class HomeController extends BaseController {
         $queryFilters['offset'] = null;
         $queryFilters['page_size'] = null;
 
+        if (!isset($activeFilters['country'])){
+            $queryFilters['group_by'] = null;
+            $searchQuery = PublicationView::getSearchQuery($q, 'id', $queryFilters);
+            $queryCountry = "SELECT COUNT( pc.id ) AS total, c.id AS item_id, c.country_name AS label FROM publications pc JOIN publishers p ON p.id = pc.publisher_id JOIN countries c ON c.id = p.country_id WHERE pc.id IN ($searchQuery) GROUP BY p.country_id ORDER BY label ASC";
+            $result = DB::select($queryCountry);
+            foreach ($result as $filter) {
+                if ($filter->total > 0) {
+                    $item = new stdClass;
+                    $item->total = ''; //TODO enable total after fixing states
+                    $item->item_id = $filter->item_id;
+                    $item->label = $filter->label;
+                    $item->type = 'country';
+                    $availableFilters['country'][] = $item;
+                }
+            }
+        }
+
         if (!isset($activeFilters['category'])){
             $queryFilters['group_by'] = null;
             $searchQuery = PublicationView::getSearchQuery($q, 'id', $queryFilters);
@@ -325,10 +384,19 @@ class HomeController extends BaseController {
             }
         }
 
+        $sidebarExcludedParams = array();
+
+        //If country is an available filter, clear the state filter as well
+        if (isset($availableFilters['country'])) {
+            $sidebarExcludedParams[] = 'state';
+            unset($availableFilters['state']);
+        }
+
         //var_dump(DB::getQueryLog()); ;
 
         $data['availableFilters'] = $availableFilters;
         $data['activeFilters'] = $activeFilters;
+        $data['sidebarExcludedParams'] = $sidebarExcludedParams;
 
         return View::make('search', $data);
     }
