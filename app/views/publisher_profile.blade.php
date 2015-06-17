@@ -54,7 +54,7 @@
             @if ($advertiser->state_id) {{ $advertiser->state->name.(($advertiser->city || $advertiser->address)?',':'') }} @endif
             @if ($advertiser->city) {{ $advertiser->city.(($advertiser->address)?',':'') }} @endif
             @if ($advertiser->address) {{ $advertiser->address }} @endif
-            @if (!is_null($country)) {{ ', ' . $country->country_name }} @endif
+            @if (!is_null($country)){{ ', ' . $country->country_name }}@endif
         </p>
 
         <p class="pub-phone">{{Lang::get('content.phone')}}: {{ $advertiser->phone1 }}
@@ -97,7 +97,7 @@
                                         @if ($contact->state_id) {{ $contact->state->name.(($contact->city || $contact->address)?',':'') }} @endif
                                         @if ($contact->city) {{ $contact->city.(($contact->address)?',':'') }} @endif
                                         @if ($contact->address) {{ $contact->address }} @endif
-                                        @if (!is_null($country)) {{ ', ' . $country->country_name }} @endif
+                                        @if (!is_null($country)){{ ', ' . $country->country_name }}@endif
                                     </p>
                                 @endif
                             </div>
