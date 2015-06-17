@@ -21,6 +21,7 @@ class MyDirectoryController extends DirectoryController {
 
         //Required master data
         $states = State::lists("name","id");
+        $countries = Country::lists("country_name","id");
 
         $sidebarExcludedParams = array();
 
@@ -32,6 +33,7 @@ class MyDirectoryController extends DirectoryController {
         return View::make("directory", array(
                 'advertisers' => $publishers,
                 'states' => $states,
+                'countries' => $countries,
                 'availableFilters' => $result->availableFilters,
                 'activeFilters' => $listState['filters'],
                 'searchString' => $listState['q'],
