@@ -37,6 +37,7 @@ class MyDirectoryController extends DirectoryController {
                 'searchString' => $listState['q'],
                 'formAction' => "directorio",
                 'isMyDirectory' => true,
+                'sidebarExcludedParams' => $sidebarExcludedParams
             )
         );
     }
