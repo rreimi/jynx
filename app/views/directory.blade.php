@@ -42,7 +42,7 @@
             </td>
             <td class="publisher-name">{{ $advertiser->seller_name }}</td>
             <td>
-                {{$advertiser->city}}@if (array_key_exists($advertiser->state_id, $states)), {{ $states[$advertiser->state_id] }} @endif
+                {{$advertiser->city}}@if (array_key_exists($advertiser->state_id, $states)), {{ $states[$advertiser->state_id] }}@endif, {{ $countries[$advertiser->country_id] }}
 
             </td>
             @if (Auth::check())

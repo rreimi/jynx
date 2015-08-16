@@ -27,6 +27,7 @@ class AdvertiserController extends BaseController {
         //Get advertiser
         $advertiser = Publisher::with('categories')->find($id);
         $user = User::find($advertiser->user_id);
+        $country = Country::find($advertiser->country_id);
 
         // Retornar ruta del avatar
         if ($advertiser->avatar != null){
@@ -56,6 +57,7 @@ class AdvertiserController extends BaseController {
                 'user_statuses' => self::getUserStatuses(),
                 'advertiser_statuses' => self::getAdvertiserStatuses(),
                 'user' => $user,
+                'country' => $country,
                 'advertiser' => $advertiser,
                 'avatar' => $avatarUrl,
                 'states' => State::lists('name','id'),

@@ -22,6 +22,8 @@ class DirectoryController extends BaseController {
 
         //Required master data
         $states = State::lists("name","id");
+        $countries = Country::lists("country_name","id");
+
 
         //Get the ids of publishers added by the current user to his directory
         $myDirectoryEntries = Array();
@@ -39,6 +41,7 @@ class DirectoryController extends BaseController {
         return View::make("directory", array(
                 'advertisers' => $publishers,
                 'states' => $states,
+                'countries' => $countries,
                 'availableFilters' => $result->availableFilters,
                 'activeFilters' => $listState['filters'],
                 'searchString' => $listState['q'],

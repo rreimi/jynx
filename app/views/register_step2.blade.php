@@ -151,8 +151,8 @@
 
 
             <div class="text-center">
-                <a class="btn btn-large" href="{{ URL::to('/') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
-                <button class="btn btn-large btn-warning publisher-info" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
+                <a class="btn btn-large" style="float: none; width: 40%; font-size: 13px;" href="{{ URL::to('/') }}">{{ Lang::get('content.register_dialog_cancel') }}</a>
+                <button class="btn btn-large btn-warning publisher-info" style="width:40%" data-dismiss="modal">{{ Lang::get('content.register_dialog_continue') }}</button>
             </div>
         </div>
         <div class="modal-footer">
