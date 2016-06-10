@@ -756,52 +756,6 @@
             "time": "2013-10-09 04:20:00"
         },
         {
-            "name": "juy/profiler",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/juy/profiler.git",
-                "reference": "2229c3b15f5dcc9dedf336bb1bf3d306dee486f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/juy/profiler/zipball/2229c3b15f5dcc9dedf336bb1bf3d306dee486f6",
-                "reference": "2229c3b15f5dcc9dedf336bb1bf3d306dee486f6",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Juy\\Profiler": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sevdin Filiz",
-                    "email": "angelside@users.sourceforge.net",
-                    "homepage": "http://juysoft.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A profiler for Laravel 4",
-            "homepage": "http://github.com/juy/profiler",
-            "keywords": [
-                "anbu",
-                "debug bar",
-                "laravel",
-                "profiler"
-            ],
-            "time": "2014-03-23 15:45:55"
-        },
-        {
             "name": "laravel/framework",
             "version": "4.0.x-dev",
             "source": {
@@ -1991,8 +1945,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "laravel/framework": 20,
-        "juy/profiler": 20
+        "laravel/framework": 20
     },
     "platform": [
 
