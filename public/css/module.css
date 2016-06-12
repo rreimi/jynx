@@ -501,14 +501,37 @@ div#home-banner-top .carousel-control {
     display: none;
 }
 
+.navbar .nav {
+    margin: 0;
+}
+
 .navbar .nav > li > a {
     /*padding: 16px 20px;*/
+    font-size: 14px;
 }
 
 .navbar .public-menu > li > a {
-    text-transform: uppercase;
+    cursor: pointer;
 }
 
+.register-login {
+    list-style: none;
+    margin: 0 0 10px 10px;
+}
+
+.register-login > li > a {
+    padding-left: 50px;
+    font-size: 13px;
+    color: #3385CB;
+}
+
+.header-text {
+    margin-top: 28px;
+}
+
+.header-right {
+    border-left: 2px solid darkgray;
+}
 
 .checkbox.terminos .popover-content {
     font-size: 12px;

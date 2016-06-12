@@ -44,7 +44,7 @@ return array(
     "contacts_more_info" => "<b>Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor te invitamos a </b><a href=':loginUrl' class='btn btn-primary btn'>Ingresar</a><b> o </b><a nohref onclick='Mercatino.registerForm.show()' class='btn btn-primary btn'>Registrarte</a>",
 
     //Search
-    "publications_search_placeholder" => "Buscar...",
+    "publications_search_placeholder" => "Buscar",
     "search_results" => "Resultados para",
     "search_no_results" => "No se encontraron :item para: :criteria",
     "search_no_publications" => "No se encontraron publicaciones",
