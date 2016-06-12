@@ -2,7 +2,7 @@
 
 body {
     font-size:12px;
-    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-family: Roboto, Tahoma, Arial, Helvetica, sans-serif;
 }
 
 .btn-primary {
@@ -179,9 +179,10 @@ a:focus {
 
 footer {
     background-color: #333333;
-    color: #AAAAAA;
+    color: #c0c0c0;
     min-width: 230px;
     margin-top: 40px;
+    font-weight: 300;
 }
 
 footer.container-fluid {
@@ -199,6 +200,14 @@ footer .contact-row.contact-text {
     padding-left: 35px;
     width: 232px;
     margin: auto;
+}
+
+footer .address {
+    text-align: center;
+}
+
+footer .address-row {
+    margin-top: 30px;
 }
 
 .contact-row.address {
@@ -259,6 +268,10 @@ footer .contact-row.contact-text {
     text-decoration: underline;
 }
 
+.footer-list-title {
+    font-weight: bold;
+}
+
 .products-footer {
     width:31%;
 }
@@ -302,6 +315,12 @@ footer .contact-row.contact-text {
     padding-top: 75px;
 }
 
+footer .logos-footer-img {
+    width: 247px;
+}
+
+
+
 .copyright-footer {
     width:100%;
     text-align: center;
@@ -310,6 +329,29 @@ footer .contact-row.contact-text {
     margin-top: 30px;
     line-height: 30px;
     padding: 10px 0;
+}
+
+footer .footer-links-container {
+    padding: 30px;
+}
+
+footer .copyright-footer-container {
+    background-color: #5d5d5d;
+    margin-top: 15px;
+    padding: 20px 0;
+}
+
+footer .copyright-footer-container .copyright-text {
+    padding-top:12px;
+    line-height: 17px;
+}
+
+footer .copyright-footer-container .developed-by {
+    padding-top: 28px;
+}
+
+footer .copyright-footer-container .span4 {
+    text-align: center;
 }
 
 footer [class^="icon-"], footer [class*="icon-"] {
@@ -323,7 +365,7 @@ footer ul {
 }
 
 footer li {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 footer a, footer a:visited {
@@ -460,22 +502,12 @@ footer a:hover, footer a:active {
 }
 
 @media (max-width: 768px) {
-    .footer-block {
-        float:none;
-        width:100%;
-    }
-
-    .footer-static-blocks {
-        width:100%;
+    .footer-links-container {
         text-align: center;
     }
 
-    .dynamic-footer-blocks {
-        width:100%;
-    }
-
-    .logos-footer {
-        padding-top: 0px;
+    .footer-list-title {
+        margin-top: 25px;
     }
 }
 

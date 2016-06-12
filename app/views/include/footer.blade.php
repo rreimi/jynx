@@ -1,117 +1,95 @@
 @include('include.modal_terms_and_conditions')
 
-<div class="container">
-    <div class="dynamic-footer-blocks">
-        <div class="row-fluid products-footer footer-block">
-            <a href="#">
-                <div class="footer-title">
-                    {{Lang::get('content.product_title')}}
-                </div>
-            </a>
+<!-- New footer -->
+<div class="container footer-links-container">
+    <div class="row">
+        <div class="span4">
             <ul>
+                <li class="footer-list-title">
+                    <a href="{{URL::to('acerca-de')}}">
+                        {{Lang::get('content.about_us')}}
+                    </a>
+                </li>
+                <li class="footer-list-title">
+                    <a href="{{URL::to('directorio')}}">
+                        {{Lang::get('content.directory')}}
+                    </a>
+                </li>
+                <li class="footer-list-title">
+                    <a href="{{URL::to('bolsa-trabajo')}}">
+                        {{Lang::get('content.jobs')}}
+                    </a>
+                </li>
+                <li class="footer-list-title">
+                    <a href="{{URL::to('ayuda')}}">
+                        {{Lang::get('content.help')}}
+                    </a>
+                </li>
+                <li class="footer-list-title">
+                    <a href="{{URL::to('contactanos')}}">
+                        {{Lang::get('content.contact')}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span4">
+            <!-- Productos -->
+            <ul>
+                <li class="footer-list-title">
+                    <a href="#">
+                        {{Lang::get('content.product_title')}}
+                    </a>
+                </li>
                 @foreach ($categories as $cat)
-                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
-                    @if (isset($category) && ($cat->id == $category->id))
-                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
-                    @else
-                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
-                    @endif
-                </li>
+                    <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                        @if (isset($category) && ($cat->id == $category->id))
+                            <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                        @else
+                            <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                        @endif
+                    </li>
                 @endforeach
             </ul>
         </div>
-        <div class="row-fluid services-footer footer-block">
-            <a href="#">
-                <div class="footer-title">
-                    {{Lang::get('content.services_title')}}
-                </div>
-            </a>
-            <ul>
-                @foreach ($services as $cat)
-                <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
-                    @if (isset($category) && ($cat->id == $category->id))
-                    <a class="active" nohref><b>{{ $cat->name }}</b></a>
-                    @else
-                    <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
-                    @endif
-                </li>
-                @endforeach
-            </ul>
-        </div>
+        <div class="span4">
 
-        <div class="row-fluid contact-footer footer-block">
-            <a href="/contactanos">
-                <div class="footer-title">
-                    {{Lang::get('content.contact')}}
-                </div>
-            </a>
-            <div>
-                <div class="contact-row address contact-text">
-                    {{Lang::get('content.address_line1')}}<br/>
-                    {{Lang::get('content.address_line2')}}
-                </div>
-                <br/>
-                <div class="contact-row phone contact-text">
-                    {{Lang::get('content.phones_label')}} <br/>
-                    {{Lang::get('content.phones_line1')}}<br/>
-                    {{Lang::get('content.phones_line2')}}
-                </div>
-                <br/>
-                <div class="contact-row fax contact-text">
-                    {{Lang::get('content.fax_label')}} {{Lang::get('content.fax_line1')}}
-                </div>
-                <br/>
-                <a href="mailto:{{Lang::get('content.tumercato_email')}}">
-                    <div class="contact-row mail contact-text">
-                        {{Lang::get('content.tumercato_email')}}
-                    </div>
-                </a>
-                <br/>
-                <a href="https://www.facebook.com/cavenit" target="_blank">
-                    <div class="contact-row facebook contact-text">
-                        {{Lang::get('content.facebook')}}
-                    </div>
-                </a>
-                <br/>
-                <a href="https://twitter.com/cavenit" target="_blank">
-                    <div class="contact-row twitter contact-text">
-                        {{Lang::get('content.twitter')}}
-                    </div>
-                </a>
-            </div>
+            <ul>
+                <li class="footer-list-title">
+                    <a href="#">
+                        {{Lang::get('content.services_title')}}
+                    </a>
+                </li>
+                @foreach ($services as $cat)
+                    <li class="@if (isset($category) && ($cat->id == $category->id)) active @endif">
+                        @if (isset($category) && ($cat->id == $category->id))
+                            <a class="active" nohref><b>{{ $cat->name }}</b></a>
+                        @else
+                            <a href="{{ URL::to('cat/' . $cat->slug)}}"><i class="icon-chevron-right"></i>{{ $cat->name }}</a>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+
         </div>
     </div>
-    <div class="footer-block footer-static-blocks">
-        <a href="{{URL::to('directorio')}}">
-            <div class="footer-title footer-block directory-footer">
-                {{Lang::get('content.directory')}}
-            </div>
-        </a>
-        <a href="{{URL::to('ayuda')}}">
-            <div class="footer-title footer-block help-footer">
-                {{Lang::get('content.help')}}
-            </div>
-        </a>
-        <a href="{{URL::to('acerca-de')}}">
-            <div class="footer-title footer-block us-footer">
-                {{Lang::get('content.about_us')}}
-            </div>
-        </a>
-        <a href="{{URL::to('bolsa-trabajo')}}">
-            <div class="footer-title footer-block jobs-footer">
-                {{Lang::get('content.jobs')}}
-            </div>
-        </a>
-    </div>
-    <div class="footer-block logos-footer">
-        <img src="/img/logos.png">
+    <div class="row address-row">
+        <div class="span12 address">
+            {{Lang::get('content.address_line1')}} {{Lang::get('content.address_line2')}}<br/>
+            <b>{{Lang::get('content.phones_label')}}</b> {{Lang::get('content.phones_line1')}}/{{Lang::get('content.phones_line2')}}
+            <b>{{Lang::get('content.fax_label')}}</b> {{Lang::get('content.fax_line1')}}
+            <b>{{Lang::get('content.contactus_email')}}</b>: {{Lang::get('content.tumercato_email')}}
+        </div>
     </div>
 </div>
-<div class="clear-both copyright-footer">
-    <div class="androb">
-        <div>{{Lang::get('content.copyright')}} <a class='manito' nohref onclick='javascript:Mercatino.termsForm.show();'>{{Lang::get('content.terminos')}}</a>
-        </div>
-        <div>{{Lang::get('content.copyright2')}} <a href="http://www.androb.com" target="_blank">{{Lang::get('content.androb')}}</a>
+
+<div class="copyright-footer-container">
+    <div class="container">
+        <div class="row">
+            <div class="span4 copyright-text">
+                {{Lang::get('content.copyright')}} <a class="manito" nohref onclick='javascript:Mercatino.termsForm.show();'>{{Lang::get('content.terminos')}}</a>
+            </div>
+            <div class="span4 developed-by">&boxh;&boxh;&boxh;&nbsp;&nbsp; {{Lang::get('content.desarrollado_por')}} {{Lang::get('content.androb')}} &nbsp;&nbsp;&boxh;&boxh;&boxh;</div>
+            <div class="span4"><img class="logos-footer-img" src="/img/logos.png" alt="{{Lang::get('content.cavenit')}}"></div>
         </div>
     </div>
 </div>
