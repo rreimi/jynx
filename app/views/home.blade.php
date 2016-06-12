@@ -16,7 +16,7 @@
                 <a href="{{ $adv->external_url }}" target="_blank">
             @endif
                     <img class="main-banner-img"  src="
-                    {{ UrlHelper::imageUrl('/uploads/adv/' . $adv->id . '/' . $adv->image_url, '_' . $bannerTopHomeSize['width']) }}" alt="{{ $adv->name }}"/>
+                    {{ UrlHelper::imageUrl('/uploads/banner/' . $adv->id . '/' . $adv->image_url, '_' . $bannerTopHomeSize['width']) }}" alt="{{ $adv->name }}"/>
             @if ($adv->external_url != '')
                 </a>
             @endif
