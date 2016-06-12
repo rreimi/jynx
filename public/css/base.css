@@ -67,7 +67,6 @@ a:focus {
 
 .user-menu {
     float:right;
-    margin-top: 20px;
 }
 
 .logo {
@@ -77,10 +76,6 @@ a:focus {
     width:150px;
     margin-top: 5px;
     margin-bottom: 5px;
-}
-
-.header-login-form.float-left {
-    margin-top: -16px;
 }
 
 .top-menu-search .input-append {
