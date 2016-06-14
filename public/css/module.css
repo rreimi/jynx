@@ -51,8 +51,8 @@ h2.home-title {
     margin-right: 10px;
 }
 
-.pub-rating-box .current-rating .rating-value {
-    /*display: none;*/
+.current-rating .rating-value {
+    display: none;
 }
 
 .pub-img-box {
@@ -717,33 +717,32 @@ div#home-banner-top .carousel-control {
 }
 
 .current-rating .full {
-    background-color: #FFD233;
+    background-color: #00ee90;
+    /*  FFD233 */
     color:#fff;
 }
 
 .current-rating .half {
-    background: -moz-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* FF3.6+ */
-    background: -webkit-gradient(linear, 0deg, color-stop(50%, #ffd233), color-stop(50%, #dddddd));/* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* Opera 11.10+ */
-    background: -ms-linear-gradient(0deg, #ffd233 50%, #dddddd 50%);/* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd233', endColorstr='#dddddd', GradientType='1'); /* for IE */
-    background: linear-gradient(90deg, #ffd233 50%, #dddddd 50%);/* W3C */
-    background-color: #ffd233;
-    color:#888;
-}
-
-.current-rating .empty {
-    background-color: #ddd;
+    background: -moz-linear-gradient(90deg, #00ee90 50%, #ffffff 50%);/* FF3.6+ */
+    background: -webkit-linear-gradient(90deg, #00ee90 50%, #ffffff 50%);/* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(90deg, #00ee90 50%, #ffffff 50%);/* Opera 11.10+ */
+    background: -ms-linear-gradient(90deg, #00ee90 50%, #ffffff 50%);/* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ee90', endColorstr='#dddddd', GradientType='1'); /* for IE */
+    background: linear-gradient(0deg, #00ee90 50%, #FFFFFF 50%);/* W3C */
+    background-color: #ffffff;
     color:#888;
 }
 
 .current-rating .rating-box {
-    width:15px;
-    height:15px;
-    float:left;
+    width: 6px;
+    height: 30px;
+    float: left;
     display: block;
-    margin-right:2px;
+    margin-right: 4.5px;
+}
+
+.current-rating .rating-box.empty {
+    display: none;
 }
 
 .publication-rating {

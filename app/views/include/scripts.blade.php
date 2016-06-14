@@ -34,7 +34,7 @@
         }
 
         Mercatino.registerForm.init();
-        Mercatino.loginForm.init();
+        //Mercatino.loginForm.init();
     });
 </script>
 @endif
