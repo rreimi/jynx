@@ -70,7 +70,7 @@
             </div>
 
             <div class="visits float-left">{{Lang::get('content.visits_number')}}: {{$publication->visits_number}} </div>
-            <div class="evaluation float-right">{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
+            <div class="evaluation float-right"><span>{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }}</span></div>
             <div class="clear-both"></div>
 
 
@@ -129,13 +129,15 @@
                 @endforeach
             </div><!--/.contacs-info-->
             @endif
+
             @if (!is_null($publication->latitude) && !is_null($publication->longitude))
-                            <div class="google-map">
-                                Mapa con ubicación principal
-                                <br/><br/>
-                                <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
-                            </div>
-                        @endif
+                <div>
+                    <h2>{{Lang::get('content.map')}}</h2>
+                    <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
+                </div>
+            @endif
+
+
         </div>
 
 

@@ -202,6 +202,12 @@ h2.home-title {
     font-size: 1.1em;
 }
 
+.publication-detail .evaluation .current-rating {
+    float: right;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
 .advertiser-detail h1 {
     background-color: #3385CB;
     color: #FFF;

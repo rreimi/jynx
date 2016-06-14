@@ -98,6 +98,7 @@ return array(
     "longitude" => 'Longitud',
     "ratings" => "Calificaciones",
     "no_rating_avg" => "No ha sido puntuado.",
+    "map" => "Mapa con ubicación principal",
 
     //Publication status
     'status_publication_Draft' => 'Borrador',
