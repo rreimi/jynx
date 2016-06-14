@@ -12,14 +12,17 @@ class RatingHelper {
     public static function getRatingBar($rating, $maxValue = 5) {
         $html = '<div class="current-rating">';
         $val = 1;
+        $first = true;
         while ($val <= $maxValue) {
+            $class = ($first? "first ":"");
             if ($val <= intval($rating)) {
-                $html .= '<span class="rating-box full"><span class="rating-value">' . $val . '</span></span>';
+                $class .= "rating-box full";
+                $html .= '<span class="' . $class . '"><span class="rating-value">' . $val . '</span></span>';
             } else if (($rating < ($val)) && ($rating >= ($val-0.5))) {
-                $html .= '<span class="rating-box half"><span class="rating-value">' . $val . '</span></span>';
-            } else {
-                $html .= '<span class="rating-box empty"><span class="rating-value">' . $val . '</span></span>';
+                $class .= "rating-box half";
+                $html .= '<span class="' . $class . '"><span class="rating-value">' . $val . '</span></span>';
             }
+            $first = false;
             $val++;
         }
         $html .= '<div class="clearfix"></div></div>';
