@@ -11,7 +11,26 @@
 @section('content')
 
     <div class="row-fluid publication-detail">
-        <div class="float-right">
+
+        <h1>{{ $publication->title }}</h1>
+        <div class="by-share">
+            <div class="seller-name">{{Lang::get('content.sell_by')}} <a href="{{ URL::to('search?seller=' . $publication->publisher->id)}}">{{ $publication->publisher->seller_name }}</a></div>
+            @include('include.add_this')
+        </div>
+
+        <div class="publication-options">
+            <a href="{{ URL::previous() }}" title="{{Lang::get('content.previous')}}"><i class="icon-share-alt icon-flipped icon-gray"></i></a>
+
+                                @if (!is_null(Auth::user()))
+                                @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+                                <a href="{{ URL::to('publicacion/lista') }}" title="{{Lang::get('content.back_to_publications')}}"><i class="icon-plus icon-gray"></i></a>
+                                <a title="{{ Lang::get('content.edit') }}" href="{{ URL::to('publicacion/editar/' . $publication->id)}}"><i class="icon-pencil icon-gray"></i></a>
+                                @endif
+                                @endif
+        </div>
+        <div class="clear-both"></div>
+
+        <div class="float-left">
             <!-- Carousel -->
             <div id="pub-images-box" class="pub-images-carousel carousel slide">
                 @if (count($publication->images) > 0)
@@ -50,46 +69,24 @@
                 @endif
             </div>
 
-            @if (!is_null($publication->latitude) && !is_null($publication->longitude))
-                <div class="google-map">
-                    Mapa con ubicación principal
-                    <br/><br/>
-                    <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
-                </div>
-            @endif
+            <div class="visits float-left">{{Lang::get('content.visits_number')}}: {{$publication->visits_number}} </div>
+            <div class="evaluation float-right">{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
+            <div class="clear-both"></div>
+
+
         </div><!-- pub-images-box -->
         <!-- End Carousel -->
 
-        <h1>{{ $publication->title }}</h1>
-        <div class="triangle"></div>
 
         <div class="publication-info">
 
-            @include('include.add_this')
-
-            <a href="{{ URL::previous() }}" class="btn btn-mini">{{Lang::get('content.previous')}}</a>
-
-            @if (!is_null(Auth::user()))
-            @if ((Auth::user()->isAdmin()) || (Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
-            <a href="{{ URL::to('publicacion/lista') }}" class="btn btn-mini btn-success">{{Lang::get('content.back_to_publications')}}</a>
-            <a class="action btn btn-mini btn-info" href="{{ URL::to('publicacion/editar/' . $publication->id)}}">{{ Lang::get('content.edit') }}</a>
-            @endif
-            @endif
-
-            <div class="publication-data">
-
-                <div class="seller-name"><b>{{Lang::get('content.sell_by_full')}}</b>: <a href="{{ URL::to('search?seller=' . $publication->publisher->id)}}">{{ $publication->publisher->seller_name }}</a></div>
-                <div class="visits"><b>{{Lang::get('content.visits_number')}}</b>: {{$publication->visits_number}} </div>
-                <div class="evaluation"><b>{{Lang::get('content.evaluation')}}</b>: {{ RatingHelper::getRatingBar($publication->rating_avg) }} </div>
-            </div>
-
             <div>
-                <h2><span class="title-arrow">></span>{{Lang::get('content.descripcion')}}</h2>
+                <h2>{{Lang::get('content.descripcion')}}</h2>
                 <p>{{ $publication->long_description }}</p>
             </div>
 
             <div>
-                <h2><span class="title-arrow">></span>{{Lang::get('content.categories_title')}}</h2>
+                <h2>{{Lang::get('content.categories_title')}}</h2>
                 <ul>
                     @foreach ($publication->categories as $cat)
                     <li>{{ $cat->name }}</li>
@@ -99,7 +96,7 @@
 
             @if (count($publication->contacts) > 0)
             <div>
-                <h2 class="contacts-title"><span class="title-arrow">></span>{{ Lang::get('content.contacts')}}</h2>
+                <h2 class="contacts-title">{{ Lang::get('content.contacts')}}</h2>
                 @foreach ($publication->contacts as $contact)
                     <div class="contact">
                         <div class="block">
@@ -132,9 +129,19 @@
                 @endforeach
             </div><!--/.contacs-info-->
             @endif
+            @if (!is_null($publication->latitude) && !is_null($publication->longitude))
+                            <div class="google-map">
+                                Mapa con ubicación principal
+                                <br/><br/>
+                                <img src="{{ 'http://maps.googleapis.com/maps/api/staticmap?&zoom=15&size=250x250&markers=color:blue%7C' . $publication->latitude . ',' . $publication->longitude . '&sensor=false' }}"/>
+                            </div>
+                        @endif
         </div>
 
+
         <div class="clear-both"></div>
+        <br/><br/>
+
         @if (!Auth::check())
         <div class="contact-more-info">
             {{ Lang::get('content.contacts_more_info', array('loginUrl' => URL::to('login'))) }}

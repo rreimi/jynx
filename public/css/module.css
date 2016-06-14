@@ -112,10 +112,9 @@ h2.home-title {
 }
 
 .pub-images-carousel {
-    border: 1px solid #CCCCCC;
     height: 450px;
     width: 450px;
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
 .pub-images-carousel .carousel-inner .pub-image-wrapper {
@@ -145,14 +144,62 @@ h2.home-title {
     right:4%;
 }
 
+/* Publication view */
+
 .publication-detail h1 {
-    background-color: #3385CB;
-    color: #FFF;
-    font-size: 1.2em;
-    padding-left: 20px;
-    width: 55%;
+    font-size: 1.4em;
     margin-top: 30px;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.publication-detail .by-share {
+    width: 450px;
     float: left;
+}
+
+.publication-detail .seller-name {
+    font-size: 1.2em;
+    float: left;
+    color: #999;
+}
+
+.publication-detail .seller-name a, .publication-detail .pub-email a {
+    color: #BBB;
+}
+
+.publication-detail .seller-name a:hover {
+    color: #3385cb;
+    text-decoration: none;
+}
+
+.publication-detail .social-section {
+    font-size: 1.2em;
+    float: right;
+    color: #999;
+}
+
+.publication-detail .publication-options {
+    float: right;
+}
+
+.publication-detail .publication-options a {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.icon-flipped {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+
+.publication-detail .visits, .publication-detail .evaluation {
+    color: #999;
+    font-size: 1.1em;
 }
 
 .advertiser-detail h1 {
@@ -178,7 +225,6 @@ h2.home-title {
     margin-top: 30px;
     width: 0;
 }
-
 
 .publication-info, .publisher-info {
     float: left;
@@ -209,10 +255,10 @@ h2.home-title {
 }
 
 .publication-info h2, .publication-rating h2 {
-    text-transform: uppercase;
     font-weight: normal;
-    font-size: 1.1em;
+    font-size: 1.3em;
     height: 30px;
+    color: #666;
 }
 
 .publication-info .title-arrow {
@@ -220,13 +266,12 @@ h2.home-title {
 }
 
 .publication-detail .publication-info p {
-    font-size: 1em;
-    margin-left: 13px;
+    font-size: 1.1em;
+    color: #999;
 }
 
 .publication-info ul {
-    font-size: 0.9em;
-    margin-left: 28px;
+    color: #999;
 }
 
 .pub-name {
@@ -274,7 +319,6 @@ h2.home-title {
 }
 
 .publication-info .contact .block {
-    border-top: 1px solid #DDDDDD;
     display: table-cell;
     padding-top: 15px;
     width: 320px;
@@ -313,6 +357,18 @@ h2.home-title {
 .google-map img {
     border: 1px solid #BBBBBB;
     padding: 5px;
+}
+
+.publication-detail p, .publication-detail li {
+    font-size:1.1em;
+}
+
+.contact-list li {
+    line-height: 1.4em;
+}
+
+#viewContact h2 {
+    line-height: 25px;
 }
 
 /*.pub-table .row-title {*/
@@ -533,6 +589,14 @@ div#home-banner-top .carousel-control {
     border-left: 1px solid darkgray;
 }
 
+.addthis_toolbox a:hover, .addthis_toolbox a:focus {
+    text-decoration: none;
+}
+
+.addthis_toolbox a {
+    padding-left: 5px;
+}
+
 .checkbox.terminos .popover-content {
     font-size: 12px;
 }
@@ -569,20 +633,6 @@ div#home-banner-top .carousel-control {
     display: inline;
     vertical-align: middle;
     font-size: 13px;
-}
-
-/* Publication view */
-
-.publication-detail p, .publication-detail li {
-    font-size:1.1em;
-}
-
-.contact-list li {
-    line-height: 1.4em;
-}
-
-#viewContact h2 {
-    line-height: 25px;
 }
 
 /* Publication form */
