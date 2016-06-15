@@ -92,7 +92,7 @@ return array(
     'status' => 'Estatus',
     "seller_name" => 'Anunciante',
     "rating_avg" => 'Puntaje',
-    "evaluation" => 'Evaluación',
+    "evaluation" => 'Calificación',
     "remember_publication" => 'Recordar vencimiento de la publicación vía correo',
     "latitude" => 'Latitud',
     "longitude" => 'Longitud',

@@ -206,6 +206,12 @@ h2.home-title {
     font-size: 1.1em;
 }
 
+.publication-detail .visits .visits-number {
+    float: right;
+    font-size: 1.5em;
+    margin-left: 6px;
+}
+
 .publication-detail .evaluation .current-rating {
     float: right;
     margin-top: -5px;
