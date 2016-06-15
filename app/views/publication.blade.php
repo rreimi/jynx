@@ -174,7 +174,7 @@
                                 </div>
                                 <input type="text" id="report_title_txt" name="title" max-length="80" placeholder="{{Lang::get('content.rate_title')}}"/>
                                 <textarea id="report_comment_txt" class="input-block-level" name="report_comment" rows="8" placeholder="{{Lang::get('content.rate_comment_instructions')}}"></textarea>
-                                <input type="hidden" id="rating_publication_id" name="rating_publication_id" />
+                                <input type="hidden" id="rating_publication_id" name="rating_publication_id" value="{{$publication->id}}" />
                                 {{ Form::close() }}
                             </div>
                             <div>
