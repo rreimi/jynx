@@ -11,6 +11,7 @@
 class RatingHelper {
     public static function getRatingBar($rating, $maxValue = 5) {
         $html = '<div class="current-rating">';
+        $html .= '<span class="rating-numeric-value">' . number_format($rating,1) . '</span>';
         $val = 1;
         $first = true;
         while ($val <= $maxValue) {

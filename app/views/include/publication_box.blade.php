@@ -19,7 +19,7 @@
         <a href="{{ URL::to('publicacion/detalle/' . $pub->id)}}">
             <h2 class="pub-title" title="{{ $pub->title }}">{{ TextHelper::truncate($pub->title, 45) }}</h2>
         </a>
-        <span class="pub-seller masterTooltip" title="{{ $pub->seller_name }}">{{Lang::get('content.sell_by')}}: <a href="{{ URL::to('search?seller=' . $pub->publisher_id)}}"> {{ $pub->seller_name }} </a></span>
+        <span class="pub-seller masterTooltip" title="{{ $pub->seller_name }}">{{Lang::get('content.sell_by')}} <a href="{{ URL::to('search?seller=' . $pub->publisher_id)}}"> {{ $pub->seller_name }} </a></span>
     </div>
 </div>
 

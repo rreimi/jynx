@@ -12,11 +12,13 @@ h2 {
 }
 
 h2.home-title {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     /*font-weight: bold;*/
+    color: #777;
 }
 
 .title-arrow {
+    display: none;
     color:#FFD233;
     font-family: Arial;
     font-size-adjust: inherit;
@@ -64,7 +66,8 @@ h2.home-title {
     font-size: 1.1em;
     line-height: 1.1em;
     font-weight: bold;
-    height: 2.0em;
+    height: 1.5em;
+    color: #777;
 }
 
 .pub-title:hover, .pub-title:focus, .pub-info-desc a:hover,  pub-info-desc a:focus {
@@ -88,7 +91,7 @@ h2.home-title {
 
 .pub-info-desc {
     position: absolute;
-    background-color: rgba(190, 190, 190, 0.1);
+    background-color: transparent;
     bottom: 0;
     width: 94%;
     padding: 0 3% 2% 3%;
@@ -100,6 +103,7 @@ h2.home-title {
     text-overflow: ellipsis;  /* Add ... points to end of text */
     -o-text-overflow: ellipsis;
     display: block;           /* The tree above dont work if this is not set */
+    color: #777;
 }
 
 .pub-thumb {
@@ -742,10 +746,9 @@ div#home-banner-top .carousel-control {
 .current-rating {
     /*height:45px;*/
     line-height: 15px;
-    font-weight: bold;
     font-size: 0.8em;
     text-align: center;
-    font-family: Verdana;
+    font-weight: 300;
 }
 
 .current-rating .full {
@@ -773,12 +776,16 @@ div#home-banner-top .carousel-control {
     margin-left: 4.5px;
 }
 
-.current-rating .rating-box.first {
-    margin-left: 0;
-}
-
 .current-rating .rating-box.empty {
     display: none;
+}
+
+.current-rating .rating-numeric-value {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    font-size: 3em;
+    color: #888;
 }
 
 .publication-rating {

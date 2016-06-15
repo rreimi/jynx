@@ -31,7 +31,7 @@ return array(
     "sub_categories_title" => "Sub-categorías",
     "product_title" => "Productos",
     "services_title"   => "Servicios",
-    "sell_by"          => "Por",
+    "sell_by"          => "por",
     "sell_by_full"          => "Publicado por",
     "see_product_detail" => "Ver detalle",
     "phone" => "Teléfono",

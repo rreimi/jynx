@@ -14,6 +14,10 @@ body {
     background-color: #2D75B0;
 }
 
+a {
+    color: #777;
+}
+
 a:focus {
     outline: none;
 }
@@ -155,25 +159,25 @@ a:focus {
 }
 
 .carousel-control {
-    background: url('../img/flechas.png') 0 center no-repeat #eee;
+    background: url('../img/flechas.png') 0 center no-repeat transparent;
     border-radius: 0 0 0 0;
     height: 308px;
     left: -9.81%;
     top: 17px;
-    width: 6.1%;
+    width: 2.3%;
     opacity: 1;
     outline: none !important;
 }
 
 .carousel-control.right {
-    background: url('../img/flechas.png') -60px center no-repeat #eee;
+    background: url('../img/flechas.png') -67px center no-repeat transparent;
     left: auto;
     right: -9.81%;
 }
 
-.carousel-control:hover {
-    background-color: #ddd;
-}
+/*.carousel-control:hover {*/
+    /*background-color: #fcfcfc;*/
+/*}*/
 
 /* Footer layout */
 
