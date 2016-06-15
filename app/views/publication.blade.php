@@ -137,12 +137,9 @@
                 </div>
             @endif
 
-
         </div>
 
-
-        <div class="clear-both"></div>
-        <br/><br/>
+        <div class="clear-both publication-line"></div>
 
         @if (!Auth::check())
         <div class="contact-more-info">
@@ -155,22 +152,55 @@
         <div class="publication-rating">
 
             <div class="title-block">
-                <div class="publication-buttons">
-                    <div class="report-info">
-                        @if (!(Auth::check() && Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
-                            <a nohref class="btn btn-primary btn" id="rateit-link">{{Lang::get('content.rate_it')}}</a>
-                            <a nohref class="btn btn-primary btn" id="report-link">{{Lang::get('content.report_it')}}</a>
-                        @endif
-                    </div>
-                </div>
                 <h2 class="title">{{Lang::get('content.ratings')}}</h2>
             </div>
+
+            @if (Auth::check())
+            <div class="publication-buttons">
+                <div class="report-info">
+                    @if (!(Auth::check() && Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+                            <div class="rating-box">
+                                {{ Form::open(array('url' => 'evaluacion','class'=>'big-form register-form', 'id' => 'rating-form')) }}
+                                <div class="rating-form rating-c">
+                                    <select id="rating-sel" name="rating-select">
+                                        <option value="" selected="selected"></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+
+                                </div>
+                                <input type="text" id="report_title_txt" name="title" max-length="80" placeholder="{{Lang::get('content.rate_title')}}"/>
+                                <textarea id="report_comment_txt" class="input-block-level" name="report_comment" rows="8" placeholder="{{Lang::get('content.rate_comment_instructions')}}"></textarea>
+                                <input type="hidden" id="rating_publication_id" name="rating_publication_id" />
+                                {{ Form::close() }}
+                            </div>
+                            <div>
+                                <a nohref onclick="javascript:Mercatino.rateitForm.send()" class="btn btn-primary">{{Lang::get('content.rate_it')}}</a>
+                            </div>
+
+                     @endif
+                </div>
+            </div>
+            <div class="rating-text">
+                {{Lang::get('content.rating_text')}}
+            </div>
+            <div class="clear-both"></div>
+            @endif
             <div class="items">
                 <!-- Here is placed the content with the ajax function-->
             </div>
 
             @include('include.modal_report')
             @include('include.modal_rateit')
+
+            @if (!(Auth::check() && Auth::user()->isPublisher() && ($publication->publisher_id == Auth::user()->publisher->id)))
+                <div class="report-publication">
+                    <a nohref class="btn" id="report-link">{{Lang::get('content.report_it')}}</a>
+                </div>
+            @endif
 
         </div>
 

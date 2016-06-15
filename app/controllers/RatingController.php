@@ -192,7 +192,7 @@ class RatingController extends BaseController{
                 $originalDate = $rating->created_at;
                 $newDate = date("d-m-Y", strtotime($originalDate));
                 $html .= '<span class="date">' . $newDate .'</span>';
-                $html .= '<span class="title-rating">' . $rating->title .'</span>';
+                $html .= '<div class="title-rating">' . $rating->title .'</div>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '<div class="description">';
@@ -215,7 +215,6 @@ class RatingController extends BaseController{
                     }
                     // If current user is owner of rating
                     if (Auth::user()->id == $rating->user_id){
-                        $html .= Lang::get('content.rating_owner_label');
                         $html .= '<div class="btn-group group-owner">';
                         $html .= '<button type="button" data-id="'. $rating->id .'" class="btn btn-small">'. Lang::get('content.rating_owner_delete_label') .'</button>';
                         $html .= '</div>';

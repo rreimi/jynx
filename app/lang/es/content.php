@@ -41,7 +41,7 @@ return array(
     "country" => "País",
     "states" => "Estados",
     "location" => "Ubicación",
-    "contacts_more_info" => "<b>Para obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor te invitamos a </b><a href=':loginUrl' class='btn btn-primary btn'>Ingresar</a><b> o </b><a nohref onclick='Mercatino.registerForm.show()' class='btn btn-primary btn'>Registrarte</a>",
+    "contacts_more_info" => "Para calificar la publicación u obtener mayor información de contacto (dirección, teléfono y correo) sobre el anunciante, contactos, sucursales o distribuidor, te invitamos a <a href=':loginUrl'>Ingresar</a> o <a nohref class='manito' onclick='Mercatino.registerForm.show()'>Registrarte</a>.",
 
     //Search
     "publications_search_placeholder" => "Buscar",
@@ -72,7 +72,7 @@ return array(
     "report_actions_success_skip" => "La denuncia ha sido actualizada exitosamente",
     "rating_comment_required" => "Por favor indique los comentarios",
     "rating_title_required" => "Por favor indique el título",
-    "report_it" => "Denunciar",
+    "report_it" => "Denuncia esta publicación",
     "id" => "ID",
     "title" => "Título",
     "short_description" => "Descripción corta",
@@ -149,7 +149,7 @@ return array(
     //Ratings
     'rate_instructions' => 'Califica la publicación del 1 al 5, donde 1 es la puntuación más baja y 5 la más alta.',
     'rate_title' => 'Título',
-    'rate_comment_instructions' => "Comentarios sobre la calificación (max. 300 caracteres):",
+    'rate_comment_instructions' => "Deja un comentario",
 
     //Menu
     "home" => "Inicio",
@@ -590,6 +590,7 @@ return array(
     "rating_delete_success" => "La calificación ha sido eliminada satisfactoriamente",
     "rating_delete_error" => "Ha ocurrido un error al intentar eliminar esta calificación",
     "rating_get_more" => "Ver más",
+    "rating_text" => "Utiliza este espacio para calificar la publicación o para comunicarte con el anunciante, ya se para hacerle una pregunta o queja. Recuerda que la comunicación siempre debe ener  un tono respetuoso y amable. ¡Gracias!",
 
     // Advertiser
     "advertisers" => 'Anunciantes',

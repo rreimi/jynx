@@ -208,6 +208,12 @@ h2.home-title {
     margin-left: 5px;
 }
 
+.publication-detail .publication-line {
+    border-bottom: 1px solid #CCC;
+    height: 20px;
+    width: 100%;
+}
+
 .advertiser-detail h1 {
     background-color: #3385CB;
     color: #FFF;
@@ -331,10 +337,30 @@ h2.home-title {
 }
 
 .publication-buttons {
-    float: right;
     margin-right: 35px;
     text-align: right;
     width: 450px;
+    float: left;
+}
+
+.rating-box {
+    overflow-y: auto;
+    margin-left: 35px;
+}
+
+.rating-box #rating-form > input {
+    float: left;
+    width: 100%;
+    height: 30px;
+}
+
+.rating-text {
+    color: #ccc;
+    float: left;
+    font-size: 1.1em;
+    margin-top: 48px;
+    text-align: justify;
+    width: 400px;
 }
 
 #pub-images-box .carousel-indicators li {
@@ -756,12 +782,13 @@ div#home-banner-top .carousel-control {
 }
 
 .publication-rating {
-    background-color: #FAFAFA;
-    border: 1px solid #DDDDDD;
-    border-radius: 30px 30px 30px 30px;
     margin-bottom: 35px;
     overflow: hidden;
     width: 100%;
+}
+
+.publication-rating .info {
+    margin-top: 5px;
 }
 
 .publication-rating .title {
@@ -774,26 +801,18 @@ div#home-banner-top .carousel-control {
 .publication-rating .rating-block {
     margin: 0 35px;
     padding: 20px 0;
-    border-top: 1px solid #DDDDDD;
 }
 
 .publication-rating .rating-block .current-rating {
-    float: left;
     margin-top: 3px;
     width: 10%;
 }
 
-.publication-rating .rating-block .info {
-    float: left;
-    width: 90%;
-}
-
-.publication-rating .rating-block .info span {
-    margin-left: 25px;
-}
-
 .publication-rating .rating-block .info .nickname {
-    color: #006CD8;
+    color: #858585;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 1.2em;
 }
 
 .publication-rating .rating-block .info .date {
@@ -803,11 +822,9 @@ div#home-banner-top .carousel-control {
 .publication-rating .rating-block .title-rating {
     color: #858585;
     font-size: 1.2em;
-    font-weight: bold;
 }
 
 .publication-rating .rating-block .description {
-    margin-top: 35px;
     font-size: 1.2em;
     color: #AAAAAA;
 }
@@ -844,8 +861,12 @@ div#home-banner-top .carousel-control {
     display: none;
 }
 
-.publication-rating .group-admin {
-    margin-right: 20px;
+.report-publication {
+    margin-left: 35px;
+}
+
+.report-publication a {
+    color: #858585;
 }
 
 .publication-categories {
@@ -1091,7 +1112,10 @@ div#home-banner-top .carousel-control {
 }
 
 .contact-more-info {
-    padding: 15px;
+    color: #666;
+    font-size: 1.1em;
+    margin-left: 35px;
+    margin-top: 40px;
 }
 
 @media (max-width:380px) {

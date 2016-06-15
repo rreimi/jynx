@@ -36,7 +36,6 @@
 
 .rating-c .bar-rating a {
     display: block;
-    width: 35px;
     height: 35px;
     float: left;
     background-color: #e3e3e3;
@@ -47,10 +46,12 @@
     line-height: 2.2;
     text-align: center;
     color: #b6b6b6;
+    margin-right: 5px;
+    width: 10px;
 }
 
 .rating-c .bar-rating a.active,
 .rating-c .bar-rating a.selected {
-    background-color: #FFD233;
+    background-color: #00ee90;
     color: white;
 }
