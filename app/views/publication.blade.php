@@ -70,7 +70,7 @@
             </div>
 
             <div class="visits float-left">{{Lang::get('content.visits_number')}}: <div class="visits-number">{{$publication->visits_number}}</div></div>
-            <div class="evaluation float-right"><span>{{Lang::get('content.evaluation')}}: {{ RatingHelper::getRatingBar($publication->rating_avg) }}</span></div>
+            <div class="evaluation float-right"><span>{{Lang::get('content.evaluation')}}:</span> {{ RatingHelper::getRatingBar($publication->rating_avg) }}</div>
             <div class="clear-both"></div>
 
 

@@ -43,22 +43,48 @@ h2.home-title {
 }
 
 .pub-rating-box {
-    height: 25px;
+    height: 40px;
 }
 
-
-.pub-rating-box .current-rating {
-    float:right;
+.current-rating {
+    float: left;
     margin-top: 10px;
     margin-right: 0;
+    height: 30px;
 }
+
+.pub-rating-box .rating-container {
+    float: right;
+}
+
+.current-rating-value {
+    margin-top: 10px;
+    float: left;
+    margin-right: 5px;
+    height: 30px;
+    font-size: 2em;
+    line-height: 30px;
+    font-weight: 300;
+}
+
+.current-rating.x-5-bars { width: 46px; }
+.current-rating.x-4-bars { width: 36px; }
+.current-rating.x-3-bars { width: 26px; }
+.current-rating.x-2-bars { width: 16px; }
+.current-rating.x-1-bars { width: 6px; }
+
+.current-rating .rating-box.bar-1 { left:0 }
+.current-rating .rating-box.bar-2 { left:10px }
+.current-rating .rating-box.bar-3 { left:20px }
+.current-rating .rating-box.bar-4 { left:30px }
+.current-rating .rating-box.bar-5 { left:40px }
 
 .current-rating .rating-value {
     display: none;
 }
 
 .pub-img-box {
-    height: 210px;
+    height: 200px;
     width: 100%;
 }
 
@@ -66,7 +92,7 @@ h2.home-title {
     font-size: 1.1em;
     line-height: 1.1em;
     font-weight: bold;
-    height: 1.5em;
+    height: 1.05em;
     color: #777;
 }
 
@@ -81,7 +107,7 @@ h2.home-title {
 
 .pub-info-box {
     position: relative;
-    height: 280px;
+    height: 258px;
 }
 
 .pub-info-box img {
@@ -109,6 +135,9 @@ h2.home-title {
 .pub-thumb {
     border: 1px solid #ccc;
     margin-bottom: 1em;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 
 .pub-thumb:hover {
@@ -206,16 +235,10 @@ h2.home-title {
     font-size: 1.1em;
 }
 
-.publication-detail .visits .visits-number {
-    float: right;
-    font-size: 1.5em;
-    margin-left: 6px;
-}
-
-.publication-detail .evaluation .current-rating {
-    float: right;
-    margin-top: -5px;
-    margin-left: 5px;
+.publication-detail .visits-number {
+    font-size: 2em;
+    margin-top: 15px;
+    font-weight: 300;
 }
 
 .publication-detail .publication-line {
@@ -779,7 +802,7 @@ div#home-banner-top .carousel-control {
     height: 30px;
     float: left;
     display: block;
-    margin-left: 4.5px;
+    margin-left: 0;
 }
 
 .current-rating .rating-box.empty {
@@ -816,10 +839,10 @@ div#home-banner-top .carousel-control {
     padding: 20px 0;
 }
 
-.publication-rating .rating-block .current-rating {
-    margin-top: 3px;
-    width: 10%;
-}
+/*.publication-rating .rating-block .current-rating {*/
+    /*margin-top: 3px;*/
+    /*width: 10%;*/
+/*}*/
 
 .publication-rating .rating-block .info .nickname {
     color: #858585;

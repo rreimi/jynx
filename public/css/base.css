@@ -134,7 +134,7 @@ a:focus {
 /* Home product carousels */
 
 .product-carousel {
-    width: 87%;
+    width: 100%;
     margin:auto;
 }
 
@@ -154,7 +154,7 @@ a:focus {
     background: url('../img/flechas.png') 0 center no-repeat transparent;
     border-radius: 0 0 0 0;
     height: 308px;
-    left: -9.81%;
+    left: -4%;
     top: 17px;
     width: 2.3%;
     opacity: 1;
@@ -164,7 +164,7 @@ a:focus {
 .carousel-control.right {
     background: url('../img/flechas.png') -67px center no-repeat transparent;
     left: auto;
-    right: -9.81%;
+    right: -4%;
 }
 
 /*.carousel-control:hover {*/
